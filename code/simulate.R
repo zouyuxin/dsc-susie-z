@@ -29,6 +29,7 @@ sim_gaussian = function(X, pve, effect_num, beta.sigma){
     mean_corX = mean(abs(corX[lower.tri(corX)]))
   }
   if(effect_num==0){
+    sigma = 1
     sim.y = rnorm(n, 0, 1)
   }else{
     y = X %*% beta
@@ -42,7 +43,7 @@ sim_gaussian = function(X, pve, effect_num, beta.sigma){
   })))
   names(ss) <- c("effect", "se")
 
-  return(list(n = n, p = p, sim_y = sim.y,
+  return(list(n = n, p = p, sim_y = sim.y, sigma = sigma,
               beta_idx = beta.idx, beta_val = beta.values, mean_corX = mean_corX,
               ss = ss))
 }
