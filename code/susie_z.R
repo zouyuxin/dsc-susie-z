@@ -1,7 +1,7 @@
 library(susieR)
 
 susie_z_analyze = function(pathR, ss, n, L, s_init) {
-  R=as.matrix(readRDS(pathR))
+  R = as.matrix(readRDS(pathR))
   if (!is.list(s_init)){
     fit = susie_z(ss$effect/ss$se, R, L=L)
   } else {
@@ -14,7 +14,7 @@ susie_z_analyze = function(pathR, ss, n, L, s_init) {
   avg_purity = mean(purity[,1])
   cs_index = sets$cs_index
   pip = fit$pip
-  num_iter = fit$niter
+  niter = fit$niter
 
   # estimated coefficents
   beta_est_idx = unlist(cs)
