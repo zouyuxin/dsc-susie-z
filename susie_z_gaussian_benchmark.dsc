@@ -8,6 +8,7 @@ sim_gaussian: simulate.R + \
   betaSigma: 0.5, 1
   $n: sim_gaussian_res$n
   $p: sim_gaussian_res$p
+  $sigma: sim_gaussian_res$sigma
   $sim_y: sim_gaussian_res$sim_y
   $beta_idx: sim_gaussian_res$beta_idx
   $beta_val: sim_gaussian_res$beta_val
@@ -36,7 +37,7 @@ susie_z: susie_z.R + \
   pathR: $pathR
   ss: $ss
   n: $n
-  L: 20
+  L: 5, 20
   s_init: 0
   $fit: susie_res$fit
   $sets: susie_res$sets
@@ -53,6 +54,7 @@ susie_z_large(susie_z):
 
 susie_z_init(susie_z):
   s_init: $s_init
+  L: 20
 
 # score modules
 score: score.R + R(score_res=compute_scores(cs, beta_idx, pip))
