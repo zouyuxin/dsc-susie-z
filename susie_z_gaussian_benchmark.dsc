@@ -5,7 +5,7 @@ sim_gaussian: simulate.R + \
   pathX: $pathX
   pve: 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.95
   effect_num: 1, 2, 5, 10, 20
-  betaSigma: 0.5, 1
+  betaSigma: 1
   $n: sim_gaussian_res$n
   $p: sim_gaussian_res$p
   $sigma: sim_gaussian_res$sigma
