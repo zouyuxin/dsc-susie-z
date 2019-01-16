@@ -42,7 +42,7 @@ sim_gaussian = function(X, pve, effect_num, beta.sigma){
   })))
   names(ss) <- c("effect", "se")
 
-  return(list(n = n, sim_y = sim.y,
+  return(list(n = n, p = p, sim_y = sim.y,
               beta_idx = beta.idx, beta_val = beta.values, mean_corX = mean_corX,
               ss = ss))
 }
