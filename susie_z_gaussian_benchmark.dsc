@@ -76,6 +76,5 @@ DSC:
   global:
     pathX: "data/susie_X.rds"
     pathR: "data/susie_R.rds"
-  output:
-    "output/susie_z_gaussian_benchmark"
+  output: output/susie_z_gaussian_benchmark
 
