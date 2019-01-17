@@ -1,0 +1,16 @@
+---
+title: "DSC query"
+author: "Yuxin Zou"
+date: "1/16/2019"
+output: workflowr::wflow_html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dscrutils)
+dscout_null = dscquery(dsc.outdir='output/susie_z_gaussian_benchmark', targets='sim_gaussian_null susie_z score susie_z.avg_purity susie_z.niter score.hit score.signal_num score.cs_medianSize score.top_hit')
+saveRDS(dscout_null, 'output/susie_z_gaussian_benchmark/dscout_gaussian_null.rds')
+```

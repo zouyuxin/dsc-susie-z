@@ -70,7 +70,7 @@ score: score.R + R(score_res=compute_scores(cs, beta_idx, pip))
 DSC:
   run:
     gaussian_z_null: sim_gaussian_null * susie_z * score
-    gaussize_z: sim_gaussian * susie_z * score
+    gaussian_z: sim_gaussian * susie_z * score
     gaussian_z_init: sim_gaussian * init_true * susie_z_init * score
 
   exec_path: code
