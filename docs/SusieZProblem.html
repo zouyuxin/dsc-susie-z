@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Yuxin Zou" />
+
+
+<title>SuSiE Z Problem</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dsc-susie-z</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">SuSiE Z Problem</h1>
+<h4 class="author"><em>Yuxin Zou</em></h4>
+<h4 class="date"><em>1/17/2019</em></h4>
+
+</div>
+
+
+<p><strong>Last updated:</strong> 2019-01-17</p>
+<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
+<ul>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20190115)</code> </summary></p>
+<p>The command <code>set.seed(20190115)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/29fc6362ab041ead5bc96e305ca5b8896697d54d" target="_blank">29fc636</a> </summary></p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    .sos/
+    Ignored:    data/.DS_Store
+
+Untracked files:
+    Untracked:  .gitattributes
+    Untracked:  analysis/SusieZConverge.Rmd
+    Untracked:  data/sim_gaussian_475.rds
+    Untracked:  data/sim_gaussian_75.rds
+    Untracked:  output/dscout_gaussian_init.rds
+    Untracked:  output/dscout_gaussian_null.rds
+    Untracked:  output/dscout_gaussian_z.rds
+
+Unstaged changes:
+    Modified:   analysis/dscquery.Rmd
+
+</code></pre>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
+</li>
+</ul>
+<details> <summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
+<ul>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/29fc6362ab041ead5bc96e305ca5b8896697d54d/analysis/SusieZProblem.Rmd" target="_blank">29fc636</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/SusieZProblem.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</ul>
+<p></details></p>
+<hr />
+<p>Investigate the non-convergence problem in susie_z.</p>
+<pre class="r"><code>devtools::install_github(&#39;zouyuxin/susieR&#39;)</code></pre>
+<pre><code>Skipping install of &#39;susieR&#39; from a github remote, the SHA1 (7cd1fa2d) has not changed since last install.
+  Use `force = TRUE` to force installation</code></pre>
+<pre class="r"><code>library(susieR)</code></pre>
+<div id="simulation-under-null-effect" class="section level2">
+<h2>Simulation under null effect</h2>
+<pre class="r"><code>dscout_null = readRDS(&#39;output/dscout_gaussian_null.rds&#39;)
+dscout_null = dscout_null[!is.na(dscout_null$sim_gaussian_null.output.file),]
+dscout_null = dscout_null[!is.na(dscout_null$susie_z.output.file),]</code></pre>
+<p>The maximum number of iteration is 7. All models converge. There is no false discovry.</p>
+</div>
+<div id="simulation-with-one-effect" class="section level2">
+<h2>Simulation with one effect</h2>
+<p>We simulate data with only one non-zero effect.</p>
+<p>We simulate data under PVE = 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.95. There are 20 replicates.</p>
+<pre class="r"><code>dscout_gaussian_z = readRDS(&#39;output/dscout_gaussian_z.rds&#39;)
+dscout_gaussian_z = dscout_gaussian_z[!is.na(dscout_gaussian_z$sim_gaussian.output.file),]
+dscout_gaussian_z = dscout_gaussian_z[!is.na(dscout_gaussian_z$susie_z.output.file),]
+dscout_gaussian_z$NotConverge = dscout_gaussian_z$susie_z.niter == 100</code></pre>
+<pre class="r"><code>dscout_gaussian_z_1 = dscout_gaussian_z[dscout_gaussian_z$sim_gaussian.effect_num == &#39;1&#39;, ]
+dscout_gaussian_z_1 = dscout_gaussian_z_1[dscout_gaussian_z_1$susie_z.L == &#39;5&#39; , ]</code></pre>
+<p>When the PVE is greater than 0.5, some replicates fail to converge in 100 iterations.</p>
+<pre class="r"><code>converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_z_1, sum)
+colnames(converge.summary) = c(&#39;pve&#39;, &#39;NotConverge&#39;)
+converge.summary</code></pre>
+<pre><code>   pve NotConverge
+1 0.01           0
+2 0.05           0
+3 0.10           0
+4 0.20           0
+5 0.50           4
+6 0.80           9
+7 0.95           6</code></pre>
+<p>Now we change the initial susie object to the truth:</p>
+<pre class="r"><code>dscout_gaussian_init = readRDS(&#39;output/dscout_gaussian_init.rds&#39;)
+dscout_gaussian_init = dscout_gaussian_init[!is.na(dscout_gaussian_init$sim_gaussian.output.file),]
+dscout_gaussian_init = dscout_gaussian_init[!is.na(dscout_gaussian_init$susie_z_init.output.file),]
+dscout_gaussian_init$NotConverge = dscout_gaussian_init$susie_z_init.niter == 100</code></pre>
+<pre class="r"><code>dscout_gaussian_init_1 = dscout_gaussian_init[dscout_gaussian_init$sim_gaussian.effect_num == &#39;1&#39;, ]</code></pre>
+<pre class="r"><code>converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_init_1, sum)
+colnames(converge.summary) = c(&#39;pve&#39;, &#39;NotConverge&#39;)
+converge.summary</code></pre>
+<pre><code>   pve NotConverge
+1 0.01           0
+2 0.05           0
+3 0.10           0
+4 0.20           0
+5 0.50           0
+6 0.80           0
+7 0.95           0</code></pre>
+<p>All models converge.</p>
+</div>
+<div id="simulation-with-5-effects" class="section level2">
+<h2>Simulation with 5 effects</h2>
+<p>We simulate data with 5 true effects. We simulate data under PVE = 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.95. There are 20 replicates.</p>
+<pre class="r"><code>dscout_gaussian_z_5 = dscout_gaussian_z[dscout_gaussian_z$sim_gaussian.effect_num == &#39;5&#39;, ]
+dscout_gaussian_z_5 = dscout_gaussian_z_5[dscout_gaussian_z_5$susie_z.L == &#39;5&#39; , ]</code></pre>
+<p>When the PVE is greater than 0.5, some replicates fail to converge in 100 iterations.</p>
+<pre class="r"><code>converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_z_5, sum)
+colnames(converge.summary) = c(&#39;pve&#39;, &#39;NotConverge&#39;)
+converge.summary</code></pre>
+<pre><code>   pve NotConverge
+1 0.01           0
+2 0.05           0
+3 0.10           0
+4 0.20           0
+5 0.50           1
+6 0.80           5
+7 0.95           5</code></pre>
+<p>Now we change the initial susie object to the truth,</p>
+<pre class="r"><code>dscout_gaussian_init_5 = dscout_gaussian_init[dscout_gaussian_init$sim_gaussian.effect_num == &#39;5&#39;, ]</code></pre>
+<pre class="r"><code>converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_init_5, sum)
+colnames(converge.summary) = c(&#39;pve&#39;, &#39;NotConverge&#39;)
+converge.summary</code></pre>
+<pre><code>   pve NotConverge
+1 0.01           0
+2 0.05           0
+3 0.10           0
+4 0.20           0
+5 0.50           1
+6 0.80           5
+7 0.95           5</code></pre>
+<p>There are still non-convergence cases with the true initialization.</p>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<div id="one-effect" class="section level3">
+<h3>One effect</h3>
+<p>Let’s see an example data with one true effect. The PVE is 0.5, the residual variance is 0.47^2.</p>
+<pre class="r"><code>X = readRDS(&#39;data/susie_X.rds&#39;) # X is from susieR package, N3finemapping, X is coloumn mean centered.
+R = readRDS(&#39;data/susie_R.rds&#39;)
+data = readRDS(&#39;data/sim_gaussian_75.rds&#39;)
+n = data$n
+beta = numeric(data$p)
+beta[data$beta_idx] = data$beta_val
+z = data$ss$effect/data$ss$se
+susie_plot(z, y = &#39;z&#39;, b=beta)</code></pre>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Using z scores,</p>
+<pre class="r"><code>fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)</code></pre>
+<pre><code>Warning in susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = L,
+estimate_prior_variance = TRUE, : IBSS algorithm did not converge in 20
+iterations!</code></pre>
+<pre class="r"><code>susie_get_objective(fit_z)</code></pre>
+<pre><code>[1] 409.0831</code></pre>
+<pre class="r"><code>susie_plot(fit_z, y = &#39;PIP&#39;, b = beta)</code></pre>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now we initialize at the truth (L=1), the model converges to a lower objective value.</p>
+<pre class="r"><code>s_init = susie_init_coef(data$beta_idx, data$beta_val, data$p)
+fit_z_init = susie_z(z, R=R, s_init = s_init)
+susie_get_objective(fit_z_init)</code></pre>
+<pre><code>[1] 299.4515</code></pre>
+<pre class="r"><code>susie_plot(fit_z_init, y = &#39;PIP&#39;, b = beta)</code></pre>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>I mentioned in the write-up, we approximate the BF(<span class="math inline">\(z_j(\sigma)\)</span>) (eqn 7.61) using BF(<span class="math inline">\(z_j(\hat{\sigma}_j)\)</span>). When the data contain strong association signals (<span class="math inline">\(\hat{\sigma}_j &gt; \sigma\)</span>), the z score approximation under-estimates the Bayes Factor.</p>
+<p>The 7.61 in the write-up: <span class="math display">\[
+\begin{align}
+    BF(z_j(\sigma); w) &amp;= \sqrt{\frac{1}{1+w^2}} \exp\left( \frac{1}{2} z_j(\sigma)^2 \frac{w^2}{1+w^2} \right) \quad \quad \text{where }w^2 = (n-1)\frac{\sigma_{0}^{2}}{\sigma^2}
+\end{align}
+\]</span></p>
+<p>We check the under-estimate now:</p>
+<pre class="r"><code>fit_z_1 = susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = 1,
+                   estimate_prior_variance = FALSE,
+                   estimate_residual_variance = FALSE, max_iter = 1)</code></pre>
+<pre class="r"><code>X.s = apply(X, 2, function(x) x/(sd(x)*sqrt(n-1)))
+z_true = (t(X.s) %*% data$sim_y) / as.numeric(data$sigma)
+
+fit_z_1_true = susie_ss(XtX = R, Xty = z_true, n = 2, var_y = 1, L = 1,
+                        estimate_prior_variance = FALSE,
+                        estimate_residual_variance = FALSE,
+                        prior_weights = NULL, null_weight = NULL,
+                        coverage = 0.95, min_abs_corr = 0.5,
+                        verbose = FALSE, track_fit = TRUE, max_iter = 1)</code></pre>
+<pre class="r"><code>par(mfrow=c(1,3))
+{plot(fit_z_1$lbf_mtx, fit_z_1_true$lbf_mtx, xlab = expression(logBF(z[j](hat(sigma)[j]))), ylab = expression(logBF(z[j](sigma))), main=&#39;log BF&#39;)
+abline(0,1)}
+{plot(fit_z_1$alpha, fit_z_1_true$alpha, xlab = expression(alpha(hat(sigma)[j])), ylab = expression(alpha(sigma)), main=expression(alpha))
+abline(0,1)}
+{plot(abs(fit_z_1$mu), abs(fit_z_1_true$mu), xlab = expression(abs(mu(hat(sigma)[j]))), ylab = expression(abs(mu(sigma))), main=expression(abs(mu)))
+abline(0,1)}</code></pre>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-18-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>It is clear from the plot that the Bayes Factor is under-estimated. The estimated <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\mu\)</span> are smaller.</p>
+<p>Checked the estimated prior variance,</p>
+<pre class="r"><code>fit_z_10_prior = susie_z(z=z, R=R, L=5)</code></pre>
+<pre><code>Warning in susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = L,
+estimate_prior_variance = TRUE, : IBSS algorithm did not converge in 100
+iterations!</code></pre>
+<pre class="r"><code>susie_get_prior_variance(fit_z_10_prior)</code></pre>
+<pre><code>[1] 24449.0562  4961.9053  2624.2558  2017.4113   163.6263</code></pre>
+<pre class="r"><code>fit_z_10_true_prior = susie_z(z = z_true, R=R, L=5)
+susie_get_prior_variance(fit_z_10_true_prior)</code></pre>
+<pre><code>[1] 604.074353   3.315658   0.000000   0.000000   0.000000</code></pre>
+<pre class="r"><code>susie_plot(fit_z_10_true_prior, y=&#39;PIP&#39;, b=beta)</code></pre>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Using the true z, <span class="math inline">\(z_j(\sigma)\)</span>, the estimated prior variance for some L becomes zero. Using the estimated z, <span class="math inline">\(z_j(\hat{\sigma}_j)\)</span>, the estimated prior variance for all L are non-zero.</p>
+</div>
+<div id="five-effects" class="section level3">
+<h3>Five effects</h3>
+<p>Let’s see an example data with 5 true effects. The PVE is 0.8, the residual variance is 0.74^2.</p>
+<pre class="r"><code>data = readRDS(&#39;data/sim_gaussian_475.rds&#39;)
+n = data$n
+beta = numeric(data$p)
+beta[data$beta_idx] = data$beta_val
+z = data$ss$effect/data$ss$se
+susie_plot(z, y = &quot;z&quot;, b=beta)</code></pre>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Using z scores,</p>
+<pre class="r"><code>fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)</code></pre>
+<pre><code>Warning in susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = L,
+estimate_prior_variance = TRUE, : IBSS algorithm did not converge in 20
+iterations!</code></pre>
+<pre class="r"><code>susie_get_objective(fit_z)</code></pre>
+<pre><code>[1] 525.9303</code></pre>
+<pre class="r"><code>susie_plot(fit_z, y = &#39;PIP&#39;, b = beta)</code></pre>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now we initialize at the truth, the model <strong>fails to converge</strong>.</p>
+<pre class="r"><code>s_init = susie_init_coef(data$beta_idx, data$beta_val, data$p)
+fit_z_init = susie_z(z, R=R, s_init = s_init)</code></pre>
+<pre><code>Warning in susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = L,
+estimate_prior_variance = TRUE, : IBSS algorithm did not converge in 100
+iterations!</code></pre>
+<pre class="r"><code>susie_get_objective(fit_z_init)</code></pre>
+<pre><code>[1] 1089.854</code></pre>
+<pre class="r"><code>susie_plot(fit_z_init, y = &#39;PIP&#39;, b = beta)</code></pre>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Changing the z score to <span class="math inline">\(z_j(\sigma)\)</span>, the model converges.</p>
+<pre class="r"><code>z_true = (t(X.s) %*% data$sim_y) / as.numeric(data$sigma)
+fit_z_5_true = susie_z(z = z_true, R=R, L=5)
+susie_get_objective(fit_z_5_true)</code></pre>
+<pre><code>[1] 1119.521</code></pre>
+<pre class="r"><code>susie_get_prior_variance(fit_z_5_true)</code></pre>
+<pre><code>[1] 1467.02402  640.34084  185.85349   53.12493    0.00000</code></pre>
+<pre class="r"><code>susie_plot(fit_z_5_true, y = &#39;PIP&#39;, b = beta)</code></pre>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.14.2
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] susieR_0.6.3
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.0        compiler_3.5.1    git2r_0.24.0     
+ [4] workflowr_1.1.1   R.methodsS3_1.7.1 prettyunits_1.0.2
+ [7] R.utils_2.7.0     remotes_2.0.2     tools_3.5.1      
+[10] testthat_2.0.1    digest_0.6.18     pkgbuild_1.0.2   
+[13] pkgload_1.0.2     lattice_0.20-38   evaluate_0.12    
+[16] memoise_1.1.0     rlang_0.3.1       Matrix_1.2-15    
+[19] cli_1.0.1         curl_3.3          yaml_2.2.0       
+[22] expm_0.999-3      withr_2.1.2       stringr_1.3.1    
+[25] knitr_1.20        desc_1.2.0        fs_1.2.6         
+[28] devtools_2.0.1    grid_3.5.1        rprojroot_1.3-2  
+[31] glue_1.3.0        R6_2.3.0          processx_3.2.1   
+[34] rmarkdown_1.11    sessioninfo_1.1.1 callr_3.1.1      
+[37] magrittr_1.5      whisker_0.3-2     backports_1.1.3  
+[40] ps_1.3.0          htmltools_0.3.6   usethis_1.4.0    
+[43] assertthat_0.2.0  stringi_1.2.4     crayon_1.3.4     
+[46] R.oo_1.22.0      </code></pre>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+  analysis was created with
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
+</p>
+<hr>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
