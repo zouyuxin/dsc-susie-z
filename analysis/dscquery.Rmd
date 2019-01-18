@@ -9,8 +9,14 @@ output: workflowr::wflow_html
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r eval=FALSE}
 library(dscrutils)
 dscout_null = dscquery(dsc.outdir='output/susie_z_gaussian_benchmark', targets='sim_gaussian_null susie_z score susie_z.avg_purity susie_z.niter score.hit score.signal_num score.cs_medianSize score.top_hit')
 saveRDS(dscout_null, 'output/susie_z_gaussian_benchmark/dscout_gaussian_null.rds')
+
+dscout_gaussian_z = dscquery(dsc.outdir='output/susie_z_gaussian_benchmark', targets='sim_gaussian susie_z score sim_gaussian.effect_num sim_gaussian.pve sim_gaussian.sigma sim_gaussian.mean_corX susie_z.avg_purity susie_z.niter susie_z.L score.hit score.signal_num score.cs_medianSize score.top_hit')
+saveRDS(dscout_gaussian_z, 'output/susie_z_gaussian_benchmark/dscout_gaussian_z.rds')
+
+dscout_gaussian_init = dscquery(dsc.outdir='output/susie_z_gaussian_benchmark', targets='sim_gaussian susie_z_init score sim_gaussian.effect_num sim_gaussian.pve sim_gaussian.sigma sim_gaussian.mean_corX susie_z_init.avg_purity susie_z_init.niter score.hit score.signal_num score.cs_medianSize score.top_hit')
+saveRDS(dscout_gaussian_init, 'output/susie_z_gaussian_benchmark/dscout_gaussian_init.rds')
 ```
