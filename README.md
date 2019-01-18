@@ -11,7 +11,7 @@ We use the data X in the SuSiE package, N3finemapping.
 
 We simulate data with PVE = 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.95. 
 
-The number of true effects are 0,1, 2, 5, 10, 20. 
+The number of true effects are 0, 1, 2, 5, 10, 20. 
 
 We fit the susie_z model with L = 5, 20.
 
