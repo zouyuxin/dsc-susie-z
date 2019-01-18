@@ -1,0 +1,155 @@
+---
+title: "SuSiE z Gaussian Benchmark"
+author: "Yuxin Zou"
+date: "1/16/2019"
+output: workflowr::wflow_html
+---
+
+## Simulation under null
+
+```{r}
+dscout_null = readRDS('output/dscout_gaussian_null.rds')
+dscout_null = dscout_null[!is.na(dscout_null$sim_gaussian_null.output.file),]
+dscout_null = dscout_null[!is.na(dscout_null$susie_z.output.file),]
+```
+
+The maximum number of iteration is `r max(as.numeric(dscout_null$susie_z.niter))`. All models converge. There is no false discovry.
+
+## Simulation with signals
+
+```{r}
+dscout_gaussian_z = readRDS('output/dscout_gaussian_z.rds')
+dscout_gaussian_z = dscout_gaussian_z[!is.na(dscout_gaussian_z$sim_gaussian.output.file),]
+dscout_gaussian_z = dscout_gaussian_z[!is.na(dscout_gaussian_z$susie_z.output.file),]
+dscout_gaussian_z$NotConverge = dscout_gaussian_z$susie_z.niter == 100
+```
+
+L = 5, effect number = 1
+```{r}
+dscout_gaussian_L5 = dscout_gaussian_z[dscout_gaussian_z$susie_z.L == '5',]
+dscout_gaussian_L5_E1 = dscout_gaussian_L5[dscout_gaussian_L5$sim_gaussian.effect_num == '1',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L5_E1, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+L = 5, effect number = 2
+```{r}
+dscout_gaussian_L5_E2 = dscout_gaussian_L5[dscout_gaussian_L5$sim_gaussian.effect_num == '2',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L5_E2, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+L = 5, effect number = 5
+```{r}
+dscout_gaussian_L5_E5 = dscout_gaussian_L5[dscout_gaussian_L5$sim_gaussian.effect_num == '5',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L5_E5, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+L = 5, effect number = 10
+```{r}
+dscout_gaussian_L5_E10 = dscout_gaussian_L5[dscout_gaussian_L5$sim_gaussian.effect_num == '10',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L5_E10, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+L = 5, effect number = 20
+```{r}
+dscout_gaussian_L5_E20 = dscout_gaussian_L5[dscout_gaussian_L5$sim_gaussian.effect_num == '20',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L5_E20, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+L = 20, effect number = 1
+```{r}
+dscout_gaussian_L20 = dscout_gaussian_z[dscout_gaussian_z$susie_z.L == '20',]
+dscout_gaussian_L20_E1 = dscout_gaussian_L20[dscout_gaussian_L20$sim_gaussian.effect_num == '1',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L20_E1, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+L = 20, effect number = 2
+```{r}
+dscout_gaussian_L20_E2 = dscout_gaussian_L20[dscout_gaussian_L20$sim_gaussian.effect_num == '2',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L20_E2, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+L = 20, effect number = 5
+```{r}
+dscout_gaussian_L20_E5 = dscout_gaussian_L20[dscout_gaussian_L20$sim_gaussian.effect_num == '5',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L20_E5, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+L = 20, effect number = 10
+```{r}
+dscout_gaussian_L20_E10 = dscout_gaussian_L20[dscout_gaussian_L20$sim_gaussian.effect_num == '10',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L20_E10, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+L = 20, effect number = 20
+```{r}
+dscout_gaussian_L20_E20 = dscout_gaussian_L20[dscout_gaussian_L20$sim_gaussian.effect_num == '20',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_L20_E20, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+## Simulation initialize at true
+
+```{r}
+dscout_gaussian_init = readRDS('output/dscout_gaussian_init.rds')
+dscout_gaussian_init = dscout_gaussian_init[!is.na(dscout_gaussian_init$sim_gaussian.output.file),]
+dscout_gaussian_init = dscout_gaussian_init[!is.na(dscout_gaussian_init$susie_z_init.output.file),]
+dscout_gaussian_init$NotConverge = dscout_gaussian_init$susie_z_init.niter == 100
+```
+
+effect number = 1
+```{r}
+dscout_gaussian_E1 = dscout_gaussian_init[dscout_gaussian_init$sim_gaussian.effect_num == '1',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_E1, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+effect number = 2
+```{r}
+dscout_gaussian_E2 = dscout_gaussian_init[dscout_gaussian_init$sim_gaussian.effect_num == '2',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_E2, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+effect number = 5
+```{r}
+dscout_gaussian_E5 = dscout_gaussian_init[dscout_gaussian_init$sim_gaussian.effect_num == '5',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_E5, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+effect number = 10
+```{r}
+dscout_gaussian_E10 = dscout_gaussian_init[dscout_gaussian_init$sim_gaussian.effect_num == '10',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_E10, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+effect number = 20
+```{r}
+dscout_gaussian_E20 = dscout_gaussian_init[dscout_gaussian_init$sim_gaussian.effect_num == '20',]
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_E20, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
