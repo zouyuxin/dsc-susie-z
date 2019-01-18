@@ -24,6 +24,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -267,6 +268,14 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 
@@ -410,6 +419,14 @@ div.section {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">SuSiE Z Problem</h1>
@@ -443,7 +460,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/29fc6362ab041ead5bc96e305ca5b8896697d54d" target="_blank">29fc636</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/fd5506086457fe32198167c264ffff8db76a6bbe" target="_blank">fd55060</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -491,6 +508,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/fd5506086457fe32198167c264ffff8db76a6bbe/analysis/SusieZProblem.Rmd" target="_blank">fd55060</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/SusieZProblem.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/SusieZProblem.html" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -612,6 +663,36 @@ beta[data$beta_idx] = data$beta_val
 z = data$ss$effect/data$ss$se
 susie_plot(z, y = &#39;z&#39;, b=beta)</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-13-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-13-1.png" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>Using z scores,</p>
 <pre class="r"><code>fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)</code></pre>
 <pre><code>Warning in susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = L,
@@ -621,6 +702,36 @@ iterations!</code></pre>
 <pre><code>[1] 409.0831</code></pre>
 <pre class="r"><code>susie_plot(fit_z, y = &#39;PIP&#39;, b = beta)</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-14-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-14-1.png" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>Now we initialize at the truth (L=1), the model converges to a lower objective value.</p>
 <pre class="r"><code>s_init = susie_init_coef(data$beta_idx, data$beta_val, data$p)
 fit_z_init = susie_z(z, R=R, s_init = s_init)
@@ -628,6 +739,36 @@ susie_get_objective(fit_z_init)</code></pre>
 <pre><code>[1] 299.4515</code></pre>
 <pre class="r"><code>susie_plot(fit_z_init, y = &#39;PIP&#39;, b = beta)</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-15-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-15-1.png" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>I mentioned in the write-up, we approximate the BF(<span class="math inline">\(z_j(\sigma)\)</span>) (eqn 7.61) using BF(<span class="math inline">\(z_j(\hat{\sigma}_j)\)</span>). When the data contain strong association signals (<span class="math inline">\(\hat{\sigma}_j &gt; \sigma\)</span>), the z score approximation under-estimates the Bayes Factor.</p>
 <p>The 7.61 in the write-up: <span class="math display">\[
 \begin{align}
@@ -655,6 +796,36 @@ abline(0,1)}
 {plot(abs(fit_z_1$mu), abs(fit_z_1_true$mu), xlab = expression(abs(mu(hat(sigma)[j]))), ylab = expression(abs(mu(sigma))), main=expression(abs(mu)))
 abline(0,1)}</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-18-1.png" width="864" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-18-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-18-1.png" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>It is clear from the plot that the Bayes Factor is under-estimated. The estimated <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\mu\)</span> are smaller.</p>
 <p>Checked the estimated prior variance,</p>
 <pre class="r"><code>fit_z_10_prior = susie_z(z=z, R=R, L=5)</code></pre>
@@ -668,6 +839,36 @@ susie_get_prior_variance(fit_z_10_true_prior)</code></pre>
 <pre><code>[1] 604.074353   3.315658   0.000000   0.000000   0.000000</code></pre>
 <pre class="r"><code>susie_plot(fit_z_10_true_prior, y=&#39;PIP&#39;, b=beta)</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-20-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-20-1.png" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>Using the true z, <span class="math inline">\(z_j(\sigma)\)</span>, the estimated prior variance for some L becomes zero. Using the estimated z, <span class="math inline">\(z_j(\hat{\sigma}_j)\)</span>, the estimated prior variance for all L are non-zero.</p>
 </div>
 <div id="five-effects" class="section level3">
@@ -680,6 +881,36 @@ beta[data$beta_idx] = data$beta_val
 z = data$ss$effect/data$ss$se
 susie_plot(z, y = &quot;z&quot;, b=beta)</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-21-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-21-1.png" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>Using z scores,</p>
 <pre class="r"><code>fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)</code></pre>
 <pre><code>Warning in susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = L,
@@ -689,6 +920,36 @@ iterations!</code></pre>
 <pre><code>[1] 525.9303</code></pre>
 <pre class="r"><code>susie_plot(fit_z, y = &#39;PIP&#39;, b = beta)</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-22-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-22-1.png" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>Now we initialize at the truth, the model <strong>fails to converge</strong>.</p>
 <pre class="r"><code>s_init = susie_init_coef(data$beta_idx, data$beta_val, data$p)
 fit_z_init = susie_z(z, R=R, s_init = s_init)</code></pre>
@@ -699,6 +960,36 @@ iterations!</code></pre>
 <pre><code>[1] 1089.854</code></pre>
 <pre class="r"><code>susie_plot(fit_z_init, y = &#39;PIP&#39;, b = beta)</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-23-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-23-1.png" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>Changing the z score to <span class="math inline">\(z_j(\sigma)\)</span>, the model converges.</p>
 <pre class="r"><code>z_true = (t(X.s) %*% data$sim_y) / as.numeric(data$sigma)
 fit_z_5_true = susie_z(z = z_true, R=R, L=5)
@@ -708,6 +999,36 @@ susie_get_objective(fit_z_5_true)</code></pre>
 <pre><code>[1] 1467.02402  640.34084  185.85349   53.12493    0.00000</code></pre>
 <pre class="r"><code>susie_plot(fit_z_5_true, y = &#39;PIP&#39;, b = beta)</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-24-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-24-1.png" target="_blank">a6cee3a</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 </div>
 </div>
 <div id="session-information" class="section level2">
