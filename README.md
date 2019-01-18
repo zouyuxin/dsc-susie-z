@@ -3,49 +3,15 @@
 This is a Dynamic Statistical Comparison
 to test the SuSiE using summary statistics, z scores.
 
-# The goal:
-
 The goal is to test the performance of susie_z method under different context of effect.
-
-Methods will input:
-
-  - $Y1 a numeric matrix of data from group 1 (p by n, p genes in columns, n samples/cells in rows)
-  - $Y2 a numeric matrix of data from group 2 (p by n, p genes in columns, n samples/cells in rows)
-  
-and optionally:
-
-  - $X1 an n vector of covariates from group 1 (eg "library size")
-  - $X2 an n vector of covariates from group 2
-
-Methods will output:
-
-  - $log_fold_change_est a vector of estimates of log(mu1/mu2) for each gene where mu1 is the mean of group 1 and mu2 is the mean of group 2
-  - $s_hat a vector of standard error for the estimated $log_fold_change
-  - $p a p-vector of p values testing whether each log-fold change is 0
 
 # Data
 
-We use the data X in the SuSiE package.
+We use the data X in the SuSiE package, N3finemapping.
 
-To create data we will take a file containing data X and select
-samples at random to create two groups. These will be "null" data.
+We simulate data with PVE = 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.95. The number of true effects are 0,1, 2, 5, 10, 20. We fit the susie_z model with L = 5, 20.
 
-Input:
-  - file of data
-  - n1 sample size for group 1
-  - n2 sample size for group 2
-  - p number of genes
-  - pi0 proportion of nulls
-  - g a distribution on non-zero effects
-
-Output:
-  - $Y1
-  - $Y2
-  - $log-fold-change (true value of log_fold_change for each gene)
-
-# Performance evaluation criteria
-
-List criteria we might want to use...
+We check whether the model converges in 100 iterations.
 
 # Run DSC
 
@@ -80,4 +46,4 @@ dsc susie_z_gaussian_benchmark.dsc --host midway.yml --replicate 50 -c 40
 ```
 
 # Input X
-To input a customized design matrix X, please go to susie_z_gaussian_benchmark.dsc. At the bottom, change the pathX to the path of your matrix X as you want.
+To input a customized design matrix X, please go to `susie_z_gaussian_benchmark.dsc`. At the bottom, change the `pathX` to the path of your matrix X as you want.
