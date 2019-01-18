@@ -10,7 +10,7 @@ output:
 Investigate the non-convergence problem in susie_z.
 
 ```{r}
-devtools::install_github('zouyuxin/susieR')
+# devtools::install_github('zouyuxin/susieR') # susieR in my folk output the susie log BF matrix
 library(susieR)
 ```
 
@@ -22,7 +22,7 @@ dscout_null = dscout_null[!is.na(dscout_null$sim_gaussian_null.output.file),]
 dscout_null = dscout_null[!is.na(dscout_null$susie_z.output.file),]
 ```
 
-The maximum number of iteration is `r max(as.numeric(dscout_null$susie_z.niter))`. All models converge. There is no false discovry.
+The maximum number of iteration is `r max(as.numeric(dscout_null$susie_z.niter))`. All models converge. There is no false discovery.
 
 ## Simulation with one effect
 
@@ -119,7 +119,13 @@ susie_plot(z, y = 'z', b=beta)
 Using z scores,
 ```{r}
 fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)
+```
+
+The objective value is
+```{r}
 susie_get_objective(fit_z)
+```
+```{r}
 susie_plot(fit_z, y = 'PIP', b = beta)
 ```
 
@@ -127,6 +133,9 @@ Now we initialize at the truth (L=1), the model converges to a lower objective v
 ```{r}
 s_init = susie_init_coef(data$beta_idx, data$beta_val, data$p)
 fit_z_init = susie_z(z, R=R, s_init = s_init)
+```
+The objective value is
+```{r}
 susie_get_objective(fit_z_init)
 susie_plot(fit_z_init, y = 'PIP', b = beta)
 ```
@@ -140,7 +149,7 @@ $$
 \end{align}
 $$
 
-We check the under-estimate now:
+We check the under-estimate of the BF. We fit the susie model using $z_j(\sigma)$ and $z_j(\hat{\sigma}_j)$ separately, with L = 1 and iter = 1, fix prior variance. 
 ```{r warning=FALSE}
 fit_z_1 = susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = 1,
                    estimate_prior_variance = FALSE,
@@ -152,10 +161,7 @@ z_true = (t(X.s) %*% data$sim_y) / as.numeric(data$sigma)
 
 fit_z_1_true = susie_ss(XtX = R, Xty = z_true, n = 2, var_y = 1, L = 1,
                         estimate_prior_variance = FALSE,
-                        estimate_residual_variance = FALSE,
-                        prior_weights = NULL, null_weight = NULL,
-                        coverage = 0.95, min_abs_corr = 0.5,
-                        verbose = FALSE, track_fit = TRUE, max_iter = 1)
+                        estimate_residual_variance = FALSE, max_iter = 1)
 ```
 ```{r fig.align = "center", fig.height = 3, fig.width = 9}
 par(mfrow=c(1,3))
@@ -167,9 +173,9 @@ abline(0,1)}
 abline(0,1)}
 ```
 
-It is clear from the plot that the Bayes Factor is under-estimated. The estimated $\alpha$, $\mu$ are smaller.
+It is clear from the plots that the Bayes Factor is under-estimated. The estimated $\alpha$, $\mu$ are smaller.
 
-Checked the estimated prior variance, 
+Now, we fit susie model using $z_j(\sigma)$ and $z_j(\hat{\sigma}_j)$, with L = 5 and estimating the prior variance.
 ```{r}
 fit_z_10_prior = susie_z(z=z, R=R, L=5)
 susie_get_prior_variance(fit_z_10_prior)
@@ -199,7 +205,12 @@ susie_plot(z, y = "z", b=beta)
 Using z scores,
 ```{r}
 fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)
+```
+The objective value is
+```{r}
 susie_get_objective(fit_z)
+```
+```{r}
 susie_plot(fit_z, y = 'PIP', b = beta)
 ```
 
@@ -215,8 +226,16 @@ Changing the z score to $z_j(\sigma)$, the model converges.
 ```{r}
 z_true = (t(X.s) %*% data$sim_y) / as.numeric(data$sigma)
 fit_z_5_true = susie_z(z = z_true, R=R, L=5)
+```
+The objective value is
+```{r}
 susie_get_objective(fit_z_5_true)
+```
+The estimated prior variance is 
+```{r}
 susie_get_prior_variance(fit_z_5_true)
+```
+```{r}
 susie_plot(fit_z_5_true, y = 'PIP', b = beta)
 ```
 
