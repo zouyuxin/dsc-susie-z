@@ -1,0 +1,220 @@
+---
+title: "SuSiE Z Problem"
+author: "Yuxin Zou"
+date: "1/17/2019"
+output: workflowr::wflow_html
+---
+
+Investigate the non-convergence problem in susie_z.
+
+```{r}
+devtools::install_github('zouyuxin/susieR')
+library(susieR)
+```
+
+## Simulation under null effect
+
+```{r}
+dscout_null = readRDS('output/dscout_gaussian_null.rds')
+dscout_null = dscout_null[!is.na(dscout_null$sim_gaussian_null.output.file),]
+dscout_null = dscout_null[!is.na(dscout_null$susie_z.output.file),]
+```
+
+The maximum number of iteration is `r max(as.numeric(dscout_null$susie_z.niter))`. All models converge. There is no false discovry.
+
+## Simulation with one effect
+
+We simulate data with only one non-zero effect.
+
+We simulate data under PVE = 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.95. There are 20 replicates.
+
+```{r}
+dscout_gaussian_z = readRDS('output/dscout_gaussian_z.rds')
+dscout_gaussian_z = dscout_gaussian_z[!is.na(dscout_gaussian_z$sim_gaussian.output.file),]
+dscout_gaussian_z = dscout_gaussian_z[!is.na(dscout_gaussian_z$susie_z.output.file),]
+dscout_gaussian_z$NotConverge = dscout_gaussian_z$susie_z.niter == 100
+```
+
+```{r}
+dscout_gaussian_z_1 = dscout_gaussian_z[dscout_gaussian_z$sim_gaussian.effect_num == '1', ]
+dscout_gaussian_z_1 = dscout_gaussian_z_1[dscout_gaussian_z_1$susie_z.L == '5' , ]
+```
+
+When the PVE is greater than 0.5, some replicates fail to converge in 100 iterations.
+```{r}
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_z_1, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+Now we change the initial susie object to the truth:
+```{r}
+dscout_gaussian_init = readRDS('output/dscout_gaussian_init.rds')
+dscout_gaussian_init = dscout_gaussian_init[!is.na(dscout_gaussian_init$sim_gaussian.output.file),]
+dscout_gaussian_init = dscout_gaussian_init[!is.na(dscout_gaussian_init$susie_z_init.output.file),]
+dscout_gaussian_init$NotConverge = dscout_gaussian_init$susie_z_init.niter == 100
+```
+
+```{r}
+dscout_gaussian_init_1 = dscout_gaussian_init[dscout_gaussian_init$sim_gaussian.effect_num == '1', ]
+```
+
+```{r}
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_init_1, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+All models converge.
+
+## Simulation with 5 effects
+
+We simulate data with 5 true effects. We simulate data under PVE = 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.95. There are 20 replicates.
+
+```{r}
+dscout_gaussian_z_5 = dscout_gaussian_z[dscout_gaussian_z$sim_gaussian.effect_num == '5', ]
+dscout_gaussian_z_5 = dscout_gaussian_z_5[dscout_gaussian_z_5$susie_z.L == '5' , ]
+```
+
+When the PVE is greater than 0.5, some replicates fail to converge in 100 iterations.
+```{r}
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_z_5, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+Now we change the initial susie object to the truth, 
+
+```{r}
+dscout_gaussian_init_5 = dscout_gaussian_init[dscout_gaussian_init$sim_gaussian.effect_num == '5', ]
+```
+
+```{r}
+converge.summary = aggregate(NotConverge ~ sim_gaussian.pve, dscout_gaussian_init_5, sum)
+colnames(converge.summary) = c('pve', 'NotConverge')
+converge.summary
+```
+
+There are still non-convergence cases with the true initialization.
+
+## Examples
+
+### One effect
+
+Let's see an example data with one true effect. The PVE is 0.5, the residual variance is 0.47^2.
+
+```{r}
+X = readRDS('data/susie_X.rds') # X is from susieR package, N3finemapping, X is coloumn mean centered.
+R = readRDS('data/susie_R.rds')
+data = readRDS('data/sim_gaussian_75.rds')
+n = data$n
+beta = numeric(data$p)
+beta[data$beta_idx] = data$beta_val
+z = data$ss$effect/data$ss$se
+susie_plot(z, y = 'z', b=beta)
+```
+
+Using z scores,
+```{r}
+fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)
+susie_get_objective(fit_z)
+susie_plot(fit_z, y = 'PIP', b = beta)
+```
+
+Now we initialize at the truth (L=1), the model converges to a lower objective value.
+```{r}
+s_init = susie_init_coef(data$beta_idx, data$beta_val, data$p)
+fit_z_init = susie_z(z, R=R, s_init = s_init)
+susie_get_objective(fit_z_init)
+susie_plot(fit_z_init, y = 'PIP', b = beta)
+```
+
+I mentioned in the write-up, we approximate the BF($z_j(\sigma)$) (eqn 7.61) using BF($z_j(\hat{\sigma}_j)$). When the data contain strong association signals ($\hat{\sigma}_j > \sigma$), the z score approximation under-estimates the Bayes Factor.
+
+The 7.61 in the write-up:
+$$
+\begin{align}
+    BF(z_j(\sigma); w) &= \sqrt{\frac{1}{1+w^2}} \exp\left( \frac{1}{2} z_j(\sigma)^2 \frac{w^2}{1+w^2} \right) \quad \quad \text{where }w^2 = (n-1)\frac{\sigma_{0}^{2}}{\sigma^2}
+\end{align}
+$$
+
+We check the under-estimate now:
+```{r warning=FALSE}
+fit_z_1 = susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = 1,
+                   estimate_prior_variance = FALSE,
+                   estimate_residual_variance = FALSE, max_iter = 1)
+```
+```{r warning=FALSE}
+X.s = apply(X, 2, function(x) x/(sd(x)*sqrt(n-1)))
+z_true = (t(X.s) %*% data$sim_y) / as.numeric(data$sigma)
+
+fit_z_1_true = susie_ss(XtX = R, Xty = z_true, n = 2, var_y = 1, L = 1,
+                        estimate_prior_variance = FALSE,
+                        estimate_residual_variance = FALSE,
+                        prior_weights = NULL, null_weight = NULL,
+                        coverage = 0.95, min_abs_corr = 0.5,
+                        verbose = FALSE, track_fit = TRUE, max_iter = 1)
+```
+```{r fig.align = "center", fig.height = 3, fig.width = 9}
+par(mfrow=c(1,3))
+{plot(fit_z_1$lbf_mtx, fit_z_1_true$lbf_mtx, xlab = expression(logBF(z[j](hat(sigma)[j]))), ylab = expression(logBF(z[j](sigma))), main='log BF')
+abline(0,1)}
+{plot(fit_z_1$alpha, fit_z_1_true$alpha, xlab = expression(alpha(hat(sigma)[j])), ylab = expression(alpha(sigma)), main=expression(alpha))
+abline(0,1)}
+{plot(abs(fit_z_1$mu), abs(fit_z_1_true$mu), xlab = expression(abs(mu(hat(sigma)[j]))), ylab = expression(abs(mu(sigma))), main=expression(abs(mu)))
+abline(0,1)}
+```
+
+It is clear from the plot that the Bayes Factor is under-estimated. The estimated $\alpha$, $\mu$ are smaller.
+
+Checked the estimated prior variance, 
+```{r}
+fit_z_10_prior = susie_z(z=z, R=R, L=5)
+susie_get_prior_variance(fit_z_10_prior)
+```
+
+```{r}
+fit_z_10_true_prior = susie_z(z = z_true, R=R, L=5)
+susie_get_prior_variance(fit_z_10_true_prior)
+susie_plot(fit_z_10_true_prior, y='PIP', b=beta)
+```
+
+Using the true z, $z_j(\sigma)$, the estimated prior variance for some L becomes zero. Using the estimated z, $z_j(\hat{\sigma}_j)$, the estimated prior variance for all L are non-zero.
+
+### Five effects
+
+Let's see an example data with 5 true effects. The PVE is 0.8, the residual variance is 0.74^2.
+
+```{r}
+data = readRDS('data/sim_gaussian_475.rds')
+n = data$n
+beta = numeric(data$p)
+beta[data$beta_idx] = data$beta_val
+z = data$ss$effect/data$ss$se
+susie_plot(z, y = "z", b=beta)
+```
+
+Using z scores,
+```{r}
+fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)
+susie_get_objective(fit_z)
+susie_plot(fit_z, y = 'PIP', b = beta)
+```
+
+Now we initialize at the truth, the model **fails to converge**.
+```{r}
+s_init = susie_init_coef(data$beta_idx, data$beta_val, data$p)
+fit_z_init = susie_z(z, R=R, s_init = s_init)
+susie_get_objective(fit_z_init)
+susie_plot(fit_z_init, y = 'PIP', b = beta)
+```
+
+Changing the z score to $z_j(\sigma)$, the model converges.
+```{r}
+z_true = (t(X.s) %*% data$sim_y) / as.numeric(data$sigma)
+fit_z_5_true = susie_z(z = z_true, R=R, L=5)
+susie_get_objective(fit_z_5_true)
+susie_get_prior_variance(fit_z_5_true)
+susie_plot(fit_z_5_true, y = 'PIP', b = beta)
+```
+
