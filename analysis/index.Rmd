@@ -7,3 +7,9 @@ output:
 ---
 
 Welcome to my research website.
+
+* [DSC query code](dscquery.html)
+
+* [SuSiE z convergence](SusieZConverge.html)
+
+* [SuSiE z Problem](SusieZProblem.html)
