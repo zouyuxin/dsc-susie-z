@@ -116,7 +116,7 @@ z = data$ss$effect/data$ss$se
 susie_plot(z, y = 'z', b=beta)
 ```
 
-Using z scores,
+Fit susie model using z scores,
 ```{r}
 fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)
 ```
@@ -175,15 +175,24 @@ abline(0,1)}
 
 It is clear from the plots that the Bayes Factor is under-estimated. The estimated $\alpha$, $\mu$ are smaller.
 
-Now, we fit susie model using $z_j(\sigma)$ and $z_j(\hat{\sigma}_j)$, with L = 5 and estimating the prior variance.
+Now, we fit susie model using $z_j(\hat{\sigma}_j)$ and $z_j(\sigma)$, with L = 5 and estimating the prior variance.
 ```{r}
 fit_z_10_prior = susie_z(z=z, R=R, L=5)
+```
+The estimated prior variances for model using $z_j(\hat{\sigma}_j)$ are
+```{r}
 susie_get_prior_variance(fit_z_10_prior)
 ```
 
 ```{r}
 fit_z_10_true_prior = susie_z(z = z_true, R=R, L=5)
+```
+The estimated prior variances for model using $z_j(\sigma)$ are
+```{r}
 susie_get_prior_variance(fit_z_10_true_prior)
+```
+The PIP for model using $z_j(\sigma)$:
+```{r}
 susie_plot(fit_z_10_true_prior, y='PIP', b=beta)
 ```
 
@@ -202,7 +211,7 @@ z = data$ss$effect/data$ss$se
 susie_plot(z, y = "z", b=beta)
 ```
 
-Using z scores,
+Fit susie model using z scores,
 ```{r}
 fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)
 ```
@@ -222,7 +231,7 @@ susie_get_objective(fit_z_init)
 susie_plot(fit_z_init, y = 'PIP', b = beta)
 ```
 
-Changing the z score to $z_j(\sigma)$, the model converges.
+Changing the z scores to $z_j(\sigma)$, the model converges.
 ```{r}
 z_true = (t(X.s) %*% data$sim_y) / as.numeric(data$sigma)
 fit_z_5_true = susie_z(z = z_true, R=R, L=5)
@@ -231,7 +240,7 @@ The objective value is
 ```{r}
 susie_get_objective(fit_z_5_true)
 ```
-The estimated prior variance is 
+The estimated prior variances are
 ```{r}
 susie_get_prior_variance(fit_z_5_true)
 ```
