@@ -460,7 +460,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/9ac42e04f8c4d55bc0c974f2138100d4254da05e" target="_blank">9ac42e0</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/9bf71e0aca64de0e5cedbda530503a2717140953" target="_blank">9bf71e0</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -508,6 +508,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9bf71e0aca64de0e5cedbda530503a2717140953/analysis/SusieZProblem.Rmd" target="_blank">9bf71e0</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/SusieZProblem.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/502824444b1bd61a72b247407a8361bc03c5ba35/docs/SusieZProblem.html" target="_blank">5028244</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -725,7 +759,7 @@ zouyuxin
 </tbody>
 </table>
 <p></details></p>
-<p>Using z scores,</p>
+<p>Fit susie model using z scores,</p>
 <pre class="r"><code>fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)</code></pre>
 <pre><code>Warning in susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = L,
 estimate_prior_variance = TRUE, : IBSS algorithm did not converge in 20
@@ -735,6 +769,36 @@ iterations!</code></pre>
 <pre><code>[1] 409.0831</code></pre>
 <pre class="r"><code>susie_plot(fit_z, y = &#39;PIP&#39;, b = beta)</code></pre>
 <p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-16-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/502824444b1bd61a72b247407a8361bc03c5ba35/docs/figure/SusieZProblem.Rmd/unnamed-chunk-16-1.png" target="_blank">5028244</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>Now we initialize at the truth (L=1), the model converges to a lower objective value.</p>
 <pre class="r"><code>s_init = susie_init_coef(data$beta_idx, data$beta_val, data$p)
 fit_z_init = susie_z(z, R=R, s_init = s_init)</code></pre>
@@ -759,6 +823,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/502824444b1bd61a72b247407a8361bc03c5ba35/docs/figure/SusieZProblem.Rmd/unnamed-chunk-18-1.png" target="_blank">5028244</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-18-1.png" target="_blank">a6cee3a</a>
@@ -815,6 +890,17 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/502824444b1bd61a72b247407a8361bc03c5ba35/docs/figure/SusieZProblem.Rmd/unnamed-chunk-21-1.png" target="_blank">5028244</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-01-17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-21-1.png" target="_blank">a6cee3a</a>
 </td>
 <td style="text-align:left;">
@@ -828,48 +914,21 @@ zouyuxin
 </table>
 <p></details></p>
 <p>It is clear from the plots that the Bayes Factor is under-estimated. The estimated <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\mu\)</span> are smaller.</p>
-<p>Now, we fit susie model using <span class="math inline">\(z_j(\sigma)\)</span> and <span class="math inline">\(z_j(\hat{\sigma}_j)\)</span>, with L = 5 and estimating the prior variance.</p>
+<p>Now, we fit susie model using <span class="math inline">\(z_j(\hat{\sigma}_j)\)</span> and <span class="math inline">\(z_j(\sigma)\)</span>, with L = 5 and estimating the prior variance.</p>
 <pre class="r"><code>fit_z_10_prior = susie_z(z=z, R=R, L=5)</code></pre>
 <pre><code>Warning in susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = L,
 estimate_prior_variance = TRUE, : IBSS algorithm did not converge in 100
 iterations!</code></pre>
+<p>The estimated prior variances for model using <span class="math inline">\(z_j(\hat{\sigma}_j)\)</span> are</p>
 <pre class="r"><code>susie_get_prior_variance(fit_z_10_prior)</code></pre>
 <pre><code>[1] 24449.0562  4961.9053  2624.2558  2017.4113   163.6263</code></pre>
-<pre class="r"><code>fit_z_10_true_prior = susie_z(z = z_true, R=R, L=5)
-susie_get_prior_variance(fit_z_10_true_prior)</code></pre>
+<pre class="r"><code>fit_z_10_true_prior = susie_z(z = z_true, R=R, L=5)</code></pre>
+<p>The estimated prior variances for model using <span class="math inline">\(z_j(\sigma)\)</span> are</p>
+<pre class="r"><code>susie_get_prior_variance(fit_z_10_true_prior)</code></pre>
 <pre><code>[1] 604.074353   3.315658   0.000000   0.000000   0.000000</code></pre>
+<p>The PIP for model using <span class="math inline">\(z_j(\sigma)\)</span>:</p>
 <pre class="r"><code>susie_plot(fit_z_10_true_prior, y=&#39;PIP&#39;, b=beta)</code></pre>
-<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-23-1.png:</em></summary>
-<table style="border-collapse:separate; border-spacing:5px;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Version
-</th>
-<th style="text-align:left;">
-Author
-</th>
-<th style="text-align:left;">
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-23-1.png" target="_blank">a6cee3a</a>
-</td>
-<td style="text-align:left;">
-zouyuxin
-</td>
-<td style="text-align:left;">
-2019-01-17
-</td>
-</tr>
-</tbody>
-</table>
-<p></details></p>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Using the true z, <span class="math inline">\(z_j(\sigma)\)</span>, the estimated prior variance for some L becomes zero. Using the estimated z, <span class="math inline">\(z_j(\hat{\sigma}_j)\)</span>, the estimated prior variance for all L are non-zero.</p>
 </div>
 <div id="five-effects" class="section level3">
@@ -881,8 +940,8 @@ beta = numeric(data$p)
 beta[data$beta_idx] = data$beta_val
 z = data$ss$effect/data$ss$se
 susie_plot(z, y = &quot;z&quot;, b=beta)</code></pre>
-<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-24-1.png:</em></summary>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-27-1.png:</em></summary>
 <table style="border-collapse:separate; border-spacing:5px;">
 <thead>
 <tr>
@@ -900,7 +959,7 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a6cee3aa148b6a726c19c834d7db9a7da8ea4f77/docs/figure/SusieZProblem.Rmd/unnamed-chunk-24-1.png" target="_blank">a6cee3a</a>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/502824444b1bd61a72b247407a8361bc03c5ba35/docs/figure/SusieZProblem.Rmd/unnamed-chunk-27-1.png" target="_blank">5028244</a>
 </td>
 <td style="text-align:left;">
 zouyuxin
@@ -912,7 +971,7 @@ zouyuxin
 </tbody>
 </table>
 <p></details></p>
-<p>Using z scores,</p>
+<p>Fit susie model using z scores,</p>
 <pre class="r"><code>fit_z = susie_z(z, R=R, max_iter = 20, L=5, track_fit = T)</code></pre>
 <pre><code>Warning in susie_ss(XtX = R, Xty = z, n = 2, var_y = 1, L = L,
 estimate_prior_variance = TRUE, : IBSS algorithm did not converge in 20
@@ -921,7 +980,7 @@ iterations!</code></pre>
 <pre class="r"><code>susie_get_objective(fit_z)</code></pre>
 <pre><code>[1] 525.9303</code></pre>
 <pre class="r"><code>susie_plot(fit_z, y = &#39;PIP&#39;, b = beta)</code></pre>
-<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Now we initialize at the truth, the model <strong>fails to converge</strong>.</p>
 <pre class="r"><code>s_init = susie_init_coef(data$beta_idx, data$beta_val, data$p)
 fit_z_init = susie_z(z, R=R, s_init = s_init)</code></pre>
@@ -931,18 +990,18 @@ iterations!</code></pre>
 <pre class="r"><code>susie_get_objective(fit_z_init)</code></pre>
 <pre><code>[1] 1089.854</code></pre>
 <pre class="r"><code>susie_plot(fit_z_init, y = &#39;PIP&#39;, b = beta)</code></pre>
-<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Changing the z score to <span class="math inline">\(z_j(\sigma)\)</span>, the model converges.</p>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Changing the z scores to <span class="math inline">\(z_j(\sigma)\)</span>, the model converges.</p>
 <pre class="r"><code>z_true = (t(X.s) %*% data$sim_y) / as.numeric(data$sigma)
 fit_z_5_true = susie_z(z = z_true, R=R, L=5)</code></pre>
 <p>The objective value is</p>
 <pre class="r"><code>susie_get_objective(fit_z_5_true)</code></pre>
 <pre><code>[1] 1119.521</code></pre>
-<p>The estimated prior variance is</p>
+<p>The estimated prior variances are</p>
 <pre class="r"><code>susie_get_prior_variance(fit_z_5_true)</code></pre>
 <pre><code>[1] 1467.02402  640.34084  185.85349   53.12493    0.00000</code></pre>
 <pre class="r"><code>susie_plot(fit_z_5_true, y = &#39;PIP&#39;, b = beta)</code></pre>
-<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SusieZProblem.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="session-information" class="section level2">
