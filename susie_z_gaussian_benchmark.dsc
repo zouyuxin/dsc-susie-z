@@ -6,7 +6,6 @@ sim_gaussian: simulate.R + \
   pve: 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.95
   effect_num: 1, 2, 5, 10, 20
   betaSigma: 1
-  $n: sim_gaussian_res$n
   $p: sim_gaussian_res$p
   $sigma: sim_gaussian_res$sigma
   $sim_y: sim_gaussian_res$sim_y
@@ -33,12 +32,12 @@ init_true: initialize.R + \
 
 # susie_z modulas
 susie_z: susie_z.R + \
-              R(susie_res = susie_z_analyze(pathR, ss, n, L, s_init))
+              R(susie_res = susie_z_analyze(pathR, ss, L, s_init, estimate_residual_variance))
   pathR: $pathR
   ss: $ss
-  n: $n
   L: 5, 20
   s_init: 0
+  estimate_residual_variance: TRUE, FALSE
   $fit: susie_res$fit
   $sets: susie_res$sets
   $cs: susie_res$cs

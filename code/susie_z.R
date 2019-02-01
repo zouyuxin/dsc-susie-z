@@ -1,11 +1,11 @@
 library(susieR)
 
-susie_z_analyze = function(pathR, ss, n, L, s_init) {
+susie_z_analyze = function(pathR, ss, L, s_init, estimate_residual_variance) {
   R = as.matrix(readRDS(pathR))
   if (!is.list(s_init)){
-    fit = susie_z(ss$effect/ss$se, R, L=L)
+    fit = susie_z(ss$effect/ss$se, R, L=L, estimate_residual_variance = estimate_residual_variance)
   } else {
-    fit = susie_z(ss$effect/ss$se, R, L=L, s_init=s_init)
+    fit = susie_z(ss$effect/ss$se, R, L=L, s_init=s_init, estimate_residual_variance = estimate_residual_variance)
   }
   # get credible sets
   sets = fit$sets
