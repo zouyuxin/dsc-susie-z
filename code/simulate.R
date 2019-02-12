@@ -27,7 +27,7 @@ sim_gaussian = function(X, pve, effect_num, pve_weight){
   if (effect_num==1){
     mean_corX = 1
   } else {
-    effectX = X[,beta.idx]
+    effectX = X.cs[,beta.idx]
     corX = cor(effectX)
     mean_corX = mean(abs(corX[lower.tri(corX)]))
   }
@@ -36,13 +36,13 @@ sim_gaussian = function(X, pve, effect_num, pve_weight){
     sim.y = rnorm(n, 0, 1)
     Y = (sim.y - mean(sim.y))/sd(sim.y)
   }else{
-    y = X %*% beta
+    y = X.cs %*% beta
     sigma = sqrt(var(y)*(1-pve)/pve)
     epsilon = rnorm(n, mean = 0, sd = sigma)
     sim.y = y + epsilon
     Y = (sim.y - mean(sim.y))/sd(sim.y)
   }
-  ss <- data.frame(t(apply(X, 2, FUN=function(x){
+  ss <- data.frame(t(apply(X.cs, 2, FUN=function(x){
     fit <- lm(Y~x)
     summary(fit)$coefficients[2,1:2]
   })))
