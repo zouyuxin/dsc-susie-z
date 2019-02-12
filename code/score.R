@@ -1,14 +1,15 @@
 #' @title Compute and save five variables for power, fdr, median confidence sets size, whether hit the top pip, whether fit has duplicates
 #'        we assume that if a susie confidence set contains a true signal, then that set is 'hit'
-#' @param cs a list a susie cs set from susie fit
-#' @param pip probability for p variables
+#' @param fit susie fit object
 #' @param beta_idx a vector of index for true signals
-#' @return hit a scalar the number of right cs sets
-#' @return signal_num a scalar the number of confidence sets
-#' @return cs_medianSize a scalar median of sizes for confidence sets
+#' @return valid a scalar the number of right cs sets
+#' @return total a scalar the number of confidence sets
+#' @return size a vector with size of each cs
+#' @return purity a vector with the purity of each cs
 #' @return top_hit a scalar counts how many confidence sets contain a true signal and the true signal has the highest pip
-#' @return dup_bool a boolean 1 if duplicated, 0 otherwise
-compute_scores = function(sets, pip, beta_idx){
+compute_scores = function(fit, beta_idx){
+  sets = fit$sets
+  pip = fit$pip
   cs = sets$cs
   if (is.null(cs)){
     size = 0
@@ -29,7 +30,7 @@ compute_scores = function(sets, pip, beta_idx){
       if(set.idx[hightest.idx] %in% beta_idx) top_hit = top_hit + 1
     }
   }
-  return(list(total=total, valid=valid, size=size, purity=purity, top=top_hit))
+  return(list(total=total, valid=valid, size=size, purity=purity, top=top_hit, converge = fit$converged))
 }
 
 #' @title Check if produced confidence sets are duplicated

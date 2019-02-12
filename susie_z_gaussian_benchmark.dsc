@@ -6,8 +6,8 @@ sim_gaussian: simulate.R + \
                 R(sim_gaussian_res=sim_gaussian(readRDS(pathX), pve, effect_num, equal_eff))
   pathX: $pathX
   pve: 0.01, 0.2, 0.6, 0.8
-  effect_num: 1, 2, 5, 10, 20
-  equal_eff: rep(1/effect_num, effect_num), c(rep(0.2/(effect_num-1), effect_num-1), 0.8)
+  effect_num: 1, 3, 5, 10
+  equal_eff: rep(1/effect_num, effect_num), c(rep(0.15/(effect_num-1), effect_num-1), 0.85)
   $p: sim_gaussian_res$p
   $sigma: sim_gaussian_res$sigma
   $sim_y: sim_gaussian_res$sim_y
@@ -37,7 +37,7 @@ susie_z: susie_z.R + \
               R(susie_res = susie_z_analyze(pathR, ss, L, s_init, estimate_residual_variance))
   pathR: $pathR
   ss: $ss
-  L: 5, 20
+  L: 5, 10
   s_init: 0
   estimate_residual_variance: TRUE
   $fit: susie_res
@@ -47,12 +47,10 @@ susie_z_large(susie_z):
 
 susie_z_init(susie_z):
   s_init: $s_init
-  L: 20
+  L: 10
 
 # score modules
-score: score.R + R(score_res=compute_scores(sets, pip, beta_idx))
-  sets: $(fit)$sets
-  pip: $(fit)$pip
+score: score.R + R(score_res=compute_scores($(fit), beta_idx))
   beta_idx: $beta_idx
   $total: score_res$total
   $valid: score_res$valid
