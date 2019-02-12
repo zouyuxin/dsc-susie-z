@@ -2,24 +2,31 @@
 #' @param X an n by p matrix
 #' @param pve a scalar percentage variance explained
 #' @param effect_num a scalar number of true nonzero effects
-#' @param beta.sigma a scalar that used for simulating betas
+#' @param equal_eff whether the signals are same
 #' @return train_n a scalar number of trainning samples
 #' @return sim_y an n vector simulated gaussian y
 #' @return beta_idx a effect_num-length vector that includes indices of effects
 #' @return beta_val a effect_num-length vector that includes beta values
 #' @return mean_corX mean of correlations of X (lower triangular entries of correlation matrix of X)
-sim_gaussian = function(X, pve, effect_num, beta.sigma){
-  if (is.na(beta.sigma)){
-    beta.sigma = 1
-  }
+sim_gaussian = function(X, pve, effect_num, equal_eff){
   X = as.matrix(X)
-  n = dim(X)[1]
-  p = dim(X)[2]
+  X.cs = susieR:::set_X_attributes(X, center=TRUE, scale = TRUE)
+  n = dim(X.cs)[1]
+  p = dim(X.cs)[2]
 
-  beta.values = rnorm(effect_num, 0, beta.sigma)
   beta.idx = sample(p, effect_num)
   beta = rep(0,p)
-  beta[beta.idx] = beta.values
+  beta.values = numeric(0)
+  if(effect_num > 0){
+    if(equal_eff){
+      effect_pve = rep(1/effect_num, effect_num)
+    }else{
+      effect_pve = c(0.85, rep(0.15/(effect_num-1), effect_num-1))
+    }
+    perpve = effect_pve * pve
+    beta.values = sqrt(perpve)
+    beta[beta.idx] = beta.values
+  }
 
   if (effect_num==1){
     mean_corX = 1
@@ -36,9 +43,10 @@ sim_gaussian = function(X, pve, effect_num, beta.sigma){
     sigma = sqrt(var(y)*(1-pve)/pve)
     epsilon = rnorm(n, mean = 0, sd = sigma)
     sim.y = y + epsilon
+    Y = (sim.y - mean(sim.y))/sd(sim.y)
   }
   ss <- data.frame(t(apply(X, 2, FUN=function(x){
-    fit <- lm(sim.y~x)
+    fit <- lm(Y~x)
     summary(fit)$coefficients[2,1:2]
   })))
   names(ss) <- c("effect", "se")

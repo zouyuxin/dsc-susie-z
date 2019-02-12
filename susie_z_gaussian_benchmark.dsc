@@ -1,11 +1,13 @@
+#!/usr/bin/env dsc
+
 # simulate modules
 
 sim_gaussian: simulate.R + \
-                R(sim_gaussian_res=sim_gaussian(readRDS(pathX), pve, effect_num, betaSigma))
+                R(sim_gaussian_res=sim_gaussian(readRDS(pathX), pve, effect_num, equal_eff))
   pathX: $pathX
-  pve: 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.95
+  pve: 0.01, 0.2, 0.6, 0.8
   effect_num: 1, 2, 5, 10, 20
-  betaSigma: 1
+  equal_eff: rep(1/effect_num, effect_num), c(rep(0.2/(effect_num-1), effect_num-1), 0.8)
   $p: sim_gaussian_res$p
   $sigma: sim_gaussian_res$sigma
   $sim_y: sim_gaussian_res$sim_y
@@ -17,7 +19,7 @@ sim_gaussian: simulate.R + \
 sim_gaussian_null(sim_gaussian):
   pve: 0
   effect_num: 0
-  betaSigma: 0
+  equal_eff: TRUE
 
 sim_gaussian_large(sim_gaussian):
   effect_num: 200
@@ -37,16 +39,8 @@ susie_z: susie_z.R + \
   ss: $ss
   L: 5, 20
   s_init: 0
-  estimate_residual_variance: TRUE, FALSE
-  $fit: susie_res$fit
-  $sets: susie_res$sets
-  $cs: susie_res$cs
-  $cs_index: susie_res$cs_index
-  $pip: susie_res$pip
-  $niter: susie_res$niter
-  $beta_est_idx: susie_res$beta_est_idx
-  $beta_est_val: susie_res$beta_est_val
-  $avg_purity: susie_res$avg_purity
+  estimate_residual_variance: TRUE
+  $fit: susie_res
 
 susie_z_large(susie_z):
   L: 201
@@ -56,15 +50,15 @@ susie_z_init(susie_z):
   L: 20
 
 # score modules
-score: score.R + R(score_res=compute_scores(cs, beta_idx, pip))
-  cs: $cs
+score: score.R + R(score_res=compute_scores(sets, pip, beta_idx))
+  sets: $(fit)$sets
+  pip: $(fit)$pip
   beta_idx: $beta_idx
-  pip: $pip
-  $hit: score_res$hit
-  $signal_num: score_res$signal_num
-  $cs_medianSize: score_res$cs_medianSize
-  $top_hit: score_res$top_hit
-  $dup_bool: score_res$dup_bool
+  $total: score_res$total
+  $valid: score_res$valid
+  $size: median(score_res$size)
+  $purity: median(score_res$purity)
+  $top: score_res$top
 
 DSC:
   run:
@@ -75,7 +69,7 @@ DSC:
   exec_path: code
   R_libs: MASS, susieR@stephenslab/susieR
   global:
-    pathX: "data/susie_X.rds"
-    pathR: "data/susie_R.rds"
-  output: output/susie_z_gaussian_benchmark
+    pathX: "data/X_random.rds"
+    pathR: "data/R_random.rds"
+  output: output/susie_z_estimate_residual_variance
 
