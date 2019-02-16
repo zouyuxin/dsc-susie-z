@@ -461,7 +461,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/d9e11bf4f94d4d5e6835949c23c921a31da9b65a" target="_blank">d9e11bf</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/d44b5acfe94fab13a991f6dd7eb8f64589bc282c" target="_blank">d44b5ac</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -473,16 +473,19 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
+    Untracked:  docs/P475full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf
+    Untracked:  docs/P475full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf
+    Untracked:  docs/P75full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf
+    Untracked:  docs/P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf
     Untracked:  docs/figure/test.Rmd/
-    Untracked:  output/P475full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf
-    Untracked:  output/P475full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf
-    Untracked:  output/P75full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf
-    Untracked:  output/P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf
     Untracked:  output/dscoutProblem475.rds
     Untracked:  output/dscoutProblem75.rds
 
 Unstaged changes:
-    Modified:   analysis/Problem475.Rmd
+    Deleted:    output/P475full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf
+    Deleted:    output/P475full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf
+    Deleted:    output/P75full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf
+    Deleted:    output/P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
@@ -511,6 +514,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d44b5acfe94fab13a991f6dd7eb8f64589bc282c/analysis/Problem75.Rmd" target="_blank">d44b5ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/Problem75.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/fb2ce30d8f44afd4efff792658d605bb8087644f/docs/Problem75.html" target="_blank">fb2ce30</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -650,8 +687,8 @@ zouyuxin
 </table>
 <p></details></p>
 <p>The model from DAP-G finds 8 credible sets, 1 of them contain true signals.</p>
-<p><a href="output/P75full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf" width="100%">DAP result: A is the probability of different credible set. B is the PIP of the top 10 SNPs</a></p>
-<p>The 95% confidence set from finemap contains 1000 SNPs, 1 of them are true signals. It prefers the model with 3 causal SNPs. Both finemap and dap have many false positives. <a href="output/P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf">finemap result</a></p>
+<p><a href="P75full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf">DAP result: A is the probability of different credible set. B is the PIP of the top 10 SNPs</a></p>
+<p>The 95% confidence set from finemap contains 1000 SNPs, 1 of them are true signals. It prefers the model with 3 causal SNPs. Both finemap and dap have many false positives. <a href="P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf">finemap result</a></p>
 <div class="figure" style="text-align: center">
 <img src="figure/Problem75.Rmd/unnamed-chunk-4-1.png" alt="finemap result: A is the posterior of number of causals. B is the probability of different configuration. C is the PIP of the top 10 SNPs." width="100%" />
 <p class="caption">
