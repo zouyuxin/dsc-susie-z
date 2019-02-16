@@ -41,9 +41,9 @@ susie_plot(fit_susie$fitted[[1]], y = 'PIP', b = beta)
 
 The model from DAP-G finds 6 credible sets, 3 of them contain true signals. 
 
-![DAP result: A is the probability of different credible set. B is the PIP of the top 10 SNPs](output/P475full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf){width=100%}
+[DAP result: A is the probability of different credible set. B is the PIP of the top 10 SNPs](output/P475full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf){width=100%}
 
-The 95% confidence set from finemap contains 28 SNPs, 3 of them are true signals.
+The 95% confidence set from finemap contains 28 SNPs, 3 of them are true signals. [finemap result](output/P475full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf)
 
 ```{r fig.align='center', fig.cap=c("finemap result: A is the posterior of number of causals. B is the probability of different configuration. C is the PIP of the top 10 SNPs."), echo=FALSE, out.width = '100%'}
 imgfinemap <- readPNG('output/P475full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.png')
