@@ -13,6 +13,7 @@ The simulated data has 5 true effects. The PVE is 0.8.
 library(kableExtra)
 library(knitr)
 library(susieR)
+library(png)
 data = readRDS('data/sim_gaussian_475.rds')
 n = data$n
 beta = numeric(data$p)
@@ -40,25 +41,14 @@ susie_plot(fit_susie$fitted[[1]], y = 'PIP', b = beta)
 
 The model from DAP-G finds 6 credible sets, 3 of them contain true signals. 
 
-![DAP result: A is the probability of different credible set. B is the PIP of the top 10 SNPs](output/full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf)
-
-<!--
-```{r, fig.align="center", fig.cap=c("DAP result: A is the probability of different credible set. B is the PIP of the top 10 SNPs"), echo=FALSE}
-knitr::include_graphics("./output/full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf")
-```
--->
+![DAP result: A is the probability of different credible set. B is the PIP of the top 10 SNPs](output/P475full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf){width=100%}
 
 The 95% confidence set from finemap contains 28 SNPs, 3 of them are true signals.
 
-![finemap result: A is the posterior of number of causals. B is the probability of different configuration. C is the PIP of the top 10 SNPs](./output/full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf){width=90%}
-
-<!--
-\begin{figure}
-\includegraphics{'output/full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf'}
-\caption{finemap result: A is the posterior of number of causals. B is the probability of different configuration. C is the PIP of the top 10 SNPs.}
-\end{figure}
--->
-
+```{r fig.align='center', fig.cap=c("finemap result: A is the posterior of number of causals. B is the probability of different configuration. C is the PIP of the top 10 SNPs."), echo=FALSE, out.width = '100%'}
+imgfinemap <- readPNG('output/P475full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.png')
+grid::grid.raster(imgfinemap)
+```
 
 Comparing the PIP for the true signal:
 ```{r}
