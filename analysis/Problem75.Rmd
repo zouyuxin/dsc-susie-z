@@ -1,0 +1,80 @@
+---
+title: "Probelm set investigate"
+author: "Yuxin Zou"
+date: 2019-2-14
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+The simulated data has 1 true effects. The PVE is 0.5.
+
+```{r}
+library(kableExtra)
+library(knitr)
+library(susieR)
+library(png)
+data = readRDS('data/sim_gaussian_75.rds')
+n = data$n
+beta = numeric(data$p)
+beta[data$beta_idx] = data$beta_val
+z = data$ss$effect/data$ss$se
+susie_plot(z, y = "z", b=beta)
+```
+
+The true signals are at `r which(beta!=0)`.
+
+```{r eval=FALSE, echo=FALSE}
+library(dscrutils)
+dscout = dscquery('output/susie_z_Problem75', target = 'score_susie score_dap score_finemap score_susie.total score_susie.valid score_susie.size score_susie.purity score_susie.top score_susie.objective score_susie.converged score_susie.overlap score_susie.signal_pip score_dap.total score_dap.valid score_dap.size score_dap.avgr2 score_dap.top score_dap.overlap score_dap.signal_pip score_finemap.total score_finemap.valid score_finemap.size score_finemap.signal_pip')
+```
+
+```{r}
+dscout = readRDS('output/dscoutProblem75.rds')
+fit_susie = readRDS('~/Documents/GitHub/dsc-finemap/output/susie_z_Problem75/susie_z/full_data_1_get_sumstats_1_susie_z_1.rds')
+```
+
+Using `SuSiE z`, it captures the causal SNPs. The PIP plot is
+```{r susie_z, echo=FALSE, fig.cap="SuSiE z PIP", out.width = '100%'}
+susie_plot(fit_susie$fitted[[1]], y = 'PIP', b = beta)
+```
+
+The model from DAP-G finds 8 credible sets, 1 of them contain true signals. 
+
+![DAP result: A is the probability of different credible set. B is the PIP of the top 10 SNPs](output/P75full_data_1_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf){width=100%}
+
+The 95% confidence set from finemap contains 1000 SNPs, 1 of them are true signals. It prefers the model with 3 causal SNPs. Both finemap and dap have many false positives. 
+
+```{r fig.align='center', fig.cap=c("finemap result: A is the posterior of number of causals. B is the probability of different configuration. C is the PIP of the top 10 SNPs."), echo=FALSE, out.width = '100%'}
+imgfinemap <- readPNG('output/P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.png')
+grid::grid.raster(imgfinemap)
+```
+
+Comparing the PIP for the true signal:
+```{r}
+susie_pip = matrix(as.numeric(dscout[1, 11]), 1,1)
+dap_pip = matrix(as.numeric(dscout[3, 19]), 1,1)
+finemap_pip = matrix(as.numeric(dscout[4, 24]), 1,1)
+tmp = rbind(susie_pip, dap_pip, finemap_pip)
+row.names(tmp) = c('susie z', 'dap', 'finemap')
+colnames(tmp) = paste0('Signal ', 1)
+tmp %>% kable() %>% kable_styling()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
