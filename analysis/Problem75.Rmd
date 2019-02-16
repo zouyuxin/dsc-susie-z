@@ -48,8 +48,9 @@ The 95% confidence set from finemap contains 1000 SNPs, 1 of them are true signa
 ![finemap result: A is the posterior of number of causals. B is the probability of different configuration. C is the PIP of the top 10 SNPs.](P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf){width=100%;height=100%}
 
 ```{r fig.align='center', fig.cap=c("finemap result: A is the posterior of number of causals. B is the probability of different configuration. C is the PIP of the top 10 SNPs."), echo=FALSE, out.width = '100%'}
-imgfinemap <- readPNG('output/P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.png')
-grid::grid.raster(imgfinemap)
+knitr::include_graphics('output/P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf')
+# imgfinemap <- readPNG('output/P75full_data_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.png')
+# grid::grid.raster(imgfinemap)
 ```
 
 Comparing the PIP for the true signal:
