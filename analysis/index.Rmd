@@ -13,3 +13,7 @@ Welcome to my research website.
 * [SuSiE z convergence](SusieZConverge.html)
 
 * [SuSiE z Problem](SusieZProblem.html)
+
+* [Problem 75](Problem75.html)
+
+* [Problem 475](Problem475.html)
