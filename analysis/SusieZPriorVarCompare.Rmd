@@ -9,8 +9,8 @@ output:
 
 ```{r eval=FALSE}
 library(dscrutils)
-dscout = dscquery('susie_z_v', target='sim_gaussian.pve sim_gaussian.n_signal sim_gaussian.effect_weight susie_z_uniroot.L susie_z_em.L susie_z_optim.L susie_z_uniroot.optimV_method susie_z_em.optimV_method susie_z_optim.optimV_method score_susie.objective score_susie.converged score_susie.total score_susie.valid susie_z_uniroot.DSC_TIME susie_z_em.DSC_TIME susie_z_optim.DSC_TIME')
-colnames(dscout) = c('DSC', 'pve', 'n_signal', 'effect_weight', 'L_uniroot', 'method_uniroot','Time_uniroot', 'L_em', 'method_em', 'Time_em', 'L_optim', 'method_optim', 'Time_optim', 'objective', 'converged', 'total', 'valid')
+dscout = dscquery('susie_z_v', target='score_susie sim_gaussian.pve sim_gaussian.n_signal sim_gaussian.effect_weight susie_z_uniroot.L susie_z_em.L susie_z_optim.L susie_z_uniroot.optimV_method susie_z_em.optimV_method susie_z_optim.optimV_method score_susie.objective score_susie.converged score_susie.total score_susie.valid susie_z_uniroot.DSC_TIME susie_z_em.DSC_TIME susie_z_optim.DSC_TIME')
+colnames(dscout) = c('DSC', 'output.file', 'objective', 'converged', 'total', 'valid', 'pve', 'n_signal', 'effect_weight', 'L_uniroot', 'method_uniroot','Time_uniroot', 'L_em', 'method_em', 'Time_em', 'L_optim', 'method_optim', 'Time_optim')
 dscout$effect_weight[which(dscout$effect_weight == 'rep(1/n_signal, n_signal)')] = 'equal'
 dscout$effect_weight[which(dscout$effect_weight != 'equal')] = 'notequal'
 method = dscout$method_uniroot
@@ -23,19 +23,21 @@ Time = dscout$Time_uniroot
 Time[!is.na(dscout$Time_em)] = dscout$Time_em[!is.na(dscout$Time_em)]
 Time[!is.na(dscout$Time_optim)] = dscout$Time_optim[!is.na(dscout$Time_optim)]
 dscout = cbind(dscout, method, L, Time)
-dscout = dscout[, -c(5:13)]
+dscout = dscout[, -c(10:18)]
 ```
 
 ```{r}
 library(dplyr)
 library(knitr)
 library(kableExtra)
+library(susieR)
 dscout = readRDS('output/dsc_susie_z_v_output.rds')
 ```
 
 We randomly generate X from N(0,1), n = 1200, p = 1000. 
 
 We randomly generate the response based on different number of signals (1, 3, 5, 10), pve (0.01, 0.2, 0.6, 0.8), whether the signals have the same effect size. We fit SuSiE model with L = 5 and 10. 
+
 We perform simulations to compare three methods `uniroot`, `em` and `optim`. There are 100 replicates in the simulation. Therefore 19200 models in total.
 
 All SuSiE models converge.
@@ -64,7 +66,7 @@ hist(optim.obj - uniroot.obj, main='Objective optim-uniroot', breaks=50)
 hist(optim.obj - em.obj, main='Objective optim-em', breaks=50)
 ```
 
-Therefore, the objective from the three different methods are similar in most cases. `EM` and `optim` obtain much higher objective than `uniroot` in some cases. In some cases, the difference between objectives from `uniroot` and `optim` (or `em`) is more than 200.
+Therefore, the objectives from the three different methods are similar in most cases. `EM` and `optim` obtain much higher objective than `uniroot` in some cases. In some cases, the difference between objectives from `uniroot` and `optim` (or `em`) is more than 200.
 
 ```{r}
 em_uni = optim_uni = optim_em = matrix(NA,1,2)
@@ -82,7 +84,7 @@ colnames(em_uni) = colnames(optim_uni) = colnames(optim_em) = paste0('equal_', c
 
 ```
 
-Despite the different scenarios in the simulations, the performance of difference methods are different only related to whether the effect size are equal.
+Despite the different pves and number of effects in the simulations, the performance of different methods are different only related to whether the effect sizes are equal.
 
 The proportion of time the objective of em is higher than uniroot:
 ```{r}
@@ -106,3 +108,33 @@ library(ggplot2)
 p <- ggplot(dscout, aes(x=method, y=Time)) + facet_wrap(~effect_weight)+ geom_violin(trim = FALSE) + coord_flip() + stat_summary(fun.y=mean, geom="point", shape=23, size=2)
 p
 ```
+
+We measure the seconds the model converges under different methods. `EM` and `optim` use longer time than `uniroot` (probably more iterations). This result is not very reliable because I submitted the DSC jobs on RCC. The running time depends on the task node.
+
+## One example
+
+The simulated data has pve 0.8, the number of signals is 3.
+
+```{r}
+data76.X = readRDS('output/random_data_76.rds')
+data76.y = readRDS('output/random_data_76_sim_gaussian_8.rds')
+data76.sum = readRDS('output/random_data_76_sim_gaussian_8_get_sumstats_1.rds')
+
+R = cor(data76.X$X)
+time.optim = system.time(m_optim <- susieR::susie_z(data76.sum$sumstats$bhat/data76.sum$sumstats$shat, R = R, L=5, optimV_method = 'optim', max_iter = 1000))['elapsed']
+
+time.em = system.time(m_em <- susieR::susie_z(data76.sum$sumstats$bhat/data76.sum$sumstats$shat, R = cor(data76.X$X), L=5, optimV_method = 'EM', max_iter = 1000))['elapsed']
+
+time.uniroot = system.time(m_uniroot <- susieR::susie_z(data76.sum$sumstats$bhat/data76.sum$sumstats$shat, R = cor(data76.X$X), L=5, optimV_method = 'uniroot', max_iter = 1000))['elapsed']
+```
+
+```{r}
+Time = c(time.uniroot, time.em, time.optim)
+niter = c(m_uniroot$niter, m_em$niter, m_optim$niter)
+objective = c(susie_get_objective(m_uniroot), susie_get_objective(m_em), susie_get_objective(m_optim))
+res = rbind(Time, niter, objective)
+colnames(res) = c('uniroot', 'EM', 'optim')
+res %>% kable() %>% kable_styling()
+```
+
+The objectives from `em` and `optim` are similar, and it's much higher than the one from `uniroot`. The `optim` method uses more than 100 iterations to converge. 
