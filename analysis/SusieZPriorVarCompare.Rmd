@@ -1,0 +1,108 @@
+---
+title: "SuSiE z Estimate Prior Variance Methods Comparison"
+author: "Yuxin Zou"
+date: 2019-02-17
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r eval=FALSE}
+library(dscrutils)
+dscout = dscquery('susie_z_v', target='sim_gaussian.pve sim_gaussian.n_signal sim_gaussian.effect_weight susie_z_uniroot.L susie_z_em.L susie_z_optim.L susie_z_uniroot.optimV_method susie_z_em.optimV_method susie_z_optim.optimV_method score_susie.objective score_susie.converged score_susie.total score_susie.valid susie_z_uniroot.DSC_TIME susie_z_em.DSC_TIME susie_z_optim.DSC_TIME')
+colnames(dscout) = c('DSC', 'pve', 'n_signal', 'effect_weight', 'L_uniroot', 'method_uniroot','Time_uniroot', 'L_em', 'method_em', 'Time_em', 'L_optim', 'method_optim', 'Time_optim', 'objective', 'converged', 'total', 'valid')
+dscout$effect_weight[which(dscout$effect_weight == 'rep(1/n_signal, n_signal)')] = 'equal'
+dscout$effect_weight[which(dscout$effect_weight != 'equal')] = 'notequal'
+method = dscout$method_uniroot
+method[dscout$method_em == 'EM'] = 'em'
+method[dscout$method_optim == 'optim'] = 'optim'
+L = dscout$L_uniroot
+L[!is.na(dscout$L_em)] = dscout$L_em[!is.na(dscout$L_em)]
+L[!is.na(dscout$L_optim)] = dscout$L_optim[!is.na(dscout$L_optim)]
+Time = dscout$Time_uniroot
+Time[!is.na(dscout$Time_em)] = dscout$Time_em[!is.na(dscout$Time_em)]
+Time[!is.na(dscout$Time_optim)] = dscout$Time_optim[!is.na(dscout$Time_optim)]
+dscout = cbind(dscout, method, L, Time)
+dscout = dscout[, -c(5:13)]
+```
+
+```{r}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+dscout = readRDS('output/dsc_susie_z_v_output.rds')
+```
+
+We randomly generate X from N(0,1), n = 1200, p = 1000. 
+
+We randomly generate the response based on different number of signals (1, 3, 5, 10), pve (0.01, 0.2, 0.6, 0.8), whether the signals have the same effect size. We fit SuSiE model with L = 5 and 10. 
+We perform simulations to compare three methods `uniroot`, `em` and `optim`. There are 100 replicates in the simulation. Therefore 19200 models in total.
+
+All SuSiE models converge.
+
+```{r}
+sum(dscout$converged)
+```
+
+## Whether fit objectives of EM and optim are higher than that of uniroot?
+
+```{r}
+uniroot.obj = dscout$objective[dscout$method == 'uniroot']
+em.obj = dscout$objective[dscout$method == 'em']
+optim.obj = dscout$objective[dscout$method == 'optim']
+```
+
+```{r}
+hist(em.obj - uniroot.obj, main='Objective EM-uniroot', breaks=50)
+```
+
+```{r}
+hist(optim.obj - uniroot.obj, main='Objective optim-uniroot', breaks=50)
+```
+
+```{r}
+hist(optim.obj - em.obj, main='Objective optim-em', breaks=50)
+```
+
+Therefore, the objective from the three different methods are similar in most cases. `EM` and `optim` obtain much higher objective than `uniroot` in some cases. In some cases, the difference between objectives from `uniroot` and `optim` (or `em`) is more than 200.
+
+```{r}
+em_uni = optim_uni = optim_em = matrix(NA,1,2)
+weight = unique(dscout$effect_weight)
+for(j in 1:2){
+  tmp = dscout %>% filter(effect_weight == weight[j])
+  uniroot.obj = tmp$objective[tmp$method == 'uniroot']
+  em.obj = tmp$objective[tmp$method == 'em']
+  optim.obj = tmp$objective[tmp$method == 'optim']
+  em_uni[1,j] = sum(em.obj > uniroot.obj)/3200
+  optim_uni[1,j] = sum(optim.obj > uniroot.obj)/3200
+  optim_em[1,j] = sum(optim.obj > em.obj)/3200
+}
+colnames(em_uni) = colnames(optim_uni) = colnames(optim_em) = paste0('equal_', c('T', 'F'))
+
+```
+
+Despite the different scenarios in the simulations, the performance of difference methods are different only related to whether the effect size are equal.
+
+The proportion of time the objective of em is higher than uniroot:
+```{r}
+em_uni %>% kable() %>% kable_styling()
+```
+
+The proportion of time the objective of optim is higher than uniroot:
+```{r}
+optim_uni %>% kable() %>% kable_styling()
+```
+
+The proportion of time the objective of optim is higher than em:
+```{r}
+optim_em %>% kable() %>% kable_styling()
+```
+
+## Computing speed
+
+```{r}
+library(ggplot2)
+p <- ggplot(dscout, aes(x=method, y=Time)) + facet_wrap(~effect_weight)+ geom_violin(trim = FALSE) + coord_flip() + stat_summary(fun.y=mean, geom="point", shape=23, size=2)
+p
+```
