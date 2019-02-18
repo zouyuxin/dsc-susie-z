@@ -17,3 +17,5 @@ Welcome to my research website.
 * [Problem 75](Problem75.html)
 
 * [Problem 475](Problem475.html)
+
+* [SuSiE estimate prior variance comparison](SusieZPriorVarCompare.html)
