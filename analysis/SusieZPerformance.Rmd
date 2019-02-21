@@ -1,0 +1,177 @@
+---
+title: "SuSiE z Performance"
+author: "Yuxin Zou"
+date: 2019-02-19
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+The credible sets information from SuSiE and DAP are comparable. The credible set contains one causal variable with at least 95% posterior probability. However, there is no credible set for signals in FINEMAP. We generate the credible set of causal signals as the union of the variables included in the smallest set of causal configurations that already covered 95% of the total posterior probability.
+
+We randomly generated 1200 by 1000 matrix X, each entry is random from N(0,1). 
+
+## Simulation under null
+
+We random generate 100 null y.
+
+```{r eval=FALSE}
+library(dscrutils)
+dscout = dscquery('output/finemap_compare_random_data_null', target='method score_susie.converged score.total score.valid score.size score_susie.purity score_dap.avgr2',group = c("score: score_susie score_finemap score_dap", "method: susie_z susie_z_init finemap dap_z"))
+colnames(dscout) = c('DSC', 'method', 'output.file', 'score', 'total', 'valid', 'size', 'converged', 'purity', 'avgr2')
+```
+
+```{r}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(susieR)
+dscout = readRDS('output/finemap_compare_random_data_null_dscout.rds')
+dscout.susie = dscout[dscout$method == 'susie_z',]
+dscout.susie.init = dscout[dscout$method == 'susie_z_init',]
+dscout.finemap = dscout[dscout$method == 'finemap',]
+dscout.dap = dscout[dscout$method == 'dap_z',]
+```
+
+```{r}
+total = aggregate(total ~ method, dscout, sum)
+size = aggregate(size ~ method, dscout, sum)
+res = merge(total, size)
+res %>% kable() %>% kable_styling()
+```
+
+There are no false discoveries for SuSiE z and DAP. For FINEMAP, there is no posterior probability of zero causal. The posterior probability for each configuration is very small. The credible set contains all variables. [One example for FINEMAP](output/random_data_100_sim_gaussian_null_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf)
+
+How to summarize FINEMAP result?
+
+## Simulation with signals
+
+We simulate a gaussian y under various number of causal variables, total percentage of variance explained (PVE) and whether the signals have equal effect. The reason I control the effect size is that if we random generate the effect size for the signals, some signals have large effect size by chance. Therefore these signals have larger PVE.
+
+We fit SuSiE with L = 5, FINEMAP with max 5 causals.
+
+```{r eval=FALSE}
+library(dscrutils)
+dscout = dscquery('output/finemap_compare_random_data_signal', target='method sim_gaussian.pve sim_gaussian.n_signal sim_gaussian.effect_weight score_susie.objective score_susie.converged score.total score.valid score.size score.signal_pip score_susie.purity score_dap.avgr2 score_susie.top score_dap.top score_susie.overlap score_dap.overlap ',group = c("score: score_susie score_finemap score_dap", "method: susie_z susie_z_init finemap dap_z"))
+
+colnames(dscout) = c('DSC', 'method', 'output.file', 'pve', 'n_signal', 'effect_weight', 'score', 'total', 'valid', 'size', 'signal_pip', 'objective', 'converged', 'purity', 'top', 'overlap', 'avgr2')
+dscout$effect_weight[which(dscout$effect_weight == 'rep(1/n_signal, n_signal)')] = 'equal'
+dscout$effect_weight[which(dscout$effect_weight != 'equal')] = 'notequal'
+```
+
+```{r}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(susieR)
+dscout = readRDS('output/finemap_compare_random_data_signal_dscout.rds')
+dscout.susie = dscout[dscout$method == 'susie_z',]
+dscout.susie.init = dscout[dscout$method == 'susie_z_init',]
+dscout.finemap = dscout[dscout$method == 'finemap',]
+dscout.dap = dscout[dscout$method == 'dap_z',]
+```
+
+Size of CS: 
+
+SuSiE and DAP performs similarly.
+```{r}
+size.susie = aggregate(size~effect_weight+n_signal+pve, dscout.susie, median)
+colnames(size.susie)[colnames(size.susie) == 'size'] <- 'size.susie'
+size.susie.init = aggregate(size~effect_weight+n_signal+pve, dscout.susie.init, median)
+colnames(size.susie.init)[colnames(size.susie.init) == 'size'] <- 'size.susie.init'
+size.finemap = aggregate(size~effect_weight+n_signal+pve, dscout.finemap, median)
+colnames(size.finemap)[colnames(size.finemap) == 'size'] <- 'size.finemap'
+size.dap = aggregate(size~pve+n_signal+effect_weight, dscout.dap, median)
+colnames(size.dap)[colnames(size.dap) == 'size'] <- 'size.dap'
+
+size = Reduce(function(...) merge(...),
+       list(size.susie, size.susie.init, size.dap, size.finemap))
+size %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+Purity of CS
+```{r}
+purity.susie = aggregate(purity~effect_weight+n_signal+pve, dscout.susie, mean)
+colnames(purity.susie)[colnames(purity.susie) == 'purity'] <- 'purity.susie'
+purity.susie.init = aggregate(purity~effect_weight+n_signal+pve, dscout.susie.init, mean)
+colnames(purity.susie.init)[colnames(purity.susie.init) == 'purity'] <- 'purity.susie.init'
+purity.dap = aggregate(avgr2~effect_weight+n_signal+pve, dscout.dap, mean)
+colnames(purity.dap)[colnames(purity.dap) == 'avgr2'] <- 'avgr2.dap'
+
+purity = Reduce(function(...) merge(...),
+       list(purity.susie, purity.susie.init, purity.dap))
+purity %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+Power
+```{r}
+valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.susie, sum)
+total = aggregate(DSC~ effect_weight + n_signal + pve, dscout.susie, length)
+total$total_true = total$DSC * total$n_signal
+power.susie = merge(valid, total)
+power.susie$power.susie = round(power.susie$valid/(power.susie$total_true), 3)
+colnames(power.susie)[colnames(power.susie) == 'valid'] <- 'valid.susie'
+
+valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.susie.init, sum)
+total = aggregate(DSC~ effect_weight + n_signal + pve, dscout.susie.init, length)
+total$total_true = total$DSC * total$n_signal
+power.susie.init = merge(valid, total)
+power.susie.init$power.susie.init = round(power.susie.init$valid/(power.susie.init$total_true), 3)
+colnames(power.susie.init)[colnames(power.susie.init) == 'valid'] <- 'valid.susie.init'
+
+valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.dap, sum)
+total = aggregate(DSC~ effect_weight + n_signal + pve, dscout.dap, length)
+total$total_true = total$DSC * total$n_signal
+power.dap = merge(valid, total)
+power.dap$power.dap = round(power.dap$valid/(power.dap$total_true), 3)
+colnames(power.dap)[colnames(power.dap) == 'valid'] <- 'valid.dap'
+
+valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.finemap, sum)
+total = aggregate(DSC ~ effect_weight + n_signal + pve, dscout.finemap, length)
+total$total_true = total$DSC * total$n_signal
+power.finemap = merge(valid, total)
+power.finemap$power.finemap = round(power.finemap$valid/(power.finemap$total_true),3)
+colnames(power.finemap)[colnames(power.finemap) == 'valid'] <- 'valid.finemap'
+
+power = Reduce(function(...) merge(...),
+       list(power.susie, power.susie.init, power.dap, power.finemap))
+power = power[,-4]
+power %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F) %>% add_header_above(c(" ", " ", " "," ", "SuSiE z" = 2, "SuSiE z init" = 2,"DAP" = 2, "FINEMAP" = 2))
+```
+
+FDR
+```{r}
+valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.susie, sum)
+total = aggregate(total~ effect_weight + n_signal + pve, dscout.susie, sum)
+fdr.susie = merge(valid, total)
+fdr.susie$fdr.susie = round((fdr.susie$total - fdr.susie$valid)/fdr.susie$total, 4)
+colnames(fdr.susie)[colnames(fdr.susie) == 'valid'] <- 'valid.susie'
+fdr.susie = fdr.susie[,-5]
+
+valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.susie.init, sum)
+total = aggregate(total~ effect_weight + n_signal + pve, dscout.susie.init, sum)
+fdr.susie.init = merge(valid, total)
+fdr.susie.init$fdr.susie.init = round((fdr.susie.init$total - fdr.susie.init$valid)/fdr.susie.init$total, 4)
+colnames(fdr.susie.init)[colnames(fdr.susie.init) == 'valid'] <- 'valid.susie.init'
+fdr.susie.init = fdr.susie.init[,-5]
+
+valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.dap, sum)
+total = aggregate(total ~ effect_weight + n_signal + pve, dscout.dap, sum)
+fdr.dap = merge(valid, total)
+fdr.dap$fdr.dap = round((fdr.dap$total - fdr.dap$valid)/fdr.dap$total, 4)
+colnames(fdr.dap)[colnames(fdr.dap) == 'valid'] <- 'valid.dap'
+fdr.dap = fdr.dap[,-5]
+
+valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.finemap, sum)
+total = aggregate(size ~ effect_weight + n_signal + pve, dscout.finemap, sum)
+fdr.finemap = merge(valid, total)
+fdr.finemap$fdr.finemap = round((fdr.finemap$size - fdr.finemap$valid)/fdr.finemap$size, 4)
+colnames(fdr.finemap)[colnames(fdr.finemap) == 'valid'] <- 'valid.finemap'
+fdr.finemap = fdr.finemap[,-5]
+
+fdr = Reduce(function(...) merge(...),
+       list(fdr.susie, fdr.susie.init, fdr.dap, fdr.finemap))
+
+fdr %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F) %>% add_header_above(c(" ", " ", " ", "SuSiE z" = 2, "SuSiE z init" = 2,"DAP" = 2, "FINEMAP" = 2))
+```
+
