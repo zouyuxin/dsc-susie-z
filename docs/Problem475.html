@@ -437,7 +437,7 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2019-02-15</p>
+<p><strong>Last updated:</strong> 2019-02-21</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
@@ -461,7 +461,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/d399bc49032e702ef7082122e818e8347e032e52" target="_blank">d399bc4</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/dcc71b6d5b7e2a7a9a77e3b8dfaa71d8120634fb" target="_blank">dcc71b6</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -469,6 +469,7 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    .sos/
+    Ignored:    analysis/figure/
     Ignored:    data/.DS_Store
     Ignored:    output/.DS_Store
 
@@ -476,6 +477,16 @@ Untracked files:
     Untracked:  docs/figure/test.Rmd/
     Untracked:  output/dscoutProblem475.rds
     Untracked:  output/dscoutProblem75.rds
+    Untracked:  output/finemap_compare_random_data_null_dscout.rds
+    Untracked:  output/finemap_compare_random_data_signal_dscout.rds
+    Untracked:  output/random_data_100_sim_gaussian_null_1_get_sumstats_1_finemap_1.rds
+    Untracked:  output/random_data_76.rds
+    Untracked:  output/random_data_76_sim_gaussian_8.rds
+    Untracked:  output/random_data_76_sim_gaussian_8_get_sumstats_1.rds
+
+Unstaged changes:
+    Modified:   analysis/SusieZPerformance.Rmd
+    Modified:   output/dsc_susie_z_v_output.rds
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
@@ -504,6 +515,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/dcc71b6d5b7e2a7a9a77e3b8dfaa71d8120634fb/analysis/Problem475.Rmd" target="_blank">dcc71b6</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-02-21
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/Problem475.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/0c5a0b81c1a12474d8a87902f5eac89b6cb84d55/docs/Problem475.html" target="_blank">0c5a0b8</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -707,7 +752,7 @@ zouyuxin
 <p>The true signals are at 164, 474, 850, 855, 892.</p>
 <pre class="r"><code>dscout = readRDS(&#39;output/dscoutProblem475.rds&#39;)
 fit_susie = readRDS(&#39;~/Documents/GitHub/dsc-finemap/output/susie_z_Problem475/susie_z/full_data_1_get_sumstats_1_susie_z_1.rds&#39;)</code></pre>
-Using <code>SuSiE z</code>, it captures 2 causal SNPs. The PIP plot is
+Using <code>SuSiE z</code>, it captures 2 causal SNPs. One credible set has one SNP, the other credible set contains 11 SNPs. The PIP plot is
 <div class="figure" style="text-align: center">
 <img src="figure/Problem475.Rmd/susie_z-1.png" alt="SuSiE z PIP" width="100%" />
 <p class="caption">
