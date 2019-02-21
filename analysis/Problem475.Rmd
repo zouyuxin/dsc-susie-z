@@ -34,7 +34,7 @@ dscout = readRDS('output/dscoutProblem475.rds')
 fit_susie = readRDS('~/Documents/GitHub/dsc-finemap/output/susie_z_Problem475/susie_z/full_data_1_get_sumstats_1_susie_z_1.rds')
 ```
 
-Using `SuSiE z`, it captures 2 causal SNPs. The PIP plot is
+Using `SuSiE z`, it captures 2 causal SNPs. One credible set has one SNP, the other credible set contains 11 SNPs. The PIP plot is
 ```{r susie_z, echo=FALSE, fig.cap="SuSiE z PIP", out.width = '100%'}
 susie_plot(fit_susie$fitted[[1]], y = 'PIP', b = beta)
 ```
