@@ -71,17 +71,17 @@ dscout.finemap = dscout[dscout$method == 'finemap',]
 dscout.dap = dscout[dscout$method == 'dap_z',]
 ```
 
-Size of CS: 
+* Size of CS: 
 
 SuSiE and DAP performs similarly.
 ```{r}
-size.susie = aggregate(size~effect_weight+n_signal+pve, dscout.susie, median)
+size.susie = aggregate(size~effect_weight+n_signal+pve, dscout.susie, mean)
 colnames(size.susie)[colnames(size.susie) == 'size'] <- 'size.susie'
-size.susie.init = aggregate(size~effect_weight+n_signal+pve, dscout.susie.init, median)
+size.susie.init = aggregate(size~effect_weight+n_signal+pve, dscout.susie.init, mean)
 colnames(size.susie.init)[colnames(size.susie.init) == 'size'] <- 'size.susie.init'
-size.finemap = aggregate(size~effect_weight+n_signal+pve, dscout.finemap, median)
+size.finemap = aggregate(size~effect_weight+n_signal+pve, dscout.finemap, mean)
 colnames(size.finemap)[colnames(size.finemap) == 'size'] <- 'size.finemap'
-size.dap = aggregate(size~pve+n_signal+effect_weight, dscout.dap, median)
+size.dap = aggregate(size~pve+n_signal+effect_weight, dscout.dap, mean)
 colnames(size.dap)[colnames(size.dap) == 'size'] <- 'size.dap'
 
 size = Reduce(function(...) merge(...),
@@ -89,7 +89,8 @@ size = Reduce(function(...) merge(...),
 size %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
 ```
 
-Purity of CS
+* Purity of CS:
+
 ```{r}
 purity.susie = aggregate(purity~effect_weight+n_signal+pve, dscout.susie, mean)
 colnames(purity.susie)[colnames(purity.susie) == 'purity'] <- 'purity.susie'
@@ -103,7 +104,8 @@ purity = Reduce(function(...) merge(...),
 purity %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
 ```
 
-Power
+* Power:
+
 ```{r}
 valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.susie, sum)
 total = aggregate(DSC~ effect_weight + n_signal + pve, dscout.susie, length)
@@ -139,7 +141,7 @@ power = power[,-4]
 power %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F) %>% add_header_above(c(" ", " ", " "," ", "SuSiE z" = 2, "SuSiE z init" = 2,"DAP" = 2, "FINEMAP" = 2))
 ```
 
-FDR
+* FDR
 ```{r}
 valid = aggregate(valid ~ effect_weight + n_signal + pve, dscout.susie, sum)
 total = aggregate(total~ effect_weight + n_signal + pve, dscout.susie, sum)
