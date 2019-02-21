@@ -40,7 +40,7 @@ res = merge(total, size)
 res %>% kable() %>% kable_styling()
 ```
 
-There are no false discoveries for SuSiE z and DAP. For FINEMAP, there is no posterior probability of zero causal. The posterior probability for each configuration is very small. The credible set contains all variables. [One example for FINEMAP](output/random_data_100_sim_gaussian_null_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf)
+There are no false discoveries for SuSiE z and DAP. For FINEMAP, there is no posterior probability of zero causal. The posterior probability for each configuration is very small. The credible set contains all variables. [One example for FINEMAP](random_data_100_sim_gaussian_null_1_get_sumstats_1_finemap_1_plot_finemap_1.plot_file.pdf)
 
 How to summarize FINEMAP result?
 
