@@ -20,4 +20,13 @@ Welcome to my research website.
 
 * [SuSiE estimate prior variance comparison](SusieZPriorVarCompare.html)
 
-* [SuSiE z comparisons](SusieZPerformance.html)
+* [SuSiE z comparisons R full rank](SusieZPerformance.html)
+
+* [SuSiE z comparisons R singular](SusieZPerformanceRE8.html)
+    
+    [Problem 42](SuSiEzRProblem42.html)
+
+    [SuSiE z comparisons R singular with truncated eigenvalues](SusieZPerformanceRE3.html)
+    
+    [Problem 92](SuSiEzRProblem92.html)
+    
