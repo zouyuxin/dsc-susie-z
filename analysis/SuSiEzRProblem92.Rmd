@@ -1,0 +1,32 @@
+---
+title: "Investigate one problem data"
+author: "Yuxin Zou"
+date: 2019-02-24
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+The simulated data has 3 true effects. The PVE is 0.6.
+```{r}
+library(susieR)
+X = readRDS('output/small_data_92.rds')$X
+data = readRDS('output/small_data_92_sim_gaussian_30.rds')
+sumstats = readRDS('output/small_data_92_sim_gaussian_30_get_sumstats_2.rds')
+Y = data$Y
+beta = data$meta$true_coef
+z = sumstats$sumstats$bhat/sumstats$sumstats$shat
+susie_plot(z, y = "z", b=beta)
+```
+
+The true signals are `r which(beta!=0)`. 
+
+```{r}
+fit_z = susie_z(z, R = cor(X), L=5)
+```
+
+```{r}
+susie_plot(fit_z, y='PIP', b = beta)
+```
+
+The FINEMAP result: [FINEMAP result](small_data_92_sim_gaussian_30_get_sumstats_2_finemap_2_plot_finemap_2.plot_file.pdf).
