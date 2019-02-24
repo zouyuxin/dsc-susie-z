@@ -462,7 +462,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/bc45647e823ef20303da1e883d3680f9d499e94a" target="_blank">bc45647</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/30aae07a0fed7dce8bc74e5cedd40e5520a12909" target="_blank">30aae07</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -474,12 +474,7 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
-    Untracked:  analysis/SuSiEzRProblem42.Rmd
-    Untracked:  analysis/SuSiEzRProblem92.Rmd
-    Untracked:  analysis/SusieZPerformanceRE8.Rmd
     Untracked:  docs/figure/test.Rmd/
-    Untracked:  docs/small_data_42_sim_gaussian_36_get_sumstats_2_finemap_2_plot_finemap_2.plot_file.pdf
-    Untracked:  docs/small_data_92_sim_gaussian_30_get_sumstats_2_finemap_2_plot_finemap_2.plot_file.pdf
     Untracked:  output/dscoutProblem475.rds
     Untracked:  output/dscoutProblem75.rds
     Untracked:  output/finemap_compare_random_data_null_dscout.rds
@@ -490,17 +485,12 @@ Untracked files:
     Untracked:  output/random_data_76.rds
     Untracked:  output/random_data_76_sim_gaussian_8.rds
     Untracked:  output/random_data_76_sim_gaussian_8_get_sumstats_1.rds
-    Untracked:  output/small_data_42.rds
-    Untracked:  output/small_data_42_sim_gaussian_36.rds
-    Untracked:  output/small_data_42_sim_gaussian_36_get_sumstats_2.rds
     Untracked:  output/small_data_42_sim_gaussian_36_get_sumstats_2_susie_z_2.rds
-    Untracked:  output/small_data_92.rds
-    Untracked:  output/small_data_92_sim_gaussian_30.rds
-    Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2.rds
     Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2_susie_z_2.rds
 
 Unstaged changes:
-    Modified:   analysis/Problem475.Rmd
+    Modified:   analysis/SuSiEzRProblem42.Rmd
+    Modified:   analysis/SuSiEzRProblem92.Rmd
     Modified:   output/dsc_susie_z_v_output.rds
 
 </code></pre>
@@ -530,6 +520,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/30aae07a0fed7dce8bc74e5cedd40e5520a12909/analysis/SusieZPerformanceRE3.Rmd" target="_blank">30aae07</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-02-24
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/SusieZPerformanceRE3.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/38900783de3e52ef9e409aeb23c076cdcc8e9427/docs/SusieZPerformanceRE3.html" target="_blank">3890078</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-02-24
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -4384,7 +4408,7 @@ fdr.finemap = fdr.finemap[,-5]
 fdr = Reduce(function(...) merge(...),
        list(fdr.susie, fdr.susie.init, fdr.finemap))
 
-fdr %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F) %&gt;% add_header_above(c(&quot; &quot;, &quot; &quot;, &quot; &quot;, &quot;SuSiE z&quot; = 2, &quot;SuSiE z init&quot; = 2,&quot;FINEMAP&quot; = 2))</code></pre>
+fdr %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F) %&gt;% add_header_above(c(&quot; &quot;, &quot; &quot;, &quot; &quot;, &quot;SuSiE z&quot; = 2, &quot;SuSiE z init&quot; = 2,&quot;FINEMAP&quot; = 2)) %&gt;% column_spec(c(5, 7, 9), bold = T)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -4454,19 +4478,19 @@ equal
 <td style="text-align:right;">
 110
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.534
 </td>
 <td style="text-align:right;">
 110
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.231
 </td>
 <td style="text-align:right;">
 150
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.999
 </td>
 </tr>
@@ -4483,19 +4507,19 @@ equal
 <td style="text-align:right;">
 120
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.444
 </td>
 <td style="text-align:right;">
 123
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.180
 </td>
 <td style="text-align:right;">
 150
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.999
 </td>
 </tr>
@@ -4512,19 +4536,19 @@ equal
 <td style="text-align:right;">
 141
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.217
 </td>
 <td style="text-align:right;">
 141
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.060
 </td>
 <td style="text-align:right;">
 150
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.999
 </td>
 </tr>
@@ -4541,19 +4565,19 @@ equal
 <td style="text-align:right;">
 141
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.212
 </td>
 <td style="text-align:right;">
 141
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.000
 </td>
 <td style="text-align:right;">
 139
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.999
 </td>
 </tr>
@@ -4570,19 +4594,19 @@ equal
 <td style="text-align:right;">
 101
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.409
 </td>
 <td style="text-align:right;">
 104
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.000
 </td>
 <td style="text-align:right;">
 140
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.998
 </td>
 </tr>
@@ -4599,19 +4623,19 @@ equal
 <td style="text-align:right;">
 100
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.628
 </td>
 <td style="text-align:right;">
 105
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.591
 </td>
 <td style="text-align:right;">
 1494
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.990
 </td>
 </tr>
@@ -4628,19 +4652,19 @@ equal
 <td style="text-align:right;">
 198
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.519
 </td>
 <td style="text-align:right;">
 193
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.545
 </td>
 <td style="text-align:right;">
 1455
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.990
 </td>
 </tr>
@@ -4657,19 +4681,19 @@ equal
 <td style="text-align:right;">
 327
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.402
 </td>
 <td style="text-align:right;">
 396
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.437
 </td>
 <td style="text-align:right;">
 1320
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.987
 </td>
 </tr>
@@ -4686,19 +4710,19 @@ equal
 <td style="text-align:right;">
 387
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.273
 </td>
 <td style="text-align:right;">
 655
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.234
 </td>
 <td style="text-align:right;">
 1104
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.968
 </td>
 </tr>
@@ -4715,19 +4739,19 @@ equal
 <td style="text-align:right;">
 350
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.236
 </td>
 <td style="text-align:right;">
 573
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.201
 </td>
 <td style="text-align:right;">
 1004
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.955
 </td>
 </tr>
@@ -4744,19 +4768,19 @@ equal
 <td style="text-align:right;">
 125
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.604
 </td>
 <td style="text-align:right;">
 111
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.554
 </td>
 <td style="text-align:right;">
 449
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.997
 </td>
 </tr>
@@ -4773,19 +4797,19 @@ equal
 <td style="text-align:right;">
 237
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.441
 </td>
 <td style="text-align:right;">
 230
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.361
 </td>
 <td style="text-align:right;">
 446
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.997
 </td>
 </tr>
@@ -4802,19 +4826,19 @@ equal
 <td style="text-align:right;">
 307
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.315
 </td>
 <td style="text-align:right;">
 311
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.228
 </td>
 <td style="text-align:right;">
 446
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.996
 </td>
 </tr>
@@ -4831,19 +4855,19 @@ equal
 <td style="text-align:right;">
 329
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.167
 </td>
 <td style="text-align:right;">
 336
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.123
 </td>
 <td style="text-align:right;">
 438
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.993
 </td>
 </tr>
@@ -4860,19 +4884,19 @@ equal
 <td style="text-align:right;">
 304
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.172
 </td>
 <td style="text-align:right;">
 311
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.114
 </td>
 <td style="text-align:right;">
 412
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.984
 </td>
 </tr>
@@ -4889,19 +4913,19 @@ equal
 <td style="text-align:right;">
 119
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.584
 </td>
 <td style="text-align:right;">
 118
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.586
 </td>
 <td style="text-align:right;">
 748
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.995
 </td>
 </tr>
@@ -4918,19 +4942,19 @@ equal
 <td style="text-align:right;">
 277
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.409
 </td>
 <td style="text-align:right;">
 275
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.415
 </td>
 <td style="text-align:right;">
 743
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.995
 </td>
 </tr>
@@ -4947,19 +4971,19 @@ equal
 <td style="text-align:right;">
 432
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.281
 </td>
 <td style="text-align:right;">
 435
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.280
 </td>
 <td style="text-align:right;">
 715
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.992
 </td>
 </tr>
@@ -4976,19 +5000,19 @@ equal
 <td style="text-align:right;">
 512
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.142
 </td>
 <td style="text-align:right;">
 513
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.142
 </td>
 <td style="text-align:right;">
 686
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.972
 </td>
 </tr>
@@ -5005,19 +5029,19 @@ equal
 <td style="text-align:right;">
 473
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.131
 </td>
 <td style="text-align:right;">
 475
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.128
 </td>
 <td style="text-align:right;">
 653
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.956
 </td>
 </tr>
@@ -5034,19 +5058,19 @@ notequal
 <td style="text-align:right;">
 110
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.534
 </td>
 <td style="text-align:right;">
 110
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.231
 </td>
 <td style="text-align:right;">
 150
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.999
 </td>
 </tr>
@@ -5063,19 +5087,19 @@ notequal
 <td style="text-align:right;">
 120
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.444
 </td>
 <td style="text-align:right;">
 123
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.180
 </td>
 <td style="text-align:right;">
 150
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.999
 </td>
 </tr>
@@ -5092,19 +5116,19 @@ notequal
 <td style="text-align:right;">
 141
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.217
 </td>
 <td style="text-align:right;">
 141
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.060
 </td>
 <td style="text-align:right;">
 150
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.999
 </td>
 </tr>
@@ -5121,19 +5145,19 @@ notequal
 <td style="text-align:right;">
 141
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.212
 </td>
 <td style="text-align:right;">
 141
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.000
 </td>
 <td style="text-align:right;">
 138
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.999
 </td>
 </tr>
@@ -5150,19 +5174,19 @@ notequal
 <td style="text-align:right;">
 101
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.409
 </td>
 <td style="text-align:right;">
 104
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.000
 </td>
 <td style="text-align:right;">
 142
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.998
 </td>
 </tr>
@@ -5179,19 +5203,19 @@ notequal
 <td style="text-align:right;">
 137
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.477
 </td>
 <td style="text-align:right;">
 139
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.469
 </td>
 <td style="text-align:right;">
 1492
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.990
 </td>
 </tr>
@@ -5208,19 +5232,19 @@ notequal
 <td style="text-align:right;">
 163
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.455
 </td>
 <td style="text-align:right;">
 159
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.463
 </td>
 <td style="text-align:right;">
 1471
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.990
 </td>
 </tr>
@@ -5237,19 +5261,19 @@ notequal
 <td style="text-align:right;">
 203
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.316
 </td>
 <td style="text-align:right;">
 211
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.310
 </td>
 <td style="text-align:right;">
 1414
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.990
 </td>
 </tr>
@@ -5266,19 +5290,19 @@ notequal
 <td style="text-align:right;">
 194
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.174
 </td>
 <td style="text-align:right;">
 199
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.191
 </td>
 <td style="text-align:right;">
 1323
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.988
 </td>
 </tr>
@@ -5295,19 +5319,19 @@ notequal
 <td style="text-align:right;">
 156
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.235
 </td>
 <td style="text-align:right;">
 154
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.312
 </td>
 <td style="text-align:right;">
 1246
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.988
 </td>
 </tr>
@@ -5324,19 +5348,19 @@ notequal
 <td style="text-align:right;">
 122
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.540
 </td>
 <td style="text-align:right;">
 122
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.463
 </td>
 <td style="text-align:right;">
 449
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.997
 </td>
 </tr>
@@ -5353,19 +5377,19 @@ notequal
 <td style="text-align:right;">
 154
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.462
 </td>
 <td style="text-align:right;">
 142
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.396
 </td>
 <td style="text-align:right;">
 449
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.997
 </td>
 </tr>
@@ -5382,19 +5406,19 @@ notequal
 <td style="text-align:right;">
 193
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.306
 </td>
 <td style="text-align:right;">
 186
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.271
 </td>
 <td style="text-align:right;">
 443
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.997
 </td>
 </tr>
@@ -5411,19 +5435,19 @@ notequal
 <td style="text-align:right;">
 177
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.088
 </td>
 <td style="text-align:right;">
 175
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.054
 </td>
 <td style="text-align:right;">
 428
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.996
 </td>
 </tr>
@@ -5440,19 +5464,19 @@ notequal
 <td style="text-align:right;">
 135
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.220
 </td>
 <td style="text-align:right;">
 132
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.143
 </td>
 <td style="text-align:right;">
 400
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.995
 </td>
 </tr>
@@ -5469,19 +5493,19 @@ notequal
 <td style="text-align:right;">
 122
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.472
 </td>
 <td style="text-align:right;">
 122
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.472
 </td>
 <td style="text-align:right;">
 748
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.995
 </td>
 </tr>
@@ -5498,19 +5522,19 @@ notequal
 <td style="text-align:right;">
 151
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.415
 </td>
 <td style="text-align:right;">
 150
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.414
 </td>
 <td style="text-align:right;">
 743
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.995
 </td>
 </tr>
@@ -5527,19 +5551,19 @@ notequal
 <td style="text-align:right;">
 200
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.270
 </td>
 <td style="text-align:right;">
 198
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.272
 </td>
 <td style="text-align:right;">
 732
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.995
 </td>
 </tr>
@@ -5556,19 +5580,19 @@ notequal
 <td style="text-align:right;">
 182
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.180
 </td>
 <td style="text-align:right;">
 182
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.180
 </td>
 <td style="text-align:right;">
 716
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.994
 </td>
 </tr>
@@ -5585,19 +5609,19 @@ notequal
 <td style="text-align:right;">
 145
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.341
 </td>
 <td style="text-align:right;">
 145
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.344
 </td>
 <td style="text-align:right;">
 667
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;">
 0.993
 </td>
 </tr>
