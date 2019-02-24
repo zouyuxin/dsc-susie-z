@@ -1,0 +1,27 @@
+---
+title: "Investigate one problem data"
+author: "Yuxin Zou"
+date: 2019-02-24
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+The simulated data has 5 true effects. The PVE is 0.8.
+```{r}
+library(susieR)
+X = readRDS('output/small_data_42.rds')$X
+data = readRDS('output/small_data_42_sim_gaussian_36.rds')
+sumstats = readRDS('output/small_data_42_sim_gaussian_36_get_sumstats_2.rds')
+Y = data$Y
+beta = data$meta$true_coef
+z = sumstats$sumstats$bhat/sumstats$sumstats$shat
+susie_plot(z, y = "z", b=beta)
+```
+
+The true signals are `r which(beta!=0)`.
+
+The estimated residual variance becomes negative in SuSiE z.
+
+The result from FINEMAP does not look well: [FINEMAP result](small_data_42_sim_gaussian_36_get_sumstats_2_finemap_2_plot_finemap_2.plot_file.pdf).
+
