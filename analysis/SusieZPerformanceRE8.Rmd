@@ -131,6 +131,6 @@ fdr.finemap = fdr.finemap[,-5]
 fdr = Reduce(function(...) merge(...),
        list(fdr.susie, fdr.susie.init, fdr.finemap))
 
-fdr %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F) %>% add_header_above(c(" ", " ", " ", "SuSiE z" = 2, "SuSiE z init" = 2,"FINEMAP" = 2))
+fdr %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F) %>% add_header_above(c(" ", " ", " ", "SuSiE z" = 2, "SuSiE z init" = 2,"FINEMAP" = 2)) %>% column_spec(c(5, 7, 9), bold = T)
 ```
 
