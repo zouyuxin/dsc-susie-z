@@ -32,3 +32,4 @@ Welcome to my research website.
     
     [Problem 92](SuSiEzRProblem92.html)
     
+* [SuSiE Robust](SuSiERobust.html)
