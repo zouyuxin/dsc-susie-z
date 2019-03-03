@@ -22,6 +22,8 @@ Welcome to my research website.
 
 * [SuSiE z comparisons R full rank](SusieZPerformance.html)
 
+  [SuSiE z vs DAP Power in one data set](SuSiEDAP_Power_data31_35.html)
+  
 * [SuSiE z comparisons R singular](SusieZPerformanceRE8.html)
     
     [Problem 42](SuSiEzRProblem42.html)
