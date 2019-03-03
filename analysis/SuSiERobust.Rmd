@@ -1,0 +1,57 @@
+---
+title: "SuSiE z robust version"
+author: "Yuxin Zou"
+date: 2019-3-2
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r message=FALSE}
+library(susieR)
+library(R.utils)
+```
+
+We use the data in susieR package. It is simulated to have exactly 3 non-zero effects.
+```{r}
+data(N3finemapping)
+b <- N3finemapping$data$true_coef[,1]
+R <- cor(N3finemapping$dat$X)
+z_scores = N3finemapping$sumstats[1,,1]/N3finemapping$sumstats[2,,1]
+plot(z_scores, pch=16, ylab='z scores')
+points(which(b!=0),z_scores[which(b!=0)], col=2, pch=16)
+```
+
+```{r}
+fit1 = susie_z(z_scores, R, L=5)
+susie_plot(fit1, y = 'PIP', b=b, main=paste0('objective:', round(susie_get_objective(fit1), 2)))
+```
+
+We fit the model with var $\sigma^2(R + \lambda I)$.
+```{r message=FALSE}
+sourceDirectory("~/Documents/GitHub/susieR/inst/code/susiez_fix/")
+```
+
+```{r}
+fit2 = susie_z_general_fix(z_scores, R, L=5, lambda = 1e-8, track_fit = TRUE, verbose = TRUE)
+susie_plot(fit2, y = 'PIP', b=b, main=paste0('lambda = 1e-8, objective:', round(susie_get_objective(fit2), 2)))
+```
+
+We fit the model with var $\sigma^2R + \lambda I$.
+```{r message=FALSE}
+sourceDirectory("~/Documents/GitHub/susieR/inst/code/susiez_num/")
+```
+
+```{r}
+par(mfrow = c(2, 3))
+fit3 = susie_z_general_num(z_scores, R, L=5, lambda = 1e-8, track_fit = TRUE, verbose = TRUE)
+par(mfrow = c(1, 1))
+susie_plot(fit3, y = 'PIP', b=b, main=paste0('lambda = 1e-8, objective:', round(susie_get_objective(fit3), 2)))
+```
+
+```{r}
+par(mfrow = c(2, 3))
+fit4 = susie_z_general_num(z_scores, R, L=5, lambda = 0.1, track_fit = TRUE, verbose = TRUE)
+par(mfrow = c(1, 1))
+susie_plot(fit4, y = 'PIP', b=b, main=paste0('lambda = 0.1, objective:', round(susie_get_objective(fit4), 2)))
+```
