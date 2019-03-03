@@ -22,6 +22,7 @@ plot(z_scores, pch=16, ylab='z scores')
 points(which(b!=0),z_scores[which(b!=0)], col=2, pch=16)
 ```
 
+The model using current susieZ:
 ```{r}
 fit1 = susie_z(z_scores, R, L=5)
 susie_plot(fit1, y = 'PIP', b=b, main=paste0('objective:', round(susie_get_objective(fit1), 2)))
