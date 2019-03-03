@@ -1,0 +1,51 @@
+---
+title: "SuSiE vs DAP: data 31_35 (lower power)"
+author: "Yuxin Zou"
+date: 2018-02-26
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+
+```{r}
+library(susieR)
+X = readRDS('data/random_data_31.rds')$X
+R = cor(X)
+data = readRDS('data/random_data_31_sim_gaussian_35.rds')
+y = data$Y
+beta = data$meta$true_coef
+sumstats = readRDS('data/random_data_31_sim_gaussian_35_get_sumstats_1.rds')
+zscores = sumstats$sumstats$bhat/sumstats$sumstats$shat
+plot(zscores, pch=16, main='z scores')
+pos = 1:length(zscores)
+points(pos[beta!=0],zscores[beta!=0],col=2,pch=16)
+susie_plot(zscores, y = "z", b = beta, main='p values from z scores')
+```
+
+We randomly generated 1200 by 1000 matrix X, each entry is random from N(0,1). The variables are independent. There are 5 signals in the simulated data, total PVE is 0.8. The true signals are `r which(beta!=0)`. 
+
+```{r}
+fit_z = susie_z(zscores, R, track_fit = TRUE)
+susie_plot(fit_z, y='PIP', b=beta)
+```
+
+Using susie z, we only find one signal.
+
+The estimated prior variances are
+```{r}
+Vs = matrix(0, 5, 10)
+residual_variance = numeric(5)
+for(i in 1:length(fit_z$trace)){
+  Vs[i,] = fit_z$trace[[i]]$V
+  residual_variance[i] = fit_z$trace[[i]]$sigma2
+}
+Vs[5, ] = fit_z$V
+residual_variance[5] = fit_z$sigma2
+row.names(Vs) = paste0('Iter ', 1:5)
+colnames(Vs) = paste0('L', 1:10)
+
+cbind(Vs, residual_variance)
+```
+
+The result from DAP is [DAP result](random_data_31_sim_gaussian_35_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf).
