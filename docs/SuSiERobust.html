@@ -460,7 +460,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/28260cbeff8449a421ccdb059a3ac86207b62196" target="_blank">28260cb</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/618ff11ca94983b3302daa80d45025f0dcd78a13" target="_blank">618ff11</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -472,7 +472,6 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
-    Untracked:  analysis/SuSiEDAP_Power_data31_35.Rmd
     Untracked:  analysis/SuSiERobustNum.Rmd
     Untracked:  data/random_data_31.rds
     Untracked:  data/random_data_31_sim_gaussian_35.rds
@@ -480,7 +479,6 @@ Untracked files:
     Untracked:  data/small_data_46.rds
     Untracked:  data/small_data_46_sim_gaussian_10.rds
     Untracked:  data/small_data_46_sim_gaussian_10_get_sumstats_2.rds
-    Untracked:  docs/figure/SuSiEDAP_Power_data31_35.Rmd/
     Untracked:  docs/figure/test.Rmd/
     Untracked:  docs/random_data_31_sim_gaussian_35_get_sumstats_1_dap_z_1_plot_dap_1.plot_file.pdf
     Untracked:  output/dscoutProblem475.rds
@@ -500,7 +498,6 @@ Unstaged changes:
     Modified:   analysis/Problem475.Rmd
     Modified:   analysis/SusieZPerformance.Rmd
     Modified:   analysis/SusieZPerformanceRE3.Rmd
-    Modified:   analysis/index.Rmd
     Modified:   output/dsc_susie_z_v_output.rds
 
 </code></pre>
@@ -535,6 +532,40 @@ Message
 Rmd
 </td>
 <td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/618ff11ca94983b3302daa80d45025f0dcd78a13/analysis/SuSiERobust.Rmd" target="_blank">618ff11</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/SuSiERobust.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/612c1ac35440c003a6198121edba1d2f4043952d/docs/SuSiERobust.html" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/28260cbeff8449a421ccdb059a3ac86207b62196/analysis/SuSiERobust.Rmd" target="_blank">28260cb</a>
 </td>
 <td style="text-align:left;">
@@ -562,9 +593,70 @@ z_scores = N3finemapping$sumstats[1,,1]/N3finemapping$sumstats[2,,1]
 plot(z_scores, pch=16, ylab=&#39;z scores&#39;)
 points(which(b!=0),z_scores[which(b!=0)], col=2, pch=16)</code></pre>
 <p><img src="figure/SuSiERobust.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-2-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/612c1ac35440c003a6198121edba1d2f4043952d/docs/figure/SuSiERobust.Rmd/unnamed-chunk-2-1.png" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
+<p>The model using current susieZ:</p>
 <pre class="r"><code>fit1 = susie_z(z_scores, R, L=5)
 susie_plot(fit1, y = &#39;PIP&#39;, b=b, main=paste0(&#39;objective:&#39;, round(susie_get_objective(fit1), 2)))</code></pre>
 <p><img src="figure/SuSiERobust.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-3-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/612c1ac35440c003a6198121edba1d2f4043952d/docs/figure/SuSiERobust.Rmd/unnamed-chunk-3-1.png" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>We fit the model with var <span class="math inline">\(\sigma^2(R + \lambda I)\)</span>.</p>
 <pre class="r"><code>sourceDirectory(&quot;~/Documents/GitHub/susieR/inst/code/susiez_fix/&quot;)</code></pre>
 <pre class="r"><code>fit2 = susie_z_general_fix(z_scores, R, L=5, lambda = 1e-8, track_fit = TRUE, verbose = TRUE)</code></pre>
@@ -578,6 +670,36 @@ susie_plot(fit1, y = &#39;PIP&#39;, b=b, main=paste0(&#39;objective:&#39;, round
 [1] &quot;after estimate sigma2 objective:349.022409728946&quot;</code></pre>
 <pre class="r"><code>susie_plot(fit2, y = &#39;PIP&#39;, b=b, main=paste0(&#39;lambda = 1e-8, objective:&#39;, round(susie_get_objective(fit2), 2)))</code></pre>
 <p><img src="figure/SuSiERobust.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-5-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/612c1ac35440c003a6198121edba1d2f4043952d/docs/figure/SuSiERobust.Rmd/unnamed-chunk-5-1.png" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>We fit the model with var <span class="math inline">\(\sigma^2R + \lambda I\)</span>.</p>
 <pre class="r"><code>sourceDirectory(&quot;~/Documents/GitHub/susieR/inst/code/susiez_num/&quot;)</code></pre>
 <pre class="r"><code>par(mfrow = c(2, 3))
@@ -594,6 +716,36 @@ fit3 = susie_z_general_num(z_scores, R, L=5, lambda = 1e-8, track_fit = TRUE, ve
 <pre><code>[1] &quot;after estimate sigma2 objective:-176076.83603438&quot;
 [1] &quot;before estimate sigma2 objective:-176076.495338684&quot;</code></pre>
 <p><img src="figure/SuSiERobust.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-7-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/612c1ac35440c003a6198121edba1d2f4043952d/docs/figure/SuSiERobust.Rmd/unnamed-chunk-7-1.png" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;after estimate sigma2 objective:-176076.495338684&quot;
 [1] &quot;before estimate sigma2 objective:-176076.4809328&quot;</code></pre>
 <pre><code>[1] &quot;after estimate sigma2 objective:-176076.4809328&quot;
@@ -601,8 +753,68 @@ fit3 = susie_z_general_num(z_scores, R, L=5, lambda = 1e-8, track_fit = TRUE, ve
 <pre><code>[1] &quot;after estimate sigma2 objective:-176076.480770257&quot;</code></pre>
 <pre class="r"><code>par(mfrow = c(1, 1))</code></pre>
 <p><img src="figure/SuSiERobust.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-7-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/612c1ac35440c003a6198121edba1d2f4043952d/docs/figure/SuSiERobust.Rmd/unnamed-chunk-7-2.png" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre class="r"><code>susie_plot(fit3, y = &#39;PIP&#39;, b=b, main=paste0(&#39;lambda = 1e-8, objective:&#39;, round(susie_get_objective(fit3), 2)))</code></pre>
 <p><img src="figure/SuSiERobust.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-7-3.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/612c1ac35440c003a6198121edba1d2f4043952d/docs/figure/SuSiERobust.Rmd/unnamed-chunk-7-3.png" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre class="r"><code>par(mfrow = c(2, 3))
 fit4 = susie_z_general_num(z_scores, R, L=5, lambda = 0.1, track_fit = TRUE, verbose = TRUE)</code></pre>
 <pre><code>[1] &quot;before estimate sigma2 objective:-268.382924136224&quot;</code></pre>
@@ -617,6 +829,36 @@ fit4 = susie_z_general_num(z_scores, R, L=5, lambda = 0.1, track_fit = TRUE, ver
 <pre><code>[1] &quot;after estimate sigma2 objective:-229.849008457783&quot;
 [1] &quot;before estimate sigma2 objective:-229.656391292686&quot;</code></pre>
 <p><img src="figure/SuSiERobust.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-8-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/612c1ac35440c003a6198121edba1d2f4043952d/docs/figure/SuSiERobust.Rmd/unnamed-chunk-8-1.png" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;after estimate sigma2 objective:-229.656391292686&quot;
 [1] &quot;before estimate sigma2 objective:-229.649501048445&quot;</code></pre>
 <pre><code>[1] &quot;after estimate sigma2 objective:-229.649501048445&quot;
@@ -624,8 +866,68 @@ fit4 = susie_z_general_num(z_scores, R, L=5, lambda = 0.1, track_fit = TRUE, ver
 <pre><code>[1] &quot;after estimate sigma2 objective:-229.648954904787&quot;</code></pre>
 <pre class="r"><code>par(mfrow = c(1, 1))</code></pre>
 <p><img src="figure/SuSiERobust.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-8-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/612c1ac35440c003a6198121edba1d2f4043952d/docs/figure/SuSiERobust.Rmd/unnamed-chunk-8-2.png" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre class="r"><code>susie_plot(fit4, y = &#39;PIP&#39;, b=b, main=paste0(&#39;lambda = 0.1, objective:&#39;, round(susie_get_objective(fit4), 2)))</code></pre>
 <p><img src="figure/SuSiERobust.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-8-3.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/612c1ac35440c003a6198121edba1d2f4043952d/docs/figure/SuSiERobust.Rmd/unnamed-chunk-8-3.png" target="_blank">612c1ac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-03
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
 <pre class="r"><code>sessionInfo()</code></pre>
