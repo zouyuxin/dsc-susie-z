@@ -20,7 +20,7 @@ data(N3finemapping)
 b <- N3finemapping$data$true_coef[,1]
 R <- cor(N3finemapping$dat$X)
 z_scores = N3finemapping$sumstats[1,,1]/N3finemapping$sumstats[2,,1]
-fit_lbf = susie_z_general_num(z_scores, R, L=1, max_iter = 1, lambda = 0.1)
+fit_lbf = susie_z_general_num(z_scores, R, L=1, max_iter = 1, lambda = 0.1, estimate_prior_method = 'EM')
 ```
 
 The head of log BF from mvtnorm build-in function is 
@@ -34,6 +34,11 @@ The head of log BF from our computation is
 ```
 
 If we run susie model with lambda = 0.1, the log BF from mvtnorm build-in function is same as log BF from our computation.
+
+The head of it is 
+```
+0.24190347 -0.08910697  0.06196027  0.05362330 -0.08647301 -0.08434728
+```
 
 
 
