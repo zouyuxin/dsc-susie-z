@@ -1,0 +1,74 @@
+---
+title: "Investigate"
+author: "Yuxin Zou"
+date: "3/6/2019"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r message=FALSE}
+library(susieR)
+library(R.utils)
+```
+
+## 1. 
+$$
+\left(\begin{array} c 2 \\ 2.01 \end{array}\right) \sim N_2(\mathbf{1}\mathbf{1}^{T} \mathbf{0}, \sigma^2 \mathbf{1}\mathbf{1}^{T} + \lambda I)
+$$
+
+```{r}
+z = c(2, 2.01)
+R = matrix(1, 2,2)
+```
+
+Model with var $\sigma^2(R + \lambda I)$.
+```{r}
+sourceDirectory("~/Documents/GitHub/susieR/inst/code/susiez_fix/")
+fit_1 = susie_z_general_fix(z, R, lambda = 0.1, restrict = FALSE)
+fit_1$sigma2
+```
+
+Model with var $\sigma^2R + \lambda I$.
+```{r}
+sourceDirectory("~/Documents/GitHub/susieR/inst/code/susiez_num/")
+fit_2 = susie_z_general_num(z, R, lambda = 0.1, restrict = FALSE)
+fit_2$sigma2
+```
+
+The model with var $\sigma^2R + \lambda I$ gives the estimated residual variance close to 4.
+
+We use the model with var $\sigma^2R + \lambda I$ in the following investigation.
+
+## 2. 
+$$
+\left(\begin{array} c 1 \\ 1.01 \end{array}\right) \sim N_2(\mathbf{1}\mathbf{1}^{T} \mathbf{0}, \sigma^2 \mathbf{1}\mathbf{1}^{T} + \lambda I)
+$$
+
+```{r}
+z = c(1, 1.01)
+R = matrix(1, 2, 2)
+```
+
+Model with var $\sigma^2R + \lambda I$.
+```{r}
+fit_3 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0.1)
+susie_plot(fit_3, y = 'PIP')
+```
+
+There are no significant signal.
+
+```{r}
+z = c(6, 6.01)
+R = matrix(1, 2, 2)
+```
+
+Model with var $\sigma^2R + \lambda I$.
+```{r}
+fit_4 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0.1)
+susie_plot(fit_4, y = 'PIP')
+```
+
+We find the significant signal.
+
+The model doesn't work with lambda = 0.
