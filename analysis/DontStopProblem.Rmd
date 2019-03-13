@@ -9,14 +9,14 @@ output:
 
 ```{r message=FALSE}
 library(susieR)
-library(R.utils)
-sourceDirectory("~/Documents/GitHub/susieR/inst/code/susiez_num/")
+library(knitr)
+library(kableExtra)
+R.utils::sourceDirectory("~/Documents/GitHub/susieR/inst/code/susiez_num/")
 ```
-
 
 Data: SuSiE vs DAP: data 31_35 (lower power)
 
-```{r}
+```{r data}
 X = readRDS('data/random_data_31.rds')$X
 R = cor(X)
 data = readRDS('data/random_data_31_sim_gaussian_35.rds')
@@ -24,17 +24,20 @@ y = data$Y
 beta = data$meta$true_coef
 sumstats = readRDS('data/random_data_31_sim_gaussian_35_get_sumstats_1.rds')
 zscores = sumstats$sumstats$bhat/sumstats$sumstats$shat
+```
+We randomly generated 1200 by 1000 matrix X, each entry is random from N(0,1). The variables are independent. There are 5 signals in the simulated data, total PVE is 0.8. The true signals are `r which(beta!=0)`. 
+```{r}
 plot(zscores, pch=16, main='z scores')
 pos = 1:length(zscores)
 points(pos[beta!=0],zscores[beta!=0],col=2,pch=16)
 susie_plot(zscores, y = "z", b = beta, main='p values from z scores')
-which(beta!=0)
 ```
 
 ```{r eval=FALSE}
 fit_1 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, max_iter = 100, estimate_prior_method = 'EM')
 ```
-```{r}
+
+```{r loadfit1}
 fit_1 = readRDS('output/random_data_31_35_fit_em.rds')
 ```
 
@@ -47,10 +50,14 @@ susie_plot(fit_1, y='PIP', b=beta)
 ```
 
 The estimated prior variance at last 10 iterations are
-```{r}
-for(i in 90:length(fit_1$trace)){
-  print(fit_1$trace[[i]]$V)
+```{r checkfit1V}
+Vs = matrix(NA, 11, 10)
+for(i in 1:10){
+  Vs[i,] = fit_1$trace[[90+i]]$V
 }
+Vs[11,] = fit_1$V
+row.names(Vs) = paste0('Iter: ', 91:101)
+Vs %>% kable() %>% kable_styling()
 ```
 
 Fit model with initial prior variance 50:
@@ -66,7 +73,7 @@ susie_plot(fit_2, y='PIP', b=beta)
 
 The estimated prior variances are
 ```{r}
-fit_2$V
+fit_2$V %>% kable() %>% kable_styling()
 ```
 
 ```{r}
@@ -87,5 +94,5 @@ susie_plot(fit_4, y='PIP', b=beta)
 
 The estimated prior variances are
 ```{r}
-fit_4$V
+fit_4$V %>% kable() %>% kable_styling()
 ```
