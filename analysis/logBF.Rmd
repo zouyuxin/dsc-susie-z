@@ -7,7 +7,7 @@ output:
     code_folding: hide
 ---
 
-```{r}
+```{r message=FALSE}
 library(susieR)
 library(R.utils)
 library(mvtnorm)
