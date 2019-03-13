@@ -26,6 +26,9 @@ Model with var $\sigma^2(R + \lambda I)$.
 ```{r}
 sourceDirectory("~/Documents/GitHub/susieR/inst/code/susiez_fix/")
 fit_1 = susie_z_general_fix(z, R, lambda = 0.1, restrict = FALSE, estimate_prior_method = 'optim')
+```
+The estimated residual variance is
+```{r}
 fit_1$sigma2
 ```
 
@@ -33,6 +36,9 @@ Model with var $\sigma^2R + \lambda I$.
 ```{r}
 sourceDirectory("~/Documents/GitHub/susieR/inst/code/susiez_num/")
 fit_2 = susie_z_general_num(z, R, lambda = 0.1, restrict = FALSE, estimate_prior_method = 'EM')
+```
+The estimated residual variance is
+```{r}
 fit_2$sigma2
 ```
 
