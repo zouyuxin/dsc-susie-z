@@ -461,7 +461,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/a761600be605a38f616d770c27c71c7c009c89cf" target="_blank">a761600</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/9b93d36cad8804894afce885628d3ac36add4d07" target="_blank">9b93d36</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -528,6 +528,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9b93d36cad8804894afce885628d3ac36add4d07/analysis/DontStopProblem.Rmd" target="_blank">9b93d36</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/DontStopProblem.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/1e8a0431099121aeb6d201ef683898409b8365ed/docs/DontStopProblem.html" target="_blank">1e8a043</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -1213,6 +1247,7 @@ zouyuxin
 </tr>
 </tbody>
 </table>
+<p>Fit model with initialization at previous one:</p>
 <pre class="r"><code>fit_3 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, s_init = fit_2, scaled_prior_variance = fit_2$V)</code></pre>
 <pre><code>[1] &quot;before estimate sigma2 objective:-1780.7279359051&quot;
 [1] &quot;after estimate sigma2 objective:-1780.7279359051&quot;
