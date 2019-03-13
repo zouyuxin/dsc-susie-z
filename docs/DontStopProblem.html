@@ -461,7 +461,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/3a9cc9bce5a8d55851788047996e424bea0b75b7" target="_blank">3a9cc9b</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/a761600be605a38f616d770c27c71c7c009c89cf" target="_blank">a761600</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -528,6 +528,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a761600be605a38f616d770c27c71c7c009c89cf/analysis/DontStopProblem.Rmd" target="_blank">a761600</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/DontStopProblem.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/e0b9bd76bb22f7d0b784d2d1e5f6e0f90ae2ae5b/docs/DontStopProblem.html" target="_blank">e0b9bd7</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -669,6 +703,36 @@ zouyuxin
 <p>The objective is -1790.4412135.</p>
 <pre class="r"><code>susie_plot(fit_1, y=&#39;PIP&#39;, b=beta)</code></pre>
 <p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-4-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/e0b9bd76bb22f7d0b784d2d1e5f6e0f90ae2ae5b/docs/figure/DontStopProblem.Rmd/unnamed-chunk-4-1.png" target="_blank">e0b9bd7</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>The estimated prior variance at last 10 iterations are</p>
 <pre class="r"><code>Vs = matrix(NA, 11, 10)
 for(i in 1:10){
@@ -1081,65 +1145,70 @@ Iter: 101
 <p>The algorithm stops. The objective is -1780.727936.</p>
 <pre class="r"><code>susie_plot(fit_2, y=&#39;PIP&#39;, b=beta)</code></pre>
 <p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>The estimated prior variances are</p>
-<pre class="r"><code>fit_2$V %&gt;% kable() %&gt;% kable_styling()</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-6-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
 <thead>
 <tr>
-<th style="text-align:right;">
-x
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:right;">
-2520.96470
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/e0b9bd76bb22f7d0b784d2d1e5f6e0f90ae2ae5b/docs/figure/DontStopProblem.Rmd/unnamed-chunk-6-1.png" target="_blank">e0b9bd7</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
 </td>
 </tr>
+</tbody>
+</table>
+<p></details></p>
+<p>The estimated prior variances are</p>
+<pre class="r"><code>matrix(fit_2$V, 1, 10) %&gt;% kable() %&gt;% kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<tbody>
 <tr>
+<td style="text-align:right;">
+2520.965
+</td>
 <td style="text-align:right;">
 42.28076
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
 37.95474
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
 31.52849
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
 24.34387
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
 </tr>
 </tbody>
@@ -1167,6 +1236,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/e0b9bd76bb22f7d0b784d2d1e5f6e0f90ae2ae5b/docs/figure/DontStopProblem.Rmd/unnamed-chunk-8-1.png" target="_blank">e0b9bd7</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/a0fba921df21a4dcebff94a5f11af402301ec088/docs/figure/DontStopProblem.Rmd/unnamed-chunk-8-1.png" target="_blank">a0fba92</a>
@@ -1212,6 +1292,17 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/e0b9bd76bb22f7d0b784d2d1e5f6e0f90ae2ae5b/docs/figure/DontStopProblem.Rmd/unnamed-chunk-10-1.png" target="_blank">e0b9bd7</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/a0fba921df21a4dcebff94a5f11af402301ec088/docs/figure/DontStopProblem.Rmd/unnamed-chunk-10-1.png" target="_blank">a0fba92</a>
 </td>
 <td style="text-align:left;">
@@ -1225,64 +1316,39 @@ zouyuxin
 </table>
 <p></details></p>
 <p>The estimated prior variances are</p>
-<pre class="r"><code>fit_4$V %&gt;% kable() %&gt;% kable_styling()</code></pre>
+<pre class="r"><code>matrix(fit_4$V, 1, 10) %&gt;% kable() %&gt;% kable_styling()</code></pre>
 <table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:right;">
-x
-</th>
-</tr>
-</thead>
 <tbody>
 <tr>
 <td style="text-align:right;">
-2520.99866
+2520.999
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
 42.27946
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-37.95660
+37.9566
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
 31.52854
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
 24.34473
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
-</tr>
-<tr>
 <td style="text-align:right;">
-0.00000
+0
 </td>
 </tr>
 </tbody>
