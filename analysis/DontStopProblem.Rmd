@@ -73,7 +73,7 @@ susie_plot(fit_2, y='PIP', b=beta)
 
 The estimated prior variances are
 ```{r}
-fit_2$V %>% kable() %>% kable_styling()
+matrix(fit_2$V, 1, 10) %>% kable() %>% kable_styling()
 ```
 
 ```{r}
@@ -94,5 +94,5 @@ susie_plot(fit_4, y='PIP', b=beta)
 
 The estimated prior variances are
 ```{r}
-fit_4$V %>% kable() %>% kable_styling()
+matrix(fit_4$V, 1, 10) %>% kable() %>% kable_styling()
 ```
