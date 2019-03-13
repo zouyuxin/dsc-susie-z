@@ -1,0 +1,91 @@
+---
+title: "Don't Stop Problem "
+author: "Yuxin Zou"
+date: "3/11/2019"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r message=FALSE}
+library(susieR)
+library(R.utils)
+sourceDirectory("~/Documents/GitHub/susieR/inst/code/susiez_num/")
+```
+
+
+Data: SuSiE vs DAP: data 31_35 (lower power)
+
+```{r}
+X = readRDS('data/random_data_31.rds')$X
+R = cor(X)
+data = readRDS('data/random_data_31_sim_gaussian_35.rds')
+y = data$Y
+beta = data$meta$true_coef
+sumstats = readRDS('data/random_data_31_sim_gaussian_35_get_sumstats_1.rds')
+zscores = sumstats$sumstats$bhat/sumstats$sumstats$shat
+plot(zscores, pch=16, main='z scores')
+pos = 1:length(zscores)
+points(pos[beta!=0],zscores[beta!=0],col=2,pch=16)
+susie_plot(zscores, y = "z", b = beta, main='p values from z scores')
+which(beta!=0)
+```
+
+```{r eval=FALSE}
+fit_1 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, max_iter = 100, estimate_prior_method = 'EM')
+```
+```{r}
+fit_1 = readRDS('output/random_data_31_35_fit_em.rds')
+```
+
+The algorithm fails to stop. 
+
+The objective is `r susie_get_objective(fit_1)`.
+
+```{r}
+susie_plot(fit_1, y='PIP', b=beta)
+```
+
+The estimated prior variance at last 10 iterations are
+```{r}
+for(i in 90:length(fit_1$trace)){
+  print(fit_1$trace[[i]]$V)
+}
+```
+
+Fit model with initial prior variance 50:
+```{r}
+fit_2 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, scaled_prior_variance = 50, estimate_prior_method = 'EM')
+```
+
+The algorithm stops. The objective is `r susie_get_objective(fit_2)`. 
+
+```{r}
+susie_plot(fit_2, y='PIP', b=beta)
+```
+
+The estimated prior variances are
+```{r}
+fit_2$V
+```
+
+```{r}
+fit_3 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, s_init = fit_2, scaled_prior_variance = fit_2$V)
+susie_plot(fit_3, y='PIP', b=beta)
+```
+
+Fit model using 'optim':
+```{r}
+fit_4 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, estimate_prior_method = 'optim')
+```
+
+The objective is `r susie_get_objective(fit_4)`. 
+
+```{r}
+susie_plot(fit_4, y='PIP', b=beta)
+```
+
+The estimated prior variances are
+```{r}
+fit_4$V
+```
