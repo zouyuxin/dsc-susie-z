@@ -33,3 +33,11 @@ Welcome to my research website.
     [Problem 92](SuSiEzRProblem92.html)
     
 * [SuSiE Robust](SuSiERobust.html)
+
+* SuSiE z investigation:
+    
+    [log Bays Factor](logBF.html)
+    
+    [Investigate](Investigate.html)
+    
+    [Doesn't stop problem](DontStopProblem.html)
