@@ -460,7 +460,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/c578041b75796099e192f13b8f66957ca8d2dd83" target="_blank">c578041</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/1c7dc0e4d0440600010cce3bea9a9be6870615cc" target="_blank">1c7dc0e</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -472,8 +472,6 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
-    Untracked:  analysis/Don'tStopProblem.Rmd
-    Untracked:  analysis/SuSiERobustNum.Rmd
     Untracked:  data/random_data_31.rds
     Untracked:  data/random_data_31_sim_gaussian_35.rds
     Untracked:  data/random_data_31_sim_gaussian_35_get_sumstats_1.rds
@@ -481,6 +479,7 @@ Untracked files:
     Untracked:  data/small_data_46_sim_gaussian_10.rds
     Untracked:  data/small_data_46_sim_gaussian_10_get_sumstats_2.rds
     Untracked:  docs/figure/test.Rmd/
+    Untracked:  figure/
     Untracked:  output/dscoutProblem475.rds
     Untracked:  output/dscoutProblem75.rds
     Untracked:  output/finemap_compare_random_data_null_dscout.rds
@@ -488,6 +487,7 @@ Untracked files:
     Untracked:  output/finemap_compare_small_data_signal_dscout.rds
     Untracked:  output/finemap_compare_small_data_signal_dscout_RE8.rds
     Untracked:  output/random_data_100_sim_gaussian_null_1_get_sumstats_1_finemap_1.rds
+    Untracked:  output/random_data_31_35_fit_em.rds
     Untracked:  output/random_data_76.rds
     Untracked:  output/random_data_76_sim_gaussian_8.rds
     Untracked:  output/random_data_76_sim_gaussian_8_get_sumstats_1.rds
@@ -495,7 +495,6 @@ Untracked files:
     Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2_susie_z_2.rds
 
 Unstaged changes:
-    Modified:   analysis/Problem475.Rmd
     Modified:   analysis/SuSiEDAP_Power_data31_35.Rmd
     Modified:   analysis/SusieZPerformance.Rmd
     Modified:   analysis/SusieZPerformanceRE3.Rmd
@@ -528,6 +527,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/1c7dc0e4d0440600010cce3bea9a9be6870615cc/analysis/logBF.Rmd" target="_blank">1c7dc0e</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-12
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/logBF.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/3c96a7097c4eb5ffd770afadbce5e6f8fec3da5d/docs/logBF.html" target="_blank">3c96a70</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-12
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -585,29 +618,8 @@ wflow_publish(“analysis/logBF.Rmd”)
 <p></details></p>
 <hr />
 <pre class="r"><code>library(susieR)
-library(R.utils)</code></pre>
-<pre><code>Loading required package: R.oo</code></pre>
-<pre><code>Loading required package: R.methodsS3</code></pre>
-<pre><code>R.methodsS3 v1.7.1 (2016-02-15) successfully loaded. See ?R.methodsS3 for help.</code></pre>
-<pre><code>R.oo v1.22.0 (2018-04-21) successfully loaded. See ?R.oo for help.</code></pre>
-<pre><code>
-Attaching package: &#39;R.oo&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:methods&#39;:
-
-    getClasses, getMethods</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    attach, detach, gc, load, save</code></pre>
-<pre><code>R.utils v2.7.0 successfully loaded. See ?R.utils for help.</code></pre>
-<pre><code>
-Attaching package: &#39;R.utils&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:utils&#39;:
-
-    timestamp</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    cat, commandArgs, getOption, inherits, isOpen, parse, warnings</code></pre>
-<pre class="r"><code>library(mvtnorm)
+library(R.utils)
+library(mvtnorm)
 sourceDirectory(&#39;~/Documents/GitHub/susieR/inst/code/susiez_num/&#39;)</code></pre>
 <p>Using N3finemapping from susieR, we run susie model with lambda 1e-8.</p>
 <pre class="r"><code>data(N3finemapping)
