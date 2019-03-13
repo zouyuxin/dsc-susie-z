@@ -27,6 +27,7 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -436,7 +437,7 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2019-03-12</p>
+<p><strong>Last updated:</strong> 2019-03-13</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
@@ -460,7 +461,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/84379981bffa1aa8799a44d7d19c8663575660d9" target="_blank">8437998</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/3a9cc9bce5a8d55851788047996e424bea0b75b7" target="_blank">3a9cc9b</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -472,7 +473,6 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
-    Untracked:  analysis/SuSiERobustNum.Rmd
     Untracked:  data/random_data_31.rds
     Untracked:  data/random_data_31_sim_gaussian_35.rds
     Untracked:  data/random_data_31_sim_gaussian_35_get_sumstats_1.rds
@@ -496,7 +496,6 @@ Untracked files:
     Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2_susie_z_2.rds
 
 Unstaged changes:
-    Modified:   analysis/Problem475.Rmd
     Modified:   analysis/SuSiEDAP_Power_data31_35.Rmd
     Modified:   analysis/SusieZPerformance.Rmd
     Modified:   analysis/SusieZPerformanceRE3.Rmd
@@ -534,6 +533,40 @@ Message
 Rmd
 </td>
 <td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/3a9cc9bce5a8d55851788047996e424bea0b75b7/analysis/DontStopProblem.Rmd" target="_blank">3a9cc9b</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/DontStopProblem.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/a0fba921df21a4dcebff94a5f11af402301ec088/docs/DontStopProblem.html" target="_blank">a0fba92</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-12
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/84379981bffa1aa8799a44d7d19c8663575660d9/analysis/DontStopProblem.Rmd" target="_blank">8437998</a>
 </td>
 <td style="text-align:left;">
@@ -552,8 +585,9 @@ wflow_publish(“analysis/DontStopProblem.Rmd”)
 <p></details></p>
 <hr />
 <pre class="r"><code>library(susieR)
-library(R.utils)
-sourceDirectory(&quot;~/Documents/GitHub/susieR/inst/code/susiez_num/&quot;)</code></pre>
+library(knitr)
+library(kableExtra)
+R.utils::sourceDirectory(&quot;~/Documents/GitHub/susieR/inst/code/susiez_num/&quot;)</code></pre>
 <p>Data: SuSiE vs DAP: data 31_35 (lower power)</p>
 <pre class="r"><code>X = readRDS(&#39;data/random_data_31.rds&#39;)$X
 R = cor(X)
@@ -561,47 +595,477 @@ data = readRDS(&#39;data/random_data_31_sim_gaussian_35.rds&#39;)
 y = data$Y
 beta = data$meta$true_coef
 sumstats = readRDS(&#39;data/random_data_31_sim_gaussian_35_get_sumstats_1.rds&#39;)
-zscores = sumstats$sumstats$bhat/sumstats$sumstats$shat
-plot(zscores, pch=16, main=&#39;z scores&#39;)
+zscores = sumstats$sumstats$bhat/sumstats$sumstats$shat</code></pre>
+<p>We randomly generated 1200 by 1000 matrix X, each entry is random from N(0,1). The variables are independent. There are 5 signals in the simulated data, total PVE is 0.8. The true signals are 424, 427, 523, 941, 950.</p>
+<pre class="r"><code>plot(zscores, pch=16, main=&#39;z scores&#39;)
 pos = 1:length(zscores)
 points(pos[beta!=0],zscores[beta!=0],col=2,pch=16)</code></pre>
 <p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-2-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a0fba921df21a4dcebff94a5f11af402301ec088/docs/figure/DontStopProblem.Rmd/unnamed-chunk-2-1.png" target="_blank">a0fba92</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-12
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre class="r"><code>susie_plot(zscores, y = &quot;z&quot;, b = beta, main=&#39;p values from z scores&#39;)</code></pre>
 <p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>which(beta!=0)</code></pre>
-<pre><code>[1] 424 427 523 941 950</code></pre>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-2-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a0fba921df21a4dcebff94a5f11af402301ec088/docs/figure/DontStopProblem.Rmd/unnamed-chunk-2-2.png" target="_blank">a0fba92</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-12
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre class="r"><code>fit_1 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, max_iter = 100, estimate_prior_method = &#39;EM&#39;)</code></pre>
 <pre class="r"><code>fit_1 = readRDS(&#39;output/random_data_31_35_fit_em.rds&#39;)</code></pre>
 <p>The algorithm fails to stop.</p>
 <p>The objective is -1790.4412135.</p>
 <pre class="r"><code>susie_plot(fit_1, y=&#39;PIP&#39;, b=beta)</code></pre>
-<p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The estimated prior variance at last 10 iterations are</p>
-<pre class="r"><code>for(i in 90:length(fit_1$trace)){
-  print(fit_1$trace[[i]]$V)
-}</code></pre>
-<pre><code> [1] 1290.44535    0.00000   42.28013  203.79406   37.97423    0.00000
- [7]   31.53090   24.34893    0.00000    0.00000
- [1] 1293.43575    0.00000   42.28013  202.60485   37.97431    0.00000
- [7]   31.53091   24.34895    0.00000    0.00000
- [1] 1296.44627    0.00000   42.28012  201.41253   37.97438    0.00000
- [7]   31.53092   24.34897    0.00000    0.00000
- [1] 1299.47711    0.00000   42.28012  200.21709   37.97446    0.00000
- [7]   31.53093   24.34898    0.00000    0.00000
- [1] 1302.52853    0.00000   42.28012  199.01852   37.97454    0.00000
- [7]   31.53094   24.34900    0.00000    0.00000
- [1] 1305.60074    0.00000   42.28012  197.81680   37.97462    0.00000
- [7]   31.53095   24.34902    0.00000    0.00000
- [1] 1308.69400    0.00000   42.28012  196.61194   37.97470    0.00000
- [7]   31.53096   24.34904    0.00000    0.00000
- [1] 1311.80855    0.00000   42.28012  195.40392   37.97478    0.00000
- [7]   31.53097   24.34906    0.00000    0.00000
- [1] 1314.94464    0.00000   42.28012  194.19273   37.97486    0.00000
- [7]   31.53098   24.34907    0.00000    0.00000
- [1] 1318.10251    0.00000   42.28012  192.97836   37.97494    0.00000
- [7]   31.53099   24.34909    0.00000    0.00000
- [1] 1321.28244    0.00000   42.28012  191.76081   37.97503    0.00000
- [7]   31.53100   24.34911    0.00000    0.00000</code></pre>
+<pre class="r"><code>Vs = matrix(NA, 11, 10)
+for(i in 1:10){
+  Vs[i,] = fit_1$trace[[90+i]]$V
+}
+Vs[11,] = fit_1$V
+row.names(Vs) = paste0(&#39;Iter: &#39;, 91:101)
+Vs %&gt;% kable() %&gt;% kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;">
+Iter: 91
+</td>
+<td style="text-align:right;">
+1293.436
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28013
+</td>
+<td style="text-align:right;">
+202.6049
+</td>
+<td style="text-align:right;">
+37.97431
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53091
+</td>
+<td style="text-align:right;">
+24.34895
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 92
+</td>
+<td style="text-align:right;">
+1296.446
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+201.4125
+</td>
+<td style="text-align:right;">
+37.97438
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53092
+</td>
+<td style="text-align:right;">
+24.34897
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 93
+</td>
+<td style="text-align:right;">
+1299.477
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+200.2171
+</td>
+<td style="text-align:right;">
+37.97446
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53093
+</td>
+<td style="text-align:right;">
+24.34898
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 94
+</td>
+<td style="text-align:right;">
+1302.529
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+199.0185
+</td>
+<td style="text-align:right;">
+37.97454
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53094
+</td>
+<td style="text-align:right;">
+24.34900
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 95
+</td>
+<td style="text-align:right;">
+1305.601
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+197.8168
+</td>
+<td style="text-align:right;">
+37.97462
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53095
+</td>
+<td style="text-align:right;">
+24.34902
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 96
+</td>
+<td style="text-align:right;">
+1308.694
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+196.6119
+</td>
+<td style="text-align:right;">
+37.97470
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53096
+</td>
+<td style="text-align:right;">
+24.34904
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 97
+</td>
+<td style="text-align:right;">
+1311.809
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+195.4039
+</td>
+<td style="text-align:right;">
+37.97478
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53097
+</td>
+<td style="text-align:right;">
+24.34906
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 98
+</td>
+<td style="text-align:right;">
+1314.945
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+194.1927
+</td>
+<td style="text-align:right;">
+37.97486
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53098
+</td>
+<td style="text-align:right;">
+24.34907
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 99
+</td>
+<td style="text-align:right;">
+1318.103
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+192.9784
+</td>
+<td style="text-align:right;">
+37.97494
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53099
+</td>
+<td style="text-align:right;">
+24.34909
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 100
+</td>
+<td style="text-align:right;">
+1321.282
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+191.7608
+</td>
+<td style="text-align:right;">
+37.97503
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53100
+</td>
+<td style="text-align:right;">
+24.34911
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iter: 101
+</td>
+<td style="text-align:right;">
+1324.485
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.28012
+</td>
+<td style="text-align:right;">
+190.5401
+</td>
+<td style="text-align:right;">
+37.97511
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+31.53101
+</td>
+<td style="text-align:right;">
+24.34913
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
 <p>Fit model with initial prior variance 50:</p>
 <pre class="r"><code>fit_2 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, scaled_prior_variance = 50, estimate_prior_method = &#39;EM&#39;)</code></pre>
 <pre><code>[1] &quot;before estimate sigma2 objective:-1816.93777951728&quot;
@@ -616,18 +1080,107 @@ points(pos[beta!=0],zscores[beta!=0],col=2,pch=16)</code></pre>
 [1] &quot;after estimate sigma2 objective:-1780.72793597231&quot;</code></pre>
 <p>The algorithm stops. The objective is -1780.727936.</p>
 <pre class="r"><code>susie_plot(fit_2, y=&#39;PIP&#39;, b=beta)</code></pre>
-<p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The estimated prior variances are</p>
-<pre class="r"><code>fit_2$V</code></pre>
-<pre><code> [1] 2520.96470   42.28076   37.95474   31.52849   24.34387    0.00000
- [7]    0.00000    0.00000    0.00000    0.00000</code></pre>
+<pre class="r"><code>fit_2$V %&gt;% kable() %&gt;% kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2520.96470
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42.28076
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+37.95474
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+31.52849
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+24.34387
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+</tbody>
+</table>
 <pre class="r"><code>fit_3 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, s_init = fit_2, scaled_prior_variance = fit_2$V)</code></pre>
 <pre><code>[1] &quot;before estimate sigma2 objective:-1780.7279359051&quot;
 [1] &quot;after estimate sigma2 objective:-1780.7279359051&quot;
 [1] &quot;before estimate sigma2 objective:-1780.72793590511&quot;
 [1] &quot;after estimate sigma2 objective:-1780.72793590511&quot;</code></pre>
 <pre class="r"><code>susie_plot(fit_3, y=&#39;PIP&#39;, b=beta)</code></pre>
-<p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-8-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a0fba921df21a4dcebff94a5f11af402301ec088/docs/figure/DontStopProblem.Rmd/unnamed-chunk-8-1.png" target="_blank">a0fba92</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-12
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>Fit model using ‘optim’:</p>
 <pre class="r"><code>fit_4 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, estimate_prior_method = &#39;optim&#39;)</code></pre>
 <pre><code>[1] &quot;before estimate sigma2 objective:-1786.68857739904&quot;
@@ -640,11 +1193,100 @@ points(pos[beta!=0],zscores[beta!=0],col=2,pch=16)</code></pre>
 [1] &quot;after estimate sigma2 objective:-1780.72793598391&quot;</code></pre>
 <p>The objective is -1780.727936.</p>
 <pre class="r"><code>susie_plot(fit_4, y=&#39;PIP&#39;, b=beta)</code></pre>
-<p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DontStopProblem.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-10-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a0fba921df21a4dcebff94a5f11af402301ec088/docs/figure/DontStopProblem.Rmd/unnamed-chunk-10-1.png" target="_blank">a0fba92</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-12
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>The estimated prior variances are</p>
-<pre class="r"><code>fit_4$V</code></pre>
-<pre><code> [1] 2520.99866   42.27946   37.95660   31.52854   24.34473    0.00000
- [7]    0.00000    0.00000    0.00000    0.00000</code></pre>
+<pre class="r"><code>fit_4$V %&gt;% kable() %&gt;% kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2520.99866
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42.27946
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+37.95660
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+31.52854
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+24.34473
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+</tbody>
+</table>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
 <pre class="r"><code>sessionInfo()</code></pre>
@@ -663,14 +1305,23 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] R.utils_2.7.0     R.oo_1.22.0       R.methodsS3_1.7.1 susieR_0.7.1.0482
+[1] kableExtra_1.0.1  knitr_1.20        susieR_0.7.1.0482
 
 loaded via a namespace (and not attached):
- [1] workflowr_1.1.1 Rcpp_1.0.0      lattice_0.20-38 digest_0.6.18  
- [5] rprojroot_1.3-2 grid_3.5.1      backports_1.1.3 git2r_0.24.0   
- [9] magrittr_1.5    evaluate_0.12   stringi_1.2.4   whisker_0.3-2  
-[13] Matrix_1.2-15   rmarkdown_1.11  tools_3.5.1     stringr_1.3.1  
-[17] yaml_2.2.0      compiler_3.5.1  htmltools_0.3.6 knitr_1.20     </code></pre>
+ [1] Rcpp_1.0.0        highr_0.7         compiler_3.5.1   
+ [4] pillar_1.3.1      git2r_0.24.0      workflowr_1.1.1  
+ [7] R.methodsS3_1.7.1 R.utils_2.7.0     tools_3.5.1      
+[10] digest_0.6.18     evaluate_0.12     tibble_2.0.1     
+[13] lattice_0.20-38   viridisLite_0.3.0 pkgconfig_2.0.2  
+[16] rlang_0.3.1       Matrix_1.2-15     rstudioapi_0.9.0 
+[19] yaml_2.2.0        stringr_1.3.1     httr_1.4.0       
+[22] xml2_1.2.0        hms_0.4.2         webshot_0.5.1    
+[25] rprojroot_1.3-2   grid_3.5.1        glue_1.3.0       
+[28] R6_2.3.0          rmarkdown_1.11    readr_1.3.1      
+[31] magrittr_1.5      whisker_0.3-2     backports_1.1.3  
+[34] scales_1.0.0      htmltools_0.3.6   rvest_0.3.2      
+[37] colorspace_1.4-0  stringi_1.2.4     munsell_0.5.0    
+[40] crayon_1.3.4      R.oo_1.22.0      </code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
