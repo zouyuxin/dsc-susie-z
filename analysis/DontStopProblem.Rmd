@@ -76,6 +76,7 @@ The estimated prior variances are
 matrix(fit_2$V, 1, 10) %>% kable() %>% kable_styling()
 ```
 
+Fit model with initialization at previous one:
 ```{r}
 fit_3 = susie_z_general_num(zscores, R, lambda = 1e-6, track_fit = TRUE, verbose = TRUE, s_init = fit_2, scaled_prior_variance = fit_2$V)
 susie_plot(fit_3, y='PIP', b=beta)
