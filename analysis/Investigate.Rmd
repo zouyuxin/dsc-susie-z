@@ -56,25 +56,36 @@ z = c(1, 1.01)
 R = matrix(1, 2, 2)
 ```
 
-Model with var $\sigma^2R + \lambda I$.
+Model with var $\sigma^2R + \lambda I$. $\lambda=0.1$
 ```{r}
-fit_3 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0.1)
+fit_3 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0.1, restrict = TRUE, estimate_prior_method = 'EM')
 susie_plot(fit_3, y = 'PIP')
 ```
 
 There are no significant signal.
+
+$\lambda=0$
+```{r}
+fit_4 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0, restrict = TRUE, estimate_prior_method = 'EM')
+susie_plot(fit_4, y = 'PIP')
+```
 
 ```{r}
 z = c(6, 6.01)
 R = matrix(1, 2, 2)
 ```
 
-Model with var $\sigma^2R + \lambda I$.
+Model with var $\sigma^2R + \lambda I$. $\lambda=0.1$
 ```{r}
-fit_4 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0.1)
-susie_plot(fit_4, y = 'PIP')
+fit_5 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0.1, restrict = TRUE, estimate_prior_method = 'EM')
+susie_plot(fit_5, y = 'PIP')
 ```
 
 We find the significant signal.
 
-The model doesn't work with lambda = 0.
+$\lambda=0$
+```{r}
+fit_6 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0, restrict = TRUE, estimate_prior_method = 'EM')
+susie_plot(fit_6, y = 'PIP')
+```
+
