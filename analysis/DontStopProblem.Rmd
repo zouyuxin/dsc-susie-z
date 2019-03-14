@@ -97,3 +97,11 @@ The estimated prior variances are
 ```{r}
 matrix(fit_4$V, 1, 10) %>% kable() %>% kable_styling()
 ```
+
+Try with $\lambda = 0$
+```{r}
+fit_5 = susie_z_general_num(zscores, R, lambda = 0, track_fit = TRUE, verbose = TRUE, estimate_prior_method = 'optim')
+```
+```{r}
+susie_plot(fit_5, y='PIP', b=beta)
+```
