@@ -460,7 +460,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/26d178ed6b0da3b45e1f553ee784f273bf4f58b0" target="_blank">26d178e</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/a6135a05bdffecb3136716099fb0b189b467ecfd" target="_blank">a6135a0</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -495,6 +495,7 @@ Untracked files:
     Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2_susie_z_2.rds
 
 Unstaged changes:
+    Modified:   analysis/DontStopProblem.Rmd
     Modified:   analysis/SuSiEDAP_Power_data31_35.Rmd
     Modified:   analysis/SusieZPerformance.Rmd
     Modified:   analysis/SusieZPerformanceRE3.Rmd
@@ -527,6 +528,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/4a9450da38a6c08f8a65152028ba9128aa684d6e/docs/Investigate.html" target="_blank">4a9450d</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -645,16 +663,16 @@ library(R.utils)</code></pre>
 R = matrix(1, 2,2)</code></pre>
 <p>Model with var <span class="math inline">\(\sigma^2(R + \lambda I)\)</span>.</p>
 <pre class="r"><code>sourceDirectory(&quot;~/Documents/GitHub/susieR/inst/code/susiez_fix/&quot;)
-fit_1 = susie_z_general_fix(z, R, lambda = 0.1, restrict = FALSE, estimate_prior_method = &#39;optim&#39;)</code></pre>
+fit_1 = susie_z_general_fix(z, R, lambda = 0.1, restrict = FALSE, estimate_prior_method = &#39;EM&#39;)</code></pre>
 <p>The estimated residual variance is</p>
 <pre class="r"><code>fit_1$sigma2</code></pre>
-<pre><code>[1] 0.0005076256</code></pre>
+<pre><code>[1] 1.914548</code></pre>
 <p>Model with var <span class="math inline">\(\sigma^2R + \lambda I\)</span>.</p>
 <pre class="r"><code>sourceDirectory(&quot;~/Documents/GitHub/susieR/inst/code/susiez_num/&quot;)
 fit_2 = susie_z_general_num(z, R, lambda = 0.1, restrict = FALSE, estimate_prior_method = &#39;EM&#39;)</code></pre>
 <p>The estimated residual variance is</p>
 <pre class="r"><code>fit_2$sigma2</code></pre>
-<pre><code>[1] 3.473333</code></pre>
+<pre><code>[1] 3.7</code></pre>
 <p>The model with var <span class="math inline">\(\sigma^2R + \lambda I\)</span> gives the estimated residual variance close to 4.</p>
 <p>We use the model with var <span class="math inline">\(\sigma^2R + \lambda I\)</span> in the following investigation.</p>
 </div>
@@ -668,14 +686,14 @@ R = matrix(1, 2, 2)</code></pre>
 <p>Model with var <span class="math inline">\(\sigma^2R + \lambda I\)</span>. <span class="math inline">\(\lambda=0.1\)</span></p>
 <pre class="r"><code>fit_3 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0.1, restrict = TRUE, estimate_prior_method = &#39;EM&#39;)</code></pre>
 <pre><code>[1] &quot;before estimate sigma2 objective:-1.58186763542179&quot;
-[1] &quot;after estimate sigma2 objective:-1.570159986685&quot;
-[1] &quot;before estimate sigma2 objective:-1.54757446360187&quot;
-[1] &quot;after estimate sigma2 objective:-1.53839565170333&quot;
-[1] &quot;before estimate sigma2 objective:-1.53839565170333&quot;
-[1] &quot;after estimate sigma2 objective:-1.53839565170333&quot;</code></pre>
+[1] &quot;after estimate sigma2 objective:-1.57020328695054&quot;
+[1] &quot;before estimate sigma2 objective:-1.54628099838458&quot;
+[1] &quot;after estimate sigma2 objective:-1.5387674779913&quot;
+[1] &quot;before estimate sigma2 objective:-1.5387674779913&quot;
+[1] &quot;after estimate sigma2 objective:-1.5387674779913&quot;</code></pre>
 <pre class="r"><code>susie_plot(fit_3, y = &#39;PIP&#39;)</code></pre>
-<p><img src="figure/Investigate.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-8-1.png:</em></summary>
+<p><img src="figure/Investigate.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-6-1.png:</em></summary>
 <table style="border-collapse:separate; border-spacing:5px;">
 <thead>
 <tr>
@@ -693,18 +711,7 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/db8e65c3b44e6f4746c40ba95aac1677430dc854/docs/figure/Investigate.Rmd/unnamed-chunk-8-1.png" target="_blank">db8e65c</a>
-</td>
-<td style="text-align:left;">
-zouyuxin
-</td>
-<td style="text-align:left;">
-2019-03-13
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/fd07945df91539ea8a238acc99d047b74bba7f0b/docs/figure/Investigate.Rmd/unnamed-chunk-8-1.png" target="_blank">fd07945</a>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/fd07945df91539ea8a238acc99d047b74bba7f0b/docs/figure/Investigate.Rmd/unnamed-chunk-6-1.png" target="_blank">fd07945</a>
 </td>
 <td style="text-align:left;">
 zouyuxin
@@ -720,68 +727,128 @@ zouyuxin
 <p><span class="math inline">\(\lambda=0\)</span></p>
 <pre class="r"><code>fit_4 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0, restrict = TRUE, estimate_prior_method = &#39;EM&#39;)</code></pre>
 <pre><code>[1] &quot;before estimate sigma2 objective:-2.72916544264994&quot;
-[1] &quot;after estimate sigma2 objective:-2.71998611548902&quot;
-[1] &quot;before estimate sigma2 objective:-2.70103469396501&quot;
-[1] &quot;after estimate sigma2 objective:-2.68946315685295&quot;
-[1] &quot;before estimate sigma2 objective:-2.68946315685295&quot;
-[1] &quot;after estimate sigma2 objective:-2.68946315685295&quot;</code></pre>
+[1] &quot;after estimate sigma2 objective:-2.87341252520904&quot;
+[1] &quot;before estimate sigma2 objective:-2.97001396947636&quot;
+[1] &quot;after estimate sigma2 objective:-2.84286460792038&quot;
+[1] &quot;before estimate sigma2 objective:-2.84286460792038&quot;
+[1] &quot;after estimate sigma2 objective:-2.84286460792038&quot;</code></pre>
 <pre class="r"><code>susie_plot(fit_4, y = &#39;PIP&#39;)</code></pre>
-<p><img src="figure/Investigate.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Investigate.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>z = c(6, 6.01)
 R = matrix(1, 2, 2)</code></pre>
 <p>Model with var <span class="math inline">\(\sigma^2R + \lambda I\)</span>. <span class="math inline">\(\lambda=0.1\)</span></p>
 <pre class="r"><code>fit_5 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0.1, restrict = TRUE, estimate_prior_method = &#39;EM&#39;)</code></pre>
 <pre><code>[1] &quot;before estimate sigma2 objective:-13.7175796354218&quot;
-[1] &quot;after estimate sigma2 objective:-13.7175798672716&quot;
-[1] &quot;before estimate sigma2 objective:-7.93041136012025&quot;
-[1] &quot;after estimate sigma2 objective:-7.93041137065023&quot;
-[1] &quot;before estimate sigma2 objective:-4.34247256666951&quot;
-[1] &quot;after estimate sigma2 objective:-4.34247256287466&quot;
-[1] &quot;before estimate sigma2 objective:-4.05511126473463&quot;
-[1] &quot;after estimate sigma2 objective:-4.05511126490954&quot;
-[1] &quot;before estimate sigma2 objective:-3.98220037435143&quot;
-[1] &quot;after estimate sigma2 objective:-3.98220037450636&quot;
-[1] &quot;before estimate sigma2 objective:-3.89332924059978&quot;
-[1] &quot;after estimate sigma2 objective:-3.89332924085191&quot;
-[1] &quot;before estimate sigma2 objective:-3.78643889627407&quot;
-[1] &quot;after estimate sigma2 objective:-3.78643889667236&quot;
-[1] &quot;before estimate sigma2 objective:-3.49517398054299&quot;
-[1] &quot;after estimate sigma2 objective:-3.49517398119828&quot;
-[1] &quot;before estimate sigma2 objective:-3.33717237322046&quot;
-[1] &quot;after estimate sigma2 objective:-3.33717237324268&quot;
-[1] &quot;before estimate sigma2 objective:-3.32604327580974&quot;
-[1] &quot;after estimate sigma2 objective:-3.32604327580681&quot;
-[1] &quot;before estimate sigma2 objective:-3.32600070770375&quot;
-[1] &quot;after estimate sigma2 objective:-3.32600070770373&quot;</code></pre>
+[1] &quot;after estimate sigma2 objective:-13.7175796354218&quot;
+[1] &quot;before estimate sigma2 objective:-7.93041128986574&quot;
+[1] &quot;after estimate sigma2 objective:-7.93041128986574&quot;
+[1] &quot;before estimate sigma2 objective:-4.34247256678977&quot;
+[1] &quot;after estimate sigma2 objective:-4.34247256678977&quot;
+[1] &quot;before estimate sigma2 objective:-4.05511125597767&quot;
+[1] &quot;after estimate sigma2 objective:-4.05511125597767&quot;
+[1] &quot;before estimate sigma2 objective:-3.98220036510767&quot;
+[1] &quot;after estimate sigma2 objective:-3.98220036510767&quot;
+[1] &quot;before estimate sigma2 objective:-3.89332923147985&quot;
+[1] &quot;after estimate sigma2 objective:-3.89332923147985&quot;
+[1] &quot;before estimate sigma2 objective:-3.78643888763794&quot;
+[1] &quot;after estimate sigma2 objective:-3.78643888763794&quot;
+[1] &quot;before estimate sigma2 objective:-3.49517397351547&quot;
+[1] &quot;after estimate sigma2 objective:-3.49517397351547&quot;
+[1] &quot;before estimate sigma2 objective:-3.33717237303734&quot;
+[1] &quot;after estimate sigma2 objective:-3.33717237303734&quot;
+[1] &quot;before estimate sigma2 objective:-3.32604327581057&quot;
+[1] &quot;after estimate sigma2 objective:-3.32604327581057&quot;
+[1] &quot;before estimate sigma2 objective:-3.32600070770394&quot;
+[1] &quot;after estimate sigma2 objective:-3.32600070770394&quot;</code></pre>
 <pre class="r"><code>susie_plot(fit_5, y = &#39;PIP&#39;)</code></pre>
-<p><img src="figure/Investigate.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Investigate.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-9-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/4a9450da38a6c08f8a65152028ba9128aa684d6e/docs/figure/Investigate.Rmd/unnamed-chunk-9-1.png" target="_blank">4a9450d</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>We find the significant signal.</p>
 <p><span class="math inline">\(\lambda=0\)</span></p>
 <pre class="r"><code>fit_6 = susie_z_general_num(z, R, verbose=TRUE, lambda = 0, restrict = TRUE, estimate_prior_method = &#39;EM&#39;)</code></pre>
 <pre><code>[1] &quot;before estimate sigma2 objective:-15.3049756278351&quot;
-[1] &quot;after estimate sigma2 objective:-15.3049759511923&quot;
-[1] &quot;before estimate sigma2 objective:-8.98627879819076&quot;
-[1] &quot;after estimate sigma2 objective:-8.98627877687633&quot;
-[1] &quot;before estimate sigma2 objective:-5.45914812444076&quot;
-[1] &quot;after estimate sigma2 objective:-5.459148128337&quot;
-[1] &quot;before estimate sigma2 objective:-5.22028902974184&quot;
-[1] &quot;after estimate sigma2 objective:-5.22028902982143&quot;
-[1] &quot;before estimate sigma2 objective:-5.14741482535723&quot;
-[1] &quot;after estimate sigma2 objective:-5.14741482544165&quot;
-[1] &quot;before estimate sigma2 objective:-5.05745094890992&quot;
-[1] &quot;after estimate sigma2 objective:-5.05745094904849&quot;
-[1] &quot;before estimate sigma2 objective:-4.94886386686558&quot;
-[1] &quot;after estimate sigma2 objective:-4.94886386708611&quot;
-[1] &quot;before estimate sigma2 objective:-4.65398535880191&quot;
-[1] &quot;after estimate sigma2 objective:-4.65398535920978&quot;
-[1] &quot;before estimate sigma2 objective:-4.48819479037601&quot;
-[1] &quot;after estimate sigma2 objective:-4.48819479032972&quot;
-[1] &quot;before estimate sigma2 objective:-4.4770818119199&quot;
-[1] &quot;after estimate sigma2 objective:-4.47708181192261&quot;
-[1] &quot;before estimate sigma2 objective:-4.47704322901776&quot;
-[1] &quot;after estimate sigma2 objective:-4.47704322901777&quot;</code></pre>
+[1] &quot;after estimate sigma2 objective:-15.3049756278351&quot;
+[1] &quot;before estimate sigma2 objective:-8.98627870777684&quot;
+[1] &quot;after estimate sigma2 objective:-8.98627870777684&quot;
+[1] &quot;before estimate sigma2 objective:-5.45914813136883&quot;
+[1] &quot;after estimate sigma2 objective:-5.48144843691391&quot;
+[1] &quot;before estimate sigma2 objective:-5.23879173162312&quot;
+[1] &quot;after estimate sigma2 objective:-5.26687017353355&quot;
+[1] &quot;before estimate sigma2 objective:-5.18885563373841&quot;
+[1] &quot;after estimate sigma2 objective:-5.22180034201539&quot;
+[1] &quot;before estimate sigma2 objective:-5.12484245159225&quot;
+[1] &quot;after estimate sigma2 objective:-5.16552628968922&quot;
+[1] &quot;before estimate sigma2 objective:-5.04415120495072&quot;
+[1] &quot;after estimate sigma2 objective:-5.09679690706339&quot;
+[1] &quot;before estimate sigma2 objective:-4.77880391284597&quot;
+[1] &quot;after estimate sigma2 objective:-4.82169386696188&quot;
+[1] &quot;before estimate sigma2 objective:-4.49064374164697&quot;
+[1] &quot;after estimate sigma2 objective:-4.6440628628735&quot;
+[1] &quot;before estimate sigma2 objective:-4.47711780109946&quot;
+[1] &quot;after estimate sigma2 objective:-4.6305442049955&quot;
+[1] &quot;before estimate sigma2 objective:-4.47704846544923&quot;
+[1] &quot;after estimate sigma2 objective:-4.63047487506837&quot;</code></pre>
 <pre class="r"><code>susie_plot(fit_6, y = &#39;PIP&#39;)</code></pre>
-<p><img src="figure/Investigate.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Investigate.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-10-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/db8e65c3b44e6f4746c40ba95aac1677430dc854/docs/figure/Investigate.Rmd/unnamed-chunk-10-1.png" target="_blank">db8e65c</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-03-13
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
