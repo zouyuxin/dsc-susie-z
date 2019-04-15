@@ -41,3 +41,17 @@ Welcome to my research website.
     [Investigate](Investigate.html)
     
     [Doesn't stop problem](DontStopProblem.html)
+
+* Comparing result from in-sample R vs out-sample R:
+
+    [Equal effect size](r_compare_susie_equal.html)
+    
+    [NON-Equal effect size](r_compare_susie_notequal.html)
+    
+  + Problem data: 
+      
+      [SuSiE bhat out sample R error](r_compare_susieb_problem.html)
+      
+      [SuSiE RSS not converge](SuSiErssNotConverge.html)
+      
+    
