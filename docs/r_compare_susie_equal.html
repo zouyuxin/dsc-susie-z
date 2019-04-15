@@ -461,7 +461,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/1949fada92a62db0a190cb0c0cbdd7a02b43edfe" target="_blank">1949fad</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/6c860e357b25b7de336a71964defd1baab66d0de" target="_blank">6c860e3</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -500,8 +500,12 @@ Untracked files:
     Untracked:  output/finemap_compare_random_data_signal_dscout.rds
     Untracked:  output/finemap_compare_small_data_signal_dscout.rds
     Untracked:  output/finemap_compare_small_data_signal_dscout_RE8.rds
+    Untracked:  output/r_compare_FINEMAP_PIP_ROC.rds
     Untracked:  output/r_compare_dscout_susie_finemappip_tibble.rds
     Untracked:  output/r_compare_dscout_susie_finemappip_truth_tibble.rds
+    Untracked:  output/r_compare_susieb_PIP_ROC.rds
+    Untracked:  output/r_compare_susiepip_tibble.rds
+    Untracked:  output/r_compare_susierss_PIP_ROC.rds
     Untracked:  output/random_data_100_sim_gaussian_null_1_get_sumstats_1_finemap_1.rds
     Untracked:  output/random_data_31_35_fit_em.rds
     Untracked:  output/random_data_76.rds
@@ -512,6 +516,7 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/SuSiEDAP_Power_data31_35.Rmd
+    Modified:   analysis/SuSiErssNotConverge.Rmd
     Modified:   analysis/SusieZPerformance.Rmd
     Modified:   analysis/SusieZPerformanceRE3.Rmd
     Modified:   output/dsc_susie_z_v_output.rds
@@ -543,6 +548,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/6c860e357b25b7de336a71964defd1baab66d0de/analysis/r_compare_susie_equal.Rmd" target="_blank">6c860e3</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+wflow_publish(c(“analysis/r_compare_susie_equal.Rmd”, “analysis/r_compare_susie_notequal.Rmd”))
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/f9403e7f20dc6f5126463c75bc665780c3b909a8/docs/r_compare_susie_equal.html" target="_blank">f9403e7</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -669,7 +708,7 @@ out_sample
 </ul>
 <pre class="r"><code>purity.susieb.in_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susieb.in_sample, mean), 3)
 colnames(purity.susieb.in_sample)[colnames(purity.susieb.in_sample) == &#39;purity&#39;] &lt;- &#39;purity.in_sample&#39;
-purity.susieb.out_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susieb.out_sample, mean), 3)
+purity.susieb.out_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susieb.out_sample[!is.na(dscout.equal.susieb.out_sample$converged),], mean), 3)
 colnames(purity.susieb.out_sample)[colnames(purity.susieb.out_sample) == &#39;purity&#39;] &lt;- &#39;purity.out_sample&#39;
 purity.susieb = merge(purity.susieb.in_sample, purity.susieb.out_sample)
 
@@ -1166,6 +1205,309 @@ power.susie.out_sample
 </tr>
 </tbody>
 </table>
+<ul>
+<li>FDR</li>
+</ul>
+<pre class="r"><code>valid.in = aggregate(valid ~ n_signal + pve, dscout.equal.susieb.in_sample, sum)
+total.in = aggregate(total~ n_signal + pve, dscout.equal.susieb.in_sample, sum)
+fdr.in = merge(valid.in, total.in)
+fdr.in$fdr.in = round((fdr.in$total - fdr.in$valid)/fdr.in$total, 4)
+colnames(fdr.in)[colnames(fdr.in) == &#39;valid&#39;] &lt;- &#39;valid.in_sample&#39;
+fdr.in = fdr.in[,-4]
+
+valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susieb.out_sample[!is.na(dscout.equal.susieb.out_sample$converged),], sum)
+total.out = aggregate(total~ n_signal + pve, dscout.equal.susieb.out_sample[!is.na(dscout.equal.susieb.out_sample$converged),], sum)
+fdr.out = merge(valid.out, total.out)
+fdr.out$fdr.out = round((fdr.out$total - fdr.out$valid)/fdr.out$total, 4)
+colnames(fdr.out)[colnames(fdr.out) == &#39;valid&#39;] &lt;- &#39;valid.out_sample&#39;
+fdr.out = fdr.out[,-4]
+
+fdr = Reduce(function(...) merge(...),
+       list(fdr.in, fdr.out))
+
+fdr %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F) %&gt;% add_header_above(c(&quot; &quot;, &quot; &quot;, &quot;SuSiE b&quot; = 2, &quot;SuSiE rss&quot; = 2)) %&gt;% column_spec(c(4,6), bold = T)</code></pre>
+<table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+SuSiE b
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+SuSiE rss
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:right;">
+n_signal
+</th>
+<th style="text-align:right;">
+pve
+</th>
+<th style="text-align:right;">
+valid.in_sample
+</th>
+<th style="text-align:right;">
+fdr.in
+</th>
+<th style="text-align:right;">
+valid.out_sample
+</th>
+<th style="text-align:right;">
+fdr.out
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0217
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0625
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+149
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0067
+</td>
+<td style="text-align:right;">
+140
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.3694
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+149
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0067
+</td>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.8182
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+149
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0067
+</td>
+<td style="text-align:right;">
+42
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.8433
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.2273
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.2500
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+215
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1502
+</td>
+<td style="text-align:right;">
+201
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.3619
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+375
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1176
+</td>
+<td style="text-align:right;">
+178
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.6973
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+385
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1387
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.7206
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0909
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1818
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+137
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1988
+</td>
+<td style="text-align:right;">
+150
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.4094
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+579
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1267
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.5855
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+612
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1319
+</td>
+<td style="text-align:right;">
+229
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.5918
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="susie_rss" class="section level2">
 <h2>susie_rss</h2>
@@ -1341,9 +1683,9 @@ out_sample
 <ul>
 <li>Purity of CS:</li>
 </ul>
-<pre class="r"><code>purity.susierss.in_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susierss.in_sample, mean), 3)
+<pre class="r"><code>purity.susierss.in_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susierss.in_sample[dscout.equal.susierss.in_sample$converged==1,], mean), 3)
 colnames(purity.susierss.in_sample)[colnames(purity.susierss.in_sample) == &#39;purity&#39;] &lt;- &#39;purity.in_sample&#39;
-purity.susierss.out_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susierss.out_sample, mean), 3)
+purity.susierss.out_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susierss.out_sample[dscout.equal.susierss.out_sample$converged==1,], mean), 3)
 colnames(purity.susierss.out_sample)[colnames(purity.susierss.out_sample) == &#39;purity&#39;] &lt;- &#39;purity.out_sample&#39;
 purity.susierss = merge(purity.susierss.in_sample, purity.susierss.out_sample)
 
@@ -1475,7 +1817,7 @@ purity.out_sample
 0.989
 </td>
 <td style="text-align:right;">
-0.986
+0.985
 </td>
 </tr>
 <tr>
@@ -1539,15 +1881,15 @@ purity.out_sample
 <ul>
 <li>Power:</li>
 </ul>
-<pre class="r"><code>valid.in = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.in_sample, sum)
-total.in = aggregate(DSC~ n_signal + pve, dscout.equal.susierss.in_sample, length)
+<pre class="r"><code>valid.in = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.in_sample[dscout.equal.susierss.in_sample$converged==1,], sum)
+total.in = aggregate(DSC~ n_signal + pve, dscout.equal.susierss.in_sample[dscout.equal.susierss.in_sample$converged==1,], length)
 total.in$total_true = total.in$DSC * total.in$n_signal
 power.susie.in = merge(valid.in, total.in)
 power.susie.in$power.susie.in_sample = round(power.susie.in$valid/(power.susie.in$total_true), 3)
 colnames(power.susie.in)[colnames(power.susie.in) == &#39;valid&#39;] &lt;- &#39;valid.in_sample&#39;
 
-valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.out_sample, sum)
-total.out = aggregate(DSC~ n_signal + pve, dscout.equal.susierss.out_sample, length)
+valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.out_sample[dscout.equal.susierss.out_sample$converged ==1,], sum)
+total.out = aggregate(DSC~ n_signal + pve, dscout.equal.susierss.out_sample[dscout.equal.susierss.out_sample$converged ==1,], length)
 total.out$total_true = total.out$DSC * total.out$n_signal
 power.susie.out = merge(valid.out, total.out)
 power.susie.out$power.susie.out_sample = round(power.susie.out$valid/(power.susie.out$total_true), 3)
@@ -1639,46 +1981,6 @@ power.susie.out_sample
 </tr>
 <tr>
 <td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.60
-</td>
-<td style="text-align:right;">
-102
-</td>
-<td style="text-align:right;font-weight: bold;">
-0.680
-</td>
-<td style="text-align:right;">
-74
-</td>
-<td style="text-align:right;font-weight: bold;">
-0.493
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.80
-</td>
-<td style="text-align:right;">
-97
-</td>
-<td style="text-align:right;font-weight: bold;">
-0.647
-</td>
-<td style="text-align:right;">
-86
-</td>
-<td style="text-align:right;font-weight: bold;">
-0.573
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
 3
 </td>
 <td style="text-align:right;">
@@ -1748,13 +2050,13 @@ power.susie.out_sample
 333
 </td>
 <td style="text-align:right;font-weight: bold;">
-0.740
+0.745
 </td>
 <td style="text-align:right;">
 202
 </td>
 <td style="text-align:right;font-weight: bold;">
-0.449
+0.452
 </td>
 </tr>
 <tr>
@@ -1828,13 +2130,316 @@ power.susie.out_sample
 527
 </td>
 <td style="text-align:right;font-weight: bold;">
-0.703
+0.707
 </td>
 <td style="text-align:right;">
 309
 </td>
 <td style="text-align:right;font-weight: bold;">
-0.412
+0.415
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>FDR:</li>
+</ul>
+<pre class="r"><code>valid.in = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.in_sample[dscout.equal.susierss.in_sample$converged==1,], sum)
+total.in = aggregate(total~ n_signal + pve, dscout.equal.susierss.in_sample[dscout.equal.susierss.in_sample$converged==1,], sum)
+fdr.in = merge(valid.in, total.in)
+fdr.in$fdr.in = round((fdr.in$total - fdr.in$valid)/fdr.in$total, 4)
+colnames(fdr.in)[colnames(fdr.in) == &#39;valid&#39;] &lt;- &#39;valid.in_sample&#39;
+fdr.in = fdr.in[,-4]
+
+valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.out_sample[dscout.equal.susierss.out_sample$converged==1,], sum)
+total.out = aggregate(total~ n_signal + pve, dscout.equal.susierss.out_sample[dscout.equal.susierss.out_sample$converged==1,], sum)
+fdr.out = merge(valid.out, total.out)
+fdr.out$fdr.out = round((fdr.out$total - fdr.out$valid)/fdr.out$total, 4)
+colnames(fdr.out)[colnames(fdr.out) == &#39;valid&#39;] &lt;- &#39;valid.out_sample&#39;
+fdr.out = fdr.out[,-4]
+
+fdr = Reduce(function(...) merge(...),
+       list(fdr.in, fdr.out))
+
+fdr %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F) %&gt;% add_header_above(c(&quot; &quot;, &quot; &quot;, &quot;SuSiE b&quot; = 2, &quot;SuSiE rss&quot; = 2)) %&gt;% column_spec(c(4,6), bold = T)</code></pre>
+<table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+SuSiE b
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+SuSiE rss
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:right;">
+n_signal
+</th>
+<th style="text-align:right;">
+pve
+</th>
+<th style="text-align:right;">
+valid.in_sample
+</th>
+<th style="text-align:right;">
+fdr.in
+</th>
+<th style="text-align:right;">
+valid.out_sample
+</th>
+<th style="text-align:right;">
+fdr.out
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0208
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1220
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+145
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0333
+</td>
+<td style="text-align:right;">
+122
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.2229
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+102
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.6832
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.8617
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.8370
+</td>
+<td style="text-align:right;">
+83
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.8754
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.2174
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1905
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+195
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1772
+</td>
+<td style="text-align:right;">
+150
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.3056
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+350
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1898
+</td>
+<td style="text-align:right;">
+224
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.5650
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+333
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.2854
+</td>
+<td style="text-align:right;">
+202
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.6599
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1538
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.2000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+132
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.2048
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.3418
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+497
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1605
+</td>
+<td style="text-align:right;">
+307
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.4661
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+527
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1930
+</td>
+<td style="text-align:right;">
+309
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.5261
 </td>
 </tr>
 </tbody>
