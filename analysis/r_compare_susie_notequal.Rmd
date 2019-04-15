@@ -54,7 +54,7 @@ dscout.notequal.susieb.out_sample = dscout.notequal.susieb[dscout.notequal.susie
 
 * Converge
 
-The model from susie_bhat all converge. But lots of cases with out-sample R failed. The error could be negative residual variance. 
+The model from susie_bhat all converge. But lots of cases with out-sample R failed (362 out of 1800). The error could be negative residual variance. 
 ```{r}
 converge.summary = aggregate(converged ~ ld_method, dscout.notequal.susieb, sum)
 converge.summary$Fail = 1800 - converge.summary$converged
@@ -83,17 +83,18 @@ total.in$total_true = total.in$DSC * total.in$n_signal
 power.susie.in = merge(valid.in, total.in)
 power.susie.in$power.susie.in_sample = round(power.susie.in$valid/(power.susie.in$total_true), 3)
 colnames(power.susie.in)[colnames(power.susie.in) == 'valid'] <- 'valid.in_sample'
+power.susie.in = power.susie.in[,-c(4,5)]
 
-valid.out = aggregate(valid ~ n_signal + pve, dscout.notequal.susieb.out_sample, sum)
-total.out = aggregate(DSC~ n_signal + pve, dscout.notequal.susieb.out_sample, length)
+valid.out = aggregate(valid ~ n_signal + pve, dscout.notequal.susieb.out_sample[!is.na(dscout.notequal.susieb.out_sample$converged),], sum)
+total.out = aggregate(DSC~ n_signal + pve, dscout.notequal.susieb.out_sample[!is.na(dscout.notequal.susieb.out_sample$converged),], length)
 total.out$total_true = total.out$DSC * total.out$n_signal
 power.susie.out = merge(valid.out, total.out)
 power.susie.out$power.susie.out_sample = round(power.susie.out$valid/(power.susie.out$total_true), 3)
 colnames(power.susie.out)[colnames(power.susie.out) == 'valid'] <- 'valid.out_sample'
+power.susie.out = power.susie.out[,-c(4,5)]
 
 power.susie = Reduce(function(...) merge(...),
        list(power.susie.in, power.susie.out))
-power.susie = power.susie[,-c(3,4)]
 power.susie %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F) %>% add_header_above(c(" ", " ","IN sample" = 2, "OUT sample" = 2)) %>% column_spec(c(4, 6), bold = T)
 ```
 
@@ -111,6 +112,7 @@ There are cases fail to converge in susie_rss.
 converge.summary = aggregate(converged ~ pve + n_signal+ld_method, dscout.notequal.susierss, sum)
 converge.summary$NotConverge = 150 - converge.summary$converged
 NotConverge = converge.summary[converge.summary$NotConverge!=0,]
+colnames(NotConverge) = c('pve', 'n_signal', 'ld', 'converged', 'NotConverge(out of 150)')
 NotConverge[,-4] %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
 ```
 
