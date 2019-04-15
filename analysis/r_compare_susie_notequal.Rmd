@@ -34,7 +34,7 @@ dscout$ld_method[!is.na(dscout$susie_z.ld_method)] = dscout$susie_z.ld_method[!i
 dscout$ld_method[!is.na(dscout$finemap.ld_method)] = dscout$finemap.ld_method[!is.na(dscout$finemap.ld_method)]
 dscout$sim_gaussian.effect_weight[which(dscout$sim_gaussian.effect_weight == 'rep(1/n_signal, n_signal)')] = 'equal'
 dscout$sim_gaussian.effect_weight[which(dscout$sim_gaussian.effect_weight != 'equal')] = 'notequal'
-dscout = dscout[,-c(7,8,9,10)]
+dscout = dscout[,-c(6,8,9,10)]
 colnames(dscout) = c('DSC', 'filename','pve', 'n_signal', 'effect_weight', 'N_in', 'total', 'valid', 'size', 'purity', 'top', 'converged', 'pip', 'method', 'ld_method')
 ```
 
