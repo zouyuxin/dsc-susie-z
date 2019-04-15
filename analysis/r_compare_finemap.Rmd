@@ -85,7 +85,8 @@ dot_plot = function(dataframe) {
 }
 ```
 
-Calibrated PIP:
+## Calibrated PIP
+
 ```{r}
 idx = 0
 for(Rtype in names(pip_cali)){
@@ -99,7 +100,7 @@ for(Rtype in names(pip_cali)){
 
 ```
 
-ROC:
+## ROC
 
 ```{r}
 pip_cutoff = 0.05
