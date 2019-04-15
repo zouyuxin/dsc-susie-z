@@ -460,7 +460,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/f22b0c316d8eb47ebc080fde20bdaea122a67a60" target="_blank">f22b0c3</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/faf1bd5b05acc7ad433e9286d44063e5fa00d8db" target="_blank">faf1bd5</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -549,6 +549,40 @@ Message
 Rmd
 </td>
 <td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/faf1bd5b05acc7ad433e9286d44063e5fa00d8db/analysis/SuSiErssNotConverge.Rmd" target="_blank">faf1bd5</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+wflow_publish(c(“analysis/SuSiErssNotConverge.Rmd”, “analysis/r_compare_susieb_problem.Rmd”))
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/9267aac48e886a8b5e569826baa1ae7aa7795623/docs/SuSiErssNotConverge.html" target="_blank">9267aac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/f22b0c316d8eb47ebc080fde20bdaea122a67a60/analysis/SuSiErssNotConverge.Rmd" target="_blank">f22b0c3</a>
 </td>
 <td style="text-align:left;">
@@ -577,10 +611,71 @@ ss = readRDS(&#39;data/small_data_69_sim_gaussian_3_get_sumstats_1.rds&#39;)</co
 <pre class="r"><code>z = ss$sumstats$bhat/ss$sumstats$shat
 susie_plot(z, y = &quot;z&quot;, b=data$meta$true_coef)</code></pre>
 <p><img src="figure/SuSiErssNotConverge.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-2-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9267aac48e886a8b5e569826baa1ae7aa7795623/docs/figure/SuSiErssNotConverge.Rmd/unnamed-chunk-2-1.png" target="_blank">9267aac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
+<p>This is the reuslt from susie_bhat:</p>
 <pre class="r"><code>fit_b = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n=287, L=5, estimate_residual_variance=TRUE)
 susie_plot(fit_b, y=&#39;PIP&#39;, b = data$meta$true_coef)</code></pre>
 <p><img src="figure/SuSiErssNotConverge.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>susie_rss fails to converge with L = 5</p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-3-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9267aac48e886a8b5e569826baa1ae7aa7795623/docs/figure/SuSiErssNotConverge.Rmd/unnamed-chunk-3-1.png" target="_blank">9267aac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
+<p>susie_rss fails to converge with L = 5:</p>
 <pre class="r"><code>fit_rss = susie_rss(z, R = r.in, L=5, max_iter = 20)</code></pre>
 <pre><code>Warning in susie_rss(z, R = r.in, L = 5, max_iter = 20): The maximum number
 of non-zero effects is greater than 1, this feature is experimental.</code></pre>
@@ -588,10 +683,70 @@ of non-zero effects is greater than 1, this feature is experimental.</code></pre
 not converge in 20 iterations!</code></pre>
 <pre class="r"><code>plot(fit_rss$elbo)</code></pre>
 <p><img src="figure/SuSiErssNotConverge.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-4-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9267aac48e886a8b5e569826baa1ae7aa7795623/docs/figure/SuSiErssNotConverge.Rmd/unnamed-chunk-4-1.png" target="_blank">9267aac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>Using L=1, it converges.</p>
 <pre class="r"><code>fit_rss_init = susie_rss(z, R=r.in, L=1)
 susie_plot(fit_rss_init, y=&#39;PIP&#39;, b=data$meta$true_coef)</code></pre>
 <p><img src="figure/SuSiErssNotConverge.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-5-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9267aac48e886a8b5e569826baa1ae7aa7795623/docs/figure/SuSiErssNotConverge.Rmd/unnamed-chunk-5-1.png" target="_blank">9267aac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>This data is simulated with PVE 0.8. There are five signals.</p>
 <pre class="r"><code>r.out = as.matrix(fread(&#39;data/small_data_132.ld_out_file.out.ld&#39;))
 r.in = as.matrix(fread(&#39;data/small_data_132.ld_in_file.in.ld&#39;))
@@ -600,13 +755,104 @@ ss = readRDS(&#39;data/small_data_132_sim_gaussian_12_get_sumstats_1.rds&#39;)</
 <pre class="r"><code>z = ss$sumstats$bhat/ss$sumstats$shat
 susie_plot(z, y = &quot;z&quot;, b=data$meta$true_coef)</code></pre>
 <p><img src="figure/SuSiErssNotConverge.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-7-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9267aac48e886a8b5e569826baa1ae7aa7795623/docs/figure/SuSiErssNotConverge.Rmd/unnamed-chunk-7-1.png" target="_blank">9267aac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
+<p>This is the reuslt from susie_bhat:</p>
 <pre class="r"><code>fit_b = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n=287, L=5, estimate_residual_variance=TRUE)
 susie_plot(fit_b, y=&#39;PIP&#39;, b = data$meta$true_coef)</code></pre>
 <p><img src="figure/SuSiErssNotConverge.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-8-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9267aac48e886a8b5e569826baa1ae7aa7795623/docs/figure/SuSiErssNotConverge.Rmd/unnamed-chunk-8-1.png" target="_blank">9267aac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <p>susie_rss fails to converge with L = 5. Using L=1, it converges, but it picks up the wrong one.</p>
 <pre class="r"><code>fit_rss = susie_rss(z, R = r.in, L=1)
 susie_plot(fit_rss, y=&#39;PIP&#39;, b = data$meta$true_coef)</code></pre>
 <p><img src="figure/SuSiErssNotConverge.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-9-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9267aac48e886a8b5e569826baa1ae7aa7795623/docs/figure/SuSiErssNotConverge.Rmd/unnamed-chunk-9-1.png" target="_blank">9267aac</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
 <pre class="r"><code>sessionInfo()</code></pre>
