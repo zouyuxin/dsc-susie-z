@@ -54,7 +54,7 @@ dscout.equal.susieb.out_sample = dscout.equal.susieb[dscout.equal.susieb$ld_meth
 
 * Converge
 
-The model from susie_bhat all converge. But lots of cases with out-sample R failed (274 out of 1800). The error could be negative residual variance. 
+The model from susie_bhat all converge. But lots of cases with out-sample R failed (274 out of 1800). The estimated residual variance becomes negative.
 ```{r}
 converge.summary = aggregate(converged ~ ld_method, dscout.equal.susieb, sum)
 converge.summary$Fail = 1800 - converge.summary$converged
