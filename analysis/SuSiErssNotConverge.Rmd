@@ -1,0 +1,66 @@
+---
+title: "SuSiE RSS NOT Converge case"
+author: "Yuxin Zou"
+date: "4/15/2019"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+This data is simulated with PVE 0.6. There is only one signal.
+
+```{r}
+library(susieR)
+library(data.table)
+r.out = as.matrix(fread('data/small_data_69.ld_out_file.out.ld'))
+r.in = as.matrix(fread('data/small_data_69.ld_in_file.in.ld'))
+data = readRDS('data/small_data_69_sim_gaussian_3.rds')
+ss = readRDS('data/small_data_69_sim_gaussian_3_get_sumstats_1.rds')
+```
+
+```{r}
+z = ss$sumstats$bhat/ss$sumstats$shat
+susie_plot(z, y = "z", b=data$meta$true_coef)
+```
+
+```{r}
+fit_b = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n=287, L=5, estimate_residual_variance=TRUE)
+susie_plot(fit_b, y='PIP', b = data$meta$true_coef)
+```
+
+susie_rss fails to converge with L = 5
+```{r}
+fit_rss = susie_rss(z, R = r.in, L=5, max_iter = 20)
+plot(fit_rss$elbo)
+```
+
+Using L=1, it converges.
+```{r}
+fit_rss_init = susie_rss(z, R=r.in, L=1)
+susie_plot(fit_rss_init, y='PIP', b=data$meta$true_coef)
+```
+
+This data is simulated with PVE 0.8. There are five signals.
+
+```{r}
+r.out = as.matrix(fread('data/small_data_132.ld_out_file.out.ld'))
+r.in = as.matrix(fread('data/small_data_132.ld_in_file.in.ld'))
+data = readRDS('data/small_data_132_sim_gaussian_12.rds')
+ss = readRDS('data/small_data_132_sim_gaussian_12_get_sumstats_1.rds')
+```
+
+```{r}
+z = ss$sumstats$bhat/ss$sumstats$shat
+susie_plot(z, y = "z", b=data$meta$true_coef)
+```
+
+```{r}
+fit_b = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n=287, L=5, estimate_residual_variance=TRUE)
+susie_plot(fit_b, y='PIP', b = data$meta$true_coef)
+```
+
+susie_rss fails to converge with L = 5. Using L=1, it converges, but it picks up the wrong one.
+```{r}
+fit_rss = susie_rss(z, R = r.in, L=1)
+susie_plot(fit_rss, y='PIP', b = data$meta$true_coef)
+```
