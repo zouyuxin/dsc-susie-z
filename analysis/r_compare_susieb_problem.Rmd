@@ -1,0 +1,35 @@
+---
+title: "SuSiE b FAILED case using out-sample R"
+author: "Yuxin Zou"
+date: "4/15/2019"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+This data is simulated with PVE 0.2. There is only one signal.
+
+```{r}
+library(susieR)
+library(data.table)
+r.out = as.matrix(fread('data/small_data_1.ld_out_file.out.ld'))
+r.in = as.matrix(fread('data/small_data_1.ld_in_file.in.ld'))
+data = readRDS('data/small_data_1_sim_gaussian_2.rds')
+ss = readRDS('data/small_data_1_sim_gaussian_2_get_sumstats_1.rds')
+```
+
+```{r}
+z = ss$sumstats$bhat/ss$sumstats$shat
+susie_plot(z, y = "z", b=data$meta$true_coef)
+```
+
+```{r}
+fit_in = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n = 287, L=5, estimate_residual_variance=TRUE)
+susie_plot(fit_in, y='PIP', b = data$meta$true_coef)
+```
+
+Using out-sample R, the estimated residual variance becomes negative.
+```{r eval=FALSE}
+fit_out = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.out, n = 287, L=5, estimate_residual_variance=TRUE, check_input=TRUE)
+```
+
