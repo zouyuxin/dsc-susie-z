@@ -1,0 +1,152 @@
+---
+title: "Compare in-sample R vs out-sample R (equal effect)"
+author: "Yuxin Zou"
+date: "4/14/2019"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+The design matrix X are real human genotype data from GTEx project, the 150 data in `dsc-finemap` repo. We simulate under various number of causal variables (1,3,5) and total percentage of variance explained (0.05, 0.2, 0.6, 0.8). We set effect size of each causal variable to be **equal**. Using the summary statistics from univariate regression, we fit SuSiE model using in-sample/out-sample correlation matrix, and compare their results.
+
+
+```{r}
+library(dscrutils)
+library(tibble)
+library(kableExtra)
+```
+
+## Import DSC results
+
+```{r eval=FALSE}
+dscout = dscquery('r_compare_data_signal', targets = 'get_sumstats sim_gaussian.pve sim_gaussian.n_signal sim_gaussian.effect_weight data.N_in susie_bhat.ld_method susie_z.ld_method finemap.ld_method score_susie.total score_susie.valid score_susie.size score_susie.purity score_susie.top score_susie.converged score_finemap.pip', omit.filenames = FALSE)
+dscout.tibble = as_tibble(dscout)
+```
+
+```{r}
+dscout = readRDS('output/r_compare_dscout_susie_finemappip_tibble.rds')
+dscout$method = rep('susie_b', nrow(dscout))
+dscout$method[!is.na(dscout$susie_z.ld_method)] = 'susie_rss'
+dscout$method[!is.na(dscout$finemap.ld_method)] = 'finemap'
+
+dscout$ld_method = dscout$susie_bhat.ld_method
+dscout$ld_method[!is.na(dscout$susie_z.ld_method)] = dscout$susie_z.ld_method[!is.na(dscout$susie_z.ld_method)]
+dscout$ld_method[!is.na(dscout$finemap.ld_method)] = dscout$finemap.ld_method[!is.na(dscout$finemap.ld_method)]
+dscout$sim_gaussian.effect_weight[which(dscout$sim_gaussian.effect_weight == 'rep(1/n_signal, n_signal)')] = 'equal'
+dscout$sim_gaussian.effect_weight[which(dscout$sim_gaussian.effect_weight != 'equal')] = 'notequal'
+dscout = dscout[,-c(7,8,9,10)]
+colnames(dscout) = c('DSC', 'filename','pve', 'n_signal', 'effect_weight', 'N_in', 'total', 'valid', 'size', 'purity', 'top', 'converged', 'pip', 'method', 'ld_method')
+```
+
+```{r}
+dscout.equal = dscout[dscout$effect_weight == 'equal',]
+dscout.equal.susierss = dscout.equal[dscout.equal$method == 'susie_rss',]
+dscout.equal.susieb = dscout.equal[dscout.equal$method == 'susie_b',]
+dscout.equal.finemap = dscout.equal[dscout.equal$method == 'finemap',]
+```
+
+## susie_bhat
+
+```{r}
+dscout.equal.susieb.in_sample = dscout.equal.susieb[dscout.equal.susieb$ld_method == 'in_sample',]
+dscout.equal.susieb.out_sample = dscout.equal.susieb[dscout.equal.susieb$ld_method == 'out_sample',]
+```
+
+* Converge
+
+The model from susie_bhat all converge. But lots of cases with out-sample R failed (274 out of 1800). The error could be negative residual variance. 
+```{r}
+converge.summary = aggregate(converged ~ ld_method, dscout.equal.susieb, sum)
+converge.summary$Fail = 1800 - converge.summary$converged
+Fail = converge.summary[converge.summary$Fail!=0,]
+Fail[,-2] %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+* Purity of CS:
+
+```{r}
+purity.susieb.in_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susieb.in_sample, mean), 3)
+colnames(purity.susieb.in_sample)[colnames(purity.susieb.in_sample) == 'purity'] <- 'purity.in_sample'
+purity.susieb.out_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susieb.out_sample, mean), 3)
+colnames(purity.susieb.out_sample)[colnames(purity.susieb.out_sample) == 'purity'] <- 'purity.out_sample'
+purity.susieb = merge(purity.susieb.in_sample, purity.susieb.out_sample)
+
+purity.susieb %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+* Power:
+
+```{r}
+valid.in = aggregate(valid ~ n_signal + pve, dscout.equal.susieb.in_sample, sum)
+total.in = aggregate(DSC~ n_signal + pve, dscout.equal.susieb.in_sample, length)
+total.in$total_true = total.in$DSC * total.in$n_signal
+power.susie.in = merge(valid.in, total.in)
+power.susie.in$power.susie.in_sample = round(power.susie.in$valid/(power.susie.in$total_true), 3)
+colnames(power.susie.in)[colnames(power.susie.in) == 'valid'] <- 'valid.in_sample'
+power.susie.in = power.susie.in[,-c(4,5)]
+
+valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susieb.out_sample[!is.na(dscout.equal.susieb.out_sample$converged),], sum)
+total.out = aggregate(DSC~ n_signal + pve, dscout.equal.susieb.out_sample[!is.na(dscout.equal.susieb.out_sample$converged),], length)
+total.out$total_true = total.out$DSC * total.out$n_signal
+power.susie.out = merge(valid.out, total.out)
+power.susie.out$power.susie.out_sample = round(power.susie.out$valid/(power.susie.out$total_true), 3)
+colnames(power.susie.out)[colnames(power.susie.out) == 'valid'] <- 'valid.out_sample'
+power.susie.out = power.susie.out[,-c(4,5)]
+
+power.susie = Reduce(function(...) merge(...),
+       list(power.susie.in, power.susie.out))
+power.susie %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F) %>% add_header_above(c(" ", " ","IN sample" = 2, "OUT sample" = 2)) %>% column_spec(c(4, 6), bold = T)
+```
+
+## susie_rss
+
+```{r}
+dscout.equal.susierss.in_sample = dscout.equal.susierss[dscout.equal.susierss$ld_method == 'in_sample',]
+dscout.equal.susierss.out_sample = dscout.equal.susierss[dscout.equal.susierss$ld_method == 'out_sample',]
+```
+
+* Converge
+
+There are cases fail to converge in susie_rss.
+```{r}
+converge.summary = aggregate(converged ~ pve + n_signal+ld_method, dscout.equal.susierss, sum)
+converge.summary$NotConverge = 150 - converge.summary$converged
+NotConverge = converge.summary[converge.summary$NotConverge!=0,]
+colnames(NotConverge) = c('pve', 'n_signal', 'ld', 'converged', 'NotConverge(out of 150)')
+NotConverge[,-4] %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+* Purity of CS:
+
+```{r}
+purity.susierss.in_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susierss.in_sample, mean), 3)
+colnames(purity.susierss.in_sample)[colnames(purity.susierss.in_sample) == 'purity'] <- 'purity.in_sample'
+purity.susierss.out_sample = round(aggregate(purity~n_signal+pve, dscout.equal.susierss.out_sample, mean), 3)
+colnames(purity.susierss.out_sample)[colnames(purity.susierss.out_sample) == 'purity'] <- 'purity.out_sample'
+purity.susierss = merge(purity.susierss.in_sample, purity.susierss.out_sample)
+
+purity.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+* Power:
+
+```{r}
+valid.in = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.in_sample, sum)
+total.in = aggregate(DSC~ n_signal + pve, dscout.equal.susierss.in_sample, length)
+total.in$total_true = total.in$DSC * total.in$n_signal
+power.susie.in = merge(valid.in, total.in)
+power.susie.in$power.susie.in_sample = round(power.susie.in$valid/(power.susie.in$total_true), 3)
+colnames(power.susie.in)[colnames(power.susie.in) == 'valid'] <- 'valid.in_sample'
+
+valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.out_sample, sum)
+total.out = aggregate(DSC~ n_signal + pve, dscout.equal.susierss.out_sample, length)
+total.out$total_true = total.out$DSC * total.out$n_signal
+power.susie.out = merge(valid.out, total.out)
+power.susie.out$power.susie.out_sample = round(power.susie.out$valid/(power.susie.out$total_true), 3)
+colnames(power.susie.out)[colnames(power.susie.out) == 'valid'] <- 'valid.out_sample'
+
+power.susie = Reduce(function(...) merge(...),
+       list(power.susie.in, power.susie.out))
+power.susie = power.susie[,-c(3,4)]
+power.susie %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F) %>% add_header_above(c(" ", " ","IN sample" = 2, "OUT sample" = 2)) %>% column_spec(c(4, 6), bold = T)
+```
