@@ -47,6 +47,13 @@ Welcome to my research website.
     [Equal effect size](r_compare_susie_equal.html)
     
     [NON-Equal effect size](r_compare_susie_notequal.html)
+    
+    [Calibrated PIP and ROC for FINEMAP](r_compare_finemap.html)
+    
+    [Calibrated PIP and ROC for SuSiE b (equal effect size)](r_compare_susieb_ROC.html)
+    
+    [Calibrated PIP and ROC for SuSiE rss (equal effect size)](r_compare_susierss_ROC.html)
+    
     + Problem data: 
         
         [SuSiE bhat out sample R error](r_compare_susieb_problem.html)
