@@ -47,11 +47,10 @@ Welcome to my research website.
     [Equal effect size](r_compare_susie_equal.html)
     
     [NON-Equal effect size](r_compare_susie_notequal.html)
-    
-  + Problem data: 
+    + Problem data: 
+        
+        [SuSiE bhat out sample R error](r_compare_susieb_problem.html)
       
-      [SuSiE bhat out sample R error](r_compare_susieb_problem.html)
-      
-      [SuSiE RSS not converge](SuSiErssNotConverge.html)
+        [SuSiE RSS not converge](SuSiErssNotConverge.html)
       
     
