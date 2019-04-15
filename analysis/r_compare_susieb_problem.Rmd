@@ -23,6 +23,7 @@ z = ss$sumstats$bhat/ss$sumstats$shat
 susie_plot(z, y = "z", b=data$meta$true_coef)
 ```
 
+This is the reuslt from susie_bhat:
 ```{r}
 fit_in = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n = 287, L=5, estimate_residual_variance=TRUE)
 susie_plot(fit_in, y='PIP', b = data$meta$true_coef)

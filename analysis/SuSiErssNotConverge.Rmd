@@ -23,12 +23,13 @@ z = ss$sumstats$bhat/ss$sumstats$shat
 susie_plot(z, y = "z", b=data$meta$true_coef)
 ```
 
+This is the reuslt from susie_bhat:
 ```{r}
 fit_b = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n=287, L=5, estimate_residual_variance=TRUE)
 susie_plot(fit_b, y='PIP', b = data$meta$true_coef)
 ```
 
-susie_rss fails to converge with L = 5
+susie_rss fails to converge with L = 5:
 ```{r}
 fit_rss = susie_rss(z, R = r.in, L=5, max_iter = 20)
 plot(fit_rss$elbo)
@@ -54,6 +55,7 @@ z = ss$sumstats$bhat/ss$sumstats$shat
 susie_plot(z, y = "z", b=data$meta$true_coef)
 ```
 
+This is the reuslt from susie_bhat:
 ```{r}
 fit_b = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n=287, L=5, estimate_residual_variance=TRUE)
 susie_plot(fit_b, y='PIP', b = data$meta$true_coef)
