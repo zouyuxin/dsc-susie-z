@@ -68,8 +68,7 @@ dot_plot = function(dataframe) {
 
 ### Calibrated PIP
 
-```{r echo=FALSE}
-par(mfrow=c(1,2))
+```{r echo=FALSE, out.width='.49\\linewidth', fig.width=8, fig.height=5,fig.show='hold',fig.align='center'}
 idx = 0
 for(Rtype in names(pip_cali)){
   idx = idx + 1
@@ -201,8 +200,7 @@ for(Rtype in names(pip_cali)){
 
 ### Calibrated PIP
 
-```{r}
-par(mfrow=c(1,2))
+```{r echo=FALSE, out.width='.49\\linewidth', fig.width=8, fig.height=5,fig.show='hold',fig.align='center'}
 idx = 0
 for(Rtype in names(pip_cali)){
   idx = idx + 1
@@ -286,8 +284,7 @@ for(Rtype in names(pip_cali)){
 
 ### Calibrated PIP
 
-```{r}
-par(mfrow=c(1,2))
+```{r echo=FALSE, out.width='.49\\linewidth', fig.width=8, fig.height=5,fig.show='hold',fig.align='center'}
 idx = 0
 for(Rtype in names(pip_cali)){
   idx = idx + 1
