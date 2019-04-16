@@ -12,6 +12,7 @@ This data is simulated with PVE 0.2. There is only one signal.
 ```{r}
 library(susieR)
 library(data.table)
+library(corrplot)
 r.out = as.matrix(fread('data/small_data_1.ld_out_file.out.ld'))
 r.in = as.matrix(fread('data/small_data_1.ld_in_file.in.ld'))
 data = readRDS('data/small_data_1_sim_gaussian_2.rds')
@@ -34,3 +35,14 @@ Using out-sample R, the estimated residual variance becomes negative.
 fit_out = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.out, n = 287, L=5, estimate_residual_variance=TRUE, check_input=TRUE)
 ```
 
+```{r fig.width=15, fig.height=8}
+r.in.sub = r.in[226:306, 226:306]
+r.out.sub = r.out[226:306, 226:306]
+row.names(r.in.sub) = row.names(r.out.sub) = colnames(r.in.sub) = colnames(r.out.sub) = 226:306
+color.names = rep('black', nrow(r.in.sub))
+color.names[41] = 'red'
+
+par(mfrow=c(1,2))
+corrplot(r.in.sub, tl.cex = 0.7, tl.srt = 2, tl.col = color.names)
+corrplot(r.out.sub, tl.cex = 0.7, tl.srt = 2, tl.col = color.names)
+```
