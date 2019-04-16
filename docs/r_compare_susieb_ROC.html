@@ -460,7 +460,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/c37add9f4b0fc8d2680950e6deae7c7e7c7fd239" target="_blank">c37add9</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/e5fce45c623ea82064c0baa0f5725b81efa383f7" target="_blank">e5fce45</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -490,7 +490,6 @@ Untracked files:
     Untracked:  data/small_data_69.ld_out_file.out.ld
     Untracked:  data/small_data_69_sim_gaussian_3.rds
     Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1.rds
-    Untracked:  docs/figure/r_compare_finemap.Rmd/
     Untracked:  docs/figure/test.Rmd/
     Untracked:  figure/
     Untracked:  output/dscoutProblem475.rds
@@ -552,6 +551,40 @@ Message
 Rmd
 </td>
 <td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/e5fce45c623ea82064c0baa0f5725b81efa383f7/analysis/r_compare_susieb_ROC.Rmd" target="_blank">e5fce45</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+wflow_publish(c(“analysis/r_compare_susieb_ROC.Rmd”, “analysis/r_compare_susierss_ROC.Rmd”))
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/c28dada96ebd2f7a2f1b9acb375a5b07f80cfc30/docs/r_compare_susieb_ROC.html" target="_blank">c28dada</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/c37add9f4b0fc8d2680950e6deae7c7e7c7fd239/analysis/r_compare_susieb_ROC.Rmd" target="_blank">c37add9</a>
 </td>
 <td style="text-align:left;">
@@ -577,6 +610,7 @@ Attaching package: &#39;cowplot&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:ggplot2&#39;:
 
     ggsave</code></pre>
+<p>From previous result, we see FDR for cases with more than 1 signal is too high. Therefore, we only use the data with 1 signal here.</p>
 <pre class="r"><code>dscout = readRDS(&#39;output/r_compare_susiepip_tibble.rds&#39;)
 dscout$method = rep(NA, nrow(dscout))
 dscout$method[!is.na(dscout$susie_z.ld_method)] = &#39;susie_rss&#39;
@@ -591,14 +625,9 @@ colnames(dscout) = c(&#39;DSC&#39;, &#39;meta&#39;, &#39;pve&#39;, &#39;n_signal
 <pre class="r"><code>dscout.susieb = dscout[dscout$method == &#39;susie_b&#39;,]
 dscout.equal.susieb = dscout.susieb[dscout.susieb$effect_weight == &#39;equal&#39;,]
 dscout.equal.susieb.suc = dscout.equal.susieb[!is.na(dscout.equal.susieb$converged),]
+dscout.equal.susieb.suc = dscout.equal.susieb.suc[dscout.equal.susieb.suc$n_signal ==1,]
 dscout.equal.susieb.suc.list = list(&#39;in_sample&#39; = dscout.equal.susieb.suc[dscout.equal.susieb.suc$ld_method == &#39;in_sample&#39;,],
-                                    &#39;out_sample&#39; = dscout.equal.susieb.suc[dscout.equal.susieb.suc$ld_method == &#39;out_sample&#39;,])
-
-dscout.susierss = dscout[dscout$method == &#39;susie_rss&#39;,]
-dscout.equal.susierss = dscout.susierss[dscout.susierss$effect_weight == &#39;equal&#39;,]
-dscout.equal.susierss.suc = dscout.equal.susierss[dscout.equal.susierss$converged==1,]
-dscout.equal.susierss.suc.list = list(&#39;in_sample&#39; = dscout.equal.susierss.suc[dscout.equal.susierss.suc$ld_method == &#39;in_sample&#39;,],
-                                      &#39;out_sample&#39; = dscout.equal.susierss.suc[dscout.equal.susierss.suc$ld_method == &#39;out_sample&#39;,])</code></pre>
+                                    &#39;out_sample&#39; = dscout.equal.susieb.suc[dscout.equal.susieb.suc$ld_method == &#39;out_sample&#39;,])</code></pre>
 <pre class="r"><code>dat.susieb = list(&#39;in_sample&#39;=matrix(NA, 0, 2), &#39;out_sample&#39;=matrix(NA, 0, 2))
 for(method in names(dat.susieb)){
   for(j in 1:nrow(dscout.equal.susieb.suc.list[[method]])){
@@ -608,18 +637,9 @@ for(method in names(dat.susieb)){
   colnames(dat.susieb[[method]]) = c(&#39;pip&#39;, &#39;truth&#39;)
 }
 
-dat.susierss = list(&#39;in_sample&#39;=matrix(NA, 0, 2), &#39;out_sample&#39;=matrix(NA, 0, 2))
-for(method in names(dat.susierss)){
-  for(j in 1:nrow(dscout.equal.susierss.suc.list[[method]])){
-    datj = cbind(dscout.equal.susierss.suc.list[[method]]$pip[[j]], dscout.equal.susierss.suc.list[[method]]$meta[[j]]$true_coef)
-    dat.susierss[[method]] = rbind(dat.susierss[[method]], datj)
-  }
-  colnames(dat.susierss[[method]]) = c(&#39;pip&#39;, &#39;truth&#39;)
-}
-
-saveRDS(dat.susieb, &#39;output/r_compare_susieb_PIP_ROC.rds&#39;)
-saveRDS(dat.susierss, &#39;output/r_compare_susierss_PIP_ROC.rds&#39;)</code></pre>
-<pre class="r"><code>dat = readRDS(&#39;output/r_compare_susieb_PIP_ROC.rds&#39;)</code></pre>
+# saveRDS(dat.susieb, &#39;output/r_compare_susieb_PIP_ROC.rds&#39;)</code></pre>
+<pre class="r"><code># dat = readRDS(&#39;output/r_compare_susieb_PIP_ROC.rds&#39;)
+dat = dat.susieb</code></pre>
 <pre class="r"><code>bin_size = 20
 bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
 
@@ -658,7 +678,67 @@ for(Rtype in names(pip_cali)){
   g = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
   print(g)
 }</code></pre>
-<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-8-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/c28dada96ebd2f7a2f1b9acb375a5b07f80cfc30/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-8-1.png" target="_blank">c28dada</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details> <img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-8-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/c28dada96ebd2f7a2f1b9acb375a5b07f80cfc30/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-8-2.png" target="_blank">c28dada</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 </div>
 <div id="roc" class="section level2">
 <h2>ROC</h2>
@@ -733,6 +813,36 @@ for (method in names(roc)) {
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
 <p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-10-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/c28dada96ebd2f7a2f1b9acb375a5b07f80cfc30/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-10-1.png" target="_blank">c28dada</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
