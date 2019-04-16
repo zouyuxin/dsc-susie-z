@@ -41,6 +41,11 @@ fit_rss_init = susie_rss(z, R=r.in, L=1)
 susie_plot(fit_rss_init, y='PIP', b=data$meta$true_coef)
 ```
 
+If we relax the constraint on residual variance, it converges. There is no significant credible set, and the estimated residual variance is 740.
+```{r}
+fit_rss_relax = susie_rss(z, R = r.in, L=5, max_iter = 20, restrict = FALSE)
+```
+
 This data is simulated with PVE 0.8. There are five signals.
 
 ```{r}
@@ -65,4 +70,9 @@ susie_rss fails to converge with L = 5. Using L=1, it converges, but it picks up
 ```{r}
 fit_rss = susie_rss(z, R = r.in, L=1)
 susie_plot(fit_rss, y='PIP', b = data$meta$true_coef)
+```
+
+If we relax the constraint on residual variance, it converges. There is no significant credible set, and the estimated residual variance is 9560.
+```{r}
+fit_rss_relax = susie_rss(z, R = r.in, L=5, max_iter = 20, restrict = FALSE)
 ```
