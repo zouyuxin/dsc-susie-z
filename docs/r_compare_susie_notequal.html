@@ -401,7 +401,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jdblischak/workflowr">
+  <a href="https://github.com/zouyuxin/dsc-susie-z">
     <span class="fa fa-github"></span>
      
   </a>
@@ -461,7 +461,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/db9fb58f74290de1a695fc898c5cdb66f6abf1b5" target="_blank">db9fb58</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/295c4fd3bfc133f48215b2592629aadd576e6af4" target="_blank">295c4fd</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -473,7 +473,6 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
-    Untracked:  analysis/r_compare_finemap.Rmd
     Untracked:  data/random_data_31.rds
     Untracked:  data/random_data_31_sim_gaussian_35.rds
     Untracked:  data/random_data_31_sim_gaussian_35_get_sumstats_1.rds
@@ -548,6 +547,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/295c4fd3bfc133f48215b2592629aadd576e6af4/analysis/r_compare_susie_notequal.Rmd" target="_blank">295c4fd</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+wflow_publish(c(“analysis/r_compare_susie_equal.Rmd”, “analysis/r_compare_susie_notequal.Rmd”))
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/3cb758c3909e9c1c4801dbfee9421cac14748fc1/docs/r_compare_susie_notequal.html" target="_blank">3cb758c</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -2006,6 +2039,7 @@ total.in$total_true = total.in$DSC * total.in$n_signal
 power.susie.in = merge(valid.in, total.in)
 power.susie.in$power.susie.in_sample = round(power.susie.in$valid/(power.susie.in$total_true), 3)
 colnames(power.susie.in)[colnames(power.susie.in) == &#39;valid&#39;] &lt;- &#39;valid.in_sample&#39;
+power.susie.in = power.susie.in[,-c(4,5)]
 
 valid.out = aggregate(valid ~ n_signal + pve, dscout.notequal.susierss.out_sample[dscout.notequal.susierss.out_sample$converged ==1,], sum)
 total.out = aggregate(DSC~ n_signal + pve, dscout.notequal.susierss.out_sample[dscout.notequal.susierss.out_sample$converged ==1,], length)
@@ -2013,10 +2047,10 @@ total.out$total_true = total.out$DSC * total.out$n_signal
 power.susie.out = merge(valid.out, total.out)
 power.susie.out$power.susie.out_sample = round(power.susie.out$valid/(power.susie.out$total_true), 3)
 colnames(power.susie.out)[colnames(power.susie.out) == &#39;valid&#39;] &lt;- &#39;valid.out_sample&#39;
+power.susie.out = power.susie.out[,-c(4,5)]
 
 power.susie = Reduce(function(...) merge(...),
        list(power.susie.in, power.susie.out))
-power.susie = power.susie[,-c(3,4)]
 power.susie %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F) %&gt;% add_header_above(c(&quot; &quot;, &quot; &quot;,&quot;IN sample&quot; = 2, &quot;OUT sample&quot; = 2)) %&gt;% column_spec(c(4, 6), bold = T)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -2100,6 +2134,46 @@ power.susie.out_sample
 </tr>
 <tr>
 <td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+102
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.694
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.493
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.669
+</td>
+<td style="text-align:right;">
+83
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.576
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
 3
 </td>
 <td style="text-align:right;">
@@ -2140,6 +2214,46 @@ power.susie.out_sample
 </tr>
 <tr>
 <td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+146
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.324
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.241
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+150
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.338
+</td>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.222
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
 5
 </td>
 <td style="text-align:right;">
@@ -2176,6 +2290,26 @@ power.susie.out_sample
 </td>
 <td style="text-align:right;font-weight: bold;">
 0.168
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+134
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.179
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.141
 </td>
 </tr>
 <tr>
