@@ -460,7 +460,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/648c1ff402f24102af1e527b7761e9feb8b4a4bf" target="_blank">648c1ff</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/15ac564b083f93768233248e52d6574080b2b31c" target="_blank">15ac564</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -547,6 +547,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/15ac564b083f93768233248e52d6574080b2b31c/analysis/r_compare_susieb_ROC.Rmd" target="_blank">15ac564</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/r_compare_susieb_ROC.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/1d90cb8f77ec214e504e07ad4f6110dd7465c82f/docs/r_compare_susieb_ROC.html" target="_blank">1d90cb8</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -679,6 +713,7 @@ Attaching package: &#39;cowplot&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:ggplot2&#39;:
 
     ggsave</code></pre>
+<pre class="r"><code>library(gridExtra)</code></pre>
 <pre class="r"><code>dscout = readRDS(&#39;output/r_compare_susiepip_tibble.rds&#39;)
 dscout$method = rep(NA, nrow(dscout))
 dscout$method[!is.na(dscout$susie_z.ld_method)] = &#39;susie_rss&#39;
@@ -722,7 +757,7 @@ for(Rtype in names(pip_cali)){
 }</code></pre>
 <div id="calibrated-pip" class="section level3">
 <h3>Calibrated PIP</h3>
-<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-6-1.png" width=".49\linewidth" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 <details> <summary><em>Expand here to see past versions of unnamed-chunk-6-1.png:</em></summary>
 <table style="border-collapse:separate; border-spacing:5px;">
 <thead>
@@ -741,7 +776,7 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d61683cadf9315f438d1d32a1b839b018b511b7/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">8d61683</a>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/1d90cb8f77ec214e504e07ad4f6110dd7465c82f/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">1d90cb8</a>
 </td>
 <td style="text-align:left;">
 zouyuxin
@@ -750,28 +785,9 @@ zouyuxin
 2019-04-15
 </td>
 </tr>
-</tbody>
-</table>
-<p></details> <img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-6-2.png" width=".49\linewidth" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-6-2.png:</em></summary>
-<table style="border-collapse:separate; border-spacing:5px;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Version
-</th>
-<th style="text-align:left;">
-Author
-</th>
-<th style="text-align:left;">
-Date
-</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d61683cadf9315f438d1d32a1b839b018b511b7/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-6-2.png" target="_blank">8d61683</a>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d61683cadf9315f438d1d32a1b839b018b511b7/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">8d61683</a>
 </td>
 <td style="text-align:left;">
 zouyuxin
@@ -856,7 +872,7 @@ for (method in names(roc)) {
   i = i + 1
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 <details> <summary><em>Expand here to see past versions of unnamed-chunk-9-1.png:</em></summary>
 <table style="border-collapse:separate; border-spacing:5px;">
 <thead>
@@ -924,7 +940,17 @@ for(Rtype in names(pip_cali)){
 }</code></pre>
 <div id="calibrated-pip-1" class="section level3">
 <h3>Calibrated PIP</h3>
-<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-13-1.png" width=".49\linewidth" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>g = list()
+idx = 0
+for(Rtype in names(pip_cali)){
+  idx = idx + 1
+  pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
+  pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
+  colnames(pip_cali[[Rtype]]) = c(&quot;mean_pip&quot;, &quot;observed_freq&quot;, &quot;se&quot;)
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
+}
+grid.arrange(g[[1]], g[[2]], nrow = 1)</code></pre>
+<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
 <details> <summary><em>Expand here to see past versions of unnamed-chunk-13-1.png:</em></summary>
 <table style="border-collapse:separate; border-spacing:5px;">
 <thead>
@@ -943,7 +969,7 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d61683cadf9315f438d1d32a1b839b018b511b7/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-13-1.png" target="_blank">8d61683</a>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/1d90cb8f77ec214e504e07ad4f6110dd7465c82f/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-13-1.png" target="_blank">1d90cb8</a>
 </td>
 <td style="text-align:left;">
 zouyuxin
@@ -952,28 +978,9 @@ zouyuxin
 2019-04-15
 </td>
 </tr>
-</tbody>
-</table>
-<p></details> <img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-13-2.png" width=".49\linewidth" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-13-2.png:</em></summary>
-<table style="border-collapse:separate; border-spacing:5px;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Version
-</th>
-<th style="text-align:left;">
-Author
-</th>
-<th style="text-align:left;">
-Date
-</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d61683cadf9315f438d1d32a1b839b018b511b7/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-13-2.png" target="_blank">8d61683</a>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d61683cadf9315f438d1d32a1b839b018b511b7/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-13-1.png" target="_blank">8d61683</a>
 </td>
 <td style="text-align:left;">
 zouyuxin
@@ -1009,7 +1016,7 @@ for (method in names(roc)) {
   i = i + 1
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 <details> <summary><em>Expand here to see past versions of unnamed-chunk-15-1.png:</em></summary>
 <table style="border-collapse:separate; border-spacing:5px;">
 <thead>
@@ -1077,7 +1084,17 @@ for(Rtype in names(pip_cali)){
 }</code></pre>
 <div id="calibrated-pip-2" class="section level3">
 <h3>Calibrated PIP</h3>
-<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-19-1.png" width=".49\linewidth" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>g = list()
+idx = 0
+for(Rtype in names(pip_cali)){
+  idx = idx + 1
+  pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
+  pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
+  colnames(pip_cali[[Rtype]]) = c(&quot;mean_pip&quot;, &quot;observed_freq&quot;, &quot;se&quot;)
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
+}
+grid.arrange(g[[1]], g[[2]], nrow = 1)</code></pre>
+<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
 <details> <summary><em>Expand here to see past versions of unnamed-chunk-19-1.png:</em></summary>
 <table style="border-collapse:separate; border-spacing:5px;">
 <thead>
@@ -1096,7 +1113,7 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d61683cadf9315f438d1d32a1b839b018b511b7/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-19-1.png" target="_blank">8d61683</a>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/1d90cb8f77ec214e504e07ad4f6110dd7465c82f/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-19-1.png" target="_blank">1d90cb8</a>
 </td>
 <td style="text-align:left;">
 zouyuxin
@@ -1105,28 +1122,9 @@ zouyuxin
 2019-04-15
 </td>
 </tr>
-</tbody>
-</table>
-<p></details> <img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-19-2.png" width=".49\linewidth" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-19-2.png:</em></summary>
-<table style="border-collapse:separate; border-spacing:5px;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Version
-</th>
-<th style="text-align:left;">
-Author
-</th>
-<th style="text-align:left;">
-Date
-</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d61683cadf9315f438d1d32a1b839b018b511b7/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-19-2.png" target="_blank">8d61683</a>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d61683cadf9315f438d1d32a1b839b018b511b7/docs/figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-19-1.png" target="_blank">8d61683</a>
 </td>
 <td style="text-align:left;">
 zouyuxin
@@ -1162,7 +1160,7 @@ for (method in names(roc)) {
   i = i + 1
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_susieb_ROC.Rmd/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
 <details> <summary><em>Expand here to see past versions of unnamed-chunk-21-1.png:</em></summary>
 <table style="border-collapse:separate; border-spacing:5px;">
 <thead>
@@ -1213,7 +1211,8 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] scam_1.2-3    mgcv_1.8-26   nlme_3.1-137  cowplot_0.9.4 ggplot2_3.1.0
+[1] scam_1.2-3    mgcv_1.8-26   nlme_3.1-137  gridExtra_2.3 cowplot_0.9.4
+[6] ggplot2_3.1.0
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.0        compiler_3.5.1    pillar_1.3.1     
