@@ -460,7 +460,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/231a6704ab3a1ea1731ce3a8851f97d79cbc9d62" target="_blank">231a670</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/cbc296c0cd71c829aee016a689d1a9d14bfe5c2e" target="_blank">cbc296c</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -546,6 +546,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/cbc296c0cd71c829aee016a689d1a9d14bfe5c2e/analysis/r_compare_finemap.Rmd" target="_blank">cbc296c</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-16
+</td>
+<td style="text-align:left;">
+wflow_publish(“analysis/r_compare_finemap.Rmd”)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/c572b2b6fb7d45e9a128a3ef8ec2895be2a8f591/docs/r_compare_finemap.html" target="_blank">c572b2b</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-16
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -1032,6 +1066,75 @@ zouyuxin
 </tbody>
 </table>
 <p></details></p>
+</div>
+</div>
+<div id="pve-per-signal-0.2-total-pve-0.2" class="section level2">
+<h2>PVE per signal &lt;= 0.2 &amp; total PVE &lt;= 0.2</h2>
+<pre class="r"><code>dscout.equal.finemap = dscout.equal.finemap[dscout.equal.finemap$pve &lt;= 0.2,]
+dscout.equal.finemap.list = list(&#39;in_sample&#39; = dscout.equal.finemap[dscout.equal.finemap$ld_method == &#39;in_sample&#39;,],
+                                 &#39;out_sample&#39; = dscout.equal.finemap[dscout.equal.finemap$ld_method == &#39;out_sample&#39;,])</code></pre>
+<pre class="r"><code>dat = list(&#39;in_sample&#39;=matrix(NA, 0, 2), &#39;out_sample&#39;=matrix(NA, 0, 2))
+for(Rtype in names(dat)){
+  for(j in 1:nrow(dscout.equal.finemap.list[[Rtype]])){
+    datj = cbind(dscout.equal.finemap.list[[Rtype]]$pip[[j]], dscout.equal.finemap.list[[Rtype]]$meta[[j]]$true_coef)
+    dat[[Rtype]] = rbind(dat[[Rtype]], datj)
+  }
+  colnames(dat[[Rtype]]) = c(&#39;pip&#39;, &#39;truth&#39;)
+}</code></pre>
+<pre class="r"><code>bin_size = 20
+bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
+
+pip_cali = list(&#39;in_sample&#39;=matrix(NA, nrow(bins), 3), &#39;out_sample&#39;=matrix(NA, nrow(bins), 3))
+for(Rtype in names(pip_cali)){
+  for (i in 1:nrow(bins)) {
+    data_in_bin = dat[[Rtype]][which(dat[[Rtype]][,1] &gt; bins[i,1] &amp; dat[[Rtype]][,1] &lt; bins[i,2]),, drop=FALSE]
+    pip_cali[[Rtype]][i,1] = sum(data_in_bin[,&#39;pip&#39;])
+    pip_cali[[Rtype]][i,2] = sum(data_in_bin[,&#39;truth&#39;])
+    pip_cali[[Rtype]][i,3] = nrow(data_in_bin)
+  }
+}
+
+for(Rtype in names(pip_cali)){
+  pip_cali[[Rtype]][,c(1,2)] = pip_cali[[Rtype]][,c(1,2)] / pip_cali[[Rtype]][,3]
+}</code></pre>
+<div id="calibrated-pip-2" class="section level3">
+<h3>Calibrated PIP</h3>
+<pre class="r"><code>g = list()
+idx = 0
+for(Rtype in names(pip_cali)){
+  idx = idx + 1
+  pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
+  pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
+  colnames(pip_cali[[Rtype]]) = c(&quot;mean_pip&quot;, &quot;observed_freq&quot;, &quot;se&quot;)
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
+}
+grid.arrange(g[[1]], g[[2]], nrow = 1)</code></pre>
+<p><img src="figure/r_compare_finemap.Rmd/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="roc-2" class="section level3">
+<h3>ROC</h3>
+<pre class="r"><code>print(&quot;Computing ROC data ...&quot;)</code></pre>
+<pre><code>[1] &quot;Computing ROC data ...&quot;</code></pre>
+<pre class="r"><code>roc = list()
+for (method in names(dat)) {
+  roc[[method]] = roc_data(dat[[method]])
+}</code></pre>
+<pre class="r"><code>labels = vector()
+i = 1
+for (method in names(roc)) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
+<p><img src="figure/r_compare_finemap.Rmd/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="session-information" class="section level2">
