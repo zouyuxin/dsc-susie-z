@@ -12,8 +12,46 @@ library(ggplot2)
 library(cowplot)
 ```
 
+We only use the data with 1 signal.
+
 ```{r}
-dat = readRDS('output/r_compare_susierss_PIP_ROC.rds')
+dscout = readRDS('output/r_compare_susiepip_tibble.rds')
+dscout$method = rep(NA, nrow(dscout))
+dscout$method[!is.na(dscout$susie_z.ld_method)] = 'susie_rss'
+dscout$method[!is.na(dscout$susie_bhat.ld_method)] = 'susie_b'
+
+dscout$ld_method = dscout$susie_bhat.ld_method
+dscout$ld_method[!is.na(dscout$susie_z.ld_method)] = dscout$susie_z.ld_method[!is.na(dscout$susie_z.ld_method)]
+dscout = dscout[,-c(6,8,9)]
+dscout$sim_gaussian.effect_weight[which(dscout$sim_gaussian.effect_weight == 'rep(1/n_signal, n_signal)')] = 'equal'
+dscout$sim_gaussian.effect_weight[which(dscout$sim_gaussian.effect_weight != 'equal')] = 'notequal'
+colnames(dscout) = c('DSC', 'meta', 'pve', 'n_signal', 'effect_weight', 'N_in', 'converged', 'pip', 'method', 'ld_method')
+```
+
+```{r}
+dscout.susierss = dscout[dscout$method == 'susie_rss',]
+dscout.equal.susierss = dscout.susierss[dscout.susierss$effect_weight == 'equal',]
+dscout.equal.susierss.suc = dscout.equal.susierss[dscout.equal.susierss$converged==1,]
+dscout.equal.susierss.suc = dscout.equal.susierss.suc[dscout.equal.susierss.suc$n_signal ==1,]
+dscout.equal.susierss.suc.list = list('in_sample' = dscout.equal.susierss.suc[dscout.equal.susierss.suc$ld_method == 'in_sample',],
+                                      'out_sample' = dscout.equal.susierss.suc[dscout.equal.susierss.suc$ld_method == 'out_sample',])
+```
+
+```{r}
+dat.susierss = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
+for(method in names(dat.susierss)){
+  for(j in 1:nrow(dscout.equal.susierss.suc.list[[method]])){
+    datj = cbind(dscout.equal.susierss.suc.list[[method]]$pip[[j]], dscout.equal.susierss.suc.list[[method]]$meta[[j]]$true_coef)
+    dat.susierss[[method]] = rbind(dat.susierss[[method]], datj)
+  }
+  colnames(dat.susierss[[method]]) = c('pip', 'truth')
+}
+# saveRDS(dat.susierss, 'output/r_compare_susierss_PIP_ROC.rds')
+```
+
+```{r}
+# dat = readRDS('output/r_compare_susierss_PIP_ROC.rds')
+dat = dat.susierss
 ```
 
 ```{r}
