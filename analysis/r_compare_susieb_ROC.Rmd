@@ -10,6 +10,7 @@ output:
 ```{r}
 library(ggplot2)
 library(cowplot)
+library(gridExtra)
 ```
 
 ```{r}
@@ -68,16 +69,17 @@ dot_plot = function(dataframe) {
 
 ### Calibrated PIP
 
-```{r echo=FALSE, out.width='.49\\linewidth', fig.width=8, fig.height=5,fig.show='hold',fig.align='center'}
+```{r echo=FALSE,fig.width=10, fig.height=5,fig.align='center'}
+g = list()
 idx = 0
 for(Rtype in names(pip_cali)){
   idx = idx + 1
   pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
   pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
   colnames(pip_cali[[Rtype]]) = c("mean_pip", "observed_freq", "se")
-  g = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
-  print(g)
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
 }
+grid.arrange(g[[1]], g[[2]], nrow = 1)
 ```
 
 ### ROC
@@ -137,7 +139,7 @@ add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
 }
 ```
 
-```{r}
+```{r fig.width=10, fig.height=8}
 labels = vector()
 i = 1
 for (method in names(roc)) {
@@ -200,16 +202,17 @@ for(Rtype in names(pip_cali)){
 
 ### Calibrated PIP
 
-```{r echo=FALSE, out.width='.49\\linewidth', fig.width=8, fig.height=5,fig.show='hold',fig.align='center'}
+```{r fig.width=10, fig.height=5,fig.align='center'}
+g = list()
 idx = 0
 for(Rtype in names(pip_cali)){
   idx = idx + 1
   pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
   pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
   colnames(pip_cali[[Rtype]]) = c("mean_pip", "observed_freq", "se")
-  g = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
-  print(g)
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
 }
+grid.arrange(g[[1]], g[[2]], nrow = 1)
 ```
 
 ### ROC
@@ -221,7 +224,7 @@ for (method in names(dat)) {
 }
 ```
 
-```{r}
+```{r fig.width=10, fig.height=8}
 labels = vector()
 i = 1
 for (method in names(roc)) {
@@ -284,16 +287,17 @@ for(Rtype in names(pip_cali)){
 
 ### Calibrated PIP
 
-```{r echo=FALSE, out.width='.49\\linewidth', fig.width=8, fig.height=5,fig.show='hold',fig.align='center'}
+```{r fig.width=10, fig.height=5,fig.align='center'}
+g = list()
 idx = 0
 for(Rtype in names(pip_cali)){
   idx = idx + 1
   pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
   pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
   colnames(pip_cali[[Rtype]]) = c("mean_pip", "observed_freq", "se")
-  g = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
-  print(g)
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
 }
+grid.arrange(g[[1]], g[[2]], nrow = 1)
 ```
 
 ### ROC
@@ -305,7 +309,7 @@ for (method in names(dat)) {
 }
 ```
 
-```{r}
+```{r fig.width=10, fig.height=8}
 labels = vector()
 i = 1
 for (method in names(roc)) {
