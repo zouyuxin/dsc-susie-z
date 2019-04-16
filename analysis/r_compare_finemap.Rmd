@@ -102,7 +102,7 @@ for(Rtype in names(pip_cali)){
 grid.arrange(g[[1]], g[[2]], nrow = 1)
 ```
 
-## ROC
+### ROC
 
 ```{r}
 pip_cutoff = 0.05
@@ -230,7 +230,7 @@ for(Rtype in names(pip_cali)){
 grid.arrange(g[[1]], g[[2]], nrow = 1)
 ```
 
-## ROC
+### ROC
 
 ```{r}
 print("Computing ROC data ...")
