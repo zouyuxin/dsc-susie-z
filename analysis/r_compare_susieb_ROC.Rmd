@@ -12,8 +12,6 @@ library(ggplot2)
 library(cowplot)
 ```
 
-From previous result, we see FDR for cases with more than 1 signal is too high. Therefore, we only use the data with 1 signal here.
-
 ```{r}
 dscout = readRDS('output/r_compare_susiepip_tibble.rds')
 dscout$method = rep(NA, nrow(dscout))
@@ -28,31 +26,10 @@ dscout$sim_gaussian.effect_weight[which(dscout$sim_gaussian.effect_weight != 'eq
 colnames(dscout) = c('DSC', 'meta', 'pve', 'n_signal', 'effect_weight', 'N_in', 'converged', 'pip', 'method', 'ld_method')
 ```
 
-```{r}
-dscout.susieb = dscout[dscout$method == 'susie_b',]
-dscout.equal.susieb = dscout.susieb[dscout.susieb$effect_weight == 'equal',]
-dscout.equal.susieb.suc = dscout.equal.susieb[!is.na(dscout.equal.susieb$converged),]
-dscout.equal.susieb.suc = dscout.equal.susieb.suc[dscout.equal.susieb.suc$n_signal ==1,]
-dscout.equal.susieb.suc.list = list('in_sample' = dscout.equal.susieb.suc[dscout.equal.susieb.suc$ld_method == 'in_sample',],
-                                    'out_sample' = dscout.equal.susieb.suc[dscout.equal.susieb.suc$ld_method == 'out_sample',])
-```
+## ALL
 
 ```{r}
-dat.susieb = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
-for(method in names(dat.susieb)){
-  for(j in 1:nrow(dscout.equal.susieb.suc.list[[method]])){
-    datj = cbind(dscout.equal.susieb.suc.list[[method]]$pip[[j]], dscout.equal.susieb.suc.list[[method]]$meta[[j]]$true_coef)
-    dat.susieb[[method]] = rbind(dat.susieb[[method]], datj)
-  }
-  colnames(dat.susieb[[method]]) = c('pip', 'truth')
-}
-
-# saveRDS(dat.susieb, 'output/r_compare_susieb_PIP_ROC.rds')
-```
-
-```{r}
-# dat = readRDS('output/r_compare_susieb_PIP_ROC.rds')
-dat = dat.susieb
+dat = readRDS('output/r_compare_susieb_PIP_ROC.rds')
 ```
 
 ```{r}
@@ -89,9 +66,10 @@ dot_plot = function(dataframe) {
 }
 ```
 
-## Calibrated PIP
+### Calibrated PIP
 
-```{r}
+```{r echo=FALSE}
+par(mfrow=c(1,2))
 idx = 0
 for(Rtype in names(pip_cali)){
   idx = idx + 1
@@ -101,10 +79,9 @@ for(Rtype in names(pip_cali)){
   g = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
   print(g)
 }
-
 ```
 
-## ROC
+### ROC
 ```{r}
 pip_cutoff = 0.05
 
@@ -159,6 +136,9 @@ add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
   text(x[idx] - delta,y[idx],labels = threshold,col = color,cex = 0.8)
   points(x[idx], y[idx])
 }
+```
+
+```{r}
 labels = vector()
 i = 1
 for (method in names(roc)) {
@@ -174,6 +154,174 @@ for (method in names(roc)) {
   i = i + 1
 }
 legend("topright", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+```
+
+## PVE per signal <= 0.2
+
+```{r}
+dscout.susieb = dscout[dscout$method == 'susie_b',]
+dscout.equal.susieb = dscout.susieb[dscout.susieb$effect_weight == 'equal',]
+dscout.equal.susieb.suc = dscout.equal.susieb[!is.na(dscout.equal.susieb$converged),]
+dscout.equal.susieb.suc = dscout.equal.susieb.suc[dscout.equal.susieb.suc$pve/dscout.equal.susieb.suc$n_signal <= 0.2,]
+dscout.equal.susieb.suc.list = list('in_sample' = dscout.equal.susieb.suc[dscout.equal.susieb.suc$ld_method == 'in_sample',],
+                                    'out_sample' = dscout.equal.susieb.suc[dscout.equal.susieb.suc$ld_method == 'out_sample',])
+```
+
+```{r}
+dat.susieb = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
+for(method in names(dat.susieb)){
+  for(j in 1:nrow(dscout.equal.susieb.suc.list[[method]])){
+    datj = cbind(dscout.equal.susieb.suc.list[[method]]$pip[[j]], dscout.equal.susieb.suc.list[[method]]$meta[[j]]$true_coef)
+    dat.susieb[[method]] = rbind(dat.susieb[[method]], datj)
+  }
+  colnames(dat.susieb[[method]]) = c('pip', 'truth')
+}
+dat = dat.susieb
+```
+
+```{r}
+bin_size = 20
+bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
+
+pip_cali = list('in_sample'=matrix(NA, nrow(bins), 3), 'out_sample'=matrix(NA, nrow(bins), 3))
+for(Rtype in names(pip_cali)){
+  for (i in 1:nrow(bins)) {
+    data_in_bin = dat[[Rtype]][which(dat[[Rtype]][,1] > bins[i,1] & dat[[Rtype]][,1] < bins[i,2]),, drop=FALSE]
+    pip_cali[[Rtype]][i,1] = sum(data_in_bin[,'pip'])
+    pip_cali[[Rtype]][i,2] = sum(data_in_bin[,'truth'])
+    pip_cali[[Rtype]][i,3] = nrow(data_in_bin)
+  }
+}
+
+for(Rtype in names(pip_cali)){
+  pip_cali[[Rtype]][,c(1,2)] = pip_cali[[Rtype]][,c(1,2)] / pip_cali[[Rtype]][,3]
+}
 
 ```
 
+### Calibrated PIP
+
+```{r}
+par(mfrow=c(1,2))
+idx = 0
+for(Rtype in names(pip_cali)){
+  idx = idx + 1
+  pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
+  pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
+  colnames(pip_cali[[Rtype]]) = c("mean_pip", "observed_freq", "se")
+  g = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
+  print(g)
+}
+```
+
+### ROC
+```{r}
+print("Computing ROC data ...")
+roc = list()
+for (method in names(dat)) {
+  roc[[method]] = roc_data(dat[[method]])
+}
+```
+
+```{r}
+labels = vector()
+i = 1
+for (method in names(roc)) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'ROC', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend("topright", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+```
+
+## Only 1 signal
+
+```{r}
+dscout.susieb = dscout[dscout$method == 'susie_b',]
+dscout.equal.susieb = dscout.susieb[dscout.susieb$effect_weight == 'equal',]
+dscout.equal.susieb.suc = dscout.equal.susieb[!is.na(dscout.equal.susieb$converged),]
+dscout.equal.susieb.suc = dscout.equal.susieb.suc[dscout.equal.susieb.suc$n_signal == 1,]
+dscout.equal.susieb.suc.list = list('in_sample' = dscout.equal.susieb.suc[dscout.equal.susieb.suc$ld_method == 'in_sample',],
+                                    'out_sample' = dscout.equal.susieb.suc[dscout.equal.susieb.suc$ld_method == 'out_sample',])
+```
+
+```{r}
+dat.susieb = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
+for(method in names(dat.susieb)){
+  for(j in 1:nrow(dscout.equal.susieb.suc.list[[method]])){
+    datj = cbind(dscout.equal.susieb.suc.list[[method]]$pip[[j]], dscout.equal.susieb.suc.list[[method]]$meta[[j]]$true_coef)
+    dat.susieb[[method]] = rbind(dat.susieb[[method]], datj)
+  }
+  colnames(dat.susieb[[method]]) = c('pip', 'truth')
+}
+dat = dat.susieb
+```
+
+```{r}
+bin_size = 20
+bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
+
+pip_cali = list('in_sample'=matrix(NA, nrow(bins), 3), 'out_sample'=matrix(NA, nrow(bins), 3))
+for(Rtype in names(pip_cali)){
+  for (i in 1:nrow(bins)) {
+    data_in_bin = dat[[Rtype]][which(dat[[Rtype]][,1] > bins[i,1] & dat[[Rtype]][,1] < bins[i,2]),, drop=FALSE]
+    pip_cali[[Rtype]][i,1] = sum(data_in_bin[,'pip'])
+    pip_cali[[Rtype]][i,2] = sum(data_in_bin[,'truth'])
+    pip_cali[[Rtype]][i,3] = nrow(data_in_bin)
+  }
+}
+
+for(Rtype in names(pip_cali)){
+  pip_cali[[Rtype]][,c(1,2)] = pip_cali[[Rtype]][,c(1,2)] / pip_cali[[Rtype]][,3]
+}
+
+```
+
+### Calibrated PIP
+
+```{r}
+par(mfrow=c(1,2))
+idx = 0
+for(Rtype in names(pip_cali)){
+  idx = idx + 1
+  pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
+  pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
+  colnames(pip_cali[[Rtype]]) = c("mean_pip", "observed_freq", "se")
+  g = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
+  print(g)
+}
+```
+
+### ROC
+```{r}
+print("Computing ROC data ...")
+roc = list()
+for (method in names(dat)) {
+  roc[[method]] = roc_data(dat[[method]])
+}
+```
+
+```{r}
+labels = vector()
+i = 1
+for (method in names(roc)) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'ROC', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend("topright", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+```
