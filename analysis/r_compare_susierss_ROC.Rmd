@@ -112,7 +112,7 @@ for (method in names(dat)) {
 }
 ```
 
-```{r fig.width=10, fig.height=8}
+```{r fig.width=6, fig.height=5}
 chunks = 0
 smooth = FALSE
 colors = c('#A60628', '#7A68A6', '#348ABD', '#467821', '#FF0000', '#188487', '#E2A233','#A9A9A9', '#000000', '#FF00FF', '#FFD700', '#ADFF2F', '#00FFFF')
@@ -155,7 +155,7 @@ for (method in names(roc)) {
 legend("topright", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
 ```
 
-## Per PVE <= 0.2
+## PVE per signal <= 0.2
 ```{r}
 dscout.susierss = dscout[dscout$method == 'susie_rss',]
 dscout.equal.susierss = dscout.susierss[dscout.susierss$effect_weight == 'equal',]
@@ -222,7 +222,7 @@ for (method in names(dat)) {
 }
 ```
 
-```{r fig.width=10, fig.height=8}
+```{r fig.width=6, fig.height=5}
 labels = vector()
 i = 1
 for (method in names(roc)) {

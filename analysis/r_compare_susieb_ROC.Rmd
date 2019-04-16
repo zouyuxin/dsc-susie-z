@@ -139,7 +139,7 @@ add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
 }
 ```
 
-```{r fig.width=10, fig.height=8}
+```{r fig.width=6, fig.height=5}
 labels = vector()
 i = 1
 for (method in names(roc)) {
@@ -224,7 +224,7 @@ for (method in names(dat)) {
 }
 ```
 
-```{r fig.width=10, fig.height=8}
+```{r fig.width=6, fig.height=5}
 labels = vector()
 i = 1
 for (method in names(roc)) {
@@ -309,7 +309,7 @@ for (method in names(dat)) {
 }
 ```
 
-```{r fig.width=10, fig.height=8}
+```{r fig.width=6, fig.height=5}
 labels = vector()
 i = 1
 for (method in names(roc)) {

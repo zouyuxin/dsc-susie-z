@@ -10,6 +10,7 @@ output:
 ```{r}
 library(ggplot2)
 library(cowplot)
+library(gridExtra)
 ```
 
 ```{r}
@@ -27,24 +28,25 @@ dscout$sim_gaussian.effect_weight[which(dscout$sim_gaussian.effect_weight != 'eq
 colnames(dscout) = c('DSC', 'meta', 'pve', 'n_signal', 'effect_weight', 'N_in', 'total', 'valid', 'size', 'purity', 'top', 'converged', 'pip', 'method', 'ld_method')
 ```
 
+## ALL
+
 ```{r}
 dscout.finemap = dscout[dscout$method == 'finemap',-c(7,8,9,10,11,12)]
 dscout.equal.finemap = dscout.finemap[dscout.finemap$effect_weight == 'equal',]
-dscout.equal.finemap.in_sample = dscout.equal.finemap[dscout.equal.finemap$ld_method == 'in_sample',]
-dscout.equal.finemap.out_sample = dscout.equal.finemap[dscout.equal.finemap$ld_method == 'out_sample',]
+dscout.equal.finemap.list = list('in_sample' = dscout.equal.finemap[dscout.equal.finemap$ld_method == 'in_sample',],
+                                 'out_sample' = dscout.equal.finemap[dscout.equal.finemap$ld_method == 'out_sample',])
 ```
 
 ```{r eval=FALSE}
 dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
-for(j in 1:nrow(dscout.equal.finemap.in_sample)){
-  datj.in_sample = cbind(dscout.equal.finemap.in_sample$pip[[j]], dscout.equal.finemap.in_sample$meta[[j]]$true_coef)
-  dat$in_sample = rbind(dat$in_sample, datj.in_sample)
-  datj.out_sample = cbind(dscout.equal.finemap.out_sample$pip[[j]], dscout.equal.finemap.out_sample$meta[[j]]$true_coef)
-  dat$out_sample = rbind(dat$out_sample, datj.out_sample)
+for(Rtype in names(dat)){
+  for(j in 1:nrow(dscout.equal.finemap.list[[Rtype]])){
+    datj = cbind(dscout.equal.finemap.list[[Rtype]]$pip[[j]], dscout.equal.finemap.list[[Rtype]]$meta[[j]]$true_coef)
+    dat[[Rtype]] = rbind(dat[[Rtype]], datj)
+  }
+  colnames(dat[[Rtype]]) = c('pip', 'truth')
 }
-colnames(dat$in_sample) = c('pip', 'truth')
-colnames(dat$out_sample) = c('pip', 'truth')
-saveRDS(dat, 'output/r_compare_FINEMAP_PIP_ROC.rds')
+# saveRDS(dat, '../output/r_compare_FINEMAP_PIP_ROC.rds')
 ```
 
 ```{r}
@@ -85,19 +87,19 @@ dot_plot = function(dataframe) {
 }
 ```
 
-## Calibrated PIP
+### Calibrated PIP
 
-```{r}
+```{r fig.width=10, fig.height=5,fig.align='center'}
+g = list()
 idx = 0
 for(Rtype in names(pip_cali)){
   idx = idx + 1
   pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
   pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
   colnames(pip_cali[[Rtype]]) = c("mean_pip", "observed_freq", "se")
-  g = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
-  print(g)
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
 }
-
+grid.arrange(g[[1]], g[[2]], nrow = 1)
 ```
 
 ## ROC
@@ -130,7 +132,7 @@ for (method in names(dat)) {
 }
 ```
 
-```{r}
+```{r fig.width=6, fig.height=5}
 chunks = 0
 smooth = FALSE
 colors = c('#A60628', '#7A68A6', '#348ABD', '#467821', '#FF0000', '#188487', '#E2A233','#A9A9A9', '#000000', '#FF00FF', '#FFD700', '#ADFF2F', '#00FFFF')
@@ -174,3 +176,85 @@ legend("topright", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
 
 ```
 
+## PVE per signal <= 0.2
+
+```{r}
+dscout.equal.finemap = dscout.equal.finemap[dscout.equal.finemap$pve/dscout.equal.finemap$n_signal <= 0.2,]
+dscout.equal.finemap.list = list('in_sample' = dscout.equal.finemap[dscout.equal.finemap$ld_method == 'in_sample',],
+                                 'out_sample' = dscout.equal.finemap[dscout.equal.finemap$ld_method == 'out_sample',])
+```
+
+```{r eval=FALSE}
+dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
+for(Rtype in names(dat)){
+  for(j in 1:nrow(dscout.equal.finemap.list[[Rtype]])){
+    datj = cbind(dscout.equal.finemap.list[[Rtype]]$pip[[j]], dscout.equal.finemap.list[[Rtype]]$meta[[j]]$true_coef)
+    dat[[Rtype]] = rbind(dat[[Rtype]], datj)
+  }
+  colnames(dat[[Rtype]]) = c('pip', 'truth')
+}
+```
+
+```{r}
+bin_size = 20
+bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
+
+pip_cali = list('in_sample'=matrix(NA, nrow(bins), 3), 'out_sample'=matrix(NA, nrow(bins), 3))
+for(Rtype in names(pip_cali)){
+  for (i in 1:nrow(bins)) {
+    data_in_bin = dat[[Rtype]][which(dat[[Rtype]][,1] > bins[i,1] & dat[[Rtype]][,1] < bins[i,2]),, drop=FALSE]
+    pip_cali[[Rtype]][i,1] = sum(data_in_bin[,'pip'])
+    pip_cali[[Rtype]][i,2] = sum(data_in_bin[,'truth'])
+    pip_cali[[Rtype]][i,3] = nrow(data_in_bin)
+  }
+}
+
+for(Rtype in names(pip_cali)){
+  pip_cali[[Rtype]][,c(1,2)] = pip_cali[[Rtype]][,c(1,2)] / pip_cali[[Rtype]][,3]
+}
+
+```
+
+### Calibrated PIP
+
+```{r fig.width=10, fig.height=5,fig.align='center'}
+g = list()
+idx = 0
+for(Rtype in names(pip_cali)){
+  idx = idx + 1
+  pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
+  pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
+  colnames(pip_cali[[Rtype]]) = c("mean_pip", "observed_freq", "se")
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
+}
+grid.arrange(g[[1]], g[[2]], nrow = 1)
+```
+
+## ROC
+
+```{r}
+print("Computing ROC data ...")
+roc = list()
+for (method in names(dat)) {
+  roc[[method]] = roc_data(dat[[method]])
+}
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc)) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'ROC', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend("topright", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+
+```
