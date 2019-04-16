@@ -461,7 +461,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/295c4fd3bfc133f48215b2592629aadd576e6af4" target="_blank">295c4fd</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/4f3c7b51a2a6982804195d25311388e91e1a960d" target="_blank">4f3c7b5</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -547,6 +547,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/4f3c7b51a2a6982804195d25311388e91e1a960d/analysis/r_compare_susie_equal.Rmd" target="_blank">4f3c7b5</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+wflow_publish(c(“analysis/r_compare_susie_equal.Rmd”, “analysis/r_compare_susie_notequal.Rmd”))
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/20ad418052ec8ca93e4f2fa542b1938920e9204d/docs/r_compare_susie_equal.html" target="_blank">20ad418</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-15
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 html
@@ -994,7 +1028,7 @@ total.in$total_true = total.in$DSC * total.in$n_signal
 power.susie.in = merge(valid.in, total.in)
 power.susie.in$power.susie.in_sample = round(power.susie.in$valid/(power.susie.in$total_true), 3)
 colnames(power.susie.in)[colnames(power.susie.in) == &#39;valid&#39;] &lt;- &#39;valid.in_sample&#39;
-power.susie.in = power.susie.in[,-c(4,5)]
+power.susie.in = power.susie.in[,-c(3,4,5)]
 
 valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susieb.out_sample[!is.na(dscout.equal.susieb.out_sample$converged),], sum)
 total.out = aggregate(DSC~ n_signal + pve, dscout.equal.susieb.out_sample[!is.na(dscout.equal.susieb.out_sample$converged),], length)
@@ -1002,29 +1036,14 @@ total.out$total_true = total.out$DSC * total.out$n_signal
 power.susie.out = merge(valid.out, total.out)
 power.susie.out$power.susie.out_sample = round(power.susie.out$valid/(power.susie.out$total_true), 3)
 colnames(power.susie.out)[colnames(power.susie.out) == &#39;valid&#39;] &lt;- &#39;valid.out_sample&#39;
-power.susie.out = power.susie.out[,-c(4,5)]
+power.susie.out = power.susie.out[,-c(3,4,5)]
 
 power.susie = Reduce(function(...) merge(...),
        list(power.susie.in, power.susie.out))
-power.susie %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F) %&gt;% add_header_above(c(&quot; &quot;, &quot; &quot;,&quot;IN sample&quot; = 2, &quot;OUT sample&quot; = 2)) %&gt;% column_spec(c(4, 6), bold = T)</code></pre>
+colnames(power.susie) = c(&#39;n_signal&#39;, &#39;pve&#39;, &#39;IN sample&#39;, &#39;OUT sample&#39;)
+power.susie %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
-<tr>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-IN sample
-</div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-OUT sample
-</div>
-</th>
-</tr>
 <tr>
 <th style="text-align:right;">
 n_signal
@@ -1033,16 +1052,10 @@ n_signal
 pve
 </th>
 <th style="text-align:right;">
-valid.in_sample
+IN sample
 </th>
 <th style="text-align:right;">
-power.susie.in_sample
-</th>
-<th style="text-align:right;">
-valid.out_sample
-</th>
-<th style="text-align:right;">
-power.susie.out_sample
+OUT sample
 </th>
 </tr>
 </thead>
@@ -1055,15 +1068,9 @@ power.susie.out_sample
 0.05
 </td>
 <td style="text-align:right;">
-45
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.300
 </td>
 <td style="text-align:right;">
-45
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.300
 </td>
 </tr>
@@ -1075,15 +1082,9 @@ power.susie.out_sample
 0.20
 </td>
 <td style="text-align:right;">
-149
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.993
 </td>
 <td style="text-align:right;">
-140
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.952
 </td>
 </tr>
@@ -1095,15 +1096,9 @@ power.susie.out_sample
 0.60
 </td>
 <td style="text-align:right;">
-149
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.993
 </td>
 <td style="text-align:right;">
-94
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.797
 </td>
 </tr>
@@ -1115,15 +1110,9 @@ power.susie.out_sample
 0.80
 </td>
 <td style="text-align:right;">
-149
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.993
 </td>
 <td style="text-align:right;">
-42
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.778
 </td>
 </tr>
@@ -1135,15 +1124,9 @@ power.susie.out_sample
 0.05
 </td>
 <td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.038
 </td>
 <td style="text-align:right;">
-18
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.040
 </td>
 </tr>
@@ -1155,15 +1138,9 @@ power.susie.out_sample
 0.20
 </td>
 <td style="text-align:right;">
-215
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.478
 </td>
 <td style="text-align:right;">
-201
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.453
 </td>
 </tr>
@@ -1175,15 +1152,9 @@ power.susie.out_sample
 0.60
 </td>
 <td style="text-align:right;">
-375
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.833
 </td>
 <td style="text-align:right;">
-178
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.467
 </td>
 </tr>
@@ -1195,15 +1166,9 @@ power.susie.out_sample
 0.80
 </td>
 <td style="text-align:right;">
-385
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.856
 </td>
 <td style="text-align:right;">
-107
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.457
 </td>
 </tr>
@@ -1215,15 +1180,9 @@ power.susie.out_sample
 0.05
 </td>
 <td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.013
 </td>
 <td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.012
 </td>
 </tr>
@@ -1235,15 +1194,9 @@ power.susie.out_sample
 0.20
 </td>
 <td style="text-align:right;">
-137
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.183
 </td>
 <td style="text-align:right;">
-150
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.203
 </td>
 </tr>
@@ -1255,15 +1208,9 @@ power.susie.out_sample
 0.60
 </td>
 <td style="text-align:right;">
-579
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.772
 </td>
 <td style="text-align:right;">
-286
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.400
 </td>
 </tr>
@@ -1275,15 +1222,9 @@ power.susie.out_sample
 0.80
 </td>
 <td style="text-align:right;">
-612
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.816
 </td>
 <td style="text-align:right;">
-229
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.405
 </td>
 </tr>
@@ -1297,37 +1238,21 @@ total.in = aggregate(total~ n_signal + pve, dscout.equal.susieb.in_sample, sum)
 fdr.in = merge(valid.in, total.in)
 fdr.in$fdr.in = round((fdr.in$total - fdr.in$valid)/fdr.in$total, 4)
 colnames(fdr.in)[colnames(fdr.in) == &#39;valid&#39;] &lt;- &#39;valid.in_sample&#39;
-fdr.in = fdr.in[,-4]
+fdr.in = fdr.in[,-c(3,4)]
 
 valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susieb.out_sample[!is.na(dscout.equal.susieb.out_sample$converged),], sum)
 total.out = aggregate(total~ n_signal + pve, dscout.equal.susieb.out_sample[!is.na(dscout.equal.susieb.out_sample$converged),], sum)
 fdr.out = merge(valid.out, total.out)
 fdr.out$fdr.out = round((fdr.out$total - fdr.out$valid)/fdr.out$total, 4)
 colnames(fdr.out)[colnames(fdr.out) == &#39;valid&#39;] &lt;- &#39;valid.out_sample&#39;
-fdr.out = fdr.out[,-4]
+fdr.out = fdr.out[,-c(3,4)]
 
 fdr = Reduce(function(...) merge(...),
        list(fdr.in, fdr.out))
-
-fdr %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F) %&gt;% add_header_above(c(&quot; &quot;, &quot; &quot;, &quot;IN sample&quot; = 2, &quot;OUT sample&quot; = 2)) %&gt;% column_spec(c(4,6), bold = T)</code></pre>
+colnames(fdr) = c(&#39;n_signal&#39;, &#39;pve&#39;, &#39;IN sample&#39;, &#39;OUT sample&#39;)
+fdr %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
-<tr>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-IN sample
-</div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-OUT sample
-</div>
-</th>
-</tr>
 <tr>
 <th style="text-align:right;">
 n_signal
@@ -1336,16 +1261,10 @@ n_signal
 pve
 </th>
 <th style="text-align:right;">
-valid.in_sample
+IN sample
 </th>
 <th style="text-align:right;">
-fdr.in
-</th>
-<th style="text-align:right;">
-valid.out_sample
-</th>
-<th style="text-align:right;">
-fdr.out
+OUT sample
 </th>
 </tr>
 </thead>
@@ -1358,15 +1277,9 @@ fdr.out
 0.05
 </td>
 <td style="text-align:right;">
-45
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.0217
 </td>
 <td style="text-align:right;">
-45
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.0625
 </td>
 </tr>
@@ -1378,15 +1291,9 @@ fdr.out
 0.20
 </td>
 <td style="text-align:right;">
-149
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.0067
 </td>
 <td style="text-align:right;">
-140
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.3694
 </td>
 </tr>
@@ -1398,15 +1305,9 @@ fdr.out
 0.60
 </td>
 <td style="text-align:right;">
-149
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.0067
 </td>
 <td style="text-align:right;">
-94
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.8182
 </td>
 </tr>
@@ -1418,15 +1319,9 @@ fdr.out
 0.80
 </td>
 <td style="text-align:right;">
-149
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.0067
 </td>
 <td style="text-align:right;">
-42
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.8433
 </td>
 </tr>
@@ -1438,15 +1333,9 @@ fdr.out
 0.05
 </td>
 <td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.2273
 </td>
 <td style="text-align:right;">
-18
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.2500
 </td>
 </tr>
@@ -1458,15 +1347,9 @@ fdr.out
 0.20
 </td>
 <td style="text-align:right;">
-215
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1502
 </td>
 <td style="text-align:right;">
-201
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.3619
 </td>
 </tr>
@@ -1478,15 +1361,9 @@ fdr.out
 0.60
 </td>
 <td style="text-align:right;">
-375
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1176
 </td>
 <td style="text-align:right;">
-178
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.6973
 </td>
 </tr>
@@ -1498,15 +1375,9 @@ fdr.out
 0.80
 </td>
 <td style="text-align:right;">
-385
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1387
 </td>
 <td style="text-align:right;">
-107
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.7206
 </td>
 </tr>
@@ -1518,15 +1389,9 @@ fdr.out
 0.05
 </td>
 <td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.0909
 </td>
 <td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1818
 </td>
 </tr>
@@ -1538,15 +1403,9 @@ fdr.out
 0.20
 </td>
 <td style="text-align:right;">
-137
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1988
 </td>
 <td style="text-align:right;">
-150
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.4094
 </td>
 </tr>
@@ -1558,15 +1417,9 @@ fdr.out
 0.60
 </td>
 <td style="text-align:right;">
-579
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1267
 </td>
 <td style="text-align:right;">
-286
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.5855
 </td>
 </tr>
@@ -1578,15 +1431,9 @@ fdr.out
 0.80
 </td>
 <td style="text-align:right;">
-612
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1319
 </td>
 <td style="text-align:right;">
-229
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.5918
 </td>
 </tr>
@@ -1971,7 +1818,7 @@ total.in$total_true = total.in$DSC * total.in$n_signal
 power.susie.in = merge(valid.in, total.in)
 power.susie.in$power.susie.in_sample = round(power.susie.in$valid/(power.susie.in$total_true), 3)
 colnames(power.susie.in)[colnames(power.susie.in) == &#39;valid&#39;] &lt;- &#39;valid.in_sample&#39;
-power.susie.in = power.susie.in[,-c(4,5)]
+power.susie.in = power.susie.in[,-c(3,4,5)]
 
 valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.out_sample[dscout.equal.susierss.out_sample$converged ==1,], sum)
 total.out = aggregate(DSC~ n_signal + pve, dscout.equal.susierss.out_sample[dscout.equal.susierss.out_sample$converged ==1,], length)
@@ -1979,29 +1826,14 @@ total.out$total_true = total.out$DSC * total.out$n_signal
 power.susie.out = merge(valid.out, total.out)
 power.susie.out$power.susie.out_sample = round(power.susie.out$valid/(power.susie.out$total_true), 3)
 colnames(power.susie.out)[colnames(power.susie.out) == &#39;valid&#39;] &lt;- &#39;valid.out_sample&#39;
-power.susie.out = power.susie.out[,-c(4,5)]
+power.susie.out = power.susie.out[,-c(3,4,5)]
 
 power.susie = Reduce(function(...) merge(...),
        list(power.susie.in, power.susie.out))
-power.susie %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F) %&gt;% add_header_above(c(&quot; &quot;, &quot; &quot;,&quot;IN sample&quot; = 2, &quot;OUT sample&quot; = 2)) %&gt;% column_spec(c(4, 6), bold = T)</code></pre>
+colnames(power.susie) = c(&#39;n_signal&#39;, &#39;pve&#39;, &#39;IN sample&#39;, &#39;OUT sample&#39;)
+power.susie %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
-<tr>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-IN sample
-</div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-OUT sample
-</div>
-</th>
-</tr>
 <tr>
 <th style="text-align:right;">
 n_signal
@@ -2010,16 +1842,10 @@ n_signal
 pve
 </th>
 <th style="text-align:right;">
-valid.in_sample
+IN sample
 </th>
 <th style="text-align:right;">
-power.susie.in_sample
-</th>
-<th style="text-align:right;">
-valid.out_sample
-</th>
-<th style="text-align:right;">
-power.susie.out_sample
+OUT sample
 </th>
 </tr>
 </thead>
@@ -2032,15 +1858,9 @@ power.susie.out_sample
 0.05
 </td>
 <td style="text-align:right;">
-47
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.313
 </td>
 <td style="text-align:right;">
-36
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.240
 </td>
 </tr>
@@ -2052,15 +1872,9 @@ power.susie.out_sample
 0.20
 </td>
 <td style="text-align:right;">
-145
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.967
 </td>
 <td style="text-align:right;">
-122
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.813
 </td>
 </tr>
@@ -2072,15 +1886,9 @@ power.susie.out_sample
 0.60
 </td>
 <td style="text-align:right;">
-102
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.694
 </td>
 <td style="text-align:right;">
-73
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.493
 </td>
 </tr>
@@ -2092,15 +1900,9 @@ power.susie.out_sample
 0.80
 </td>
 <td style="text-align:right;">
-95
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.669
 </td>
 <td style="text-align:right;">
-83
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.576
 </td>
 </tr>
@@ -2112,15 +1914,9 @@ power.susie.out_sample
 0.05
 </td>
 <td style="text-align:right;">
-18
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.040
 </td>
 <td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.038
 </td>
 </tr>
@@ -2132,15 +1928,9 @@ power.susie.out_sample
 0.20
 </td>
 <td style="text-align:right;">
-195
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.433
 </td>
 <td style="text-align:right;">
-150
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.333
 </td>
 </tr>
@@ -2152,15 +1942,9 @@ power.susie.out_sample
 0.60
 </td>
 <td style="text-align:right;">
-350
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.778
 </td>
 <td style="text-align:right;">
-224
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.498
 </td>
 </tr>
@@ -2172,15 +1956,9 @@ power.susie.out_sample
 0.80
 </td>
 <td style="text-align:right;">
-333
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.745
 </td>
 <td style="text-align:right;">
-202
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.452
 </td>
 </tr>
@@ -2192,15 +1970,9 @@ power.susie.out_sample
 0.05
 </td>
 <td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.015
 </td>
 <td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.011
 </td>
 </tr>
@@ -2212,15 +1984,9 @@ power.susie.out_sample
 0.20
 </td>
 <td style="text-align:right;">
-132
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.176
 </td>
 <td style="text-align:right;">
-104
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.139
 </td>
 </tr>
@@ -2232,15 +1998,9 @@ power.susie.out_sample
 0.60
 </td>
 <td style="text-align:right;">
-497
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.663
 </td>
 <td style="text-align:right;">
-307
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.409
 </td>
 </tr>
@@ -2252,15 +2012,9 @@ power.susie.out_sample
 0.80
 </td>
 <td style="text-align:right;">
-527
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.707
 </td>
 <td style="text-align:right;">
-309
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.415
 </td>
 </tr>
@@ -2274,37 +2028,21 @@ total.in = aggregate(total~ n_signal + pve, dscout.equal.susierss.in_sample[dsco
 fdr.in = merge(valid.in, total.in)
 fdr.in$fdr.in = round((fdr.in$total - fdr.in$valid)/fdr.in$total, 4)
 colnames(fdr.in)[colnames(fdr.in) == &#39;valid&#39;] &lt;- &#39;valid.in_sample&#39;
-fdr.in = fdr.in[,-4]
+fdr.in = fdr.in[,-c(3,4)]
 
 valid.out = aggregate(valid ~ n_signal + pve, dscout.equal.susierss.out_sample[dscout.equal.susierss.out_sample$converged==1,], sum)
 total.out = aggregate(total~ n_signal + pve, dscout.equal.susierss.out_sample[dscout.equal.susierss.out_sample$converged==1,], sum)
 fdr.out = merge(valid.out, total.out)
 fdr.out$fdr.out = round((fdr.out$total - fdr.out$valid)/fdr.out$total, 4)
 colnames(fdr.out)[colnames(fdr.out) == &#39;valid&#39;] &lt;- &#39;valid.out_sample&#39;
-fdr.out = fdr.out[,-4]
+fdr.out = fdr.out[,-c(3,4)]
 
 fdr = Reduce(function(...) merge(...),
        list(fdr.in, fdr.out))
-
-fdr %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F) %&gt;% add_header_above(c(&quot; &quot;, &quot; &quot;, &quot;IN sample&quot; = 2, &quot;OUT sample&quot; = 2)) %&gt;% column_spec(c(4,6), bold = T)</code></pre>
+colnames(fdr) = c(&#39;n_signal&#39;, &#39;pve&#39;, &#39;IN sample&#39;, &#39;OUT sample&#39;)
+fdr %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
-<tr>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-IN sample
-</div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-OUT sample
-</div>
-</th>
-</tr>
 <tr>
 <th style="text-align:right;">
 n_signal
@@ -2313,16 +2051,10 @@ n_signal
 pve
 </th>
 <th style="text-align:right;">
-valid.in_sample
+IN sample
 </th>
 <th style="text-align:right;">
-fdr.in
-</th>
-<th style="text-align:right;">
-valid.out_sample
-</th>
-<th style="text-align:right;">
-fdr.out
+OUT sample
 </th>
 </tr>
 </thead>
@@ -2335,15 +2067,9 @@ fdr.out
 0.05
 </td>
 <td style="text-align:right;">
-47
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.0208
 </td>
 <td style="text-align:right;">
-36
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1220
 </td>
 </tr>
@@ -2355,15 +2081,9 @@ fdr.out
 0.20
 </td>
 <td style="text-align:right;">
-145
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.0333
 </td>
 <td style="text-align:right;">
-122
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.2229
 </td>
 </tr>
@@ -2375,15 +2095,9 @@ fdr.out
 0.60
 </td>
 <td style="text-align:right;">
-102
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.6832
 </td>
 <td style="text-align:right;">
-73
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.8617
 </td>
 </tr>
@@ -2395,15 +2109,9 @@ fdr.out
 0.80
 </td>
 <td style="text-align:right;">
-95
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.8370
 </td>
 <td style="text-align:right;">
-83
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.8754
 </td>
 </tr>
@@ -2415,15 +2123,9 @@ fdr.out
 0.05
 </td>
 <td style="text-align:right;">
-18
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.2174
 </td>
 <td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1905
 </td>
 </tr>
@@ -2435,15 +2137,9 @@ fdr.out
 0.20
 </td>
 <td style="text-align:right;">
-195
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1772
 </td>
 <td style="text-align:right;">
-150
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.3056
 </td>
 </tr>
@@ -2455,15 +2151,9 @@ fdr.out
 0.60
 </td>
 <td style="text-align:right;">
-350
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1898
 </td>
 <td style="text-align:right;">
-224
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.5650
 </td>
 </tr>
@@ -2475,15 +2165,9 @@ fdr.out
 0.80
 </td>
 <td style="text-align:right;">
-333
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.2854
 </td>
 <td style="text-align:right;">
-202
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.6599
 </td>
 </tr>
@@ -2495,15 +2179,9 @@ fdr.out
 0.05
 </td>
 <td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1538
 </td>
 <td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.2000
 </td>
 </tr>
@@ -2515,15 +2193,9 @@ fdr.out
 0.20
 </td>
 <td style="text-align:right;">
-132
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.2048
 </td>
 <td style="text-align:right;">
-104
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.3418
 </td>
 </tr>
@@ -2535,15 +2207,9 @@ fdr.out
 0.60
 </td>
 <td style="text-align:right;">
-497
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1605
 </td>
 <td style="text-align:right;">
-307
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.4661
 </td>
 </tr>
@@ -2555,15 +2221,9 @@ fdr.out
 0.80
 </td>
 <td style="text-align:right;">
-527
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.1930
 </td>
 <td style="text-align:right;">
-309
-</td>
-<td style="text-align:right;font-weight: bold;">
 0.5261
 </td>
 </tr>
