@@ -160,6 +160,7 @@ total.in$total_true = total.in$DSC * total.in$n_signal
 power.susie.in = merge(valid.in, total.in)
 power.susie.in$power.susie.in_sample = round(power.susie.in$valid/(power.susie.in$total_true), 3)
 colnames(power.susie.in)[colnames(power.susie.in) == 'valid'] <- 'valid.in_sample'
+power.susie.in = power.susie.in[,-c(4,5)]
 
 valid.out = aggregate(valid ~ n_signal + pve, dscout.notequal.susierss.out_sample[dscout.notequal.susierss.out_sample$converged ==1,], sum)
 total.out = aggregate(DSC~ n_signal + pve, dscout.notequal.susierss.out_sample[dscout.notequal.susierss.out_sample$converged ==1,], length)
@@ -167,10 +168,10 @@ total.out$total_true = total.out$DSC * total.out$n_signal
 power.susie.out = merge(valid.out, total.out)
 power.susie.out$power.susie.out_sample = round(power.susie.out$valid/(power.susie.out$total_true), 3)
 colnames(power.susie.out)[colnames(power.susie.out) == 'valid'] <- 'valid.out_sample'
+power.susie.out = power.susie.out[,-c(4,5)]
 
 power.susie = Reduce(function(...) merge(...),
        list(power.susie.in, power.susie.out))
-power.susie = power.susie[,-c(3,4)]
 power.susie %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F) %>% add_header_above(c(" ", " ","IN sample" = 2, "OUT sample" = 2)) %>% column_spec(c(4, 6), bold = T)
 ```
 
