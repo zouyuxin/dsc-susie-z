@@ -60,7 +60,7 @@ dscout.susierss.list = list('in_sample' = dscout.susierss[dscout.susierss$ld_met
 dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2), 'out_sample.addz'=matrix(NA, 0, 2), 'all'=matrix(NA, 0, 2), 'all.addz'=matrix(NA, 0, 2))
 for(Rtype in names(dat)){
   for(j in 1:nrow(dscout.susierss.list[[Rtype]])){
-    datj = cbind(dscout.susierss.list[[Rtype]]$susie.pip[[j]], dscout.susierss.list[[Rtype]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.susierss.list[[Rtype]]$susie.pip[[j]], as.integer(dscout.susierss.list[[Rtype]]$meta[[j]]$true_coef!=0))
     dat[[Rtype]] = rbind(dat[[Rtype]], datj)
   }
   colnames(dat[[Rtype]]) = c('pip', 'truth')
@@ -209,7 +209,7 @@ dscout.susierss.suc.list = list('in_sample' = dscout.susierss.suc[dscout.susiers
 dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2), 'out_sample.addz'=matrix(NA, 0, 2), 'all'=matrix(NA, 0, 2), 'all.addz'=matrix(NA, 0, 2))
 for(method in names(dat)){
   for(j in 1:nrow(dscout.susierss.suc.list[[method]])){
-    datj = cbind(dscout.susierss.suc.list[[method]]$susie.pip[[j]], dscout.susierss.suc.list[[method]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.susierss.suc.list[[method]]$susie.pip[[j]], as.integer(dscout.susierss.suc.list[[method]]$meta[[j]]$true_coef!=0))
     dat[[method]] = rbind(dat[[method]], datj)
   }
   colnames(dat[[method]]) = c('pip', 'truth')

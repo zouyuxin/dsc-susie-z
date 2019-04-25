@@ -54,7 +54,7 @@ dscout.susie.list = list('in_sample' = dscout.susie[dscout.susie$L == 5,])
 dat = list('in_sample'=matrix(NA, 0, 2))
 for(Rtype in names(dat)){
   for(j in 1:nrow(dscout.susie.list[[Rtype]])){
-    datj = cbind(dscout.susie.list[[Rtype]]$susie.pip[[j]], dscout.susie.list[[Rtype]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.susie.list[[Rtype]]$susie.pip[[j]], as.integer(dscout.susie.list[[Rtype]]$meta[[j]]$true_coef!=0))
     dat[[Rtype]] = rbind(dat[[Rtype]], datj)
   }
   colnames(dat[[Rtype]]) = c('pip', 'truth')
@@ -194,7 +194,7 @@ dscout.susie.list = list('in_sample' = dscout.susie[dscout.susie$L == 5,])
 dat = list('in_sample'=matrix(NA, 0, 2))
 for(Rtype in names(dat)){
   for(j in 1:nrow(dscout.susie.list[[Rtype]])){
-    datj = cbind(dscout.susie.list[[Rtype]]$susie.pip[[j]], dscout.susie.list[[Rtype]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.susie.list[[Rtype]]$susie.pip[[j]], as.integer(dscout.susie.list[[Rtype]]$meta[[j]]$true_coef!=0))
     dat[[Rtype]] = rbind(dat[[Rtype]], datj)
   }
   colnames(dat[[Rtype]]) = c('pip', 'truth')

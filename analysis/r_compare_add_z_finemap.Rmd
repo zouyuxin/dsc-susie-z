@@ -61,7 +61,7 @@ dscout.finemap.list = list('in_sample' = dscout.finemap[dscout.finemap$ld_method
 dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2), 'out_sample.addz'=matrix(NA, 0, 2), 'all'=matrix(NA, 0, 2), 'all.addz'=matrix(NA, 0, 2))
 for(Rtype in names(dat)){
   for(j in 1:nrow(dscout.finemap.list[[Rtype]])){
-    datj = cbind(dscout.finemap.list[[Rtype]]$finemap.pip[[j]], dscout.finemap.list[[Rtype]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.finemap.list[[Rtype]]$finemap.pip[[j]], as.integer(dscout.finemap.list[[Rtype]]$meta[[j]]$true_coef!=0))
     dat[[Rtype]] = rbind(dat[[Rtype]], datj)
   }
   colnames(dat[[Rtype]]) = c('pip', 'truth')
