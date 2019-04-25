@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Yuxin Zou" />
+
+
+<title>Compare in-sample R vs out-sample R + z FINEMAP</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dsc-susie-z</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/zouyuxin/dsc-susie-z">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Compare in-sample R vs out-sample R + z FINEMAP</h1>
+<h4 class="author"><em>Yuxin Zou</em></h4>
+<h4 class="date"><em>4/25/2019</em></h4>
+
+</div>
+
+
+<p><strong>Last updated:</strong> 2019-04-24</p>
+<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
+<ul>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20190115)</code> </summary></p>
+<p>The command <code>set.seed(20190115)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/5b02591074a9fa55d3f01343e432b2abe31e9523" target="_blank">5b02591</a> </summary></p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    .sos/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    output/.DS_Store
+
+Untracked files:
+    Untracked:  data/random_data_31.rds
+    Untracked:  data/random_data_31_sim_gaussian_35.rds
+    Untracked:  data/random_data_31_sim_gaussian_35_get_sumstats_1.rds
+    Untracked:  data/small_data_1.ld_in_file.in.ld
+    Untracked:  data/small_data_1.ld_out_file.out.ld
+    Untracked:  data/small_data_132.ld_in_file.in.ld
+    Untracked:  data/small_data_132.ld_out_file.out.ld
+    Untracked:  data/small_data_132_sim_gaussian_12.rds
+    Untracked:  data/small_data_132_sim_gaussian_12_get_sumstats_1.rds
+    Untracked:  data/small_data_1_sim_gaussian_2.rds
+    Untracked:  data/small_data_1_sim_gaussian_2_get_sumstats_1.rds
+    Untracked:  data/small_data_46.rds
+    Untracked:  data/small_data_46_sim_gaussian_10.rds
+    Untracked:  data/small_data_46_sim_gaussian_10_get_sumstats_2.rds
+    Untracked:  data/small_data_69.ld_in_file.in.ld
+    Untracked:  data/small_data_69.ld_out_file.out.ld
+    Untracked:  data/small_data_69.rds
+    Untracked:  data/small_data_69_sim_gaussian_3.rds
+    Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1.rds
+    Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1_susie_z_1.rds
+    Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1_susie_z_2.rds
+    Untracked:  docs/figure/r_compare_susie_ROC.Rmd/
+    Untracked:  figure/
+    Untracked:  output/dscoutProblem475.rds
+    Untracked:  output/dscoutProblem75.rds
+    Untracked:  output/finemap_compare_random_data_null_dscout.rds
+    Untracked:  output/finemap_compare_random_data_signal_dscout.rds
+    Untracked:  output/finemap_compare_small_data_signal_dscout.rds
+    Untracked:  output/finemap_compare_small_data_signal_dscout_RE8.rds
+    Untracked:  output/r_compare_FINEMAP_PIP_ROC.rds
+    Untracked:  output/r_compare_add_z_FINEMAP_PIP_ROC.rds
+    Untracked:  output/r_compare_add_z_dscout_susie_finemap_tibble.rds
+    Untracked:  output/r_compare_dscout_susie_finemappip_tibble.rds
+    Untracked:  output/r_compare_dscout_susie_finemappip_truth_tibble.rds
+    Untracked:  output/r_compare_susieb_PIP_ROC.rds
+    Untracked:  output/r_compare_susiepip_tibble.rds
+    Untracked:  output/r_compare_susierss_PIP_ROC.rds
+    Untracked:  output/random_data_100_sim_gaussian_null_1_get_sumstats_1_finemap_1.rds
+    Untracked:  output/random_data_31_35_fit_em.rds
+    Untracked:  output/random_data_76.rds
+    Untracked:  output/random_data_76_sim_gaussian_8.rds
+    Untracked:  output/random_data_76_sim_gaussian_8_get_sumstats_1.rds
+    Untracked:  output/small_data_42_sim_gaussian_36_get_sumstats_2_susie_z_2.rds
+    Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2_susie_z_2.rds
+
+Unstaged changes:
+    Modified:   analysis/SuSiEDAP_Power_data31_35.Rmd
+    Modified:   analysis/SuSiErssNotConverge.Rmd
+    Modified:   analysis/SusieZPerformance.Rmd
+    Modified:   analysis/SusieZPerformanceRE3.Rmd
+    Modified:   output/dsc_susie_z_v_output.rds
+
+</code></pre>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
+</li>
+</ul>
+<details> <summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
+<ul>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/5b02591074a9fa55d3f01343e432b2abe31e9523/analysis/r_compare_add_z_finemap.Rmd" target="_blank">5b02591</a>
+</td>
+<td style="text-align:left;">
+zouyuxin
+</td>
+<td style="text-align:left;">
+2019-04-24
+</td>
+<td style="text-align:left;">
+wflow_publish(c(“analysis/r_compare_add_z_susie.Rmd”, “analysis/r_compare_add_z_finemap.Rmd”,
+</td>
+</tr>
+</tbody>
+</table>
+</ul>
+<p></details></p>
+<hr />
+<pre class="r"><code>library(ggplot2)
+library(cowplot)</code></pre>
+<pre><code>Warning: package &#39;cowplot&#39; was built under R version 3.5.2</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    ggsave</code></pre>
+<pre class="r"><code>library(gridExtra)</code></pre>
+<pre class="r"><code>dscout = readRDS(&#39;output/r_compare_add_z_dscout_susie_finemap_tibble.rds&#39;)
+dscout$method = rep(NA, nrow(dscout))
+dscout$method[!is.na(dscout$susie.maxL)] = &#39;susie&#39;
+dscout$method[!is.na(dscout$susie_bhat.L)] = &#39;susie_b&#39;
+dscout$method[!is.na(dscout$susie_bhat_add_z.L)] = &#39;susie_b&#39;
+dscout$method[!is.na(dscout$susie_rss.L)] = &#39;susie_rss&#39;
+dscout$method[!is.na(dscout$susie_rss_add_z.L)] = &#39;susie_rss&#39;
+dscout$method[!is.na(dscout$finemap.ld_method)] = &#39;finemap&#39;
+dscout$method[!is.na(dscout$finemap_add_z.ld_method)] = &#39;finemap&#39;
+
+dscout$add_z = rep(FALSE, nrow(dscout))
+dscout$add_z[!is.na(dscout$susie_bhat_add_z.L)] = TRUE
+dscout$add_z[!is.na(dscout$susie_rss_add_z.L)] = TRUE
+dscout$add_z[!is.na(dscout$finemap_add_z.ld_method)] = TRUE
+
+dscout$ld_method = dscout$susie_bhat.ld_method
+dscout$ld_method[!is.na(dscout$susie_bhat_add_z.ld_method)] = dscout$susie_bhat_add_z.ld_method[!is.na(dscout$susie_bhat_add_z.ld_method)]
+dscout$ld_method[!is.na(dscout$susie_rss.ld_method)] = dscout$susie_rss.ld_method[!is.na(dscout$susie_rss.ld_method)]
+dscout$ld_method[!is.na(dscout$susie_rss_add_z.ld_method)] = dscout$susie_rss_add_z.ld_method[!is.na(dscout$susie_rss_add_z.ld_method)]
+dscout$ld_method[!is.na(dscout$finemap.ld_method)] = dscout$finemap.ld_method[!is.na(dscout$finemap.ld_method)]
+dscout$ld_method[!is.na(dscout$finemap_add_z.ld_method)] = dscout$finemap_add_z.ld_method[!is.na(dscout$finemap_add_z.ld_method)]
+
+dscout$L = dscout$susie.maxL
+dscout$L[!is.na(dscout$susie_bhat.L)] = dscout$susie_bhat.L[!is.na(dscout$susie_bhat.L)]
+dscout$L[!is.na(dscout$susie_bhat_add_z.L)] = dscout$susie_bhat_add_z.L[!is.na(dscout$susie_bhat_add_z.L)]
+dscout$L[!is.na(dscout$susie_rss.L)] = dscout$susie_rss.L[!is.na(dscout$susie_rss.L)]
+dscout$L[!is.na(dscout$susie_rss_add_z.L)] = dscout$susie_rss_add_z.L[!is.na(dscout$susie_rss_add_z.L)]
+
+dscout = dscout[,-c(2,6,8:25)]
+colnames(dscout) = c(&#39;DSC&#39;, &#39;pve&#39;, &#39;n_signal&#39;, &#39;meta&#39;,&#39;N_in&#39;,&#39;finemap.pip&#39;, &#39;method&#39;, &#39;add_z&#39;, &#39;ld_method&#39;, &#39;L&#39;)</code></pre>
+<div id="finemap" class="section level2">
+<h2>FINEMAP</h2>
+<pre class="r"><code>dscout.finemap = dscout[dscout$method == &#39;finemap&#39;,]
+dscout.finemap.list = list(&#39;in_sample&#39; = dscout.finemap[dscout.finemap$ld_method == &#39;in_sample&#39;,],
+                           &#39;out_sample&#39; = dscout.finemap[as.logical((dscout.finemap$ld_method == &#39;out_sample&#39;) * (dscout.finemap$add_z == FALSE)),],
+                           &#39;all&#39; = dscout.finemap[as.logical((dscout.finemap$ld_method == &#39;all&#39;)*(dscout.finemap$add_z == FALSE)),],
+                           &#39;out_sample.addz&#39; = dscout.finemap[as.logical((dscout.finemap$ld_method == &#39;out_sample&#39;) * (dscout.finemap$add_z == TRUE)),],
+                           &#39;all.addz&#39; = dscout.finemap[as.logical((dscout.finemap$ld_method == &#39;all&#39;)*(dscout.finemap$add_z == TRUE)),])</code></pre>
+<pre class="r"><code>dat = list(&#39;in_sample&#39;=matrix(NA, 0, 2), &#39;out_sample&#39;=matrix(NA, 0, 2), &#39;out_sample.addz&#39;=matrix(NA, 0, 2), &#39;all&#39;=matrix(NA, 0, 2), &#39;all.addz&#39;=matrix(NA, 0, 2))
+for(Rtype in names(dat)){
+  for(j in 1:nrow(dscout.finemap.list[[Rtype]])){
+    datj = cbind(dscout.finemap.list[[Rtype]]$finemap.pip[[j]], dscout.finemap.list[[Rtype]]$meta[[j]]$true_coef)
+    dat[[Rtype]] = rbind(dat[[Rtype]], datj)
+  }
+  colnames(dat[[Rtype]]) = c(&#39;pip&#39;, &#39;truth&#39;)
+}
+saveRDS(dat, &#39;output/r_compare_add_z_FINEMAP_PIP_ROC.rds&#39;)</code></pre>
+<pre class="r"><code>dat = readRDS(&#39;output/r_compare_add_z_FINEMAP_PIP_ROC.rds&#39;)</code></pre>
+<pre class="r"><code>bin_size = 20
+bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
+
+pip_cali = list(&#39;in_sample&#39;=matrix(NA, nrow(bins), 3), &#39;out_sample&#39;=matrix(NA, nrow(bins), 3), &#39;out_sample.addz&#39;=matrix(NA, nrow(bins), 3), &#39;all&#39;=matrix(NA, nrow(bins), 3), &#39;all.addz&#39;=matrix(NA, nrow(bins), 3))
+
+for(Rtype in names(pip_cali)){
+  for (i in 1:nrow(bins)) {
+    data_in_bin = dat[[Rtype]][which(dat[[Rtype]][,1] &gt; bins[i,1] &amp; dat[[Rtype]][,1] &lt; bins[i,2]),, drop=FALSE]
+    pip_cali[[Rtype]][i,1] = sum(data_in_bin[,&#39;pip&#39;])
+    pip_cali[[Rtype]][i,2] = sum(data_in_bin[,&#39;truth&#39;])
+    pip_cali[[Rtype]][i,3] = nrow(data_in_bin)
+  }
+}
+
+for(Rtype in names(pip_cali)){
+  pip_cali[[Rtype]][,c(1,2)] = pip_cali[[Rtype]][,c(1,2)] / pip_cali[[Rtype]][,3]
+}</code></pre>
+<pre class="r"><code>dot_plot = function(dataframe) {
+  ggplot(dataframe, aes(x=mean_pip, y=observed_freq)) + 
+    geom_errorbar(aes(ymin=observed_freq-se, ymax=observed_freq+se), colour=&quot;gray&quot;, size = 0.2, width=.01) + 
+    geom_point(size=1.5, shape=21, fill=&quot;#002b36&quot;) + # 21 is filled circle 
+    xlab(&quot;Mean PIP&quot;) +
+    ylab(&quot;Observed frequency&quot;) +
+    coord_cartesian(ylim=c(0,1), xlim=c(0,1)) +
+    geom_abline(slope=1,intercept=0,colour=&#39;red&#39;, size=0.2) +
+    expand_limits(y=0) +                        # Expand y range
+    theme_cowplot()
+}</code></pre>
+<div id="calibrated-pip" class="section level3">
+<h3>Calibrated PIP</h3>
+<pre class="r"><code>g = list()
+idx = 0
+for(Rtype in names(pip_cali)){
+  idx = idx + 1
+  pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
+  pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
+  colnames(pip_cali[[Rtype]]) = c(&quot;mean_pip&quot;, &quot;observed_freq&quot;, &quot;se&quot;)
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
+}
+grid.arrange(g[[1]], g[[2]], g[[3]], g[[4]],g[[5]], nrow = 2)</code></pre>
+<p><img src="figure/r_compare_add_z_finemap.Rmd/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="roc" class="section level3">
+<h3>ROC</h3>
+<pre class="r"><code>pip_cutoff = 0.05
+
+roc_data = function(d1, cutoff = c(pip_cutoff, 0.999), connect_org = T) {
+  grid = 500
+  ttv = seq(1:grid)/grid
+  ttv = ttv[which(ttv&gt;=cutoff[1] &amp; ttv&lt;=cutoff[2])]
+  rst1 = t(sapply(ttv, function(x) c(sum(d1[,2][d1[,1]&gt;=x]), length(d1[,2][d1[,1]&gt;=x]))))
+  rst1 = cbind(rst1, sum(d1[,2]))
+  rst1 = as.data.frame(rst1)
+  colnames(rst1) = c(&#39;true_positive&#39;, &#39;total_positive&#39;, &#39;total_signal&#39;)
+  rst2 = as.data.frame(cbind(rst1$true_positive / rst1$total_positive, rst1$true_positive / rst1$total_signal,  ttv))
+  if (connect_org) {
+    # make a stair to origin
+    rst2 = rbind(rst2, c(max(0.995, rst2[nrow(rst2),1]), max(rst2[nrow(rst2),2]-0.01, 0), rst2[nrow(rst2),3]))
+    rst2 = rbind(rst2, c(1, 0, 1))
+  }
+  colnames(rst2) = c(&#39;Precision&#39;, &#39;Recall&#39;, &#39;Threshold&#39;)
+  return(list(counts = rst1, rates = rst2))
+}
+
+print(&quot;Computing ROC data ...&quot;)</code></pre>
+<pre><code>[1] &quot;Computing ROC data ...&quot;</code></pre>
+<pre class="r"><code>roc = list()
+for (method in names(dat)) {
+  roc[[method]] = roc_data(dat[[method]])
+}</code></pre>
+<pre class="r"><code>chunks = 0
+smooth = FALSE
+colors = c(&#39;#A60628&#39;, &#39;#7A68A6&#39;, &#39;#348ABD&#39;, &#39;#467821&#39;, &#39;#FF0000&#39;, &#39;#188487&#39;, &#39;#E2A233&#39;,&#39;#A9A9A9&#39;, &#39;#000000&#39;, &#39;#FF00FF&#39;, &#39;#FFD700&#39;, &#39;#ADFF2F&#39;, &#39;#00FFFF&#39;)
+library(scam)</code></pre>
+<pre><code>Loading required package: mgcv</code></pre>
+<pre><code>Loading required package: nlme</code></pre>
+<pre><code>This is mgcv 1.8-26. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
+<pre><code>This is scam 1.2-3.</code></pre>
+<pre class="r"><code>create_chunks = function(item, n) {
+  splitted = suppressWarnings(split(item, 1:n))
+  return(c(splitted[[1]], splitted[[length(splitted)]][length(splitted[[length(splitted)]])]))
+}
+make_smooth = function(x,y,subset=chunks, smooth = FALSE){
+  if (smooth) {
+    if (subset &lt; length(x) &amp;&amp; subset &gt; 0) {
+      x = create_chunks(x, subset)
+      y = create_chunks(y, subset)
+    }
+    dat = data.frame(cbind(x,y))
+    colnames(dat) = c(&#39;x&#39;,&#39;y&#39;)
+    y=predict(scam(y ~ s(x, bs = &quot;mpi&quot;), data = dat))
+    }
+  return(list(x=x,y=y))
+}
+add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
+  idx = which(thresholds == threshold)
+  text(x[idx] - delta,y[idx],labels = threshold,col = color,cex = 0.8)
+  points(x[idx], y[idx])
+}
+labels = vector()
+i = 1
+for (method in names(roc)) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
+<p><img src="figure/r_compare_add_z_finemap.Rmd/unnamed-chunk-10-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.14.4
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] scam_1.2-3    mgcv_1.8-26   nlme_3.1-137  gridExtra_2.3 cowplot_0.9.4
+[6] ggplot2_3.1.0
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.0        compiler_3.5.1    pillar_1.3.1     
+ [4] git2r_0.24.0      plyr_1.8.4        workflowr_1.1.1  
+ [7] bindr_0.1.1       R.methodsS3_1.7.1 R.utils_2.7.0    
+[10] tools_3.5.1       digest_0.6.18     lattice_0.20-38  
+[13] evaluate_0.12     tibble_2.0.1      gtable_0.2.0     
+[16] pkgconfig_2.0.2   rlang_0.3.1       Matrix_1.2-15    
+[19] yaml_2.2.0        bindrcpp_0.2.2    withr_2.1.2      
+[22] stringr_1.3.1     dplyr_0.7.8       knitr_1.20       
+[25] rprojroot_1.3-2   grid_3.5.1        tidyselect_0.2.5 
+[28] glue_1.3.0        R6_2.3.0          rmarkdown_1.11   
+[31] purrr_0.2.5       magrittr_1.5      whisker_0.3-2    
+[34] splines_3.5.1     backports_1.1.3   scales_1.0.0     
+[37] htmltools_0.3.6   assertthat_0.2.0  colorspace_1.4-0 
+[40] labeling_0.3      stringi_1.2.4     lazyeval_0.2.1   
+[43] munsell_0.5.0     crayon_1.3.4      R.oo_1.22.0      </code></pre>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+  analysis was created with
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
+</p>
+<hr>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
