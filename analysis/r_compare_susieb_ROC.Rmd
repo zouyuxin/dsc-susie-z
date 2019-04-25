@@ -30,7 +30,17 @@ colnames(dscout) = c('DSC', 'meta', 'pve', 'n_signal', 'effect_weight', 'N_in', 
 ## ALL
 
 ```{r}
-dat = readRDS('output/r_compare_susieb_PIP_ROC.rds')
+dscout.susieb = dscout[as.logical((dscout$method == 'susie_b')*(!is.na(dscout$converged))*(dscout$effect_weight == 'equal')),]
+dscout.susieb.list = list('in_sample' = dscout.susieb[dscout.susieb$ld_method == 'in_sample',],
+                          'out_sample' = dscout.susieb[dscout.susieb$ld_method == 'out_sample',])
+dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
+for(Rtype in names(dat)){
+  for(j in 1:nrow(dscout.susieb.list[[Rtype]])){
+    datj = cbind(dscout.susieb.list[[Rtype]]$pip[[j]], as.integer(dscout.susieb.list[[Rtype]]$meta[[j]]$true_coef!=0))
+    dat[[Rtype]] = rbind(dat[[Rtype]], datj)
+  }
+  colnames(dat[[Rtype]]) = c('pip', 'truth')
+}
 ```
 
 ```{r}
@@ -172,7 +182,7 @@ dscout.equal.susieb.suc.list = list('in_sample' = dscout.equal.susieb.suc[dscout
 dat.susieb = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
 for(method in names(dat.susieb)){
   for(j in 1:nrow(dscout.equal.susieb.suc.list[[method]])){
-    datj = cbind(dscout.equal.susieb.suc.list[[method]]$pip[[j]], dscout.equal.susieb.suc.list[[method]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.equal.susieb.suc.list[[method]]$pip[[j]], as.integer(dscout.equal.susieb.suc.list[[method]]$meta[[j]]$true_coef!=0))
     dat.susieb[[method]] = rbind(dat.susieb[[method]], datj)
   }
   colnames(dat.susieb[[method]]) = c('pip', 'truth')
@@ -257,7 +267,7 @@ dscout.equal.susieb.suc.list = list('in_sample' = dscout.equal.susieb.suc[dscout
 dat.susieb = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
 for(method in names(dat.susieb)){
   for(j in 1:nrow(dscout.equal.susieb.suc.list[[method]])){
-    datj = cbind(dscout.equal.susieb.suc.list[[method]]$pip[[j]], dscout.equal.susieb.suc.list[[method]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.equal.susieb.suc.list[[method]]$pip[[j]], as.integer(dscout.equal.susieb.suc.list[[method]]$meta[[j]]$true_coef!=0))
     dat.susieb[[method]] = rbind(dat.susieb[[method]], datj)
   }
   colnames(dat.susieb[[method]]) = c('pip', 'truth')

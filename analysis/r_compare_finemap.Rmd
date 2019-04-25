@@ -37,20 +37,15 @@ dscout.equal.finemap.list = list('in_sample' = dscout.equal.finemap[dscout.equal
                                  'out_sample' = dscout.equal.finemap[dscout.equal.finemap$ld_method == 'out_sample',])
 ```
 
-```{r eval=FALSE}
+```{r}
 dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
 for(Rtype in names(dat)){
   for(j in 1:nrow(dscout.equal.finemap.list[[Rtype]])){
-    datj = cbind(dscout.equal.finemap.list[[Rtype]]$pip[[j]], dscout.equal.finemap.list[[Rtype]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.equal.finemap.list[[Rtype]]$pip[[j]], as.integer(dscout.equal.finemap.list[[Rtype]]$meta[[j]]$true_coef!=0))
     dat[[Rtype]] = rbind(dat[[Rtype]], datj)
   }
   colnames(dat[[Rtype]]) = c('pip', 'truth')
 }
-# saveRDS(dat, '../output/r_compare_FINEMAP_PIP_ROC.rds')
-```
-
-```{r}
-dat = readRDS('output/r_compare_FINEMAP_PIP_ROC.rds')
 ```
 
 ```{r}
@@ -184,11 +179,11 @@ dscout.equal.finemap.list = list('in_sample' = dscout.equal.finemap[dscout.equal
                                  'out_sample' = dscout.equal.finemap[dscout.equal.finemap$ld_method == 'out_sample',])
 ```
 
-```{r eval=FALSE}
+```{r}
 dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
 for(Rtype in names(dat)){
   for(j in 1:nrow(dscout.equal.finemap.list[[Rtype]])){
-    datj = cbind(dscout.equal.finemap.list[[Rtype]]$pip[[j]], dscout.equal.finemap.list[[Rtype]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.equal.finemap.list[[Rtype]]$pip[[j]], as.integer(dscout.equal.finemap.list[[Rtype]]$meta[[j]]$true_coef!=0))
     dat[[Rtype]] = rbind(dat[[Rtype]], datj)
   }
   colnames(dat[[Rtype]]) = c('pip', 'truth')
@@ -267,11 +262,11 @@ dscout.equal.finemap.list = list('in_sample' = dscout.equal.finemap[dscout.equal
                                  'out_sample' = dscout.equal.finemap[dscout.equal.finemap$ld_method == 'out_sample',])
 ```
 
-```{r eval=FALSE}
+```{r}
 dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
 for(Rtype in names(dat)){
   for(j in 1:nrow(dscout.equal.finemap.list[[Rtype]])){
-    datj = cbind(dscout.equal.finemap.list[[Rtype]]$pip[[j]], dscout.equal.finemap.list[[Rtype]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.equal.finemap.list[[Rtype]]$pip[[j]], as.integer(dscout.equal.finemap.list[[Rtype]]$meta[[j]]$true_coef!=0))
     dat[[Rtype]] = rbind(dat[[Rtype]], datj)
   }
   colnames(dat[[Rtype]]) = c('pip', 'truth')

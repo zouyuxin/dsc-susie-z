@@ -30,7 +30,19 @@ colnames(dscout) = c('DSC', 'meta', 'pve', 'n_signal', 'effect_weight', 'N_in', 
 ## ALL
 
 ```{r}
-dat = readRDS('output/r_compare_susierss_PIP_ROC.rds')
+dscout.susierss = dscout[dscout$method == 'susie_rss',]
+dscout.equal.susierss = dscout.susierss[dscout.susierss$effect_weight == 'equal',]
+dscout.equal.susierss.suc = dscout.equal.susierss[dscout.equal.susierss$converged==1,]
+dscout.susierss.list = list('in_sample' = dscout.equal.susierss.suc[dscout.equal.susierss.suc$ld_method == 'in_sample',],
+                            'out_sample' = dscout.equal.susierss.suc[dscout.equal.susierss.suc$ld_method == 'out_sample',])
+dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
+for(Rtype in names(dat)){
+  for(j in 1:nrow(dscout.susierss.list[[Rtype]])){
+    datj = cbind(dscout.susierss.list[[Rtype]]$pip[[j]], as.integer(dscout.susierss.list[[Rtype]]$meta[[j]]$true_coef!=0))
+    dat[[Rtype]] = rbind(dat[[Rtype]], datj)
+  }
+  colnames(dat[[Rtype]]) = c('pip', 'truth')
+}
 ```
 
 ```{r}
@@ -169,7 +181,7 @@ dscout.equal.susierss.suc.list = list('in_sample' = dscout.equal.susierss.suc[ds
 dat.susierss = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2))
 for(method in names(dat.susierss)){
   for(j in 1:nrow(dscout.equal.susierss.suc.list[[method]])){
-    datj = cbind(dscout.equal.susierss.suc.list[[method]]$pip[[j]], dscout.equal.susierss.suc.list[[method]]$meta[[j]]$true_coef)
+    datj = cbind(dscout.equal.susierss.suc.list[[method]]$pip[[j]], as.integer(dscout.equal.susierss.suc.list[[method]]$meta[[j]]$true_coef!=0))
     dat.susierss[[method]] = rbind(dat.susierss[[method]], datj)
   }
   colnames(dat.susierss[[method]]) = c('pip', 'truth')
