@@ -62,7 +62,7 @@ Welcome to my research website.
         
     ----------------------------
     
-    More investigations (2019-04-25): we include another estimates of correlation matrix $cov2cor(X'X + zz')$
+    More investigations (2019-04-25): we include another estimation of correlation matrix cov2cor($X'X + zz'$)
     
     [Power, FDR for SuSiE related methods](r_compare_add_z_susie.html)
     
