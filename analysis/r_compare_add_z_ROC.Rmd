@@ -1,0 +1,102 @@
+---
+title: "Power vs FDR Plot"
+author: "Yuxin Zou"
+date: "4/29/2019"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r}
+library(ggplot2)
+library(cowplot)
+library(gridExtra)
+```
+
+```{r}
+finemap = readRDS('output/r_compare_add_z_FINEMAP_ROC.rds')
+susieb = readRDS('output/r_compare_add_z_SuSiEb_ROC.rds')
+susierss = readRDS('output/r_compare_add_z_SuSiErss_ROC.rds')
+
+roc = list(FINEMAP.in.sample = finemap$in_sample, FINEMAP.out.sample = finemap$out_sample, FINEMAP.out.sample.addz = finemap$out_sample.addz, SuSiEb.in.sample = susieb$in_sample, SuSiEb.out.sample = susieb$out_sample, SuSiEb.out.sample.addz = susieb$out_sample.addz, SuSiErss.in.sample = susierss$in_sample, SuSiErss.out.sample = susierss$out_sample, SuSiErss.out.sample.addz = susierss$out_sample.addz)
+```
+
+## Power vs FDR
+
+```{r}
+chunks = 0
+smooth = FALSE
+colors = c('cyan', 'deepskyblue','blue',  'lightgreen','mediumseagreen','darkgreen','lightpink','red','maroon')
+
+library(scam)
+create_chunks = function(item, n) {
+  splitted = suppressWarnings(split(item, 1:n))
+  return(c(splitted[[1]], splitted[[length(splitted)]][length(splitted[[length(splitted)]])]))
+}
+make_smooth = function(x,y,subset=chunks, smooth = FALSE){
+  if (smooth) {
+    if (subset < length(x) && subset > 0) {
+      x = create_chunks(x, subset)
+      y = create_chunks(y, subset)
+    }
+    dat = data.frame(cbind(x,y))
+    colnames(dat) = c('x','y')
+    y=predict(scam(y ~ s(x, bs = "mpi"), data = dat))
+    }
+  return(list(x=x,y=y))
+}
+add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
+  idx = which(thresholds == threshold)
+  text(x[idx] - delta,y[idx],labels = threshold,col = color,cex = 0.8)
+  points(x[idx], y[idx])
+}
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc)) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+## ROC
+
+```{r}
+tmp = list()
+for (method in names(roc)) {
+  TPR = roc[[method]]$counts$true_positive/roc[[method]]$counts$total_signal
+  FPR = roc[[method]]$counts$false_positive/roc[[method]]$counts$total_null
+  threshold = roc[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc = tmp
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc)) {
+  yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
