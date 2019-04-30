@@ -111,7 +111,7 @@ dot_plot = function(dataframe) {
 
 ### Calibrated PIP
 
-```{r fig.width=10, fig.height=5,fig.align='center'}
+```{r fig.width=15, fig.height=5,fig.align='center'}
 g = list()
 idx = 0
 for(Rtype in names(pip_cali)){
