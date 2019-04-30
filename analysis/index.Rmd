@@ -74,4 +74,6 @@ Welcome to my research website.
     
     [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_susierss_ROC.html)
     
+    [ROC in one plot](r_compare_add_z_ROC.html)
+    
     
