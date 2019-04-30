@@ -457,7 +457,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-04-29
+<strong>Last updated:</strong> 2019-04-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreeae25dd2a043547500b5e8ac5cef45762d5d13d86targetblankae25dd2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/ae25dd2a043547500b5e8ac5cef45762d5d13d86" target="_blank">ae25dd2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreec5d67d7779accc99d5fb6cd23ff49df3de0f1a58targetblankc5d67d7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/c5d67d7779accc99d5fb6cd23ff49df3de0f1a58" target="_blank">c5d67d7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreeae25dd2a043547500b5e8ac5cef45762d5d13d86targetblankae25dd2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreec5d67d7779accc99d5fb6cd23ff49df3de0f1a58targetblankc5d67d7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -555,6 +555,7 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
+    Untracked:  analysis/r_compare_add_z_ROC.Rmd
     Untracked:  data/random_data_31.rds
     Untracked:  data/random_data_31_sim_gaussian_35.rds
     Untracked:  data/random_data_31_sim_gaussian_35_get_sumstats_1.rds
@@ -585,6 +586,9 @@ Untracked files:
     Untracked:  output/finemap_compare_small_data_signal_dscout_RE8.rds
     Untracked:  output/r_compare_FINEMAP_PIP_ROC.rds
     Untracked:  output/r_compare_add_z_FINEMAP_PIP_ROC.rds
+    Untracked:  output/r_compare_add_z_FINEMAP_ROC.rds
+    Untracked:  output/r_compare_add_z_SuSiEb_ROC.rds
+    Untracked:  output/r_compare_add_z_SuSiErss_ROC.rds
     Untracked:  output/r_compare_add_z_dscout_susie_finemap_tibble.rds
     Untracked:  output/r_compare_dscout_susie_finemappip_tibble.rds
     Untracked:  output/r_compare_dscout_susie_finemappip_truth_tibble.rds
@@ -642,6 +646,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/80e4a8f2dde2c9e36d4cab4b353494752779b93a/docs/r_compare_add_z_susie.html" target="_blank">80e4a8f</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-04-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1112,17 +1133,17 @@ colnames(purity.susieb.in_sample.5)[colnames(purity.susieb.in_sample.5) == &#39;
 purity.susieb.out_sample.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.out_sample[as.logical((!is.na(dscout.susieb.out_sample$converged)) * (dscout.susieb.out_sample$L==5)),], mean), 3)
 colnames(purity.susieb.out_sample.5)[colnames(purity.susieb.out_sample.5) == &#39;purity&#39;] &lt;- &#39;out_sample&#39;
 
-purity.susieb.all.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], mean), 3)
-colnames(purity.susieb.all.5)[colnames(purity.susieb.all.5) == &#39;purity&#39;] &lt;- &#39;all&#39;
+# purity.susieb.all.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], mean), 3)
+# colnames(purity.susieb.all.5)[colnames(purity.susieb.all.5) == &#39;purity&#39;] &lt;- &#39;all&#39;
 
 purity.susieb.out_sample.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.out_sample.addz[as.logical((!is.na(dscout.susieb.out_sample.addz$converged)) * (dscout.susieb.out_sample.addz$L==5)),], mean), 3)
 colnames(purity.susieb.out_sample.addz.5)[colnames(purity.susieb.out_sample.addz.5) == &#39;purity&#39;] &lt;- &#39;out_sample.addz&#39;
 
-purity.susieb.all.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], mean), 3)
-colnames(purity.susieb.all.addz.5)[colnames(purity.susieb.all.addz.5) == &#39;purity&#39;] &lt;- &#39;all.addz&#39;
+# purity.susieb.all.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], mean), 3)
+# colnames(purity.susieb.all.addz.5)[colnames(purity.susieb.all.addz.5) == &#39;purity&#39;] &lt;- &#39;all.addz&#39;
 
-purity.susieb.5 = cbind(purity.susieb.in_sample.5, purity.susieb.out_sample.5, purity.susieb.out_sample.addz.5, purity.susieb.all.5, purity.susieb.all.addz.5)
-purity.susieb.5 = purity.susieb.5[,-c(4,5,7,8,10,11,13,14)]
+purity.susieb.5 = cbind(purity.susieb.in_sample.5, purity.susieb.out_sample.5, purity.susieb.out_sample.addz.5) #, purity.susieb.all.5, purity.susieb.all.addz.5)
+purity.susieb.5 = purity.susieb.5[,-c(4,5,7,8)]
 purity.susieb.5 %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;), full_width = F) </code></pre>
 <table class="table table-striped table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1141,12 +1162,6 @@ out_sample
 </th>
 <th style="text-align:right;">
 out_sample.addz
-</th>
-<th style="text-align:right;">
-all
-</th>
-<th style="text-align:right;">
-all.addz
 </th>
 </tr>
 </thead>
@@ -1167,12 +1182,6 @@ all.addz
 <td style="text-align:right;">
 0.754
 </td>
-<td style="text-align:right;">
-0.748
-</td>
-<td style="text-align:right;">
-0.757
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1189,12 +1198,6 @@ all.addz
 </td>
 <td style="text-align:right;">
 0.943
-</td>
-<td style="text-align:right;">
-0.941
-</td>
-<td style="text-align:right;">
-0.947
 </td>
 </tr>
 <tr>
@@ -1213,12 +1216,6 @@ all.addz
 <td style="text-align:right;">
 0.450
 </td>
-<td style="text-align:right;">
-0.515
-</td>
-<td style="text-align:right;">
-0.461
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1235,12 +1232,6 @@ all.addz
 </td>
 <td style="text-align:right;">
 0.821
-</td>
-<td style="text-align:right;">
-0.862
-</td>
-<td style="text-align:right;">
-0.854
 </td>
 </tr>
 </tbody>
@@ -1269,22 +1260,22 @@ power.susieb.out.addz = merge(valid.out.addz, total.out.addz)
 power.susieb.out.addz$out_sample.addz = round(power.susieb.out.addz$valid/(power.susieb.out.addz$total_true), 3)
 power.susieb.out.addz = power.susieb.out.addz[,-c(3,4,5)]
 
-valid.all = aggregate(valid ~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
-total.all = aggregate(DSC~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], length)
-total.all$total_true = total.all$DSC * total.all$n_signal
-power.susieb.all = merge(valid.all, total.all)
-power.susieb.all$all_sample = round(power.susieb.all$valid/(power.susieb.all$total_true), 3)
-power.susieb.all = power.susieb.all[,-c(3,4,5)]
+# valid.all = aggregate(valid ~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
+# total.all = aggregate(DSC~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], length)
+# total.all$total_true = total.all$DSC * total.all$n_signal
+# power.susieb.all = merge(valid.all, total.all)
+# power.susieb.all$all_sample = round(power.susieb.all$valid/(power.susieb.all$total_true), 3)
+# power.susieb.all = power.susieb.all[,-c(3,4,5)]
+# 
+# valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
+# total.all.addz = aggregate(DSC~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], length)
+# total.all.addz$total_true = total.all.addz$DSC * total.all.addz$n_signal
+# power.susieb.all.addz = merge(valid.all.addz, total.all.addz)
+# power.susieb.all.addz$all_sample.addz = round(power.susieb.all.addz$valid/(power.susieb.all.addz$total_true), 3)
+# power.susieb.all.addz = power.susieb.all.addz[,-c(3,4,5)]
 
-valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
-total.all.addz = aggregate(DSC~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], length)
-total.all.addz$total_true = total.all.addz$DSC * total.all.addz$n_signal
-power.susieb.all.addz = merge(valid.all.addz, total.all.addz)
-power.susieb.all.addz$all_sample.addz = round(power.susieb.all.addz$valid/(power.susieb.all.addz$total_true), 3)
-power.susieb.all.addz = power.susieb.all.addz[,-c(3,4,5)]
-
-power.susieb = cbind(power.susieb.in, power.susieb.out, power.susieb.out.addz, power.susieb.all, power.susieb.all.addz)
-power.susieb = power.susieb[,-c(4,5,7,8,10,11,13,14)]
+power.susieb = cbind(power.susieb.in, power.susieb.out, power.susieb.out.addz) #, power.susieb.all, power.susieb.all.addz)
+power.susieb = power.susieb[,-c(4,5,7,8)]
 power.susieb %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1303,12 +1294,6 @@ out_sample
 </th>
 <th style="text-align:right;">
 out_sample.addz
-</th>
-<th style="text-align:right;">
-all_sample
-</th>
-<th style="text-align:right;">
-all_sample.addz
 </th>
 </tr>
 </thead>
@@ -1329,12 +1314,6 @@ all_sample.addz
 <td style="text-align:right;">
 0.860
 </td>
-<td style="text-align:right;">
-0.867
-</td>
-<td style="text-align:right;">
-0.873
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1351,12 +1330,6 @@ all_sample.addz
 </td>
 <td style="text-align:right;">
 0.227
-</td>
-<td style="text-align:right;">
-0.303
-</td>
-<td style="text-align:right;">
-0.267
 </td>
 </tr>
 <tr>
@@ -1375,12 +1348,6 @@ all_sample.addz
 <td style="text-align:right;">
 0.986
 </td>
-<td style="text-align:right;">
-0.987
-</td>
-<td style="text-align:right;">
-0.987
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1397,12 +1364,6 @@ all_sample.addz
 </td>
 <td style="text-align:right;">
 0.543
-</td>
-<td style="text-align:right;">
-0.673
-</td>
-<td style="text-align:right;">
-0.650
 </td>
 </tr>
 </tbody>
@@ -1428,20 +1389,20 @@ fdr.out.addz = merge(valid.out.addz, total.out.addz)
 fdr.out.addz$out_sample.addz = round((fdr.out.addz$total - fdr.out.addz$valid)/fdr.out.addz$total, 4)
 fdr.out.addz = fdr.out.addz[,-c(3,4)]
 
-valid.all = aggregate(valid ~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
-total.all = aggregate(total~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
-fdr.all = merge(valid.all, total.all)
-fdr.all$all = round((fdr.all$total - fdr.all$valid)/fdr.all$total, 4)
-fdr.all = fdr.all[,-c(3,4)]
+# valid.all = aggregate(valid ~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
+# total.all = aggregate(total~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
+# fdr.all = merge(valid.all, total.all)
+# fdr.all$all = round((fdr.all$total - fdr.all$valid)/fdr.all$total, 4)
+# fdr.all = fdr.all[,-c(3,4)]
+# 
+# valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
+# total.all.addz = aggregate(total~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
+# fdr.all.addz = merge(valid.all.addz, total.all.addz)
+# fdr.all.addz$all.addz = round((fdr.all.addz$total - fdr.all.addz$valid)/fdr.all.addz$total, 4)
+# fdr.all.addz = fdr.all.addz[,-c(3,4)]
 
-valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
-total.all.addz = aggregate(total~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
-fdr.all.addz = merge(valid.all.addz, total.all.addz)
-fdr.all.addz$all.addz = round((fdr.all.addz$total - fdr.all.addz$valid)/fdr.all.addz$total, 4)
-fdr.all.addz = fdr.all.addz[,-c(3,4)]
-
-fdr.susieb = cbind(fdr.in, fdr.out, fdr.out.addz, fdr.all, fdr.all.addz)
-fdr.susieb = fdr.susieb[,-c(4,5,7,8,10,11,13,14)]
+fdr.susieb = cbind(fdr.in, fdr.out, fdr.out.addz) #, fdr.all, fdr.all.addz)
+fdr.susieb = fdr.susieb[,-c(4,5,7,8)]
 fdr.susieb %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1460,12 +1421,6 @@ out_sample
 </th>
 <th style="text-align:right;">
 out_sample.addz
-</th>
-<th style="text-align:right;">
-all
-</th>
-<th style="text-align:right;">
-all.addz
 </th>
 </tr>
 </thead>
@@ -1486,12 +1441,6 @@ all.addz
 <td style="text-align:right;">
 0.0515
 </td>
-<td style="text-align:right;">
-0.0076
-</td>
-<td style="text-align:right;">
-0.0076
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1508,12 +1457,6 @@ all.addz
 </td>
 <td style="text-align:right;">
 0.2766
-</td>
-<td style="text-align:right;">
-0.2018
-</td>
-<td style="text-align:right;">
-0.1837
 </td>
 </tr>
 <tr>
@@ -1532,12 +1475,6 @@ all.addz
 <td style="text-align:right;">
 0.0988
 </td>
-<td style="text-align:right;">
-0.0573
-</td>
-<td style="text-align:right;">
-0.0263
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1554,12 +1491,6 @@ all.addz
 </td>
 <td style="text-align:right;">
 0.2756
-</td>
-<td style="text-align:right;">
-0.1920
-</td>
-<td style="text-align:right;">
-0.1558
 </td>
 </tr>
 </tbody>
@@ -1589,17 +1520,17 @@ colnames(purity.susierss.in_sample.5)[colnames(purity.susierss.in_sample.5) == &
 purity.susierss.out_sample.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.out_sample[as.logical((!is.na(dscout.susierss.out_sample$converged)) * (dscout.susierss.out_sample$L==5)),], mean), 3)
 colnames(purity.susierss.out_sample.5)[colnames(purity.susierss.out_sample.5) == &#39;purity&#39;] &lt;- &#39;out_sample&#39;
 
-purity.susierss.all.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], mean), 3)
-colnames(purity.susierss.all.5)[colnames(purity.susierss.all.5) == &#39;purity&#39;] &lt;- &#39;all&#39;
+# purity.susierss.all.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], mean), 3)
+# colnames(purity.susierss.all.5)[colnames(purity.susierss.all.5) == &#39;purity&#39;] &lt;- &#39;all&#39;
 
 purity.susierss.out_sample.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$L==5,], mean), 3)
 colnames(purity.susierss.out_sample.addz.5)[colnames(purity.susierss.out_sample.addz.5) == &#39;purity&#39;] &lt;- &#39;out_sample.addz&#39;
 
-purity.susierss.all.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], mean), 3)
-colnames(purity.susierss.all.addz.5)[colnames(purity.susierss.all.addz.5) == &#39;purity&#39;] &lt;- &#39;all.addz&#39;
+# purity.susierss.all.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], mean), 3)
+# colnames(purity.susierss.all.addz.5)[colnames(purity.susierss.all.addz.5) == &#39;purity&#39;] &lt;- &#39;all.addz&#39;
 
-purity.susierss.5 = cbind(purity.susierss.in_sample.5, purity.susierss.out_sample.5, purity.susierss.out_sample.addz.5, purity.susierss.all.5, purity.susierss.all.addz.5)
-purity.susierss.5 = purity.susierss.5[,-c(4,5,7,8,10,11,13,14)]
+purity.susierss.5 = cbind(purity.susierss.in_sample.5, purity.susierss.out_sample.5, purity.susierss.out_sample.addz.5) #, purity.susierss.all.5, purity.susierss.all.addz.5)
+purity.susierss.5 = purity.susierss.5[,-c(4,5,7,8)]
 purity.susierss.5 %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;), full_width = F) </code></pre>
 <table class="table table-striped table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1619,12 +1550,6 @@ out_sample
 <th style="text-align:right;">
 out_sample.addz
 </th>
-<th style="text-align:right;">
-all
-</th>
-<th style="text-align:right;">
-all.addz
-</th>
 </tr>
 </thead>
 <tbody>
@@ -1640,12 +1565,6 @@ all.addz
 </td>
 <td style="text-align:right;">
 0.701
-</td>
-<td style="text-align:right;">
-0.760
-</td>
-<td style="text-align:right;">
-0.749
 </td>
 <td style="text-align:right;">
 0.760
@@ -1667,12 +1586,6 @@ all.addz
 <td style="text-align:right;">
 0.945
 </td>
-<td style="text-align:right;">
-0.946
-</td>
-<td style="text-align:right;">
-0.951
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1690,12 +1603,6 @@ all.addz
 <td style="text-align:right;">
 0.436
 </td>
-<td style="text-align:right;">
-0.472
-</td>
-<td style="text-align:right;">
-0.460
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1712,12 +1619,6 @@ all.addz
 </td>
 <td style="text-align:right;">
 0.813
-</td>
-<td style="text-align:right;">
-0.856
-</td>
-<td style="text-align:right;">
-0.816
 </td>
 </tr>
 </tbody>
@@ -1746,22 +1647,22 @@ power.susierss.out.addz = merge(valid.out.addz, total.out.addz)
 power.susierss.out.addz$out_sample.addz = round(power.susierss.out.addz$valid/(power.susierss.out.addz$total_true), 3)
 power.susierss.out.addz = power.susierss.out.addz[,-c(3,4,5)]
 
-valid.all = aggregate(valid ~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
-total.all = aggregate(DSC~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], length)
-total.all$total_true = total.all$DSC * total.all$n_signal
-power.susierss.all = merge(valid.all, total.all)
-power.susierss.all$all_sample = round(power.susierss.all$valid/(power.susierss.all$total_true), 3)
-power.susierss.all = power.susierss.all[,-c(3,4,5)]
+# valid.all = aggregate(valid ~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
+# total.all = aggregate(DSC~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], length)
+# total.all$total_true = total.all$DSC * total.all$n_signal
+# power.susierss.all = merge(valid.all, total.all)
+# power.susierss.all$all_sample = round(power.susierss.all$valid/(power.susierss.all$total_true), 3)
+# power.susierss.all = power.susierss.all[,-c(3,4,5)]
+# 
+# valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
+# total.all.addz = aggregate(DSC~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], length)
+# total.all.addz$total_true = total.all.addz$DSC * total.all.addz$n_signal
+# power.susierss.all.addz = merge(valid.all.addz, total.all.addz)
+# power.susierss.all.addz$all_sample.addz = round(power.susierss.all.addz$valid/(power.susierss.all.addz$total_true), 3)
+# power.susierss.all.addz = power.susierss.all.addz[,-c(3,4,5)]
 
-valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
-total.all.addz = aggregate(DSC~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], length)
-total.all.addz$total_true = total.all.addz$DSC * total.all.addz$n_signal
-power.susierss.all.addz = merge(valid.all.addz, total.all.addz)
-power.susierss.all.addz$all_sample.addz = round(power.susierss.all.addz$valid/(power.susierss.all.addz$total_true), 3)
-power.susierss.all.addz = power.susierss.all.addz[,-c(3,4,5)]
-
-power.susierss = cbind(power.susierss.in, power.susierss.out, power.susierss.out.addz, power.susierss.all, power.susierss.all.addz)
-power.susierss = power.susierss[,-c(4,5,7,8,10,11,13,14)]
+power.susierss = cbind(power.susierss.in, power.susierss.out, power.susierss.out.addz) #, power.susierss.all, power.susierss.all.addz)
+power.susierss = power.susierss[,-c(4,5,7,8)]
 power.susierss %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1780,12 +1681,6 @@ out_sample
 </th>
 <th style="text-align:right;">
 out_sample.addz
-</th>
-<th style="text-align:right;">
-all_sample
-</th>
-<th style="text-align:right;">
-all_sample.addz
 </th>
 </tr>
 </thead>
@@ -1806,12 +1701,6 @@ all_sample.addz
 <td style="text-align:right;">
 0.867
 </td>
-<td style="text-align:right;">
-0.853
-</td>
-<td style="text-align:right;">
-0.860
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1829,12 +1718,6 @@ all_sample.addz
 <td style="text-align:right;">
 0.213
 </td>
-<td style="text-align:right;">
-0.280
-</td>
-<td style="text-align:right;">
-0.233
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1848,12 +1731,6 @@ all_sample.addz
 </td>
 <td style="text-align:right;">
 0.800
-</td>
-<td style="text-align:right;">
-0.973
-</td>
-<td style="text-align:right;">
-0.933
 </td>
 <td style="text-align:right;">
 0.973
@@ -1874,12 +1751,6 @@ all_sample.addz
 </td>
 <td style="text-align:right;">
 0.513
-</td>
-<td style="text-align:right;">
-0.640
-</td>
-<td style="text-align:right;">
-0.580
 </td>
 </tr>
 </tbody>
@@ -1905,20 +1776,20 @@ fdr.out.addz = merge(valid.out.addz, total.out.addz)
 fdr.out.addz$out_sample.addz = round((fdr.out.addz$total - fdr.out.addz$valid)/fdr.out.addz$total, 4)
 fdr.out.addz = fdr.out.addz[,-c(3,4)]
 
-valid.all = aggregate(valid ~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
-total.all = aggregate(total~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
-fdr.all = merge(valid.all, total.all)
-fdr.all$all = round((fdr.all$total - fdr.all$valid)/fdr.all$total, 4)
-fdr.all = fdr.all[,-c(3,4)]
+# valid.all = aggregate(valid ~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
+# total.all = aggregate(total~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
+# fdr.all = merge(valid.all, total.all)
+# fdr.all$all = round((fdr.all$total - fdr.all$valid)/fdr.all$total, 4)
+# fdr.all = fdr.all[,-c(3,4)]
+# 
+# valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
+# total.all.addz = aggregate(total~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
+# fdr.all.addz = merge(valid.all.addz, total.all.addz)
+# fdr.all.addz$all.addz = round((fdr.all.addz$total - fdr.all.addz$valid)/fdr.all.addz$total, 4)
+# fdr.all.addz = fdr.all.addz[,-c(3,4)]
 
-valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
-total.all.addz = aggregate(total~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
-fdr.all.addz = merge(valid.all.addz, total.all.addz)
-fdr.all.addz$all.addz = round((fdr.all.addz$total - fdr.all.addz$valid)/fdr.all.addz$total, 4)
-fdr.all.addz = fdr.all.addz[,-c(3,4)]
-
-fdr.susierss = cbind(fdr.in, fdr.out, fdr.out.addz, fdr.all, fdr.all.addz)
-fdr.susierss = fdr.susierss[,-c(4,5,7,8,10,11,13,14)]
+fdr.susierss = cbind(fdr.in, fdr.out, fdr.out.addz) #, fdr.all, fdr.all.addz)
+fdr.susierss = fdr.susierss[,-c(4,5,7,8)]
 fdr.susierss %&gt;% kable() %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;, &quot;responsive&quot;,&quot;bordered&quot;), full_width = F)</code></pre>
 <table class="table table-striped table-condensed table-responsive table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1937,12 +1808,6 @@ out_sample
 </th>
 <th style="text-align:right;">
 out_sample.addz
-</th>
-<th style="text-align:right;">
-all
-</th>
-<th style="text-align:right;">
-all.addz
 </th>
 </tr>
 </thead>
@@ -1963,12 +1828,6 @@ all.addz
 <td style="text-align:right;">
 0.0441
 </td>
-<td style="text-align:right;">
-0.0229
-</td>
-<td style="text-align:right;">
-0.0227
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -1985,12 +1844,6 @@ all.addz
 </td>
 <td style="text-align:right;">
 0.2471
-</td>
-<td style="text-align:right;">
-0.1845
-</td>
-<td style="text-align:right;">
-0.2391
 </td>
 </tr>
 <tr>
@@ -2009,12 +1862,6 @@ all.addz
 <td style="text-align:right;">
 0.0875
 </td>
-<td style="text-align:right;">
-0.0789
-</td>
-<td style="text-align:right;">
-0.0395
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -2031,12 +1878,6 @@ all.addz
 </td>
 <td style="text-align:right;">
 0.2667
-</td>
-<td style="text-align:right;">
-0.1724
-</td>
-<td style="text-align:right;">
-0.1635
 </td>
 </tr>
 </tbody>

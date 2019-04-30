@@ -436,32 +436,113 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2019-04-25</p>
-<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
-<ul>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-04-30
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>dsc-susie-z/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.3.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
-</details>
-</li>
-<li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
-</details>
-</li>
-<li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20190115)</code> </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190115code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190115)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190115code" class="panel-collapse collapse">
+<div class="panel-body">
 <p>The command <code>set.seed(20190115)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
-</details>
-</li>
-<li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
-</details>
-</li>
-<li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/c3b6e8b13649dd6d9bee305d7f62ae1721a8b21f" target="_blank">c3b6e8b</a> </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreec5d67d7779accc99d5fb6cd23ff49df3de0f1a58targetblankc5d67d7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/c5d67d7779accc99d5fb6cd23ff49df3de0f1a58" target="_blank">c5d67d7</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreec5d67d7779accc99d5fb6cd23ff49df3de0f1a58targetblankc5d67d7a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
@@ -473,6 +554,7 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
+    Untracked:  analysis/r_compare_add_z_ROC.Rmd
     Untracked:  data/random_data_31.rds
     Untracked:  data/random_data_31_sim_gaussian_35.rds
     Untracked:  data/random_data_31_sim_gaussian_35_get_sumstats_1.rds
@@ -503,6 +585,9 @@ Untracked files:
     Untracked:  output/finemap_compare_small_data_signal_dscout_RE8.rds
     Untracked:  output/r_compare_FINEMAP_PIP_ROC.rds
     Untracked:  output/r_compare_add_z_FINEMAP_PIP_ROC.rds
+    Untracked:  output/r_compare_add_z_FINEMAP_ROC.rds
+    Untracked:  output/r_compare_add_z_SuSiEb_ROC.rds
+    Untracked:  output/r_compare_add_z_SuSiErss_ROC.rds
     Untracked:  output/r_compare_add_z_dscout_susie_finemap_tibble.rds
     Untracked:  output/r_compare_dscout_susie_finemappip_tibble.rds
     Untracked:  output/r_compare_dscout_susie_finemappip_truth_tibble.rds
@@ -518,95 +603,140 @@ Untracked files:
     Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2_susie_z_2.rds
 
 Unstaged changes:
-    Modified:   analysis/SuSiEDAP_Power_data31_35.Rmd
     Modified:   analysis/SuSiErssNotConverge.Rmd
     Modified:   analysis/SusieZPerformance.Rmd
     Modified:   analysis/SusieZPerformanceRE3.Rmd
     Modified:   output/dsc_susie_z_v_output.rds
 
 </code></pre>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
-</li>
-</ul>
-<details> <summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
-<ul>
-<table style="border-collapse:separate; border-spacing:5px;">
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th>
 File
 </th>
-<th style="text-align:left;">
+<th>
 Version
 </th>
-<th style="text-align:left;">
+<th>
 Author
 </th>
-<th style="text-align:left;">
+<th>
 Date
 </th>
-<th style="text-align:left;">
+<th>
 Message
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td>
 Rmd
 </td>
-<td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/c3b6e8b13649dd6d9bee305d7f62ae1721a8b21f/analysis/r_compare_add_z_susieb_ROC.Rmd" target="_blank">c3b6e8b</a>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/c5d67d7779accc99d5fb6cd23ff49df3de0f1a58/analysis/r_compare_add_z_susieb_ROC.Rmd" target="_blank">c5d67d7</a>
 </td>
-<td style="text-align:left;">
+<td>
 zouyuxin
 </td>
-<td style="text-align:left;">
-2019-04-25
+<td>
+2019-04-30
 </td>
-<td style="text-align:left;">
-wflow_publish(c(“analysis/r_compare_susie_ROC.Rmd”, “analysis/r_compare_add_z_finemap.Rmd”, “analysis/r_compare_add_z_susieb_ROC.Rmd”,
+<td>
+wflow_publish(c(“analysis/r_compare_add_z_susie.Rmd”,
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/zouyuxin/dsc-susie-z/d78233d098efea450df342e12ee89617276b573c/docs/r_compare_add_z_susieb_ROC.html" target="_blank">d78233d</a>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/ee47894ee3de9942b90a5959a9f8c87c9faba4a0/docs/r_compare_add_z_susieb_ROC.html" target="_blank">ee47894</a>
 </td>
-<td style="text-align:left;">
+<td>
 zouyuxin
 </td>
-<td style="text-align:left;">
-2019-04-24
+<td>
+2019-04-25
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 Rmd
 </td>
-<td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/5b02591074a9fa55d3f01343e432b2abe31e9523/analysis/r_compare_add_z_susieb_ROC.Rmd" target="_blank">5b02591</a>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/c3b6e8b13649dd6d9bee305d7f62ae1721a8b21f/analysis/r_compare_add_z_susieb_ROC.Rmd" target="_blank">c3b6e8b</a>
 </td>
-<td style="text-align:left;">
+<td>
 zouyuxin
 </td>
-<td style="text-align:left;">
+<td>
+2019-04-25
+</td>
+<td>
+wflow_publish(c(“analysis/r_compare_susie_ROC.Rmd”, “analysis/r_compare_add_z_finemap.Rmd”, “analysis/r_compare_add_z_susieb_ROC.Rmd”,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/d78233d098efea450df342e12ee89617276b573c/docs/r_compare_add_z_susieb_ROC.html" target="_blank">d78233d</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
 2019-04-24
 </td>
-<td style="text-align:left;">
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/5b02591074a9fa55d3f01343e432b2abe31e9523/analysis/r_compare_add_z_susieb_ROC.Rmd" target="_blank">5b02591</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-04-24
+</td>
+<td>
 wflow_publish(c(“analysis/r_compare_add_z_susie.Rmd”, “analysis/r_compare_add_z_finemap.Rmd”,
 </td>
 </tr>
 </tbody>
 </table>
-</ul>
-<p></details></p>
-<hr />
+</div>
+<hr>
+</div>
+</div>
+</div>
 <pre class="r"><code>library(ggplot2)
 library(cowplot)</code></pre>
 <pre><code>Warning: package &#39;cowplot&#39; was built under R version 3.5.2</code></pre>
@@ -654,6 +784,7 @@ dscout.susieb.list = list(&#39;in_sample&#39; = dscout.susieb[dscout.susieb$ld_m
                           &#39;out_sample.addz&#39; = dscout.susieb[as.logical((dscout.susieb$ld_method == &#39;out_sample&#39;)*(dscout.susieb$add_z == TRUE)),],
                           &#39;all&#39; = dscout.susieb[as.logical((dscout.susieb$ld_method == &#39;all&#39;)*(dscout.susieb$add_z == FALSE)),],
                           &#39;all.addz&#39; = dscout.susieb[as.logical((dscout.susieb$ld_method == &#39;all&#39;)*(dscout.susieb$add_z == TRUE)),])
+
 dat = list(&#39;in_sample&#39;=matrix(NA, 0, 2), &#39;out_sample&#39;=matrix(NA, 0, 2), &#39;out_sample.addz&#39;=matrix(NA, 0, 2), &#39;all&#39;=matrix(NA, 0, 2), &#39;all.addz&#39;=matrix(NA, 0, 2))
 for(Rtype in names(dat)){
   for(j in 1:nrow(dscout.susieb.list[[Rtype]])){
@@ -661,11 +792,13 @@ for(Rtype in names(dat)){
     dat[[Rtype]] = rbind(dat[[Rtype]], datj)
   }
   colnames(dat[[Rtype]]) = c(&#39;pip&#39;, &#39;truth&#39;)
-}</code></pre>
+}
+
+dat = dat[-c(4, 5)]</code></pre>
 <pre class="r"><code>bin_size = 20
 bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
 
-pip_cali = list(&#39;in_sample&#39;=matrix(NA, nrow(bins), 3), &#39;out_sample&#39;=matrix(NA, nrow(bins), 3), &#39;out_sample.addz&#39;=matrix(NA, nrow(bins), 3), &#39;all&#39;=matrix(NA, nrow(bins), 3), &#39;all.addz&#39;=matrix(NA, nrow(bins), 3))
+pip_cali = list(&#39;in_sample&#39;=matrix(NA, nrow(bins), 3), &#39;out_sample&#39;=matrix(NA, nrow(bins), 3), &#39;out_sample.addz&#39;=matrix(NA, nrow(bins), 3))#, &#39;all&#39;=matrix(NA, nrow(bins), 3), &#39;all.addz&#39;=matrix(NA, nrow(bins), 3))
 for(Rtype in names(pip_cali)){
   for (i in 1:nrow(bins)) {
     data_in_bin = dat[[Rtype]][which(dat[[Rtype]][,1] &gt; bins[i,1] &amp; dat[[Rtype]][,1] &lt; bins[i,2]),, drop=FALSE]
@@ -692,36 +825,54 @@ for(Rtype in names(pip_cali)){
 <div id="calibrated-pip" class="section level3">
 <h3>Calibrated PIP</h3>
 <p><img src="figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-6-1.png:</em></summary>
-<table style="border-collapse:separate; border-spacing:5px;">
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th>
 Version
 </th>
-<th style="text-align:left;">
+<th>
 Author
 </th>
-<th style="text-align:left;">
+<th>
 Date
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d78233d098efea450df342e12ee89617276b573c/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">d78233d</a>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/ee47894ee3de9942b90a5959a9f8c87c9faba4a0/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">ee47894</a>
 </td>
-<td style="text-align:left;">
+<td>
 zouyuxin
 </td>
-<td style="text-align:left;">
+<td>
+2019-04-25
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d78233d098efea450df342e12ee89617276b573c/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">d78233d</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
 2019-04-24
 </td>
 </tr>
 </tbody>
 </table>
-<p></details></p>
+</div>
+</div>
 </div>
 <div id="roc" class="section level3">
 <h3>ROC</h3>
@@ -796,36 +947,54 @@ for (method in names(roc)) {
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
 <p><img src="figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-9-1.png:</em></summary>
-<table style="border-collapse:separate; border-spacing:5px;">
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th>
 Version
 </th>
-<th style="text-align:left;">
+<th>
 Author
 </th>
-<th style="text-align:left;">
+<th>
 Date
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d78233d098efea450df342e12ee89617276b573c/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-9-1.png" target="_blank">d78233d</a>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/ee47894ee3de9942b90a5959a9f8c87c9faba4a0/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-9-1.png" target="_blank">ee47894</a>
 </td>
-<td style="text-align:left;">
+<td>
 zouyuxin
 </td>
-<td style="text-align:left;">
+<td>
+2019-04-25
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d78233d098efea450df342e12ee89617276b573c/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-9-1.png" target="_blank">d78233d</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
 2019-04-24
 </td>
 </tr>
 </tbody>
 </table>
-<p></details></p>
+</div>
+</div>
 </div>
 </div>
 <div id="only-1-signal" class="section level2">
@@ -876,36 +1045,54 @@ for(Rtype in names(pip_cali)){
 }
 grid.arrange(g[[1]], g[[2]], g[[3]], g[[4]], g[[5]],nrow = 2)</code></pre>
 <p><img src="figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-13-1.png:</em></summary>
-<table style="border-collapse:separate; border-spacing:5px;">
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th>
 Version
 </th>
-<th style="text-align:left;">
+<th>
 Author
 </th>
-<th style="text-align:left;">
+<th>
 Date
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d78233d098efea450df342e12ee89617276b573c/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-13-1.png" target="_blank">d78233d</a>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/ee47894ee3de9942b90a5959a9f8c87c9faba4a0/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-13-1.png" target="_blank">ee47894</a>
 </td>
-<td style="text-align:left;">
+<td>
 zouyuxin
 </td>
-<td style="text-align:left;">
+<td>
+2019-04-25
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d78233d098efea450df342e12ee89617276b573c/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-13-1.png" target="_blank">d78233d</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
 2019-04-24
 </td>
 </tr>
 </tbody>
 </table>
-<p></details></p>
+</div>
+</div>
 </div>
 <div id="roc-1" class="section level3">
 <h3>ROC</h3>
@@ -931,40 +1118,61 @@ for (method in names(roc)) {
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
 <p><img src="figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /></p>
-<details> <summary><em>Expand here to see past versions of unnamed-chunk-15-1.png:</em></summary>
-<table style="border-collapse:separate; border-spacing:5px;">
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th>
 Version
 </th>
-<th style="text-align:left;">
+<th>
 Author
 </th>
-<th style="text-align:left;">
+<th>
 Date
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d78233d098efea450df342e12ee89617276b573c/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-15-1.png" target="_blank">d78233d</a>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/ee47894ee3de9942b90a5959a9f8c87c9faba4a0/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-15-1.png" target="_blank">ee47894</a>
 </td>
-<td style="text-align:left;">
+<td>
 zouyuxin
 </td>
-<td style="text-align:left;">
+<td>
+2019-04-25
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d78233d098efea450df342e12ee89617276b573c/docs/figure/r_compare_add_z_susieb_ROC.Rmd/unnamed-chunk-15-1.png" target="_blank">d78233d</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
 2019-04-24
 </td>
 </tr>
 </tbody>
 </table>
-<p></details></p>
 </div>
 </div>
-<div id="session-information" class="section level2">
-<h2>Session information</h2>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 3.5.1 (2018-07-02)
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
@@ -985,22 +1193,21 @@ other attached packages:
 [6] ggplot2_3.1.0
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.0        compiler_3.5.1    pillar_1.3.1     
- [4] git2r_0.24.0      plyr_1.8.4        workflowr_1.1.1  
- [7] bindr_0.1.1       R.methodsS3_1.7.1 R.utils_2.7.0    
-[10] tools_3.5.1       digest_0.6.18     lattice_0.20-38  
-[13] evaluate_0.12     tibble_2.0.1      gtable_0.2.0     
-[16] pkgconfig_2.0.2   rlang_0.3.1       Matrix_1.2-15    
-[19] yaml_2.2.0        bindrcpp_0.2.2    withr_2.1.2      
-[22] stringr_1.3.1     dplyr_0.7.8       knitr_1.20       
-[25] rprojroot_1.3-2   grid_3.5.1        tidyselect_0.2.5 
-[28] glue_1.3.0        R6_2.3.0          rmarkdown_1.11   
-[31] purrr_0.2.5       magrittr_1.5      whisker_0.3-2    
-[34] splines_3.5.1     backports_1.1.3   scales_1.0.0     
-[37] htmltools_0.3.6   assertthat_0.2.0  colorspace_1.4-0 
-[40] labeling_0.3      stringi_1.2.4     lazyeval_0.2.1   
-[43] munsell_0.5.0     crayon_1.3.4      R.oo_1.22.0      </code></pre>
+ [1] Rcpp_1.0.0       compiler_3.5.1   pillar_1.3.1     git2r_0.24.0    
+ [5] plyr_1.8.4       workflowr_1.3.0  bindr_0.1.1      tools_3.5.1     
+ [9] digest_0.6.18    lattice_0.20-38  evaluate_0.12    tibble_2.0.1    
+[13] gtable_0.2.0     pkgconfig_2.0.2  rlang_0.3.1      Matrix_1.2-15   
+[17] yaml_2.2.0       bindrcpp_0.2.2   withr_2.1.2      stringr_1.3.1   
+[21] dplyr_0.7.8      knitr_1.20       fs_1.2.6         rprojroot_1.3-2 
+[25] grid_3.5.1       tidyselect_0.2.5 glue_1.3.0       R6_2.3.0        
+[29] rmarkdown_1.11   purrr_0.2.5      magrittr_1.5     whisker_0.3-2   
+[33] splines_3.5.1    backports_1.1.3  scales_1.0.0     htmltools_0.3.6 
+[37] assertthat_0.2.0 colorspace_1.4-0 labeling_0.3     stringi_1.2.4   
+[41] lazyeval_0.2.1   munsell_0.5.0    crayon_1.3.4    </code></pre>
 </div>
+</div>
+</div>
+
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
@@ -1013,14 +1220,6 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
-
-<hr>
-<p>
-  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-  analysis was created with
-  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
-</p>
-<hr>
 
 
 </div>
