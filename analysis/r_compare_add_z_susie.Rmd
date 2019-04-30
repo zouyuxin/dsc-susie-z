@@ -156,17 +156,17 @@ colnames(purity.susieb.in_sample.5)[colnames(purity.susieb.in_sample.5) == 'puri
 purity.susieb.out_sample.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.out_sample[as.logical((!is.na(dscout.susieb.out_sample$converged)) * (dscout.susieb.out_sample$L==5)),], mean), 3)
 colnames(purity.susieb.out_sample.5)[colnames(purity.susieb.out_sample.5) == 'purity'] <- 'out_sample'
 
-purity.susieb.all.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], mean), 3)
-colnames(purity.susieb.all.5)[colnames(purity.susieb.all.5) == 'purity'] <- 'all'
+# purity.susieb.all.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], mean), 3)
+# colnames(purity.susieb.all.5)[colnames(purity.susieb.all.5) == 'purity'] <- 'all'
 
 purity.susieb.out_sample.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.out_sample.addz[as.logical((!is.na(dscout.susieb.out_sample.addz$converged)) * (dscout.susieb.out_sample.addz$L==5)),], mean), 3)
 colnames(purity.susieb.out_sample.addz.5)[colnames(purity.susieb.out_sample.addz.5) == 'purity'] <- 'out_sample.addz'
 
-purity.susieb.all.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], mean), 3)
-colnames(purity.susieb.all.addz.5)[colnames(purity.susieb.all.addz.5) == 'purity'] <- 'all.addz'
+# purity.susieb.all.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], mean), 3)
+# colnames(purity.susieb.all.addz.5)[colnames(purity.susieb.all.addz.5) == 'purity'] <- 'all.addz'
 
-purity.susieb.5 = cbind(purity.susieb.in_sample.5, purity.susieb.out_sample.5, purity.susieb.out_sample.addz.5, purity.susieb.all.5, purity.susieb.all.addz.5)
-purity.susieb.5 = purity.susieb.5[,-c(4,5,7,8,10,11,13,14)]
+purity.susieb.5 = cbind(purity.susieb.in_sample.5, purity.susieb.out_sample.5, purity.susieb.out_sample.addz.5) #, purity.susieb.all.5, purity.susieb.all.addz.5)
+purity.susieb.5 = purity.susieb.5[,-c(4,5,7,8)]
 purity.susieb.5 %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
 ```
 
@@ -194,22 +194,22 @@ power.susieb.out.addz = merge(valid.out.addz, total.out.addz)
 power.susieb.out.addz$out_sample.addz = round(power.susieb.out.addz$valid/(power.susieb.out.addz$total_true), 3)
 power.susieb.out.addz = power.susieb.out.addz[,-c(3,4,5)]
 
-valid.all = aggregate(valid ~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
-total.all = aggregate(DSC~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], length)
-total.all$total_true = total.all$DSC * total.all$n_signal
-power.susieb.all = merge(valid.all, total.all)
-power.susieb.all$all_sample = round(power.susieb.all$valid/(power.susieb.all$total_true), 3)
-power.susieb.all = power.susieb.all[,-c(3,4,5)]
+# valid.all = aggregate(valid ~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
+# total.all = aggregate(DSC~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], length)
+# total.all$total_true = total.all$DSC * total.all$n_signal
+# power.susieb.all = merge(valid.all, total.all)
+# power.susieb.all$all_sample = round(power.susieb.all$valid/(power.susieb.all$total_true), 3)
+# power.susieb.all = power.susieb.all[,-c(3,4,5)]
+# 
+# valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
+# total.all.addz = aggregate(DSC~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], length)
+# total.all.addz$total_true = total.all.addz$DSC * total.all.addz$n_signal
+# power.susieb.all.addz = merge(valid.all.addz, total.all.addz)
+# power.susieb.all.addz$all_sample.addz = round(power.susieb.all.addz$valid/(power.susieb.all.addz$total_true), 3)
+# power.susieb.all.addz = power.susieb.all.addz[,-c(3,4,5)]
 
-valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
-total.all.addz = aggregate(DSC~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], length)
-total.all.addz$total_true = total.all.addz$DSC * total.all.addz$n_signal
-power.susieb.all.addz = merge(valid.all.addz, total.all.addz)
-power.susieb.all.addz$all_sample.addz = round(power.susieb.all.addz$valid/(power.susieb.all.addz$total_true), 3)
-power.susieb.all.addz = power.susieb.all.addz[,-c(3,4,5)]
-
-power.susieb = cbind(power.susieb.in, power.susieb.out, power.susieb.out.addz, power.susieb.all, power.susieb.all.addz)
-power.susieb = power.susieb[,-c(4,5,7,8,10,11,13,14)]
+power.susieb = cbind(power.susieb.in, power.susieb.out, power.susieb.out.addz) #, power.susieb.all, power.susieb.all.addz)
+power.susieb = power.susieb[,-c(4,5,7,8)]
 power.susieb %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
 ```
 
@@ -234,20 +234,20 @@ fdr.out.addz = merge(valid.out.addz, total.out.addz)
 fdr.out.addz$out_sample.addz = round((fdr.out.addz$total - fdr.out.addz$valid)/fdr.out.addz$total, 4)
 fdr.out.addz = fdr.out.addz[,-c(3,4)]
 
-valid.all = aggregate(valid ~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
-total.all = aggregate(total~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
-fdr.all = merge(valid.all, total.all)
-fdr.all$all = round((fdr.all$total - fdr.all$valid)/fdr.all$total, 4)
-fdr.all = fdr.all[,-c(3,4)]
+# valid.all = aggregate(valid ~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
+# total.all = aggregate(total~ pve+n_signal, dscout.susieb.all[as.logical((!is.na(dscout.susieb.all$converged)) * (dscout.susieb.all$L==5)),], sum)
+# fdr.all = merge(valid.all, total.all)
+# fdr.all$all = round((fdr.all$total - fdr.all$valid)/fdr.all$total, 4)
+# fdr.all = fdr.all[,-c(3,4)]
+# 
+# valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
+# total.all.addz = aggregate(total~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
+# fdr.all.addz = merge(valid.all.addz, total.all.addz)
+# fdr.all.addz$all.addz = round((fdr.all.addz$total - fdr.all.addz$valid)/fdr.all.addz$total, 4)
+# fdr.all.addz = fdr.all.addz[,-c(3,4)]
 
-valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
-total.all.addz = aggregate(total~ pve+n_signal, dscout.susieb.all.addz[as.logical((!is.na(dscout.susieb.all.addz$converged)) * (dscout.susieb.all.addz$L==5)),], sum)
-fdr.all.addz = merge(valid.all.addz, total.all.addz)
-fdr.all.addz$all.addz = round((fdr.all.addz$total - fdr.all.addz$valid)/fdr.all.addz$total, 4)
-fdr.all.addz = fdr.all.addz[,-c(3,4)]
-
-fdr.susieb = cbind(fdr.in, fdr.out, fdr.out.addz, fdr.all, fdr.all.addz)
-fdr.susieb = fdr.susieb[,-c(4,5,7,8,10,11,13,14)]
+fdr.susieb = cbind(fdr.in, fdr.out, fdr.out.addz) #, fdr.all, fdr.all.addz)
+fdr.susieb = fdr.susieb[,-c(4,5,7,8)]
 fdr.susieb %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
 ```
 
@@ -278,17 +278,17 @@ colnames(purity.susierss.in_sample.5)[colnames(purity.susierss.in_sample.5) == '
 purity.susierss.out_sample.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.out_sample[as.logical((!is.na(dscout.susierss.out_sample$converged)) * (dscout.susierss.out_sample$L==5)),], mean), 3)
 colnames(purity.susierss.out_sample.5)[colnames(purity.susierss.out_sample.5) == 'purity'] <- 'out_sample'
 
-purity.susierss.all.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], mean), 3)
-colnames(purity.susierss.all.5)[colnames(purity.susierss.all.5) == 'purity'] <- 'all'
+# purity.susierss.all.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], mean), 3)
+# colnames(purity.susierss.all.5)[colnames(purity.susierss.all.5) == 'purity'] <- 'all'
 
 purity.susierss.out_sample.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$L==5,], mean), 3)
 colnames(purity.susierss.out_sample.addz.5)[colnames(purity.susierss.out_sample.addz.5) == 'purity'] <- 'out_sample.addz'
 
-purity.susierss.all.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], mean), 3)
-colnames(purity.susierss.all.addz.5)[colnames(purity.susierss.all.addz.5) == 'purity'] <- 'all.addz'
+# purity.susierss.all.addz.5 = round(aggregate(purity~pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], mean), 3)
+# colnames(purity.susierss.all.addz.5)[colnames(purity.susierss.all.addz.5) == 'purity'] <- 'all.addz'
 
-purity.susierss.5 = cbind(purity.susierss.in_sample.5, purity.susierss.out_sample.5, purity.susierss.out_sample.addz.5, purity.susierss.all.5, purity.susierss.all.addz.5)
-purity.susierss.5 = purity.susierss.5[,-c(4,5,7,8,10,11,13,14)]
+purity.susierss.5 = cbind(purity.susierss.in_sample.5, purity.susierss.out_sample.5, purity.susierss.out_sample.addz.5) #, purity.susierss.all.5, purity.susierss.all.addz.5)
+purity.susierss.5 = purity.susierss.5[,-c(4,5,7,8)]
 purity.susierss.5 %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
 ```
 
@@ -316,22 +316,22 @@ power.susierss.out.addz = merge(valid.out.addz, total.out.addz)
 power.susierss.out.addz$out_sample.addz = round(power.susierss.out.addz$valid/(power.susierss.out.addz$total_true), 3)
 power.susierss.out.addz = power.susierss.out.addz[,-c(3,4,5)]
 
-valid.all = aggregate(valid ~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
-total.all = aggregate(DSC~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], length)
-total.all$total_true = total.all$DSC * total.all$n_signal
-power.susierss.all = merge(valid.all, total.all)
-power.susierss.all$all_sample = round(power.susierss.all$valid/(power.susierss.all$total_true), 3)
-power.susierss.all = power.susierss.all[,-c(3,4,5)]
+# valid.all = aggregate(valid ~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
+# total.all = aggregate(DSC~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], length)
+# total.all$total_true = total.all$DSC * total.all$n_signal
+# power.susierss.all = merge(valid.all, total.all)
+# power.susierss.all$all_sample = round(power.susierss.all$valid/(power.susierss.all$total_true), 3)
+# power.susierss.all = power.susierss.all[,-c(3,4,5)]
+# 
+# valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
+# total.all.addz = aggregate(DSC~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], length)
+# total.all.addz$total_true = total.all.addz$DSC * total.all.addz$n_signal
+# power.susierss.all.addz = merge(valid.all.addz, total.all.addz)
+# power.susierss.all.addz$all_sample.addz = round(power.susierss.all.addz$valid/(power.susierss.all.addz$total_true), 3)
+# power.susierss.all.addz = power.susierss.all.addz[,-c(3,4,5)]
 
-valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
-total.all.addz = aggregate(DSC~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], length)
-total.all.addz$total_true = total.all.addz$DSC * total.all.addz$n_signal
-power.susierss.all.addz = merge(valid.all.addz, total.all.addz)
-power.susierss.all.addz$all_sample.addz = round(power.susierss.all.addz$valid/(power.susierss.all.addz$total_true), 3)
-power.susierss.all.addz = power.susierss.all.addz[,-c(3,4,5)]
-
-power.susierss = cbind(power.susierss.in, power.susierss.out, power.susierss.out.addz, power.susierss.all, power.susierss.all.addz)
-power.susierss = power.susierss[,-c(4,5,7,8,10,11,13,14)]
+power.susierss = cbind(power.susierss.in, power.susierss.out, power.susierss.out.addz) #, power.susierss.all, power.susierss.all.addz)
+power.susierss = power.susierss[,-c(4,5,7,8)]
 power.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
 ```
 
@@ -356,19 +356,19 @@ fdr.out.addz = merge(valid.out.addz, total.out.addz)
 fdr.out.addz$out_sample.addz = round((fdr.out.addz$total - fdr.out.addz$valid)/fdr.out.addz$total, 4)
 fdr.out.addz = fdr.out.addz[,-c(3,4)]
 
-valid.all = aggregate(valid ~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
-total.all = aggregate(total~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
-fdr.all = merge(valid.all, total.all)
-fdr.all$all = round((fdr.all$total - fdr.all$valid)/fdr.all$total, 4)
-fdr.all = fdr.all[,-c(3,4)]
+# valid.all = aggregate(valid ~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
+# total.all = aggregate(total~ pve+n_signal, dscout.susierss.all[dscout.susierss.all$L==5,], sum)
+# fdr.all = merge(valid.all, total.all)
+# fdr.all$all = round((fdr.all$total - fdr.all$valid)/fdr.all$total, 4)
+# fdr.all = fdr.all[,-c(3,4)]
+# 
+# valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
+# total.all.addz = aggregate(total~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
+# fdr.all.addz = merge(valid.all.addz, total.all.addz)
+# fdr.all.addz$all.addz = round((fdr.all.addz$total - fdr.all.addz$valid)/fdr.all.addz$total, 4)
+# fdr.all.addz = fdr.all.addz[,-c(3,4)]
 
-valid.all.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
-total.all.addz = aggregate(total~ pve+n_signal, dscout.susierss.all.addz[dscout.susierss.all.addz$L==5,], sum)
-fdr.all.addz = merge(valid.all.addz, total.all.addz)
-fdr.all.addz$all.addz = round((fdr.all.addz$total - fdr.all.addz$valid)/fdr.all.addz$total, 4)
-fdr.all.addz = fdr.all.addz[,-c(3,4)]
-
-fdr.susierss = cbind(fdr.in, fdr.out, fdr.out.addz, fdr.all, fdr.all.addz)
-fdr.susierss = fdr.susierss[,-c(4,5,7,8,10,11,13,14)]
+fdr.susierss = cbind(fdr.in, fdr.out, fdr.out.addz) #, fdr.all, fdr.all.addz)
+fdr.susierss = fdr.susierss[,-c(4,5,7,8)]
 fdr.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
 ```

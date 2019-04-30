@@ -71,13 +71,14 @@ saveRDS(dat, 'output/r_compare_add_z_FINEMAP_PIP_ROC.rds')
 
 ```{r}
 dat = readRDS('output/r_compare_add_z_FINEMAP_PIP_ROC.rds')
+dat = dat[-c(4,5)]
 ```
 
 ```{r}
 bin_size = 20
 bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
 
-pip_cali = list('in_sample'=matrix(NA, nrow(bins), 3), 'out_sample'=matrix(NA, nrow(bins), 3), 'out_sample.addz'=matrix(NA, nrow(bins), 3), 'all'=matrix(NA, nrow(bins), 3), 'all.addz'=matrix(NA, nrow(bins), 3))
+pip_cali = list('in_sample'=matrix(NA, nrow(bins), 3), 'out_sample'=matrix(NA, nrow(bins), 3), 'out_sample.addz'=matrix(NA, nrow(bins), 3))#, 'all'=matrix(NA, nrow(bins), 3), 'all.addz'=matrix(NA, nrow(bins), 3))
 
 for(Rtype in names(pip_cali)){
   for (i in 1:nrow(bins)) {
@@ -120,7 +121,7 @@ for(Rtype in names(pip_cali)){
   colnames(pip_cali[[Rtype]]) = c("mean_pip", "observed_freq", "se")
   g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
 }
-grid.arrange(g[[1]], g[[2]], g[[3]], g[[4]],g[[5]], nrow = 2)
+grid.arrange(g[[1]], g[[2]], g[[3]], nrow = 1)
 ```
 
 ### ROC

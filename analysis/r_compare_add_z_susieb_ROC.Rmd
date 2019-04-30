@@ -55,6 +55,7 @@ dscout.susieb.list = list('in_sample' = dscout.susieb[dscout.susieb$ld_method ==
                           'out_sample.addz' = dscout.susieb[as.logical((dscout.susieb$ld_method == 'out_sample')*(dscout.susieb$add_z == TRUE)),],
                           'all' = dscout.susieb[as.logical((dscout.susieb$ld_method == 'all')*(dscout.susieb$add_z == FALSE)),],
                           'all.addz' = dscout.susieb[as.logical((dscout.susieb$ld_method == 'all')*(dscout.susieb$add_z == TRUE)),])
+
 dat = list('in_sample'=matrix(NA, 0, 2), 'out_sample'=matrix(NA, 0, 2), 'out_sample.addz'=matrix(NA, 0, 2), 'all'=matrix(NA, 0, 2), 'all.addz'=matrix(NA, 0, 2))
 for(Rtype in names(dat)){
   for(j in 1:nrow(dscout.susieb.list[[Rtype]])){
@@ -63,13 +64,15 @@ for(Rtype in names(dat)){
   }
   colnames(dat[[Rtype]]) = c('pip', 'truth')
 }
+
+dat = dat[-c(4, 5)]
 ```
 
 ```{r}
 bin_size = 20
 bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
 
-pip_cali = list('in_sample'=matrix(NA, nrow(bins), 3), 'out_sample'=matrix(NA, nrow(bins), 3), 'out_sample.addz'=matrix(NA, nrow(bins), 3), 'all'=matrix(NA, nrow(bins), 3), 'all.addz'=matrix(NA, nrow(bins), 3))
+pip_cali = list('in_sample'=matrix(NA, nrow(bins), 3), 'out_sample'=matrix(NA, nrow(bins), 3), 'out_sample.addz'=matrix(NA, nrow(bins), 3))#, 'all'=matrix(NA, nrow(bins), 3), 'all.addz'=matrix(NA, nrow(bins), 3))
 for(Rtype in names(pip_cali)){
   for (i in 1:nrow(bins)) {
     data_in_bin = dat[[Rtype]][which(dat[[Rtype]][,1] > bins[i,1] & dat[[Rtype]][,1] < bins[i,2]),, drop=FALSE]
@@ -111,7 +114,7 @@ for(Rtype in names(pip_cali)){
   colnames(pip_cali[[Rtype]]) = c("mean_pip", "observed_freq", "se")
   g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
 }
-grid.arrange(g[[1]], g[[2]], g[[3]], g[[4]],g[[5]],nrow = 2)
+grid.arrange(g[[1]], g[[2]], g[[3]],nrow = 1)
 ```
 
 ### ROC
