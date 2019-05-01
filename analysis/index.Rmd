@@ -84,8 +84,6 @@ Welcome to my research website.
     
     [Calibrated PIP and ROC for FINEMAP](r_compare_add_z_lambda_finemap.html)
     
-    [Calibrated PIP and ROC for SuSiE](r_compare_susie_lambda_ROC.html)
-    
     [Calibrated PIP and ROC for SuSiE b](r_compare_add_z_lambda_susieb_ROC.html)
     
     [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_lambda_susierss_ROC.html)
