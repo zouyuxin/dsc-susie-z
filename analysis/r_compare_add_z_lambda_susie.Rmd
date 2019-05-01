@@ -1,0 +1,350 @@
+---
+title: "Compare in-sample R vs out-sample R"
+author: "Yuxin Zou"
+date: "4/30/2019"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+The design matrix X are real human genotype data from GTEx project, the 150 data in `dsc-finemap` repo. We simulate under various number of causal variables (1,2) and total percentage of variance explained (0.1, 0.2). We set effect size of each causal variable to be **equal**. Using the summary statistics from univariate regression, we fit SuSiE model using in-sample/out-sample correlation matrix, and compare their results.
+
+
+```{r}
+library(dscrutils)
+library(tibble)
+library(kableExtra)
+```
+
+## Import DSC results
+
+```{r eval=FALSE}
+dscout = dscquery('r_compare_add_z_lambda', targets = 'sim_gaussian sim_gaussian.pve sim_gaussian.n_signal sim_gaussian.meta data.N_in method.ld_method method.estimate_residual_variance method.lamb score_susie.total score_susie.valid score_susie.size score_susie.purity score_susie.top score_susie.converged score_susie.pip score_finemap.pip', omit.filenames = FALSE, groups = c("method: susie_bhat susie_bhat_add_z susie_rss susie_rss_add_z finemap finemap_add_z"))
+dscout.tibble = as_tibble(dscout)
+```
+
+```{r}
+dscout = readRDS('output/r_compare_add_z_lambda_dscout_susie_finemap_tibble.rds')
+dscout$add_z = rep(FALSE, nrow(dscout))
+dscout$add_z[dscout$method == 'finemap_add_z'] = TRUE
+dscout$add_z[dscout$method == 'susie_bhat_add_z'] = TRUE
+dscout$add_z[dscout$method == 'susie_rss_add_z'] = TRUE
+
+dscout = dscout[,-6]
+colnames(dscout) = c('DSC', 'filename','pve', 'n_signal', 'meta','N_in', 'method', 'ld_method', 'lambda', 'estimate_residual_variance', 'total', 'valid', 'size', 'purity', 'top', 'converged', 'susie.pip','finemap.pip','add_z')
+```
+
+```{r}
+dscout.susierss = rbind(dscout[dscout$method == 'susie_rss',], dscout[dscout$method == 'susie_rss_add_z',])
+dscout.susieb = rbind(dscout[dscout$method == 'susie_bhat',], dscout[dscout$method == 'susie_bhat_add_z',])
+dscout.finemap = rbind(dscout[dscout$method == 'finemap',], dscout[dscout$method == 'finemap_add_z',])
+```
+
+## susie_bhat
+
+```{r}
+dscout.susieb.in_sample = dscout.susieb[dscout.susieb$ld_method == 'in_sample',]
+dscout.susieb.out_sample = dscout.susieb[dscout.susieb$ld_method == 'out_sample',]
+dscout.susieb.out_sample.addz = dscout.susieb.out_sample[dscout.susieb.out_sample$add_z == TRUE,]
+dscout.susieb.out_sample = dscout.susieb.out_sample[dscout.susieb.out_sample$add_z == FALSE,]
+
+dscout.susieb.out_sample.addz.suc = dscout.susieb.out_sample.addz[!is.na(dscout.susieb.out_sample.addz$converged),]
+dscout.susieb.out_sample.addz.suc = dscout.susieb.out_sample.addz.suc[dscout.susieb.out_sample.addz.suc$converged==1,]
+
+dscout.susieb.out_sample.suc = dscout.susieb.out_sample[!is.na(dscout.susieb.out_sample$converged),]
+dscout.susieb.out_sample.suc = dscout.susieb.out_sample.suc[dscout.susieb.out_sample.suc$converged==1,]
+```
+
+* Converge
+
+There are 3 models from susie_bhat fail to converge. There are 16 cases with out-sample R failed (out of 600). The estimated residual variance becomes negative.
+```{r}
+converge.summary = aggregate(converged ~ ld_method + add_z + estimate_residual_variance, dscout.susieb, sum)
+converge.summary$Fail = 600 - converge.summary$converged
+Fail = converge.summary[converge.summary$Fail!=0,]
+Fail[,-4] %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+* Purity of CS: (L = 5)
+
+```{r}
+purity.susieb.in_sample.5 = aggregate(purity~pve+n_signal, dscout.susieb.in_sample[dscout.susieb.in_sample$estimate_residual_variance==TRUE,], mean)
+colnames(purity.susieb.in_sample.5)[colnames(purity.susieb.in_sample.5) == 'purity'] <- 'in_sample'
+
+purity.susieb.out_sample.5 = aggregate(purity~pve+n_signal, dscout.susieb.out_sample.suc[dscout.susieb.out_sample.suc$estimate_residual_variance==TRUE,], mean)
+colnames(purity.susieb.out_sample.5)[colnames(purity.susieb.out_sample.5) == 'purity'] <- 'out_sample'
+
+purity.susieb.out_sample.addz.5 = aggregate(purity~pve+n_signal, dscout.susieb.out_sample.addz.suc[dscout.susieb.out_sample.addz.suc$estimate_residual_variance==TRUE,], mean)
+colnames(purity.susieb.out_sample.addz.5)[colnames(purity.susieb.out_sample.addz.5) == 'purity'] <- 'out_sample.addz'
+
+purity.susieb.5 = cbind(purity.susieb.in_sample.5, purity.susieb.out_sample.5, purity.susieb.out_sample.addz.5) #, purity.susieb.all.5, purity.susieb.all.addz.5)
+purity.susieb.5 = purity.susieb.5[,-c(4,5,7,8)]
+round(purity.susieb.5, 3) %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+* Power (L=5):
+
+```{r}
+valid.in = aggregate(valid ~ pve+n_signal, dscout.susieb.in_sample[dscout.susieb.in_sample$estimate_residual_variance==TRUE,], sum)
+total.in = aggregate(DSC~ pve+n_signal, dscout.susieb.in_sample[dscout.susieb.in_sample$estimate_residual_variance==TRUE,], length)
+total.in$total_true = total.in$DSC * total.in$n_signal
+power.susieb.in = merge(valid.in, total.in)
+power.susieb.in$in_sample = round(power.susieb.in$valid/(power.susieb.in$total_true), 3)
+power.susieb.in = power.susieb.in[,-c(3,4,5)]
+
+valid.out = aggregate(valid ~ pve+n_signal, dscout.susieb.out_sample.suc[dscout.susieb.out_sample.suc$estimate_residual_variance==TRUE,], sum)
+total.out = aggregate(DSC~ pve+n_signal, dscout.susieb.out_sample.suc[dscout.susieb.out_sample.suc$estimate_residual_variance==TRUE,], length)
+total.out$total_true = total.out$DSC * total.out$n_signal
+power.susieb.out = merge(valid.out, total.out)
+power.susieb.out$out_sample = round(power.susieb.out$valid/(power.susieb.out$total_true), 3)
+power.susieb.out = power.susieb.out[,-c(3,4,5)]
+
+valid.out.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.out_sample.addz.suc[dscout.susieb.out_sample.addz.suc$estimate_residual_variance==TRUE,], sum)
+total.out.addz = aggregate(DSC~ pve+n_signal, dscout.susieb.out_sample.addz.suc[dscout.susieb.out_sample.addz.suc$estimate_residual_variance==TRUE,], length)
+total.out.addz$total_true = total.out.addz$DSC * total.out.addz$n_signal
+power.susieb.out.addz = merge(valid.out.addz, total.out.addz)
+power.susieb.out.addz$out_sample.addz = round(power.susieb.out.addz$valid/(power.susieb.out.addz$total_true), 3)
+power.susieb.out.addz = power.susieb.out.addz[,-c(3,4,5)]
+
+power.susieb = cbind(power.susieb.in, power.susieb.out, power.susieb.out.addz) #, power.susieb.all, power.susieb.all.addz)
+power.susieb = power.susieb[,-c(4,5,7,8)]
+power.susieb %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
+```
+
+* FDR (L=5):
+
+```{r}
+valid.in = aggregate(valid ~ pve+n_signal, dscout.susieb.in_sample[dscout.susieb.in_sample$estimate_residual_variance==TRUE,], sum)
+total.in = aggregate(total~ pve+n_signal, dscout.susieb.in_sample[dscout.susieb.in_sample$estimate_residual_variance==TRUE,], sum)
+fdr.in = merge(valid.in, total.in)
+fdr.in$in_sample = round((fdr.in$total - fdr.in$valid)/fdr.in$total, 4)
+fdr.in = fdr.in[,-c(3,4)]
+
+valid.out = aggregate(valid ~ pve+n_signal, dscout.susieb.out_sample.suc[dscout.susieb.out_sample.suc$estimate_residual_variance==TRUE,], sum)
+total.out = aggregate(total~ pve+n_signal, dscout.susieb.out_sample.suc[dscout.susieb.out_sample.suc$estimate_residual_variance==TRUE,], sum)
+fdr.out = merge(valid.out, total.out)
+fdr.out$out_sample = round((fdr.out$total - fdr.out$valid)/fdr.out$total, 4)
+fdr.out = fdr.out[,-c(3,4)]
+
+valid.out.addz = aggregate(valid ~ pve+n_signal, dscout.susieb.out_sample.addz.suc[dscout.susieb.out_sample.addz.suc$estimate_residual_variance==TRUE,], sum)
+total.out.addz = aggregate(total~ pve+n_signal, dscout.susieb.out_sample.addz.suc[dscout.susieb.out_sample.addz.suc$estimate_residual_variance==TRUE,], sum)
+fdr.out.addz = merge(valid.out.addz, total.out.addz)
+fdr.out.addz$out_sample.addz = round((fdr.out.addz$total - fdr.out.addz$valid)/fdr.out.addz$total, 4)
+fdr.out.addz = fdr.out.addz[,-c(3,4)]
+
+fdr.susieb = cbind(fdr.in, fdr.out, fdr.out.addz) #, fdr.all, fdr.all.addz)
+fdr.susieb = fdr.susieb[,-c(4,5,7,8)]
+fdr.susieb %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
+```
+
+## susie_rss
+
+```{r}
+dscout.susierss.in_sample = dscout.susierss[dscout.susierss$ld_method == 'in_sample',]
+dscout.susierss.out_sample = dscout.susierss[dscout.susierss$ld_method == 'out_sample',]
+# only converged results
+dscout.susierss.out_sample = dscout.susierss.out_sample[dscout.susierss.out_sample$converged == 1,]
+dscout.susierss.out_sample.addz = dscout.susierss.out_sample[dscout.susierss.out_sample$add_z == TRUE,]
+dscout.susierss.out_sample.addz.lambda = dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$lambda == 1e-6,]
+dscout.susierss.out_sample.addz = dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$lambda == 0,]
+dscout.susierss.out_sample = dscout.susierss.out_sample[dscout.susierss.out_sample$add_z == FALSE,]
+dscout.susierss.out_sample.lambda = dscout.susierss.out_sample[dscout.susierss.out_sample$lambda == 1e-6,]
+dscout.susierss.out_sample = dscout.susierss.out_sample[dscout.susierss.out_sample$lambda == 0,]
+```
+
+* Converge
+
+There are cases fail to converge in susie_rss.
+
+```{r}
+converge.summary = aggregate(converged ~ ld_method + add_z + estimate_residual_variance + lambda, dscout.susierss, sum)
+converge.summary$NotConverge = 600 - converge.summary$converged
+NotConverge = converge.summary[converge.summary$NotConverge!=0,]
+NotConverge[,-5] %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+* Purity of CS: (L = 5)
+
+```{r}
+purity.susierss.in_sample = round(aggregate(purity~pve+n_signal, dscout.susierss.in_sample[dscout.susierss.in_sample$estimate_residual_variance==TRUE,], mean), 3)
+colnames(purity.susierss.in_sample)[colnames(purity.susierss.in_sample) == 'purity'] <- 'in_sample'
+
+purity.susierss.out_sample = round(aggregate(purity~pve+n_signal, dscout.susierss.out_sample[dscout.susierss.out_sample$estimate_residual_variance==TRUE,], mean), 3)
+colnames(purity.susierss.out_sample)[colnames(purity.susierss.out_sample) == 'purity'] <- 'out_sample'
+
+purity.susierss.out_sample.addz = round(aggregate(purity~pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$estimate_residual_variance==TRUE,], mean), 3)
+colnames(purity.susierss.out_sample.addz)[colnames(purity.susierss.out_sample.addz) == 'purity'] <- 'out_sample.addz'
+
+purity.susierss.out_sample.lambda = round(aggregate(purity~pve+n_signal, dscout.susierss.out_sample.lambda[dscout.susierss.out_sample.lambda$estimate_residual_variance==TRUE,], mean), 3)
+colnames(purity.susierss.out_sample.lambda)[colnames(purity.susierss.out_sample.lambda) == 'purity'] <- 'out_sample.lambda'
+
+purity.susierss.out_sample.addz.lambda = round(aggregate(purity~pve+n_signal, dscout.susierss.out_sample.addz.lambda[dscout.susierss.out_sample.addz.lambda$estimate_residual_variance==TRUE,], mean), 3)
+colnames(purity.susierss.out_sample.addz.lambda)[colnames(purity.susierss.out_sample.addz.lambda) == 'purity'] <- 'out_sample.addz.lambda'
+
+purity.susierss = cbind(purity.susierss.in_sample, purity.susierss.out_sample, purity.susierss.out_sample.addz, purity.susierss.out_sample.lambda, purity.susierss.out_sample.addz.lambda)
+purity.susierss = purity.susierss[,-c(4,5,7,8,10,11,13,14)]
+purity.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
+```
+
+* Power (L=5):
+
+Estimate residual variance
+```{r}
+valid.in = aggregate(valid ~ pve+n_signal, dscout.susierss.in_sample[dscout.susierss.in_sample$estimate_residual_variance==TRUE,], sum)
+total.in = aggregate(DSC~ pve+n_signal, dscout.susierss.in_sample[dscout.susierss.in_sample$estimate_residual_variance==TRUE,], length)
+total.in$total_true = total.in$DSC * total.in$n_signal
+power.susierss.in = merge(valid.in, total.in)
+power.susierss.in$in_sample = round(power.susierss.in$valid/(power.susierss.in$total_true), 3)
+power.susierss.in = power.susierss.in[,-c(3,4,5)]
+
+valid.out = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample[dscout.susierss.out_sample$estimate_residual_variance==TRUE,], sum)
+total.out = aggregate(DSC~ pve+n_signal, dscout.susierss.out_sample[dscout.susierss.out_sample$estimate_residual_variance==TRUE,], length)
+total.out$total_true = total.out$DSC * total.out$n_signal
+power.susierss.out = merge(valid.out, total.out)
+power.susierss.out$out_sample = round(power.susierss.out$valid/(power.susierss.out$total_true), 3)
+power.susierss.out = power.susierss.out[,-c(3,4,5)]
+
+valid.out.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$estimate_residual_variance==TRUE,], sum)
+total.out.addz = aggregate(DSC~ pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$estimate_residual_variance==TRUE,], length)
+total.out.addz$total_true = total.out.addz$DSC * total.out.addz$n_signal
+power.susierss.out.addz = merge(valid.out.addz, total.out.addz)
+power.susierss.out.addz$out_sample.addz = round(power.susierss.out.addz$valid/(power.susierss.out.addz$total_true), 3)
+power.susierss.out.addz = power.susierss.out.addz[,-c(3,4,5)]
+
+valid.out.lambda = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.lambda[dscout.susierss.out_sample.lambda$estimate_residual_variance==TRUE,], sum)
+total.out.lambda = aggregate(DSC~ pve+n_signal, dscout.susierss.out_sample.lambda[dscout.susierss.out_sample.lambda$estimate_residual_variance==TRUE,], length)
+total.out.lambda$total_true = total.out.lambda$DSC * total.out.lambda$n_signal
+power.susierss.out.lambda = merge(valid.out.lambda, total.out.lambda)
+power.susierss.out.lambda$out_sample.lambda = round(power.susierss.out.lambda$valid/(power.susierss.out.lambda$total_true), 3)
+power.susierss.out.lambda = power.susierss.out.lambda[,-c(3,4,5)]
+
+valid.out.addz.lambda = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.addz.lambda[dscout.susierss.out_sample.addz.lambda$estimate_residual_variance==TRUE,], sum)
+total.out.addz.lambda = aggregate(DSC~ pve+n_signal, dscout.susierss.out_sample.addz.lambda[dscout.susierss.out_sample.addz.lambda$estimate_residual_variance==TRUE,], length)
+total.out.addz.lambda$total_true = total.out.addz.lambda$DSC * total.out.addz.lambda$n_signal
+power.susierss.out.addz.lambda = merge(valid.out.addz.lambda, total.out.addz.lambda)
+power.susierss.out.addz.lambda$out_sample.addz.lambda = round(power.susierss.out.addz.lambda$valid/(power.susierss.out.addz.lambda$total_true), 3)
+power.susierss.out.addz.lambda = power.susierss.out.addz.lambda[,-c(3,4,5)]
+
+power.susierss = cbind(power.susierss.in, power.susierss.out, power.susierss.out.addz, power.susierss.out.lambda, power.susierss.out.addz.lambda)
+power.susierss = power.susierss[,-c(4,5,7,8,10,11,13,14)]
+power.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
+```
+
+NOT estimate residual variance
+
+```{r}
+valid.in = aggregate(valid ~ pve+n_signal, dscout.susierss.in_sample[dscout.susierss.in_sample$estimate_residual_variance==FALSE,], sum)
+total.in = aggregate(DSC~ pve+n_signal, dscout.susierss.in_sample[dscout.susierss.in_sample$estimate_residual_variance==FALSE,], length)
+total.in$total_true = total.in$DSC * total.in$n_signal
+power.susierss.in = merge(valid.in, total.in)
+power.susierss.in$in_sample = round(power.susierss.in$valid/(power.susierss.in$total_true), 3)
+power.susierss.in = power.susierss.in[,-c(3,4,5)]
+
+valid.out = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample[dscout.susierss.out_sample$estimate_residual_variance==FALSE,], sum)
+total.out = aggregate(DSC~ pve+n_signal, dscout.susierss.out_sample[dscout.susierss.out_sample$estimate_residual_variance==FALSE,], length)
+total.out$total_true = total.out$DSC * total.out$n_signal
+power.susierss.out = merge(valid.out, total.out)
+power.susierss.out$out_sample = round(power.susierss.out$valid/(power.susierss.out$total_true), 3)
+power.susierss.out = power.susierss.out[,-c(3,4,5)]
+
+valid.out.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$estimate_residual_variance==FALSE,], sum)
+total.out.addz = aggregate(DSC~ pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$estimate_residual_variance==FALSE,], length)
+total.out.addz$total_true = total.out.addz$DSC * total.out.addz$n_signal
+power.susierss.out.addz = merge(valid.out.addz, total.out.addz)
+power.susierss.out.addz$out_sample.addz = round(power.susierss.out.addz$valid/(power.susierss.out.addz$total_true), 3)
+power.susierss.out.addz = power.susierss.out.addz[,-c(3,4,5)]
+
+valid.out.lambda = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.lambda[dscout.susierss.out_sample.lambda$estimate_residual_variance==FALSE,], sum)
+total.out.lambda = aggregate(DSC~ pve+n_signal, dscout.susierss.out_sample.lambda[dscout.susierss.out_sample.lambda$estimate_residual_variance==FALSE,], length)
+total.out.lambda$total_true = total.out.lambda$DSC * total.out.lambda$n_signal
+power.susierss.out.lambda = merge(valid.out.lambda, total.out.lambda)
+power.susierss.out.lambda$out_sample.lambda = round(power.susierss.out.lambda$valid/(power.susierss.out.lambda$total_true), 3)
+power.susierss.out.lambda = power.susierss.out.lambda[,-c(3,4,5)]
+
+valid.out.addz.lambda = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.addz.lambda[dscout.susierss.out_sample.addz.lambda$estimate_residual_variance==FALSE,], sum)
+total.out.addz.lambda = aggregate(DSC~ pve+n_signal, dscout.susierss.out_sample.addz.lambda[dscout.susierss.out_sample.addz.lambda$estimate_residual_variance==FALSE,], length)
+total.out.addz.lambda$total_true = total.out.addz.lambda$DSC * total.out.addz.lambda$n_signal
+power.susierss.out.addz.lambda = merge(valid.out.addz.lambda, total.out.addz.lambda)
+power.susierss.out.addz.lambda$out_sample.addz.lambda = round(power.susierss.out.addz.lambda$valid/(power.susierss.out.addz.lambda$total_true), 3)
+power.susierss.out.addz.lambda = power.susierss.out.addz.lambda[,-c(3,4,5)]
+
+power.susierss = cbind(power.susierss.in, power.susierss.out, power.susierss.out.addz, power.susierss.out.lambda, power.susierss.out.addz.lambda)
+power.susierss = power.susierss[,-c(4,5,7,8,10,11,13,14)]
+power.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
+```
+
+* FDR (L=5):
+
+Estimate residual variance
+```{r}
+valid.in = aggregate(valid ~ pve+n_signal, dscout.susierss.in_sample[dscout.susierss.in_sample$estimate_residual_variance==TRUE,], sum)
+total.in = aggregate(total~ pve+n_signal, dscout.susierss.in_sample[dscout.susierss.in_sample$estimate_residual_variance==TRUE,], sum)
+fdr.in = merge(valid.in, total.in)
+fdr.in$in_sample = round((fdr.in$total - fdr.in$valid)/fdr.in$total, 4)
+fdr.in = fdr.in[,-c(3,4)]
+
+valid.out = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample[dscout.susierss.out_sample$estimate_residual_variance==TRUE,], sum)
+total.out = aggregate(total~ pve+n_signal, dscout.susierss.out_sample[dscout.susierss.out_sample$estimate_residual_variance==TRUE,], sum)
+fdr.out = merge(valid.out, total.out)
+fdr.out$out_sample = round((fdr.out$total - fdr.out$valid)/fdr.out$total, 4)
+fdr.out = fdr.out[,-c(3,4)]
+
+valid.out.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$estimate_residual_variance==TRUE,], sum)
+total.out.addz = aggregate(total~ pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$estimate_residual_variance==TRUE,], sum)
+fdr.out.addz = merge(valid.out.addz, total.out.addz)
+fdr.out.addz$out_sample.addz = round((fdr.out.addz$total - fdr.out.addz$valid)/fdr.out.addz$total, 4)
+fdr.out.addz = fdr.out.addz[,-c(3,4)]
+
+valid.out.lambda = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.lambda[dscout.susierss.out_sample.lambda$estimate_residual_variance==TRUE,], sum)
+total.out.lambda = aggregate(total~ pve+n_signal, dscout.susierss.out_sample.lambda[dscout.susierss.out_sample.lambda$estimate_residual_variance==TRUE,], sum)
+fdr.out.lambda = merge(valid.out.lambda, total.out.lambda)
+fdr.out.lambda$out_sample.lambda = round((fdr.out.lambda$total - fdr.out.lambda$valid)/fdr.out.lambda$total, 4)
+fdr.out.lambda = fdr.out.lambda[,-c(3,4)]
+
+valid.out.addz.lambda = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.addz.lambda[dscout.susierss.out_sample.addz.lambda$estimate_residual_variance==TRUE,], sum)
+total.out.addz.lambda = aggregate(total~ pve+n_signal, dscout.susierss.out_sample.addz.lambda[dscout.susierss.out_sample.addz.lambda$estimate_residual_variance==TRUE,], sum)
+fdr.out.addz.lambda = merge(valid.out.addz.lambda, total.out.addz.lambda)
+fdr.out.addz.lambda$out_sample.addz = round((fdr.out.addz.lambda$total - fdr.out.addz.lambda$valid)/fdr.out.addz.lambda$total, 4)
+fdr.out.addz.lambda = fdr.out.addz.lambda[,-c(3,4)]
+
+fdr.susierss = cbind(fdr.in, fdr.out, fdr.out.addz, fdr.out.lambda, fdr.out.addz.lambda)
+fdr.susierss = fdr.susierss[,-c(4,5,7,8,10,11,13,14)]
+fdr.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
+```
+
+NOT estimate residual variance
+```{r}
+valid.in = aggregate(valid ~ pve+n_signal, dscout.susierss.in_sample[dscout.susierss.in_sample$estimate_residual_variance==FALSE,], sum)
+total.in = aggregate(total~ pve+n_signal, dscout.susierss.in_sample[dscout.susierss.in_sample$estimate_residual_variance==FALSE,], sum)
+fdr.in = merge(valid.in, total.in)
+fdr.in$in_sample = round((fdr.in$total - fdr.in$valid)/fdr.in$total, 4)
+fdr.in = fdr.in[,-c(3,4)]
+
+valid.out = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample[dscout.susierss.out_sample$estimate_residual_variance==FALSE,], sum)
+total.out = aggregate(total~ pve+n_signal, dscout.susierss.out_sample[dscout.susierss.out_sample$estimate_residual_variance==FALSE,], sum)
+fdr.out = merge(valid.out, total.out)
+fdr.out$out_sample = round((fdr.out$total - fdr.out$valid)/fdr.out$total, 4)
+fdr.out = fdr.out[,-c(3,4)]
+
+valid.out.addz = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$estimate_residual_variance==FALSE,], sum)
+total.out.addz = aggregate(total~ pve+n_signal, dscout.susierss.out_sample.addz[dscout.susierss.out_sample.addz$estimate_residual_variance==FALSE,], sum)
+fdr.out.addz = merge(valid.out.addz, total.out.addz)
+fdr.out.addz$out_sample.addz = round((fdr.out.addz$total - fdr.out.addz$valid)/fdr.out.addz$total, 4)
+fdr.out.addz = fdr.out.addz[,-c(3,4)]
+
+valid.out.lambda = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.lambda[dscout.susierss.out_sample.lambda$estimate_residual_variance==FALSE,], sum)
+total.out.lambda = aggregate(total~ pve+n_signal, dscout.susierss.out_sample.lambda[dscout.susierss.out_sample.lambda$estimate_residual_variance==FALSE,], sum)
+fdr.out.lambda = merge(valid.out.lambda, total.out.lambda)
+fdr.out.lambda$out_sample.lambda = round((fdr.out.lambda$total - fdr.out.lambda$valid)/fdr.out.lambda$total, 4)
+fdr.out.lambda = fdr.out.lambda[,-c(3,4)]
+
+valid.out.addz.lambda = aggregate(valid ~ pve+n_signal, dscout.susierss.out_sample.addz.lambda[dscout.susierss.out_sample.addz.lambda$estimate_residual_variance==FALSE,], sum)
+total.out.addz.lambda = aggregate(total~ pve+n_signal, dscout.susierss.out_sample.addz.lambda[dscout.susierss.out_sample.addz.lambda$estimate_residual_variance==FALSE,], sum)
+fdr.out.addz.lambda = merge(valid.out.addz.lambda, total.out.addz.lambda)
+fdr.out.addz.lambda$out_sample.addz = round((fdr.out.addz.lambda$total - fdr.out.addz.lambda$valid)/fdr.out.addz.lambda$total, 4)
+fdr.out.addz.lambda = fdr.out.addz.lambda[,-c(3,4)]
+
+fdr.susierss = cbind(fdr.in, fdr.out, fdr.out.addz, fdr.out.lambda, fdr.out.addz.lambda)
+fdr.susierss = fdr.susierss[,-c(4,5,7,8,10,11,13,14)]
+fdr.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive","bordered"), full_width = F)
+```
