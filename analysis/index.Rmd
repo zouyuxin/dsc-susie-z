@@ -76,4 +76,19 @@ Welcome to my research website.
     
     [ROC in one plot](r_compare_add_z_ROC.html)
     
+    ----------------------------
+    
+    More investigations (2019-04-29): we include model 1. without estimating residual variance, 2. susierss with lambda
+    
+    [Power, FDR for SuSiE related methods](r_compare_add_z_lambda_susie.html)
+    
+    [Calibrated PIP and ROC for FINEMAP](r_compare_add_z_lambda_finemap.html)
+    
+    [Calibrated PIP and ROC for SuSiE](r_compare_susie_lambda_ROC.html)
+    
+    [Calibrated PIP and ROC for SuSiE b](r_compare_add_z_lambda_susieb_ROC.html)
+    
+    [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_lambda_susierss_ROC.html)
+    
+    [ROC in one plot](r_compare_add_z_lambda_ROC.html)
     
