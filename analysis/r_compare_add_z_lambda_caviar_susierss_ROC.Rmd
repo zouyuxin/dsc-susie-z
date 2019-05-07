@@ -158,7 +158,7 @@ grid.arrange(g[[1]], g[[2]], g[[3]],g[[4]], g[[5]], g[[6]], g[[7]], g[[8]], g[[9
 ```{r echo=FALSE,fig.width=15, fig.height=15,fig.align='center'}
 g = list()
 idx = 0
-name = names(pip_cali)[grepl("notest",names(pip_cali))]
+name = names(pip_cali)[!grepl("notest",names(pip_cali))]
 name = name[!grepl("lamb1",name)]
 name = name[!grepl("in_sample.addz", name)]
 for(Rtype in name){
@@ -313,6 +313,7 @@ for (method in name) {
 }
 legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
 ```
+
 ##### Estimate residual variance
 
 ```{r fig.width=6, fig.height=5}
@@ -465,10 +466,11 @@ grid.arrange(g[[1]], g[[2]], g[[3]],g[[4]], g[[5]], g[[6]], g[[7]], g[[8]], g[[9
 ```
 
 ##### Estimate residual variance
+
 ```{r echo=FALSE,fig.width=15, fig.height=15,fig.align='center'}
 g = list()
 idx = 0
-name = names(pip_cali)[grepl("notest",names(pip_cali))]
+name = names(pip_cali)[!grepl("notest",names(pip_cali))]
 name = name[!grepl("lamb1",name)]
 name = name[!grepl("in_sample.addz", name)]
 for(Rtype in name){
@@ -598,6 +600,7 @@ for (method in name) {
 }
 legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
 ```
+
 ##### Estimate residual variance
 
 ```{r fig.width=6, fig.height=5}
@@ -739,7 +742,7 @@ grid.arrange(g[[1]], g[[2]], g[[3]],g[[4]], g[[5]], g[[6]], g[[7]], g[[8]], g[[9
 ```{r echo=FALSE,fig.width=15, fig.height=15,fig.align='center'}
 g = list()
 idx = 0
-name = names(pip_cali)[grepl("notest",names(pip_cali))]
+name = names(pip_cali)[!grepl("notest",names(pip_cali))]
 name = name[!grepl("lamb1",name)]
 name = name[!grepl("in_sample.addz", name)]
 for(Rtype in name){
@@ -869,6 +872,7 @@ for (method in name) {
 }
 legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
 ```
+
 ##### Estimate residual variance
 
 ```{r fig.width=6, fig.height=5}
