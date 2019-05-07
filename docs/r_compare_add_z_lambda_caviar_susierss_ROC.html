@@ -431,7 +431,7 @@ div.section {
 
 <h1 class="title toc-ignore">Compare in-sample R vs out-sample R + z SuSiE RSS</h1>
 <h4 class="author"><em>Yuxin Zou</em></h4>
-<h4 class="date"><em>4/30/2019</em></h4>
+<h4 class="date"><em>5/7/2019</em></h4>
 
 </div>
 
@@ -456,7 +456,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-05-06
+<strong>Last updated:</strong> 2019-05-07
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -535,10 +535,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree960f1ce465b1cb42f6829bf0fa92d01071553b92targetblank960f1cea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/960f1ce465b1cb42f6829bf0fa92d01071553b92" target="_blank">960f1ce</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree5ddbf7dd8c3b50703271e787cfb9ccbdcd623cd0targetblank5ddbf7da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/5ddbf7dd8c3b50703271e787cfb9ccbdcd623cd0" target="_blank">5ddbf7d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree960f1ce465b1cb42f6829bf0fa92d01071553b92targetblank960f1cea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree5ddbf7dd8c3b50703271e787cfb9ccbdcd623cd0targetblank5ddbf7da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -621,7 +621,6 @@ Unstaged changes:
     Modified:   analysis/SuSiErssNotConverge.Rmd
     Modified:   analysis/SusieZPerformance.Rmd
     Modified:   analysis/SusieZPerformanceRE3.Rmd
-    Modified:   analysis/index.Rmd
     Modified:   output/dsc_susie_z_v_output.rds
 
 </code></pre>
@@ -661,6 +660,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/5ddbf7dd8c3b50703271e787cfb9ccbdcd623cd0/analysis/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd" target="_blank">5ddbf7d</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-05-07
+</td>
+<td>
+wflow_publish(c(“analysis/r_compare_add_z_lambda_caviar_CAVIAR.Rmd”, “analysis/r_compare_add_z_lambda_caviar_FINEMAP_ROC.Rmd”,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/0c72522bc2d05581cdfe76a9361bac6b8f75c1bf/docs/r_compare_add_z_lambda_caviar_susierss_ROC.html" target="_blank">0c72522</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-05-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -720,26 +753,9 @@ wflow_publish(“analysis/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd”)
 </div>
 </div>
 <pre class="r"><code>library(ggplot2)
-library(cowplot)</code></pre>
-<pre><code>Warning: package &#39;cowplot&#39; was built under R version 3.5.2</code></pre>
-<pre><code>
-Attaching package: &#39;cowplot&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
-
-    ggsave</code></pre>
-<pre class="r"><code>library(gridExtra)
+library(cowplot)
+library(gridExtra)
 library(dplyr)</code></pre>
-<pre><code>
-Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:gridExtra&#39;:
-
-    combine</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    filter, lag</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>dscout.susierss = readRDS(&#39;output/r_compare_add_z_lambda_caviar_dscout_susierss_tibble.rds&#39;)
 dscout.susierss = dscout.susierss[,-c(2, 6, 8, 14:19)]
 colnames(dscout.susierss) = c(&#39;DSC&#39;, &#39;pve&#39;, &#39;n_signal&#39;, &#39;meta&#39;,&#39;N_in&#39;, &#39;ld_method&#39;,&#39;lambda&#39;,&#39;estimate_residual_variance&#39;, &#39;addz&#39;, &#39;L&#39;,&#39;pip&#39;, &#39;converged&#39;)
@@ -918,6 +934,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0c72522bc2d05581cdfe76a9361bac6b8f75c1bf/docs/figure/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd/unnamed-chunk-7-1.png" target="_blank">0c72522</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-05-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/76287b323ae8d98fb09124fcc95d0cdef4e872ae/docs/figure/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd/unnamed-chunk-7-1.png" target="_blank">76287b3</a>
 </td>
 <td>
@@ -955,8 +982,9 @@ roc_data = function(d1, cutoff = c(pip_cutoff, 0.999), connect_org = F) {
   return(list(counts = rst1, rates = rst2))
 }
 
-print(&quot;Computing ROC data ...&quot;)
-roc = list()
+print(&quot;Computing ROC data ...&quot;)</code></pre>
+<pre><code>[1] &quot;Computing ROC data ...&quot;</code></pre>
+<pre class="r"><code>roc = list()
 for (method in names(dat)) {
   roc[[method]] = roc_data(dat[[method]])
 }
@@ -1417,6 +1445,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0c72522bc2d05581cdfe76a9361bac6b8f75c1bf/docs/figure/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd/unnamed-chunk-19-1.png" target="_blank">0c72522</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-05-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/76287b323ae8d98fb09124fcc95d0cdef4e872ae/docs/figure/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd/unnamed-chunk-19-1.png" target="_blank">76287b3</a>
 </td>
 <td>
@@ -1454,8 +1493,9 @@ roc_data = function(d1, cutoff = c(pip_cutoff, 0.999), connect_org = F) {
   return(list(counts = rst1, rates = rst2))
 }
 
-print(&quot;Computing ROC data ...&quot;)
-roc = list()
+print(&quot;Computing ROC data ...&quot;)</code></pre>
+<pre><code>[1] &quot;Computing ROC data ...&quot;</code></pre>
+<pre class="r"><code>roc = list()
 for (method in names(dat)) {
   roc[[method]] = roc_data(dat[[method]])
 }
@@ -1871,6 +1911,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0c72522bc2d05581cdfe76a9361bac6b8f75c1bf/docs/figure/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd/unnamed-chunk-30-1.png" target="_blank">0c72522</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-05-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/76287b323ae8d98fb09124fcc95d0cdef4e872ae/docs/figure/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd/unnamed-chunk-30-1.png" target="_blank">76287b3</a>
 </td>
 <td>
@@ -1889,24 +1940,6 @@ zouyuxin
 <div id="power-vs-fdr-2" class="section level4">
 <h4>Power vs FDR</h4>
 <pre class="r"><code>pip_cutoff = 0.05
-
-roc_data = function(d1, cutoff = c(pip_cutoff, 0.999), connect_org = F) {
-  grid = 500
-  ttv = seq(1:grid)/grid
-  ttv = ttv[which(ttv&gt;=cutoff[1] &amp; ttv&lt;=cutoff[2])]
-  rst1 = t(sapply(ttv, function(x) c(sum(d1[,2][d1[,1]&gt;=x]), length(d1[,2][d1[,1]&gt;=x]), sum(d1[,2][d1[,1]&gt;=x]==0))))
-  rst1 = cbind(rst1, sum(d1[,2]), sum(1-d1[,2]))
-  rst1 = as.data.frame(rst1)
-  colnames(rst1) = c(&#39;true_positive&#39;, &#39;total_positive&#39;, &#39;false_positive&#39;, &#39;total_signal&#39;,&#39;total_null&#39;)
-  rst2 = as.data.frame(cbind(rst1$true_positive / rst1$total_positive, rst1$true_positive / rst1$total_signal,  ttv))
-  if (connect_org) {
-    # make a stair to origin
-    rst2 = rbind(rst2, c(max(0.995, rst2[nrow(rst2),1]), max(rst2[nrow(rst2),2]-0.01, 0), rst2[nrow(rst2),3]))
-    rst2 = rbind(rst2, c(1, 0, 1))
-  }
-  colnames(rst2) = c(&#39;Precision&#39;, &#39;Recall&#39;, &#39;Threshold&#39;)
-  return(list(counts = rst1, rates = rst2))
-}
 
 print(&quot;Computing ROC data ...&quot;)
 roc = list()
