@@ -7,7 +7,7 @@ output:
     code_folding: hide
 ---
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ggplot2)
 library(cowplot)
 library(gridExtra)
@@ -423,7 +423,7 @@ grid.arrange(g[[1]], g[[2]], g[[3]], g[[4]], g[[5]], g[[6]],nrow = 2, as.table =
 
 #### Power vs FDR
 
-```{r eval=FALSE}
+```{r}
 pip_cutoff = 0.05
 
 print("Computing ROC data ...")
