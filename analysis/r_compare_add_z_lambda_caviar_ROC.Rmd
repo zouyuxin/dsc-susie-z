@@ -7,7 +7,7 @@ output:
     code_folding: hide
 ---
 
-```{r}
+```{r message=F, warning=F}
 library(ggplot2)
 library(cowplot)
 library(gridExtra)
