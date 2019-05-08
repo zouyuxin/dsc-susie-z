@@ -535,10 +535,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreeff1d96d983e9fd0265b184e361bf13b640ba5990targetblankff1d96da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/ff1d96d983e9fd0265b184e361bf13b640ba5990" target="_blank">ff1d96d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreef6c6c722f1049f8b2e167e9d2ba5686ed456d646targetblankf6c6c72a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/f6c6c722f1049f8b2e167e9d2ba5686ed456d646" target="_blank">f6c6c72</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreeff1d96d983e9fd0265b184e361bf13b640ba5990targetblankff1d96da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreef6c6c722f1049f8b2e167e9d2ba5686ed456d646targetblankf6c6c72a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -665,6 +665,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/f6c6c722f1049f8b2e167e9d2ba5686ed456d646/analysis/r_compare_add_z_lambda_caviar_ROC.Rmd" target="_blank">f6c6c72</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-05-07
+</td>
+<td>
+wflow_publish(“analysis/r_compare_add_z_lambda_caviar_ROC.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/c90be1572908e83d27e8b1a86f9d9e08fafad000/docs/r_compare_add_z_lambda_caviar_ROC.html" target="_blank">c90be15</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-05-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/ff1d96d983e9fd0265b184e361bf13b640ba5990/analysis/r_compare_add_z_lambda_caviar_ROC.Rmd" target="_blank">ff1d96d</a>
 </td>
 <td>
@@ -755,17 +789,8 @@ susierss.l5 = readRDS(&#39;output/r_compare_add_z_lambda_caviar_SuSiErss_L5_ROC.
 smooth = FALSE
 colors = c(&#39;lightpink&#39;, &#39;red&#39;, &#39;blue&#39;, &#39;mediumseagreen&#39;,&#39;maroon&#39;, &#39;yellow2&#39;)
 
-library(scam)</code></pre>
-<pre><code>Loading required package: mgcv</code></pre>
-<pre><code>Loading required package: nlme</code></pre>
-<pre><code>
-Attaching package: &#39;nlme&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:dplyr&#39;:
-
-    collapse</code></pre>
-<pre><code>This is mgcv 1.8-26. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
-<pre><code>This is scam 1.2-3.</code></pre>
-<pre class="r"><code>create_chunks = function(item, n) {
+library(scam)
+create_chunks = function(item, n) {
   splitted = suppressWarnings(split(item, 1:n))
   return(c(splitted[[1]], splitted[[length(splitted)]][length(splitted[[length(splitted)]])]))
 }
@@ -994,9 +1019,9 @@ i = 1
 for (method in names(roc.notest)) {
   yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
-    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
   add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
@@ -1048,7 +1073,7 @@ zouyuxin
 <pre class="r"><code>par(mfrow=c(1,2))
 labels = vector()
 i = 1
-roc.notest = list(CAVIAR = caviar$out_sample, FINEMAP = finemap$in_sample, SuSiEb = susieb.l2$out_sample.notest, SuSiErss = susierss.l2$out_sample.notest, SuSiErss.lamb2 = susierss.l2$out_sample.notest.lamb2)
+roc.notest = list(CAVIAR = caviar$out_sample, FINEMAP = finemap$out_sample, SuSiEb = susieb.l2$out_sample.notest, SuSiErss = susierss.l2$out_sample.notest, SuSiErss.lamb2 = susierss.l2$out_sample.notest.lamb2)
 tmp = list()
 for (method in names(roc.notest)) {
   TPR = roc.notest[[method]]$counts$true_positive/roc.notest[[method]]$counts$total_signal
@@ -1061,9 +1086,9 @@ roc.notest = tmp
 for (method in names(roc.notest)) {
   yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L = 2&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L = 2&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
-    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
   add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
@@ -1074,7 +1099,7 @@ legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), c
 
 labels = vector()
 i = 1
-roc.notest = list(CAVIAR = caviar$out_sample, FINEMAP = finemap$in_sample, SuSiEb = susieb.l5$out_sample.notest, SuSiErss = susierss.l5$out_sample.notest, SuSiErss.lamb2 = susierss.l5$out_sample.notest.lamb2)
+roc.notest = list(CAVIAR = caviar$out_sample, FINEMAP = finemap$out_sample, SuSiEb = susieb.l5$out_sample.notest, SuSiErss = susierss.l5$out_sample.notest, SuSiErss.lamb2 = susierss.l5$out_sample.notest.lamb2)
 tmp = list()
 for (method in names(roc.notest)) {
   TPR = roc.notest[[method]]$counts$true_positive/roc.notest[[method]]$counts$total_signal
@@ -1087,9 +1112,9 @@ roc.notest = tmp
 for (method in names(roc.notest)) {
   yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L =5&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L =5&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
-    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
   add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
@@ -1140,7 +1165,7 @@ zouyuxin
 <h4>OUT sample add z</h4>
 <pre class="r"><code>labels = vector()
 i = 1
-roc.notest = list(CAVIAR = caviar$out_sample.addz, FINEMAP = finemap$in_sample.addz, SuSiEb = susieb.l5$out_sample.addz.notest, SuSiErss = susierss.l5$out_sample.addz.notest, SuSiErss.lamb2 = susierss.l5$out_sample.addz.notest.lamb2)
+roc.notest = list(CAVIAR = caviar$out_sample.addz, FINEMAP = finemap$out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.notest, SuSiErss = susierss.l5$out_sample.addz.notest, SuSiErss.lamb2 = susierss.l5$out_sample.addz.notest.lamb2)
 tmp = list()
 for (method in names(roc.notest)) {
   TPR = roc.notest[[method]]$counts$true_positive/roc.notest[[method]]$counts$total_signal
@@ -1153,9 +1178,9 @@ roc.notest = tmp
 for (method in names(roc.notest)) {
   yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L =5&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L =5&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
-    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
   add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
@@ -1416,7 +1441,7 @@ i = 1
 for (method in names(roc.est)) {
   yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
@@ -1470,7 +1495,7 @@ zouyuxin
 <pre class="r"><code>par(mfrow=c(1,2))
 labels = vector()
 i = 1
-roc.est = list(CAVIAR = caviar$out_sample, FINEMAP = finemap$in_sample, SuSiEb = susieb.l2$out_sample.est, SuSiErss = susierss.l2$out_sample.est, SuSiErss.lamb2 = susierss.l2$out_sample.est.lamb2)
+roc.est = list(CAVIAR = caviar$out_sample, FINEMAP = finemap$out_sample, SuSiEb = susieb.l2$out_sample.est, SuSiErss = susierss.l2$out_sample.est, SuSiErss.lamb2 = susierss.l2$out_sample.est.lamb2)
 tmp = list()
 for (method in names(roc.est)) {
   TPR = roc.est[[method]]$counts$true_positive/roc.est[[method]]$counts$total_signal
@@ -1483,9 +1508,9 @@ roc.est = tmp
 for (method in names(roc.est)) {
   yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L = 2&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L = 2&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
-    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
   add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
@@ -1496,7 +1521,7 @@ legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), c
 
 labels = vector()
 i = 1
-roc.est = list(CAVIAR = caviar$out_sample, FINEMAP = finemap$in_sample, SuSiEb = susieb.l5$out_sample.est, SuSiErss = susierss.l5$out_sample.est, SuSiErss.lamb2 = susierss.l5$out_sample.est.lamb2)
+roc.est = list(CAVIAR = caviar$out_sample, FINEMAP = finemap$out_sample, SuSiEb = susieb.l5$out_sample.est, SuSiErss = susierss.l5$out_sample.est, SuSiErss.lamb2 = susierss.l5$out_sample.est.lamb2)
 tmp = list()
 for (method in names(roc.est)) {
   TPR = roc.est[[method]]$counts$true_positive/roc.est[[method]]$counts$total_signal
@@ -1509,9 +1534,9 @@ roc.est = tmp
 for (method in names(roc.est)) {
   yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L =5&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L =5&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
-    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
   add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
@@ -1562,7 +1587,7 @@ zouyuxin
 <h4>OUT sample add z</h4>
 <pre class="r"><code>labels = vector()
 i = 1
-roc.est = list(CAVIAR = caviar$out_sample.addz, FINEMAP = finemap$in_sample.addz, SuSiEb = susieb.l5$out_sample.addz.est, SuSiErss = susierss.l5$out_sample.addz.est, SuSiErss.lamb2 = susierss.l5$out_sample.addz.est.lamb2)
+roc.est = list(CAVIAR = caviar$out_sample.addz, FINEMAP = finemap$out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.est, SuSiErss = susierss.l5$out_sample.addz.est, SuSiErss.lamb2 = susierss.l5$out_sample.addz.est.lamb2)
 tmp = list()
 for (method in names(roc.est)) {
   TPR = roc.est[[method]]$counts$true_positive/roc.est[[method]]$counts$total_signal
@@ -1575,9 +1600,9 @@ roc.est = tmp
 for (method in names(roc.est)) {
   yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L =5&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L =5&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
-    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
   add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
@@ -1647,19 +1672,19 @@ attached base packages:
 
 other attached packages:
 [1] scam_1.2-3    mgcv_1.8-26   nlme_3.1-137  dplyr_0.7.8   gridExtra_2.3
-[6] cowplot_0.9.4 ggplot2_3.1.0
+[6] cowplot_0.9.4 ggplot2_3.1.1
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.1       compiler_3.5.1   pillar_1.3.1     git2r_0.24.0    
  [5] plyr_1.8.4       workflowr_1.3.0  bindr_0.1.1      tools_3.5.1     
- [9] digest_0.6.18    lattice_0.20-38  evaluate_0.12    tibble_2.0.1    
-[13] gtable_0.2.0     pkgconfig_2.0.2  rlang_0.3.1      Matrix_1.2-15   
-[17] yaml_2.2.0       bindrcpp_0.2.2   withr_2.1.2      stringr_1.3.1   
+ [9] digest_0.6.18    lattice_0.20-38  evaluate_0.12    tibble_2.1.1    
+[13] gtable_0.3.0     pkgconfig_2.0.2  rlang_0.3.4      Matrix_1.2-15   
+[17] yaml_2.2.0       bindrcpp_0.2.2   withr_2.1.2      stringr_1.4.0   
 [21] knitr_1.20       fs_1.2.6         rprojroot_1.3-2  grid_3.5.1      
-[25] tidyselect_0.2.5 glue_1.3.0       R6_2.3.0         rmarkdown_1.11  
+[25] tidyselect_0.2.5 glue_1.3.1       R6_2.4.0         rmarkdown_1.11  
 [29] purrr_0.2.5      magrittr_1.5     whisker_0.3-2    splines_3.5.1   
 [33] backports_1.1.3  scales_1.0.0     htmltools_0.3.6  assertthat_0.2.1
-[37] colorspace_1.4-0 stringi_1.2.4    lazyeval_0.2.1   munsell_0.5.0   
+[37] colorspace_1.4-1 stringi_1.4.3    lazyeval_0.2.2   munsell_0.5.0   
 [41] crayon_1.3.4    </code></pre>
 </div>
 </div>
