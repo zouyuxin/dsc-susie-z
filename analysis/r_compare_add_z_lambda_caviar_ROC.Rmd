@@ -54,7 +54,7 @@ make_smooth = function(x,y,subset=chunks, smooth = FALSE){
 add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
   idx = which(thresholds == threshold)
   text(x[idx] - delta,y[idx],labels = threshold,col = color,cex = 0.8)
-  points(x[idx], y[idx])
+  points(x[idx], y[idx], col = color)
 }
 ```
 
