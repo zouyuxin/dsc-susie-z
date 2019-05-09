@@ -69,12 +69,12 @@ i = 1
 for (method in names(roc.notest)) {
   yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.4), ylim = c(0,0.4))
   } else {
-    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.4))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.03)
   labels[i] = method
   i = i + 1
 }
@@ -276,12 +276,12 @@ i = 1
 for (method in names(roc.est)) {
   yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.4), ylim = c(0,0.4))
   } else {
-    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.4))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.03)
   labels[i] = method
   i = i + 1
 }
