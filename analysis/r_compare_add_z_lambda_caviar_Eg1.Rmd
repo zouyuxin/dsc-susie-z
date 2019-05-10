@@ -2,10 +2,12 @@
 title: "Untitled"
 author: "Yuxin Zou"
 date: "5/8/2019"
-output: html_document
+output:   
+  workflowr::wflow_html:
+    code_folding: hide
 ---
 
-```{r}
+```{r message=F, warning=F}
 library(data.table)
 library(susieR)
 ```
