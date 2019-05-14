@@ -108,3 +108,4 @@ Welcome to my research website.
 
     [Data 1](r_compare_add_z_lambda_caviar_Eg1.html)
     
+* A [Benchmark](FINEMAP_benchmark.html) for FINEMAP v1.3.1
