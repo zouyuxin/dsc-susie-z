@@ -59,6 +59,14 @@ susie_plot(fit_susierss_out_addz, y='PIP', b = sim$meta$true_coef)
 
 **420 has pip 1.**
 
+Plot each iteration:
+```{r}
+library(magick)
+iters = image_read('output/SuSiEFD/susierss.out.addz.2.gif')
+iters
+```
+The true signal disappears after 3 iterations.
+
 L = 1
 ```{r}
 fit_susierss_out_addz.1 = susie_rss(z, R = r.out.addz, estimate_residual_variance = FALSE, L=1, lambda=0.1, track_fit = TRUE)
