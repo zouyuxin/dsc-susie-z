@@ -76,9 +76,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -196,8 +194,6 @@ $(document).ready(function () {
   menuAnchor.closest('li.dropdown').addClass('active');
 });
 </script>
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -353,8 +349,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -363,6 +357,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -430,8 +434,8 @@ div.section {
 
 
 <h1 class="title toc-ignore">SuSiE FD Example</h1>
-<h4 class="author"><em>Yuxin Zou</em></h4>
-<h4 class="date"><em>5/10/2019</em></h4>
+<h4 class="author">Yuxin Zou</h4>
+<h4 class="date">5/14/2019</h4>
 
 </div>
 
@@ -456,7 +460,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-05-10
+<strong>Last updated:</strong> 2019-05-31
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -535,10 +539,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreee0d53030a903b1230a4a5f7e8efcee3032f891aatargetblanke0d5303a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/e0d53030a903b1230a4a5f7e8efcee3032f891aa" target="_blank">e0d5303</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreee48fde824534cb7ce8a17335bf2ad45315bec177targetblanke48fde8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/e48fde824534cb7ce8a17335bf2ad45315bec177" target="_blank">e48fde8</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreee0d53030a903b1230a4a5f7e8efcee3032f891aatargetblanke0d5303a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreee48fde824534cb7ce8a17335bf2ad45315bec177targetblanke48fde8a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -607,6 +611,8 @@ Untracked files:
     Untracked:  output/r_compare_add_z_lambda_dscout_susie_finemap_tibble.rds
     Untracked:  output/r_compare_dscout_susie_finemappip_tibble.rds
     Untracked:  output/r_compare_dscout_susie_finemappip_truth_tibble.rds
+    Untracked:  output/r_compare_finemap_v1.3.1_ROC.rds
+    Untracked:  output/r_compare_finemapv1.3.1.rds
     Untracked:  output/r_compare_susieb_PIP_ROC.rds
     Untracked:  output/r_compare_susiepip_tibble.rds
     Untracked:  output/r_compare_susierss_PIP_ROC.rds
@@ -661,6 +667,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/e48fde824534cb7ce8a17335bf2ad45315bec177/analysis/r_compare_add_z_lambda_caviar_Eg1.Rmd" target="_blank">e48fde8</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-05-31
+</td>
+<td>
+wflow_publish(“analysis/r_compare_add_z_lambda_caviar_Eg1.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/4e4dacb52d6f744551fbfc8cf61316b0e58bb69e/docs/r_compare_add_z_lambda_caviar_Eg1.html" target="_blank">4e4dacb</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-05-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -755,12 +795,14 @@ wflow_publish(“analysis/r_compare_add_z_lambda_caviar_Eg1.Rmd”)
 </div>
 <pre class="r"><code>library(data.table)
 library(susieR)</code></pre>
-<p>PVE 0.2, n signal = 1</p>
-<pre class="r"><code>data = readRDS(&#39;output/SuSiEFD/small_data_121.rds&#39;)
-r.in = as.matrix(fread(&#39;output/SuSiEFD/small_data_121.ld_in_file.in.ld&#39;))
-r.out = as.matrix(fread(&#39;output/SuSiEFD/small_data_121.ld_out_file.out.ld&#39;))
-sim = readRDS(&#39;output/SuSiEFD/small_data_121_sim_gaussian_2.rds&#39;)
-ss = readRDS(&#39;output/SuSiEFD/small_data_121_sim_gaussian_2_get_sumstats_1.rds&#39;)</code></pre>
+<p>The data is simulated with PVE 0.2, n signal = 1.</p>
+<p>Read data:</p>
+<pre class="r"><code>data = readRDS(&#39;output/SuSiEFD/small_data_68.rds&#39;)
+r.in = as.matrix(fread(&#39;output/SuSiEFD/small_data_68.ld_in_file.in.ld&#39;))
+r.out = as.matrix(fread(&#39;output/SuSiEFD/small_data_68.ld_out_file.out.ld&#39;))
+sim = readRDS(&#39;output/SuSiEFD/small_data_68_sim_gaussian_2.rds&#39;)
+ss = readRDS(&#39;output/SuSiEFD/small_data_68_sim_gaussian_2_get_sumstats_1.rds&#39;)</code></pre>
+<p>Plot p values</p>
 <pre class="r"><code>z = ss$sumstats$bhat/ss$sumstats$shat
 r.out.addz = cov2cor((data$N_out-1) * r.out+tcrossprod(z))
 susie_plot(z, y=&#39;z&#39;, b = sim$meta$true_coef)</code></pre>
@@ -802,11 +844,20 @@ zouyuxin
 </table>
 </div>
 </div>
-<div id="susie-bhat" class="section level2">
-<h2>SuSiE bhat</h2>
-<p>In sample:</p>
-<pre class="r"><code>fit_susiebhat_in = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n = data$N_in, estimate_residual_variance = FALSE, L=5)
-susie_plot(fit_susiebhat_in, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
+<p>The true signal is 267.</p>
+<p>The models below are fitted without estimating residual variance.</p>
+<div id="susie-rss" class="section level2">
+<h2>SuSiE rss</h2>
+<div id="using-in-sample-r" class="section level3">
+<h3>Using in sample R</h3>
+<pre class="r"><code>fit_susierss_in = susie_rss(z, R = r.in, estimate_residual_variance = FALSE, L=2, lambda = 0.1, track_fit = T)</code></pre>
+<pre><code>Warning in susie_rss(z, R = r.in, estimate_residual_variance = FALSE,
+L = 2, : This method is under active development, so it should not be
+considered stable.</code></pre>
+<pre><code>Warning in susie_rss(z, R = r.in, estimate_residual_variance = FALSE, L =
+2, : The maximum number of non-zero effects is greater than 1, this feature
+is experimental.</code></pre>
+<pre class="r"><code>susie_plot(fit_susierss_in, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_Eg1.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
@@ -845,9 +896,17 @@ zouyuxin
 </table>
 </div>
 </div>
-<p>Out sample:</p>
-<pre class="r"><code>fit_susiebhat_out = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.out, n = data$N_in, estimate_residual_variance = FALSE, L=5)
-susie_plot(fit_susiebhat_out, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
+</div>
+<div id="using-out-sample-r" class="section level3">
+<h3>Using out sample R</h3>
+<pre class="r"><code>fit_susierss_out = susie_rss(z, R = r.out, estimate_residual_variance = FALSE, L=2, lambda=0.1, track_fit = T)</code></pre>
+<pre><code>Warning in susie_rss(z, R = r.out, estimate_residual_variance = FALSE,
+L = 2, : This method is under active development, so it should not be
+considered stable.</code></pre>
+<pre><code>Warning in susie_rss(z, R = r.out, estimate_residual_variance = FALSE, L =
+2, : The maximum number of non-zero effects is greater than 1, this feature
+is experimental.</code></pre>
+<pre class="r"><code>susie_plot(fit_susierss_out, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_Eg1.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -886,9 +945,18 @@ zouyuxin
 </table>
 </div>
 </div>
-<p>Out sample addz:</p>
-<pre class="r"><code>fit_susiebhat_out_addz = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.out.addz, n = data$N_in, estimate_residual_variance = FALSE, L=5)
-susie_plot(fit_susiebhat_out_addz, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
+</div>
+<div id="using-out-sample-r-addz" class="section level3">
+<h3>Using out sample R addz</h3>
+<p>L = 2</p>
+<pre class="r"><code>fit_susierss_out_addz = susie_rss(z, R = r.out.addz, estimate_residual_variance = FALSE, L=2, lambda=0.1, track_fit = TRUE)</code></pre>
+<pre><code>Warning in susie_rss(z, R = r.out.addz, estimate_residual_variance =
+FALSE, : This method is under active development, so it should not be
+considered stable.</code></pre>
+<pre><code>Warning in susie_rss(z, R = r.out.addz, estimate_residual_variance =
+FALSE, : The maximum number of non-zero effects is greater than 1, this
+feature is experimental.</code></pre>
+<pre class="r"><code>susie_plot(fit_susierss_out_addz, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_Eg1.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -927,15 +995,13 @@ zouyuxin
 </table>
 </div>
 </div>
-</div>
-<div id="susie-rss" class="section level2">
-<h2>SuSiE rss</h2>
-<p>In sample:</p>
-<pre class="r"><code>fit_susierss_in = susie_rss(z, R = r.in, estimate_residual_variance = FALSE, L=5, lambda = 0.1)</code></pre>
-<pre><code>Warning in susie_rss(z, R = r.in, estimate_residual_variance = FALSE, L =
-5, : The maximum number of non-zero effects is greater than 1, this feature
-is experimental.</code></pre>
-<pre class="r"><code>susie_plot(fit_susierss_in, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
+<p><strong>420 has pip 1.</strong></p>
+<p>L = 1</p>
+<pre class="r"><code>fit_susierss_out_addz.1 = susie_rss(z, R = r.out.addz, estimate_residual_variance = FALSE, L=1, lambda=0.1, track_fit = TRUE)</code></pre>
+<pre><code>Warning in susie_rss(z, R = r.out.addz, estimate_residual_variance =
+FALSE, : This method is under active development, so it should not be
+considered stable.</code></pre>
+<pre class="r"><code>susie_plot(fit_susierss_out_addz.1, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_Eg1.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -974,12 +1040,16 @@ zouyuxin
 </table>
 </div>
 </div>
-<p>Out sample:</p>
-<pre class="r"><code>fit_susierss_out = susie_rss(z, R = r.out, estimate_residual_variance = FALSE, L=5, lambda=2)</code></pre>
-<pre><code>Warning in susie_rss(z, R = r.out, estimate_residual_variance = FALSE, L =
-5, : The maximum number of non-zero effects is greater than 1, this feature
-is experimental.</code></pre>
-<pre class="r"><code>susie_plot(fit_susierss_out, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
+<p>The model with L = 2 fails to capture the true signal but it has higher objective value than the model with L=1.</p>
+<p>Try with prior variance = 20 and not estimate prior variance:</p>
+<pre class="r"><code>fit_susierss_out_addz.prior = susie_rss(z, R = r.out.addz, estimate_residual_variance = FALSE, L=2, lambda=0.1, track_fit = TRUE, prior_variance = 20, estimate_prior_variance = FALSE)</code></pre>
+<pre><code>Warning in susie_rss(z, R = r.out.addz, estimate_residual_variance =
+FALSE, : This method is under active development, so it should not be
+considered stable.</code></pre>
+<pre><code>Warning in susie_rss(z, R = r.out.addz, estimate_residual_variance =
+FALSE, : The maximum number of non-zero effects is greater than 1, this
+feature is experimental.</code></pre>
+<pre class="r"><code>susie_plot(fit_susierss_out_addz.prior, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_Eg1.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1018,50 +1088,25 @@ zouyuxin
 </table>
 </div>
 </div>
-<p>Out sample addz:</p>
-<pre class="r"><code>fit_susierss_out_addz = susie_rss(z, R = r.out.addz, estimate_residual_variance = FALSE, L=5, lambda = 0.1)</code></pre>
-<pre><code>Warning in susie_rss(z, R = r.out.addz, estimate_residual_variance =
-FALSE, : The maximum number of non-zero effects is greater than 1, this
-feature is experimental.</code></pre>
-<pre class="r"><code>susie_plot(fit_susiebhat_out_addz, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_Eg1.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d7c55b30e75a18bf12afe0a861a1a53597c758ae/docs/figure/r_compare_add_z_lambda_caviar_Eg1.Rmd/unnamed-chunk-9-1.png" target="_blank">d7c55b3</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-10
-</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
+<div id="correlation-between-true-signal-267-and-false-signal-420" class="section level2">
+<h2>correlation between true signal (267) and false signal (420)</h2>
+<p>The in sample correlation is</p>
+<pre class="r"><code>r.in[c(267, 420), c(267, 420)]</code></pre>
+<pre><code>            V267        V420
+[1,]  1.00000000 -0.01674701
+[2,] -0.01674701  1.00000000</code></pre>
+<p>The out sample correlation is</p>
+<pre class="r"><code>r.out[c(267, 420), c(267, 420)]</code></pre>
+<pre><code>          V267      V420
+[1,] 1.0000000 0.6631455
+[2,] 0.6631455 1.0000000</code></pre>
+<p>The out sample correlation add z is</p>
+<pre class="r"><code>r.out.addz[c(267, 420), c(267, 420)]</code></pre>
+<pre><code>          V267      V420
+[1,] 1.0000000 0.5762609
+[2,] 0.5762609 1.0000000</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1085,15 +1130,16 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] susieR_0.8.1.0516 data.table_1.12.0
+[1] susieR_0.8.1.0521 data.table_1.12.2
 
 loaded via a namespace (and not attached):
- [1] workflowr_1.3.0 Rcpp_1.0.1      lattice_0.20-38 digest_0.6.18  
- [5] rprojroot_1.3-2 grid_3.5.1      backports_1.1.3 git2r_0.24.0   
- [9] magrittr_1.5    evaluate_0.12   stringi_1.4.3   fs_1.2.6       
-[13] whisker_0.3-2   Matrix_1.2-15   rmarkdown_1.11  tools_3.5.1    
-[17] stringr_1.4.0   glue_1.3.1      yaml_2.2.0      compiler_3.5.1 
-[21] htmltools_0.3.6 knitr_1.20     </code></pre>
+ [1] workflowr_1.3.0  Rcpp_1.0.1       lattice_0.20-38  digest_0.6.19   
+ [5] rprojroot_1.3-2  MASS_7.3-51.4    grid_3.5.1       backports_1.1.4 
+ [9] git2r_0.25.2     magrittr_1.5     evaluate_0.13    stringi_1.4.3   
+[13] wavethresh_4.6.8 fs_1.3.1         whisker_0.3-2    Matrix_1.2-17   
+[17] rmarkdown_1.13   tools_3.5.1      stringr_1.4.0    glue_1.3.1      
+[21] xfun_0.7         yaml_2.2.0       compiler_3.5.1   htmltools_0.3.6 
+[25] knitr_1.23      </code></pre>
 </div>
 </div>
 
