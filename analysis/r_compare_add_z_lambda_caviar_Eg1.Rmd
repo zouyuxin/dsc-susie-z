@@ -1,7 +1,7 @@
 ---
 title: "SuSiE FD Example"
 author: "Yuxin Zou"
-date: "5/10/2019"
+date: "5/14/2019"
 output:   
   workflowr::wflow_html:
     code_folding: hide
@@ -12,58 +12,120 @@ library(data.table)
 library(susieR)
 ```
 
-PVE 0.2, n signal = 1
+The data is simulated with PVE 0.2, n signal = 1.
+
+Read data:
 
 ```{r}
-data = readRDS('output/SuSiEFD/small_data_121.rds')
-r.in = as.matrix(fread('output/SuSiEFD/small_data_121.ld_in_file.in.ld'))
-r.out = as.matrix(fread('output/SuSiEFD/small_data_121.ld_out_file.out.ld'))
-sim = readRDS('output/SuSiEFD/small_data_121_sim_gaussian_2.rds')
-ss = readRDS('output/SuSiEFD/small_data_121_sim_gaussian_2_get_sumstats_1.rds')
+data = readRDS('output/SuSiEFD/small_data_68.rds')
+r.in = as.matrix(fread('output/SuSiEFD/small_data_68.ld_in_file.in.ld'))
+r.out = as.matrix(fread('output/SuSiEFD/small_data_68.ld_out_file.out.ld'))
+sim = readRDS('output/SuSiEFD/small_data_68_sim_gaussian_2.rds')
+ss = readRDS('output/SuSiEFD/small_data_68_sim_gaussian_2_get_sumstats_1.rds')
 ```
 
+Plot p values
 ```{r}
 z = ss$sumstats$bhat/ss$sumstats$shat
 r.out.addz = cov2cor((data$N_out-1) * r.out+tcrossprod(z))
 susie_plot(z, y='z', b = sim$meta$true_coef)
 ```
 
-## SuSiE bhat
+The true signal is 267.
 
-In sample:
-```{r}
-fit_susiebhat_in = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.in, n = data$N_in, estimate_residual_variance = FALSE, L=5)
-susie_plot(fit_susiebhat_in, y='PIP', b = sim$meta$true_coef)
-```
-
-Out sample:
-```{r}
-fit_susiebhat_out = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.out, n = data$N_in, estimate_residual_variance = FALSE, L=5)
-susie_plot(fit_susiebhat_out, y='PIP', b = sim$meta$true_coef)
-```
-
-Out sample addz:
-```{r}
-fit_susiebhat_out_addz = susie_bhat(ss$sumstats$bhat, ss$sumstats$shat, R = r.out.addz, n = data$N_in, estimate_residual_variance = FALSE, L=5)
-susie_plot(fit_susiebhat_out_addz, y='PIP', b = sim$meta$true_coef)
-```
+The models below are fitted without estimating residual variance.
 
 ## SuSiE rss
 
-In sample:
+### Using in sample R
 ```{r}
-fit_susierss_in = susie_rss(z, R = r.in, estimate_residual_variance = FALSE, L=5, lambda = 0.1)
+fit_susierss_in = susie_rss(z, R = r.in, estimate_residual_variance = FALSE, L=2, lambda = 0.1, track_fit = T)
 susie_plot(fit_susierss_in, y='PIP', b = sim$meta$true_coef)
 ```
 
-Out sample:
+### Using out sample R
 ```{r}
-fit_susierss_out = susie_rss(z, R = r.out, estimate_residual_variance = FALSE, L=5, lambda=2)
+fit_susierss_out = susie_rss(z, R = r.out, estimate_residual_variance = FALSE, L=2, lambda=0.1, track_fit = T)
 susie_plot(fit_susierss_out, y='PIP', b = sim$meta$true_coef)
 ```
 
-Out sample addz:
+### Using out sample R addz
+
+L = 2
 ```{r}
-fit_susierss_out_addz = susie_rss(z, R = r.out.addz, estimate_residual_variance = FALSE, L=5, lambda = 0.1)
-susie_plot(fit_susiebhat_out_addz, y='PIP', b = sim$meta$true_coef)
+fit_susierss_out_addz = susie_rss(z, R = r.out.addz, estimate_residual_variance = FALSE, L=2, lambda=0.1, track_fit = TRUE)
+susie_plot(fit_susierss_out_addz, y='PIP', b = sim$meta$true_coef)
+```
+
+**420 has pip 1.**
+
+L = 1
+```{r}
+fit_susierss_out_addz.1 = susie_rss(z, R = r.out.addz, estimate_residual_variance = FALSE, L=1, lambda=0.1, track_fit = TRUE)
+susie_plot(fit_susierss_out_addz.1, y='PIP', b = sim$meta$true_coef)
+```
+
+The model with L = 2 fails to capture the true signal but it has higher objective value than the model with L=1.
+
+Try with prior variance = 20 and not estimate prior variance:
+```{r}
+fit_susierss_out_addz.prior = susie_rss(z, R = r.out.addz, estimate_residual_variance = FALSE, L=2, lambda=0.1, track_fit = TRUE, prior_variance = 20, estimate_prior_variance = FALSE)
+susie_plot(fit_susierss_out_addz.prior, y='PIP', b = sim$meta$true_coef)
+```
+
+## correlation between true signal (267) and false signal (420)
+
+The in sample correlation is
+```{r}
+r.in[c(267, 420), c(267, 420)]
+```
+
+The out sample correlation is
+```{r}
+r.out[c(267, 420), c(267, 420)]
+```
+
+The out sample correlation add z is
+```{r}
+r.out.addz[c(267, 420), c(267, 420)]
+```
+
+
+```{r echo=FALSE, eval=FALSE}
+library(RColorBrewer)
+library(gplots)
+color <- colorRampPalette(c("blue", "white", "red"))(n = 299)
+
+true_coef = which(sim$meta$true_coef != 0)
+
+true_coef_col = rep('white', length(sim$meta$true_coef))
+true_coef_col[true_coef] = 'red'
+true_coef_col[420] = 'red'
+true_coef_col[c(1,100,200,300,400,500,600,700,800,900,1000)] = 'black'
+colnames(r.in)[c(1,100,200,300,400,500,600,700,800,900,1000)] = c(1,100,200,300,400,500,600,700,800,900,1000)
+colnames(r.in)[-c(1,100,200,300,400,500,600,700,800,900,1000)] = rep(NA, length(colnames(r.in))-11)
+colnames(r.in)[true_coef] = true_coef
+colnames(r.in)[420] = 420
+row.names(r.in) = colnames(r.in)
+pdf('../output/SuSiEFD/r.in.pdf')
+heatmap.2(r.in[250:430, 250:430], Colv = FALSE, Rowv = FALSE, dendrogram = 'none', symm = TRUE, main = 'R in sample', col=color, colCol=true_coef_col[250:430],colRow = true_coef_col[250:430], density.info = 'none', trace="none", cexRow = 0.8, cexCol = 0.8)
+dev.off() 
+
+colnames(r.out)[c(1,100,200,300,400,500,600,700,800,900,1000)] = c(1,100,200,300,400,500,600,700,800,900,1000)
+colnames(r.out)[-c(1,100,200,300,400,500,600,700,800,900,1000)] = rep(NA, length(colnames(r.out))-11)
+colnames(r.out)[true_coef] = true_coef
+colnames(r.out)[420] = 420
+row.names(r.out) = colnames(r.out)
+pdf('../output/SuSiEFD/r.out.pdf')
+heatmap.2(r.out[250:430, 250:430], Colv = FALSE, Rowv = FALSE, dendrogram = 'none', symm = TRUE, main = 'R out sample', col=color, colCol=true_coef_col[250:430],colRow = true_coef_col[250:430], density.info = 'none', trace="none", cexRow = 0.8, cexCol = 0.8)
+dev.off() 
+
+colnames(r.out.addz)[c(1,100,200,300,400,500,600,700,800,900,1000)] = c(1,100,200,300,400,500,600,700,800,900,1000)
+colnames(r.out.addz)[-c(1,100,200,300,400,500,600,700,800,900,1000)] = rep(NA, length(colnames(r.out.addz))-11)
+colnames(r.out.addz)[true_coef] = true_coef
+colnames(r.out.addz)[420] = 420
+row.names(r.out.addz) = colnames(r.out)
+pdf('../output/SuSiEFD/r.out.addz.pdf')
+heatmap.2(r.out.addz[250:430, 250:430], Colv = FALSE, Rowv = FALSE, dendrogram = 'none', symm = TRUE, main = 'R out sample add z', col=color, colCol=true_coef_col[250:430],colRow = true_coef_col[250:430], density.info = 'none', trace="none", cexRow = 0.8, cexCol = 0.8)
+dev.off() 
 ```
