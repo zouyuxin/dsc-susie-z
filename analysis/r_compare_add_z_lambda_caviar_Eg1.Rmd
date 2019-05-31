@@ -5,7 +5,7 @@ date: "5/14/2019"
 output:   
   workflowr::wflow_html:
     code_folding: hide
-    self_contained: false
+    self_contained: true
 ---
 
 ```{r message=F, warning=F}
