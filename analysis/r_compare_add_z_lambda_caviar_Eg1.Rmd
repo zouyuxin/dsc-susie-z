@@ -40,7 +40,7 @@ The models below are fitted without estimating residual variance.
 
 ### Using in sample R
 ```{r}
-fit_susierss_in = susie_rss(z, R = r.in, estimate_residual_variance = FALSE, L=2, lambda = 0.1, track_fit = T)
+fit_susierss_in = susie_rss(z, R = r.in, estimate_residual_variance = FALSE, L=2, track_fit = T, lambda = 0.1)
 susie_plot(fit_susierss_in, y='PIP', b = sim$meta$true_coef)
 ```
 
@@ -137,4 +137,34 @@ row.names(r.out.addz) = colnames(r.out)
 pdf('../output/SuSiEFD/r.out.addz.pdf')
 heatmap.2(r.out.addz[250:430, 250:430], Colv = FALSE, Rowv = FALSE, dendrogram = 'none', symm = TRUE, main = 'R out sample add z', col=color, colCol=true_coef_col[250:430],colRow = true_coef_col[250:430], density.info = 'none', trace="none", cexRow = 0.8, cexCol = 0.8)
 dev.off() 
+```
+
+## Remove SNPs have MAP < 0.05
+```{r}
+idx = which(data$maf_out > 0.05)
+X.in = data$X_in[, idx]
+X.out = data$X_out[, idx]
+r.in.r = cor(X.in)
+r.out.r = cor(X.out)
+z.r = z[idx]
+r.out.addz.r = cov2cor((data$N_out-1) * r.out.r+tcrossprod(z.r))
+susie_plot(z.r, y='z', b = sim$meta$true_coef[idx])
+```
+
+Using in sample R
+```{r}
+fit_susierss_in.r = susie_rss(z.r, R = r.in.r, estimate_residual_variance = FALSE, L=2, track_fit = T, lambda = 0.1)
+susie_plot(fit_susierss_in.r, y='PIP', b = sim$meta$true_coef[idx])
+```
+
+Using out sample R
+```{r}
+fit_susierss_out.r = susie_rss(z.r, R = r.out.r, estimate_residual_variance = FALSE, L=2, lambda=0.1, track_fit = T)
+susie_plot(fit_susierss_out.r, y='PIP', b = sim$meta$true_coef[idx])
+```
+
+Using out sample R addz
+```{r}
+fit_susierss_out_addz.r = susie_rss(z.r, R = r.out.addz.r, estimate_residual_variance = FALSE, L=2, lambda=0.1, track_fit = TRUE)
+susie_plot(fit_susierss_out_addz.r, y='PIP', b = sim$meta$true_coef[idx])
 ```
