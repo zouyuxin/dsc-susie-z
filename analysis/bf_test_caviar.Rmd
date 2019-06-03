@@ -1,0 +1,184 @@
+---
+title: "bf_test_caviar"
+author: "Matthew Stephens"
+date: "2019-06-01"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+## Introduction
+
+This is computation of log-BFs based on code from Caviar (see end for code)
+
+```{r}
+library(mvtnorm)
+library(data.table)
+lbf = function(Zcc,Rcc,NCP){
+  p = length(Zcc)
+  if(p==1){
+    return(dnorm(Zcc,0,Rcc+Rcc*NCP*Rcc,log=TRUE) - dnorm(Zcc,0,Rcc,log=TRUE))
+  } else {
+    return(mvtnorm::dmvnorm(Zcc, mean=rep(0,p), Rcc + Rcc %*% diag(NCP,p) %*% Rcc, log=TRUE) - mvtnorm::dmvnorm(Zcc, mean = rep(0, p), Rcc, log=TRUE))
+  }
+}
+```
+
+```{r}
+data = readRDS('output/SuSiEFD/small_data_68.rds')
+r.in = as.matrix(fread('output/SuSiEFD/small_data_68.ld_in_file.in.ld'))
+r.out = as.matrix(fread('output/SuSiEFD/small_data_68.ld_out_file.out.ld'))
+sim = readRDS('output/SuSiEFD/small_data_68_sim_gaussian_2.rds')
+ss = readRDS('output/SuSiEFD/small_data_68_sim_gaussian_2_get_sumstats_1.rds')
+z = ss$sumstats$bhat/ss$sumstats$shat
+r.out.addz = cov2cor((data$N_out-1) * r.out+tcrossprod(z))
+```
+
+The true causal is 267. Susie gets 420 as a false discovery, and another CS containing SNPs correlated with 267.
+```{r}
+z[c(7,8 ,16 ,29, 35, 36, 37,267,420)]
+```
+
+The following shows that, using out of sample LD, indeed the BF for 7 and 420 is much higher than 7 alone (or 267 alone). [from caviar code NCP in caviar is set to be 5.2]
+```{r}
+lbf_index = function(index,NCP){lbf(z[index],r.out.addz[index,index],NCP)}
+lbf_index(7,5.2)
+lbf_index(c(7,267),5.2)
+lbf_index(c(7,420),5.2)
+lbf_index(c(267,420),5.2)
+```
+
+And if we just look at the BFs in combination with SNP 7 the posterior
+on 420 is very near 1.
+```{r}
+lbf_with_7 = rep(0,length(z)) 
+for(i in 1:length(z)){
+  lbf_with_7[i] = lbf_index(c(7,i),5.2)
+}
+lbf_with_7[7]=lbf_index(7,5.2)
+par(mfrow=c(1,2))
+plot(lbf_with_7)
+plot(exp(lbf_with_7-max(lbf_with_7))/sum(exp(lbf_with_7-max(lbf_with_7))))
+```
+
+log-BF from Caviar:
+
+```{r}
+lbf.cavair = read.table('test2_ll.log', skip = 10, sep=' ')
+```
+The lbf for SNP 7 is
+```{r}
+lbf.cavair[7, 2]
+```
+The lbf for SNP 7, 267 is
+```{r}
+lbf.cavair[lbf.cavair[,1]=='6,266,',2]
+```
+The lbf for SNP 7, 420 is
+```{r}
+lbf.cavair[lbf.cavair[,1]=='6,419,',2]
+```
+The lbf for SNP 267, 420 is
+```{r}
+lbf.cavair[lbf.cavair[,1]=='266,419,',2]
+```
+
+```{r}
+idx = c(1008, 2008, 3007, 4005, 5002, 5998, 7, 6994:7988)
+lbf_7 = lbf.cavair[idx, 2]
+par(mfrow=c(1,2))
+plot(lbf_7, ylab='lbf caviar with 7')
+plot(exp(lbf_7-max(lbf_7))/sum(exp(lbf_7-max(lbf_7))))
+```
+
+The correlation matrix in CAVIAR has diagonal 1.36. 
+
+```{r}
+r.tmp = r.out.addz
+diag(r.tmp) = 1.36
+lbf_index = function(index,NCP){lbf(z[index],r.tmp[index,index],NCP)}
+lbf_index(7,5.2)
+lbf_index(c(7,267),5.2)
+lbf_index(c(7,420),5.2)
+lbf_index(c(267,420),5.2)
+```
+
+```{r}
+lbf_with_7 = rep(0,length(z)) 
+for(i in 1:length(z)){
+  lbf_with_7[i] = lbf_index(c(7,i),5.2)
+}
+lbf_with_7[7]=lbf_index(7,5.2)
+par(mfrow=c(1,2))
+plot(lbf_with_7)
+plot(exp(lbf_with_7-max(lbf_with_7))/sum(exp(lbf_with_7-max(lbf_with_7))))
+```
+
+Fit susie with lambda = 0.36
+
+```{r}
+library(susieR)
+fit_susie = susie_rss(z, r.out.addz, estimate_residual_variance = FALSE, L=2, lambda=0.36, track_fit = TRUE)
+susie_plot(fit_susie, y='PIP', b = sim$meta$true_coef)
+```
+
+Using lambda = 0.36, det($R+\lambda I$) > 0. 
+
+
+# Caviar code
+This code is from CAVIAR for reference:
+```
+// cc=causal SNPs
+// Rcc = LD of causal SNPs
+// Zcc = Z-score of causal SNPs
+// dmvnorm(Zcc, mean=rep(0,nrow(Rcc)), Rcc + Rcc %*% Rcc) / dmvnorm(Zcc, rep(0, nrow(Rcc)), Rcc))
+//
+double PostCal::fastLikelihood(int * configure, double * stat, double NCP) {
+	int causalCount = 0;
+	vector <int> causalIndex;
+	for(int i = 0; i < snpCount; i++) {
+		causalCount += configure[i];
+		if(configure[i] == 1)
+			causalIndex.push_back(i);
+	}
+	
+	if (causalCount == 0) {
+		int maxVal = 0;
+		for(int i = 0; i < snpCount; i++) {
+			if (maxVal < abs(stat[i]))
+				maxVal = stat[i];
+		}
+	}
+
+	mat Rcc(causalCount, causalCount, fill::zeros);
+	mat Zcc(causalCount, 1, fill::zeros);
+	mat mean(causalCount, 1, fill::zeros);
+	mat diagC(causalCount, causalCount, fill::zeros);
+
+	for (int i = 0; i < causalCount; i++){
+		for(int j = 0; j < causalCount; j++) {
+			Rcc(i,j) = sigmaMatrix(causalIndex[i], causalIndex[j]);
+		}
+		Zcc(i,0) = stat[causalIndex[i]];
+		diagC(i,i) = NCP;
+	}
+		
+	return fracdmvnorm(Zcc, mean, Rcc, diagC, NCP);
+}
+
+
+// We compute dmvnorm(Zcc, mean=rep(0,nrow(Rcc)), Rcc + Rcc %*% Rcc) / dmvnorm(Zcc, rep(0, nrow(Rcc)), Rcc))
+// togheter to avoid numerical over flow
+double PostCal::fracdmvnorm(mat Z, mat mean, mat R, mat diagC, double NCP) {
+        mat newR = R + R * diagC  * R;
+        mat ZcenterMean = Z - mean;
+        //mat res1 = trans(ZcenterMean) * inv(R) * (ZcenterMean);
+        //mat res2 = trans(ZcenterMean) * inv(newR) *  (ZcenterMean);
+	mat res1 = trans(ZcenterMean) * solve(R, eye(size(R))) * (ZcenterMean);
+	mat res2 = trans(ZcenterMean) * solve(newR, eye(size(newR))) *  (ZcenterMean);
+        double v1 = res1(0,0)/2-res2(0,0)/2;
+	//CHANGE: MOVE FORM NORMAL CALCULATION TO LOG SPACE
+        //return(exp(v1)/sqrt(det(newR))* sqrt(det(R)));
+        return(v1 - log( sqrt(det(newR)) ) + log( sqrt(det(R)) ) );
+}
+```
