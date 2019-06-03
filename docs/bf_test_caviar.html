@@ -9,9 +9,11 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Matthew Stephens" />
 
+<meta name="date" content="2019-06-01" />
 
-<title>Home</title>
+<title>bf_test_caviar</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,7 +21,11 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -259,7 +265,99 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -269,6 +367,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -316,9 +424,19 @@ div.section {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Home</h1>
+
+<h1 class="title toc-ignore">bf_test_caviar</h1>
+<h4 class="author">Matthew Stephens</h4>
+<h4 class="date">2019-06-01</h4>
 
 </div>
 
@@ -346,7 +464,7 @@ div.section {
 <strong>Last updated:</strong> 2019-06-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>dsc-susie-z/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -374,6 +492,54 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190115code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190115)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190115code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190115)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
 <a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreeeea3de78eb42847658cb0f56a8193716352b1ff6targetblankeea3de7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/eea3de78eb42847658cb0f56a8193716352b1ff6" target="_blank">eea3de7</a> </a>
 </p>
 </div>
@@ -389,7 +555,6 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    .sos/
     Ignored:    analysis/.DS_Store
-    Ignored:    analysis/figure/
     Ignored:    data/.DS_Store
     Ignored:    output/.DS_Store
     Ignored:    output/SuSiEFD/.DS_Store
@@ -416,7 +581,6 @@ Untracked files:
     Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1.rds
     Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1_susie_z_1.rds
     Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1_susie_z_2.rds
-    Untracked:  docs/figure/bf_test_caviar.Rmd/
     Untracked:  figure/
     Untracked:  output/SuSiEFD/r.in.pdf
     Untracked:  output/SuSiEFD/r.out.addz.pdf
@@ -551,767 +715,19 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/75030af79cd46ce9a360b0dbc623eb02c662ac0f/docs/index.html" target="_blank">75030af</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-14
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/56fbb74fc2931bee97d277b5e1dca0c19166708d/analysis/index.Rmd" target="_blank">56fbb74</a>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/eea3de78eb42847658cb0f56a8193716352b1ff6/analysis/bf_test_caviar.Rmd" target="_blank">eea3de7</a>
 </td>
 <td>
 zouyuxin
 </td>
 <td>
-2019-05-14
+2019-06-03
 </td>
 <td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/7ef91e7e4b88c5f06338d27a107566680a236614/docs/index.html" target="_blank">7ef91e7</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/e373d1cba861e5a6a3de930df54a69f594468174/analysis/index.Rmd" target="_blank">e373d1c</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-10
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/1d9c9073364aee6237c3195a6ccd30f4fb986f44/docs/index.html" target="_blank">1d9c907</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-07
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d1a13fb8c51c46b2549119362b09085f43db48d/analysis/index.Rmd" target="_blank">8d1a13f</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-07
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/aa6238c8aa412b188f492929abde54aeb00dd50a/docs/index.html" target="_blank">aa6238c</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-07
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/dbeec71bd7dee58043d6199905234b7f1ec3ce69/analysis/index.Rmd" target="_blank">dbeec71</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-07
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/36ddb75beba0e0d21b5978f1688eba772b5421e2/docs/index.html" target="_blank">36ddb75</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-07
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a48a10fdedfebbc0a230cc58c3eab135c0dfd1c5/analysis/index.Rmd" target="_blank">a48a10f</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-07
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/88781fd2588ece3bf71ee77394d476ea4462dbde/docs/index.html" target="_blank">88781fd</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/d868818c6954fc85dfba987c6a5a1a5375c911b8/analysis/index.Rmd" target="_blank">d868818</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-01
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/96faa1f92004a8fe45ca25b772c61c93d9c67adc/docs/index.html" target="_blank">96faa1f</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/4299a41ac41e9e4079ff06f89288304100ac30a3/analysis/index.Rmd" target="_blank">4299a41</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-05-01
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/b5ec7e302d2cd78538a7f1e26b92839ae1749b80/docs/index.html" target="_blank">b5ec7e3</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-30
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/e6a00a4799f4432c43f238d20e76fc79d8c6e6b1/analysis/index.Rmd" target="_blank">e6a00a4</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-30
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/a7120509917de2b185e18634904c0dcbdcc39772/docs/index.html" target="_blank">a712050</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/f6e92c6bb6ba40b126aa0cf054af45920e984ea2/analysis/index.Rmd" target="_blank">f6e92c6</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-24
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/24d19f4cb2ea5ec542531c76ebfb4bf3ccfe6183/docs/index.html" target="_blank">24d19f4</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/1303c25cb5aec660c7c1bc04ab8776dd10816836/analysis/index.Rmd" target="_blank">1303c25</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-24
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/1d7a5254f8392bbec02aa29c101f505eab45613b/docs/index.html" target="_blank">1d7a525</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/a9ecf622d2f3d9f31ba04c8d8dfe19c61d28af13/docs/index.html" target="_blank">a9ecf62</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-15
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/c558dc12a32eb5d0d148b5f1375bc0dab786ae74/analysis/index.Rmd" target="_blank">c558dc1</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-15
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/3915ed4aeed32426773a5adedd5a14f7b88a0377/docs/index.html" target="_blank">3915ed4</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-15
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/c101ada79236a68a055670d0a7e29814631a435b/analysis/index.Rmd" target="_blank">c101ada</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-15
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/0e143b6ffd453296cd13b595f6d72d33668bc3db/docs/index.html" target="_blank">0e143b6</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-15
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/df60eace1ed15103b647448aa442ee0f253f588e/analysis/index.Rmd" target="_blank">df60eac</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-04-15
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/0e2f6dff7d60fe9e04183129b21fc8da47e92324/docs/index.html" target="_blank">0e2f6df</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-03-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/13a6b56bee60045fe52302b67095d288b8880f53/analysis/index.Rmd" target="_blank">13a6b56</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-03-12
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/4cc29fd2cc6c1434aa687b6e9bf13c4fc6535ebf/docs/index.html" target="_blank">4cc29fd</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-03-03
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/a2686b90c4bdd72cbea8fec744f52b21d5fa248e/analysis/index.Rmd" target="_blank">a2686b9</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-03-03
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/8d36de3dc358c378e8dcc1b61b33e1888cfb975d/docs/index.html" target="_blank">8d36de3</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-03-03
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/4c08b974d5c50338d3d292b8c730bac234c126a6/analysis/index.Rmd" target="_blank">4c08b97</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-03-03
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/392a2e573332cc2dc12a7e4aa836b22102116f44/docs/index.html" target="_blank">392a2e5</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-02-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb256dfe8d5179c99809a17cae24961e46dee009/analysis/index.Rmd" target="_blank">bb256df</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-02-24
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/b89dba82f67a4e75e6fff8424faaff217b8abdc3/docs/index.html" target="_blank">b89dba8</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-02-21
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/b61eba3225ed46b867a6bf1052a1eafcedb0bbc9/analysis/index.Rmd" target="_blank">b61eba3</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-02-21
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/0fc5650215b003cf7415c7310f5713c6635c42b2/docs/index.html" target="_blank">0fc5650</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-02-17
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/1c65da2c549dbac7116cdbdd75786b5dc59cbe6d/analysis/index.Rmd" target="_blank">1c65da2</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-02-17
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/aa7483777d182499860c569737ad709b0733c2f4/docs/index.html" target="_blank">aa74837</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-02-15
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/2a566ddb0cfa95a62b1a53c2237bd026eb11e4d1/analysis/index.Rmd" target="_blank">2a566dd</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-02-15
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/796bdf7882cacff583eeefb0e8eda9e8b3b1eaec/docs/index.html" target="_blank">796bdf7</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-01-17
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/6431042480610d6be6be4c18bf87b292dfbb0ee8/analysis/index.Rmd" target="_blank">6431042</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-01-17
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/beb06855ec37181bb08d5bfd88fb1d430b129cfc/docs/index.html" target="_blank">beb0685</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-01-15
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/zouyuxin/dsc-susie-z/blob/c9150056064ad14866705b0166d17ad4e25604be/analysis/index.Rmd" target="_blank">c915005</a>
-</td>
-<td>
-zouyuxin
-</td>
-<td>
-2019-01-15
-</td>
-<td>
-Start workflowr project.
+wflow_publish(c(“analysis/index.Rmd”, “analysis/bf_test_caviar.Rmd”))
 </td>
 </tr>
 </tbody>
@@ -1321,65 +737,197 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>Welcome to my research website.</p>
-<ul>
-<li><p><a href="dscquery.html">DSC query code</a></p></li>
-<li><p><a href="SusieZConverge.html">SuSiE z convergence</a></p></li>
-<li><p><a href="SusieZProblem.html">SuSiE z Problem</a></p></li>
-<li><p><a href="Problem75.html">Problem 75</a></p></li>
-<li><p><a href="Problem475.html">Problem 475</a></p></li>
-<li><p><a href="SusieZPriorVarCompare.html">SuSiE estimate prior variance comparison</a></p></li>
-<li><p><a href="SusieZPerformance.html">SuSiE z comparisons R full rank</a></p></li>
-</ul>
-<p><a href="SuSiEDAP_Power_data31_35.html">SuSiE z vs DAP Power in one data set</a></p>
-<ul>
-<li><p><a href="SusieZPerformanceRE8.html">SuSiE z comparisons R singular</a></p>
-<p><a href="SuSiEzRProblem42.html">Problem 42</a></p>
-<p><a href="SusieZPerformanceRE3.html">SuSiE z comparisons R singular with truncated eigenvalues</a></p>
-<p><a href="SuSiEzRProblem92.html">Problem 92</a></p></li>
-<li><p><a href="SuSiERobust.html">SuSiE Robust</a></p></li>
-<li><p>SuSiE z investigation:</p>
-<p><a href="logBF.html">log Bays Factor</a></p>
-<p><a href="Investigate.html">Investigate</a></p>
-<p><a href="DontStopProblem.html">Doesn’t stop problem</a></p></li>
-<li><p>Comparing result from in-sample R vs out-sample R:</p>
-<p><a href="r_compare_susie_equal.html">Equal effect size</a></p>
-<p><a href="r_compare_susie_notequal.html">NON-Equal effect size</a></p>
-<p><a href="r_compare_finemap.html">Calibrated PIP and ROC for FINEMAP</a></p>
-<p><a href="r_compare_susieb_ROC.html">Calibrated PIP and ROC for SuSiE b (equal effect size)</a></p>
-<p><a href="r_compare_susierss_ROC.html">Calibrated PIP and ROC for SuSiE rss (equal effect size)</a></p>
-<ul>
-<li><p>Problem data:</p>
-<p><a href="r_compare_susieb_problem.html">SuSiE bhat out sample R error</a></p>
-<p><a href="SuSiErssNotConverge.html">SuSiE RSS not converge</a></p></li>
-</ul>
-<hr />
-<p>More investigations (2019-04-25): we include another estimation of correlation matrix cov2cor(<span class="math inline">\(X&#39;X + zz&#39;\)</span>)</p>
-<p><a href="r_compare_add_z_susie.html">Power, FDR for SuSiE related methods</a></p>
-<p><a href="r_compare_add_z_finemap.html">Calibrated PIP and ROC for FINEMAP</a></p>
-<p><a href="r_compare_susie_ROC.html">Calibrated PIP and ROC for SuSiE</a></p>
-<p><a href="r_compare_add_z_susieb_ROC.html">Calibrated PIP and ROC for SuSiE b</a></p>
-<p><a href="r_compare_add_z_susierss_ROC.html">Calibrated PIP and ROC for SuSiE rss</a></p>
-<p><a href="r_compare_add_z_ROC.html">ROC in one plot</a></p>
-<hr />
-<p>More investigations (2019-04-29): we include model 1. without estimating residual variance, 2. susierss with lambda</p>
-<p><a href="r_compare_add_z_lambda_susie.html">Power, FDR for SuSiE related methods</a></p>
-<p><a href="r_compare_add_z_lambda_finemap.html">Calibrated PIP and ROC for FINEMAP</a></p>
-<p><a href="r_compare_add_z_lambda_susieb_ROC.html">Calibrated PIP and ROC for SuSiE b</a></p>
-<p><a href="r_compare_add_z_lambda_susierss_ROC.html">Calibrated PIP and ROC for SuSiE rss</a></p>
-<p><a href="r_compare_add_z_lambda_ROC.html">ROC in one plot</a></p>
-<hr />
-<p>More investigations (2019-05-06): we change FINEMAP from v1.1 to v1.3.1, add CAVIAR</p>
-<p><a href="r_compare_add_z_lambda_caviar_susie_finemap.html">Power, FDR for FINEMAP and SuSiE related methods</a></p>
-<p><a href="r_compare_add_z_lambda_caviar_CAVIAR.html">Calibrated PIP and ROC for CAVIAR</a></p>
-<p><a href="r_compare_add_z_lambda_caviar_FINEMAP_ROC.html">Calibrated PIP and ROC for FINEMAP</a></p>
-<p><a href="r_compare_add_z_lambda_caviar_susieb_ROC.html">Calibrated PIP and ROC for SuSiE b</a></p>
-<p><a href="r_compare_add_z_lambda_caviar_susierss_ROC.html">Calibrated PIP and ROC for SuSiE rss</a></p>
-<p><a href="r_compare_add_z_lambda_caviar_ROC.html">ROC in one plot</a></p>
-<p><a href="r_compare_add_z_lambda_caviar_Eg1.html">Data 1</a></p>
-<p><a href="bf_test_caviar.html">Compute log-BF for CAVIAR</a></p></li>
-<li><p>A <a href="FINEMAP_benchmark.html">Benchmark</a> for FINEMAP v1.3.1</p></li>
-</ul>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This is computation of log-BFs based on code from Caviar (see end for code)</p>
+<pre class="r"><code>library(mvtnorm)</code></pre>
+<pre><code>Warning: package &#39;mvtnorm&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>library(data.table)</code></pre>
+<pre><code>Warning: package &#39;data.table&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>lbf = function(Zcc,Rcc,NCP){
+  p = length(Zcc)
+  if(p==1){
+    return(dnorm(Zcc,0,Rcc+Rcc*NCP*Rcc,log=TRUE) - dnorm(Zcc,0,Rcc,log=TRUE))
+  } else {
+    return(mvtnorm::dmvnorm(Zcc, mean=rep(0,p), Rcc + Rcc %*% diag(NCP,p) %*% Rcc, log=TRUE) - mvtnorm::dmvnorm(Zcc, mean = rep(0, p), Rcc, log=TRUE))
+  }
+}</code></pre>
+<pre class="r"><code>data = readRDS(&#39;output/SuSiEFD/small_data_68.rds&#39;)
+r.in = as.matrix(fread(&#39;output/SuSiEFD/small_data_68.ld_in_file.in.ld&#39;))
+r.out = as.matrix(fread(&#39;output/SuSiEFD/small_data_68.ld_out_file.out.ld&#39;))
+sim = readRDS(&#39;output/SuSiEFD/small_data_68_sim_gaussian_2.rds&#39;)
+ss = readRDS(&#39;output/SuSiEFD/small_data_68_sim_gaussian_2_get_sumstats_1.rds&#39;)
+z = ss$sumstats$bhat/ss$sumstats$shat
+r.out.addz = cov2cor((data$N_out-1) * r.out+tcrossprod(z))</code></pre>
+<p>The true causal is 267. Susie gets 420 as a false discovery, and another CS containing SNPs correlated with 267.</p>
+<pre class="r"><code>z[c(7,8 ,16 ,29, 35, 36, 37,267,420)]</code></pre>
+<pre><code>[1]  8.973421  8.973421  8.973421  8.973421  8.973421  8.973421  8.973421
+[8]  8.973421 -0.339611</code></pre>
+<p>The following shows that, using out of sample LD, indeed the BF for 7 and 420 is much higher than 7 alone (or 267 alone). [from caviar code NCP in caviar is set to be 5.2]</p>
+<pre class="r"><code>lbf_index = function(index,NCP){lbf(z[index],r.out.addz[index,index],NCP)}
+lbf_index(7,5.2)</code></pre>
+<pre><code>[1] 37.38922</code></pre>
+<pre class="r"><code>lbf_index(c(7,267),5.2)</code></pre>
+<pre><code>[1] 37.85836</code></pre>
+<pre class="r"><code>lbf_index(c(7,420),5.2)</code></pre>
+<pre><code>[1] 53.16633</code></pre>
+<pre class="r"><code>lbf_index(c(267,420),5.2)</code></pre>
+<pre><code>[1] 44.04285</code></pre>
+<p>And if we just look at the BFs in combination with SNP 7 the posterior on 420 is very near 1.</p>
+<pre class="r"><code>lbf_with_7 = rep(0,length(z)) 
+for(i in 1:length(z)){
+  lbf_with_7[i] = lbf_index(c(7,i),5.2)
+}
+lbf_with_7[7]=lbf_index(7,5.2)
+par(mfrow=c(1,2))
+plot(lbf_with_7)
+plot(exp(lbf_with_7-max(lbf_with_7))/sum(exp(lbf_with_7-max(lbf_with_7))))</code></pre>
+<p><img src="figure/bf_test_caviar.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>log-BF from Caviar:</p>
+<pre class="r"><code>lbf.cavair = read.table(&#39;test2_ll.log&#39;, skip = 10, sep=&#39; &#39;)</code></pre>
+<p>The lbf for SNP 7 is</p>
+<pre class="r"><code>lbf.cavair[7, 2]</code></pre>
+<pre><code>[1] 24.8921</code></pre>
+<p>The lbf for SNP 7, 267 is</p>
+<pre class="r"><code>lbf.cavair[lbf.cavair[,1]==&#39;6,266,&#39;,2]</code></pre>
+<pre><code>[1] 31.5348</code></pre>
+<p>The lbf for SNP 7, 420 is</p>
+<pre class="r"><code>lbf.cavair[lbf.cavair[,1]==&#39;6,419,&#39;,2]</code></pre>
+<pre><code>[1] 32.0146</code></pre>
+<p>The lbf for SNP 267, 420 is</p>
+<pre class="r"><code>lbf.cavair[lbf.cavair[,1]==&#39;266,419,&#39;,2]</code></pre>
+<pre><code>[1] 28.956</code></pre>
+<pre class="r"><code>idx = c(1008, 2008, 3007, 4005, 5002, 5998, 7, 6994:7988)
+lbf_7 = lbf.cavair[idx, 2]
+par(mfrow=c(1,2))
+plot(lbf_7, ylab=&#39;lbf caviar with 7&#39;)
+plot(exp(lbf_7-max(lbf_7))/sum(exp(lbf_7-max(lbf_7))))</code></pre>
+<p><img src="figure/bf_test_caviar.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The correlation matrix in CAVIAR has diagonal 1.36.</p>
+<pre class="r"><code>r.tmp = r.out.addz
+diag(r.tmp) = 1.36
+lbf_index = function(index,NCP){lbf(z[index],r.tmp[index,index],NCP)}
+lbf_index(7,5.2)</code></pre>
+<pre><code>[1] 19.34501</code></pre>
+<pre class="r"><code>lbf_index(c(7,267),5.2)</code></pre>
+<pre><code>[1] 31.53482</code></pre>
+<pre class="r"><code>lbf_index(c(7,420),5.2)</code></pre>
+<pre><code>[1] 32.01464</code></pre>
+<pre class="r"><code>lbf_index(c(267,420),5.2)</code></pre>
+<pre><code>[1] 28.95603</code></pre>
+<pre class="r"><code>lbf_with_7 = rep(0,length(z)) 
+for(i in 1:length(z)){
+  lbf_with_7[i] = lbf_index(c(7,i),5.2)
+}
+lbf_with_7[7]=lbf_index(7,5.2)
+par(mfrow=c(1,2))
+plot(lbf_with_7)
+plot(exp(lbf_with_7-max(lbf_with_7))/sum(exp(lbf_with_7-max(lbf_with_7))))</code></pre>
+<p><img src="figure/bf_test_caviar.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Fit susie with lambda = 0.36</p>
+<pre class="r"><code>library(susieR)
+fit_susie = susie_rss(z, r.out.addz, estimate_residual_variance = FALSE, L=2, lambda=0.36, track_fit = TRUE)</code></pre>
+<pre><code>Warning in susie_rss(z, r.out.addz, estimate_residual_variance = FALSE, :
+This method is under active development, so it should not be considered
+stable.</code></pre>
+<pre><code>Warning in susie_rss(z, r.out.addz, estimate_residual_variance = FALSE, :
+The maximum number of non-zero effects is greater than 1, this feature is
+experimental.</code></pre>
+<pre class="r"><code>susie_plot(fit_susie, y=&#39;PIP&#39;, b = sim$meta$true_coef)</code></pre>
+<p><img src="figure/bf_test_caviar.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Using lambda = 0.36, det(<span class="math inline">\(R+\lambda I\)</span>) &gt; 0.</p>
+</div>
+<div id="caviar-code" class="section level1">
+<h1>Caviar code</h1>
+<p>This code is from CAVIAR for reference:</p>
+<pre><code>// cc=causal SNPs
+// Rcc = LD of causal SNPs
+// Zcc = Z-score of causal SNPs
+// dmvnorm(Zcc, mean=rep(0,nrow(Rcc)), Rcc + Rcc %*% Rcc) / dmvnorm(Zcc, rep(0, nrow(Rcc)), Rcc))
+//
+double PostCal::fastLikelihood(int * configure, double * stat, double NCP) {
+    int causalCount = 0;
+    vector &lt;int&gt; causalIndex;
+    for(int i = 0; i &lt; snpCount; i++) {
+        causalCount += configure[i];
+        if(configure[i] == 1)
+            causalIndex.push_back(i);
+    }
+    
+    if (causalCount == 0) {
+        int maxVal = 0;
+        for(int i = 0; i &lt; snpCount; i++) {
+            if (maxVal &lt; abs(stat[i]))
+                maxVal = stat[i];
+        }
+    }
+
+    mat Rcc(causalCount, causalCount, fill::zeros);
+    mat Zcc(causalCount, 1, fill::zeros);
+    mat mean(causalCount, 1, fill::zeros);
+    mat diagC(causalCount, causalCount, fill::zeros);
+
+    for (int i = 0; i &lt; causalCount; i++){
+        for(int j = 0; j &lt; causalCount; j++) {
+            Rcc(i,j) = sigmaMatrix(causalIndex[i], causalIndex[j]);
+        }
+        Zcc(i,0) = stat[causalIndex[i]];
+        diagC(i,i) = NCP;
+    }
+        
+    return fracdmvnorm(Zcc, mean, Rcc, diagC, NCP);
+}
+
+
+// We compute dmvnorm(Zcc, mean=rep(0,nrow(Rcc)), Rcc + Rcc %*% Rcc) / dmvnorm(Zcc, rep(0, nrow(Rcc)), Rcc))
+// togheter to avoid numerical over flow
+double PostCal::fracdmvnorm(mat Z, mat mean, mat R, mat diagC, double NCP) {
+        mat newR = R + R * diagC  * R;
+        mat ZcenterMean = Z - mean;
+        //mat res1 = trans(ZcenterMean) * inv(R) * (ZcenterMean);
+        //mat res2 = trans(ZcenterMean) * inv(newR) *  (ZcenterMean);
+    mat res1 = trans(ZcenterMean) * solve(R, eye(size(R))) * (ZcenterMean);
+    mat res2 = trans(ZcenterMean) * solve(newR, eye(size(newR))) *  (ZcenterMean);
+        double v1 = res1(0,0)/2-res2(0,0)/2;
+    //CHANGE: MOVE FORM NORMAL CALCULATION TO LOG SPACE
+        //return(exp(v1)/sqrt(det(newR))* sqrt(det(R)));
+        return(v1 - log( sqrt(det(newR)) ) + log( sqrt(det(R)) ) );
+}</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.14.4
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] susieR_0.8.1.0521 data.table_1.12.2 mvtnorm_1.0-10   
+
+loaded via a namespace (and not attached):
+ [1] workflowr_1.3.0  Rcpp_1.0.1       lattice_0.20-38  digest_0.6.19   
+ [5] rprojroot_1.3-2  MASS_7.3-51.4    grid_3.5.1       backports_1.1.4 
+ [9] git2r_0.25.2     magrittr_1.5     evaluate_0.13    stringi_1.4.3   
+[13] wavethresh_4.6.8 fs_1.3.1         whisker_0.3-2    Matrix_1.2-17   
+[17] rmarkdown_1.13   tools_3.5.1      stringr_1.4.0    glue_1.3.1      
+[21] xfun_0.7         yaml_2.2.0       compiler_3.5.1   htmltools_0.3.6 
+[25] knitr_1.23      </code></pre>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
@@ -1395,6 +943,8 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
+</div>
+</div>
 
 </div>
 
