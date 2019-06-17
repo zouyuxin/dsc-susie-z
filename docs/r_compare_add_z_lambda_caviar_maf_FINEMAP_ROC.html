@@ -539,10 +539,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree11e8a8cee5b039fae5708740a921914ba4e5df92targetblank11e8a8ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/11e8a8cee5b039fae5708740a921914ba4e5df92" target="_blank">11e8a8c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree628ebdcddbef16dd9472de65c839a046c2f092fetargetblank628ebdca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/628ebdcddbef16dd9472de65c839a046c2f092fe" target="_blank">628ebdc</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree11e8a8cee5b039fae5708740a921914ba4e5df92targetblank11e8a8ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree628ebdcddbef16dd9472de65c839a046c2f092fetargetblank628ebdca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -652,7 +652,6 @@ Untracked files:
     Untracked:  output/r_compare_maf_dscout_susiebhat_maf0_tibble.rds
     Untracked:  output/r_compare_maf_dscout_susierss_maf0.05_tibble.rds
     Untracked:  output/r_compare_maf_dscout_susierss_maf0_tibble.rds
-    Untracked:  output/r_compare_mafall_FINEMAP_ROC.rds
     Untracked:  output/r_compare_mafall_caviar_ROC.rds
     Untracked:  output/r_compare_susieb_PIP_ROC.rds
     Untracked:  output/r_compare_susiepip_tibble.rds
@@ -710,6 +709,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/628ebdcddbef16dd9472de65c839a046c2f092fe/analysis/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd" target="_blank">628ebdc</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+<td>
+wflow_publish(“analysis/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/ed90e3bce6edff1ed680ea50c1349b7d5dfe9868/docs/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.html" target="_blank">ed90e3b</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -810,6 +843,43 @@ for(Rtype in names(pip_cali)){
 }
 grid.arrange(g[[1]], g[[2]], g[[3]], g[[4]], g[[5]], g[[6]], nrow = 2)</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-7-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/ed90e3bce6edff1ed680ea50c1349b7d5dfe9868/docs/figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-7-1.png" target="_blank">ed90e3b</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="power-vs-fdr" class="section level3">
 <h3>Power vs FDR</h3>
@@ -839,8 +909,8 @@ print(&quot;Computing ROC data ...&quot;)</code></pre>
 for (method in names(dat)) {
   roc[[method]] = roc_data(dat[[method]])
 }
-saveRDS(roc, &#39;output/r_compare_mafall_FINEMAP_ROC.rds&#39;)</code></pre>
-<pre class="r"><code>roc = readRDS(&#39;output/r_compare_mafall_FINEMAP_ROC.rds&#39;)
+saveRDS(roc, &#39;output/r_compare_mafall_FINEMAP_L2_ROC.rds&#39;)</code></pre>
+<pre class="r"><code>roc = readRDS(&#39;output/r_compare_mafall_FINEMAP_L2_ROC.rds&#39;)
 chunks = 0
 smooth = FALSE
 colors = c(&#39;#A60628&#39;, &#39;#7A68A6&#39;, &#39;#348ABD&#39;, &#39;#467821&#39;, &#39;#FF0000&#39;, &#39;#188487&#39;, &#39;#E2A233&#39;,&#39;#A9A9A9&#39;, &#39;#000000&#39;, &#39;#FF00FF&#39;, &#39;#FFD700&#39;, &#39;#ADFF2F&#39;, &#39;#00FFFF&#39;)
@@ -892,6 +962,43 @@ for (method in name) {
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/ed90e3bce6edff1ed680ea50c1349b7d5dfe9868/docs/figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-9-1.png" target="_blank">ed90e3b</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="roc" class="section level3">
 <h3>ROC</h3>
@@ -919,6 +1026,151 @@ for (method in names(roc)) {
 }
 legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/ed90e3bce6edff1ed680ea50c1349b7d5dfe9868/docs/figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-11-1.png" target="_blank">ed90e3b</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="l-5" class="section level3">
+<h3>L = 5</h3>
+<pre class="r"><code>dsc.finemap.list = list(&#39;in_sample&#39; = dsc %&gt;% filter(L == &#39;--n-causal-max 5&#39; &amp; ld_method == &#39;in_sample&#39; &amp; add_z == FALSE),
+                        &#39;out_sample&#39; = dsc %&gt;% filter(L == &#39;--n-causal-max 5&#39; &amp; ld_method == &#39;out_sample&#39; &amp; add_z == FALSE),
+                        &#39;out_sample.addz&#39; = dsc %&gt;% filter(L == &#39;--n-causal-max 5&#39; &amp; ld_method == &#39;out_sample&#39; &amp; add_z == TRUE),
+                        &#39;maf.in_sample&#39; = dsc.maf %&gt;% filter(L == &#39;--n-causal-max 5&#39; &amp; ld_method == &#39;in_sample&#39; &amp; add_z == FALSE),
+                        &#39;maf.out_sample&#39; = dsc.maf %&gt;% filter(L == &#39;--n-causal-max 5&#39; &amp; ld_method == &#39;out_sample&#39; &amp; add_z == FALSE),
+                        &#39;maf.out_sample.addz&#39; = dsc.maf %&gt;% filter(L == &#39;--n-causal-max 5&#39; &amp; ld_method == &#39;out_sample&#39; &amp; add_z == TRUE))</code></pre>
+<pre class="r"><code>dat = list()
+for(name in names(dsc.finemap.list)){
+  dat[[name]] = matrix(NA, 0, 2)
+}
+for(Rtype in names(dat)){
+  for(j in 1:nrow(dsc.finemap.list[[Rtype]])){
+    datj = cbind(dsc.finemap.list[[Rtype]]$pip[[j]], as.integer(dsc.finemap.list[[Rtype]]$meta[[j]]$true_coef!=0))
+    dat[[Rtype]] = rbind(dat[[Rtype]], datj)
+  }
+  colnames(dat[[Rtype]]) = c(&#39;pip&#39;, &#39;truth&#39;)
+}</code></pre>
+<pre class="r"><code>bin_size = 20
+bins = cbind(seq(1:bin_size)/bin_size-1/bin_size, seq(1:bin_size)/bin_size)
+pip_cali = list()
+for(name in names(dsc.finemap.list)){
+  pip_cali[[name]] = matrix(NA, nrow(bins), 3)
+}
+
+for(Rtype in names(pip_cali)){
+  for (i in 1:nrow(bins)) {
+    data_in_bin = dat[[Rtype]][which(dat[[Rtype]][,1] &gt; bins[i,1] &amp; dat[[Rtype]][,1] &lt; bins[i,2]),, drop=FALSE]
+    pip_cali[[Rtype]][i,1] = sum(data_in_bin[,&#39;pip&#39;])
+    pip_cali[[Rtype]][i,2] = sum(data_in_bin[,&#39;truth&#39;])
+    pip_cali[[Rtype]][i,3] = nrow(data_in_bin)
+  }
+}
+
+for(Rtype in names(pip_cali)){
+  pip_cali[[Rtype]][,c(1,2)] = pip_cali[[Rtype]][,c(1,2)] / pip_cali[[Rtype]][,3]
+}</code></pre>
+</div>
+<div id="calibrated-pip-1" class="section level3">
+<h3>Calibrated PIP</h3>
+<pre class="r"><code>g = list()
+idx = 0
+for(Rtype in names(pip_cali)){
+  idx = idx + 1
+  pip_cali[[Rtype]][,3] = sqrt(pip_cali[[Rtype]][,2] * (1 - pip_cali[[Rtype]][,2]) / pip_cali[[Rtype]][,3]) * 2
+  pip_cali[[Rtype]] = as.data.frame(pip_cali[[Rtype]])
+  colnames(pip_cali[[Rtype]]) = c(&quot;mean_pip&quot;, &quot;observed_freq&quot;, &quot;se&quot;)
+  g[[Rtype]] = dot_plot(pip_cali[[Rtype]]) + ggtitle(Rtype)
+}
+grid.arrange(g[[1]], g[[2]], g[[3]], g[[4]], g[[5]], g[[6]], nrow = 2)</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-15-1.png" width="1440" style="display: block; margin: auto;" /></p>
+</div>
+<div id="power-vs-fdr-1" class="section level3">
+<h3>Power vs FDR</h3>
+<pre class="r"><code>print(&quot;Computing ROC data ...&quot;)</code></pre>
+<pre><code>[1] &quot;Computing ROC data ...&quot;</code></pre>
+<pre class="r"><code>roc = list()
+for (method in names(dat)) {
+  roc[[method]] = roc_data(dat[[method]])
+}
+saveRDS(roc, &#39;output/r_compare_mafall_FINEMAP_L5_ROC.rds&#39;)</code></pre>
+<pre class="r"><code>roc = readRDS(&#39;output/r_compare_mafall_FINEMAP_L5_ROC.rds&#39;)
+labels = vector()
+i = 1
+name = names(roc)[!grepl(&#39;in_sample.addz&#39;, names(roc))]
+for (method in name) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,1), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,1), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="roc-1" class="section level3">
+<h3>ROC</h3>
+<pre class="r"><code>tmp = list()
+for (method in names(roc)) {
+  TPR = roc[[method]]$counts$true_positive/roc[[method]]$counts$total_signal
+  FPR = roc[[method]]$counts$false_positive/roc[[method]]$counts$total_null
+  threshold = roc[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc = tmp</code></pre>
+<pre class="r"><code>labels = vector()
+i = 1
+for (method in names(roc)) {
+  yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
