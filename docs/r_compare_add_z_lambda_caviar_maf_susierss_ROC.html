@@ -460,7 +460,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-06-17
+<strong>Last updated:</strong> 2019-06-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -539,10 +539,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree4cec91f2add63f4cfb27aaf08d55e7aab9feec74targetblank4cec91fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/4cec91f2add63f4cfb27aaf08d55e7aab9feec74" target="_blank">4cec91f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree1711502d07b5c6e406463693a97c7e18725f5f91targetblank1711502a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/1711502d07b5c6e406463693a97c7e18725f5f91" target="_blank">1711502</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree4cec91f2add63f4cfb27aaf08d55e7aab9feec74targetblank4cec91fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree1711502d07b5c6e406463693a97c7e18725f5f91targetblank1711502a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -637,6 +637,7 @@ Untracked files:
     Untracked:  output/r_compare_finemap_v1.3.1_ROC.rds
     Untracked:  output/r_compare_finemapv1.3.1.rds
     Untracked:  output/r_compare_maf0.05_SuSiERSS_L2_ROC.rds
+    Untracked:  output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds
     Untracked:  output/r_compare_maf0.05_SuSiEb_L2_ROC.rds
     Untracked:  output/r_compare_maf0.05_SuSiEb_L5_ROC.rds
     Untracked:  output/r_compare_maf0_SuSiERSS_L2_ROC.rds
@@ -651,6 +652,9 @@ Untracked files:
     Untracked:  output/r_compare_maf_dscout_susiebhat_maf0_tibble.rds
     Untracked:  output/r_compare_maf_dscout_susierss_maf0.05_tibble.rds
     Untracked:  output/r_compare_maf_dscout_susierss_maf0_tibble.rds
+    Untracked:  output/r_compare_mafall_FINEMAP_L2_ROC.rds
+    Untracked:  output/r_compare_mafall_FINEMAP_L5_ROC.rds
+    Untracked:  output/r_compare_mafall_caviar_ROC.rds
     Untracked:  output/r_compare_susieb_PIP_ROC.rds
     Untracked:  output/r_compare_susiepip_tibble.rds
     Untracked:  output/r_compare_susierss_PIP_ROC.rds
@@ -707,6 +711,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/1711502d07b5c6e406463693a97c7e18725f5f91/analysis/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd" target="_blank">1711502</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-18
+</td>
+<td>
+wflow_publish(“analysis/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/r_compare_add_z_lambda_caviar_maf_susierss_ROC.html" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -834,10 +872,84 @@ for(Rtype in names(pip_cali)){
 <div id="not-estimate-residual-variance" class="section level5">
 <h5>NOT Estimate residual variance</h5>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-6-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="estimate-residual-variance" class="section level5">
 <h5>Estimate residual variance</h5>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-7-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-7-1.png" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="power-vs-fdr" class="section level4">
@@ -873,17 +985,8 @@ saveRDS(roc, &#39;output/r_compare_maf0_SuSiERSS_L2_ROC.rds&#39;)</code></pre>
 chunks = 0
 smooth = FALSE
 colors = c(&#39;#A60628&#39;, &#39;#7A68A6&#39;, &#39;#348ABD&#39;, &#39;#467821&#39;, &#39;#FF0000&#39;, &#39;#188487&#39;, &#39;#E2A233&#39;,&#39;#A9A9A9&#39;, &#39;#000000&#39;, &#39;#FF00FF&#39;, &#39;#FFD700&#39;, &#39;#ADFF2F&#39;, &#39;#00FFFF&#39;)
-library(scam)</code></pre>
-<pre><code>Loading required package: mgcv</code></pre>
-<pre><code>Loading required package: nlme</code></pre>
-<pre><code>
-Attaching package: &#39;nlme&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:dplyr&#39;:
-
-    collapse</code></pre>
-<pre><code>This is mgcv 1.8-27. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
-<pre><code>This is scam 1.2-3.</code></pre>
-<pre class="r"><code>create_chunks = function(item, n) {
+library(scam)
+create_chunks = function(item, n) {
   splitted = suppressWarnings(split(item, 1:n))
   return(c(splitted[[1]], splitted[[length(splitted)]][length(splitted[[length(splitted)]])]))
 }
@@ -904,16 +1007,15 @@ add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
   text(x[idx] - delta,y[idx],labels = threshold,col = color,cex = 0.8)
   points(x[idx], y[idx])
 }</code></pre>
-<div id="not-estimate-residual-variance-1" class="section level5">
-<h5>NOT Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 name = names(roc)[grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR NOT Estimate residual&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   }
@@ -922,19 +1024,16 @@ for (method in name) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estimate-residual-variance-1" class="section level5">
-<h5>Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+
+labels = vector()
 i = 1
 name = names(roc)[!grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR Estimate residual&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   }
@@ -944,7 +1043,43 @@ for (method in name) {
   i = i + 1
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-10-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-10-1.png" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="roc" class="section level4">
@@ -957,48 +1092,43 @@ for (method in names(roc)) {
   tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
 }
 roc = tmp</code></pre>
-<div id="not-estimate-residual-variance-2" class="section level5">
-<h5>NOT Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 name = names(roc)[grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC NOT Estimate residual&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta = -0.0005)
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estimate-residual-variance-2" class="section level5">
-<h5>Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+
+labels = vector()
 i = 1
 name = names(roc)[!grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC Estimate residual&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta = -0.0005)
   labels[i] = method
   i = i + 1
 }
 legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-12-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="l-5" class="section level3">
@@ -1071,13 +1201,13 @@ for(Rtype in names(pip_cali)){
 }</code></pre>
 <div id="calibrated-pip-1" class="section level4">
 <h4>Calibrated PIP</h4>
-<div id="not-estimate-residual-variance-3" class="section level5">
+<div id="not-estimate-residual-variance-1" class="section level5">
 <h5>NOT Estimate residual variance</h5>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-17-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-15-1.png" width="1440" style="display: block; margin: auto;" /></p>
 </div>
-<div id="estimate-residual-variance-3" class="section level5">
+<div id="estimate-residual-variance-1" class="section level5">
 <h5>Estimate residual variance</h5>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-18-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-16-1.png" width="1440" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="power-vs-fdr-1" class="section level4">
@@ -1090,16 +1220,15 @@ for (method in names(dat)) {
 }
 saveRDS(roc, &#39;output/r_compare_maf0_SuSiERSS_L5_ROC.rds&#39;)</code></pre>
 <pre class="r"><code>roc = readRDS(&#39;output/r_compare_maf0_SuSiERSS_L5_ROC.rds&#39;)</code></pre>
-<div id="not-estimate-residual-variance-4" class="section level5">
-<h5>NOT Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 name = names(roc)[grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR NOT Estimate residual&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   }
@@ -1108,19 +1237,16 @@ for (method in name) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estimate-residual-variance-4" class="section level5">
-<h5>Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+
+labels = vector()
 i = 1
 name = names(roc)[!grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR Estimate residual&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   }
@@ -1130,8 +1256,7 @@ for (method in name) {
   i = i + 1
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-19-1.png" width="1344" style="display: block; margin: auto;" /></p>
 </div>
 <div id="roc-1" class="section level4">
 <h4>ROC</h4>
@@ -1143,47 +1268,79 @@ for (method in names(roc)) {
   tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
 }
 roc = tmp</code></pre>
-<div id="not-estimate-residual-variance-5" class="section level5">
-<h5>NOT Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 name = names(roc)[grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC NOT Estimate residual&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-24-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estimate-residual-variance-5" class="section level5">
-<h5>Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+
+labels = vector()
 i = 1
 name = names(roc)[!grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC Estimate residual&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
 legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-21-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-21-1.png" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -1260,13 +1417,87 @@ for(Rtype in names(pip_cali)){
 }</code></pre>
 <div id="calibrated-pip-2" class="section level4">
 <h4>Calibrated PIP</h4>
-<div id="not-estimate-residual-variance-6" class="section level5">
+<div id="not-estimate-residual-variance-2" class="section level5">
 <h5>NOT Estimate residual variance</h5>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-28-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-24-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-24-1.png" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="estimate-residual-variance-6" class="section level5">
+</div>
+</div>
+<div id="estimate-residual-variance-2" class="section level5">
 <h5>Estimate residual variance</h5>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-29-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-25-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-25-1.png" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="power-vs-fdr-2" class="section level4">
@@ -1279,16 +1510,15 @@ for (method in names(dat)) {
 }
 saveRDS(roc, &#39;output/r_compare_maf0.05_SuSiERSS_L2_ROC.rds&#39;)</code></pre>
 <pre class="r"><code>roc = readRDS(&#39;output/r_compare_maf0.05_SuSiERSS_L2_ROC.rds&#39;)</code></pre>
-<div id="not-estimate-residual-variance-7" class="section level5">
-<h5>NOT Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 name = names(roc)[grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR NOT Estimate residual&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   }
@@ -1297,19 +1527,16 @@ for (method in name) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estimate-residual-variance-7" class="section level5">
-<h5>Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+
+labels = vector()
 i = 1
 name = names(roc)[!grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR Estimate residual&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   }
@@ -1319,7 +1546,43 @@ for (method in name) {
   i = i + 1
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-28-1.png" width="1344" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
+Past versions of unnamed-chunk-28-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-28-1.png" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="roc-2" class="section level4">
@@ -1332,48 +1595,43 @@ for (method in names(roc)) {
   tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
 }
 roc = tmp</code></pre>
-<div id="not-estimate-residual-variance-8" class="section level5">
-<h5>NOT Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 name = names(roc)[grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC NOT Estimate residual&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estimate-residual-variance-8" class="section level5">
-<h5>Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+
+labels = vector()
 i = 1
 name = names(roc)[!grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC Estimate residual&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
 legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-30-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="l-5-1" class="section level3">
@@ -1446,13 +1704,50 @@ for(Rtype in names(pip_cali)){
 }</code></pre>
 <div id="calibrated-pip-3" class="section level4">
 <h4>Calibrated PIP</h4>
-<div id="not-estimate-residual-variance-9" class="section level5">
+<div id="not-estimate-residual-variance-3" class="section level5">
 <h5>NOT Estimate residual variance</h5>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-39-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-33-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-33-1.png" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="estimate-residual-variance-9" class="section level5">
+</div>
+</div>
+<div id="estimate-residual-variance-3" class="section level5">
 <h5>Estimate residual variance</h5>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-40-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-34-1.png" width="1440" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="power-vs-fdr-3" class="section level4">
@@ -1465,16 +1760,15 @@ for (method in names(dat)) {
 }
 saveRDS(roc, &#39;output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds&#39;)</code></pre>
 <pre class="r"><code>roc = readRDS(&#39;output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds&#39;)</code></pre>
-<div id="not-estimate-residual-variance-10" class="section level5">
-<h5>NOT Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 name = names(roc)[grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR NOT Estimate residual&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   }
@@ -1483,19 +1777,16 @@ for (method in name) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estimate-residual-variance-10" class="section level5">
-<h5>Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+
+labels = vector()
 i = 1
 name = names(roc)[!grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR Estimate residual&#39;, bty=&#39;l&#39;, lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.6))
   }
@@ -1505,8 +1796,7 @@ for (method in name) {
   i = i + 1
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-37-1.png" width="1344" style="display: block; margin: auto;" /></p>
 </div>
 <div id="roc-3" class="section level4">
 <h4>ROC</h4>
@@ -1518,47 +1808,80 @@ for (method in names(roc)) {
   tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
 }
 roc = tmp</code></pre>
-<div id="not-estimate-residual-variance-11" class="section level5">
-<h5>NOT Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 name = names(roc)[grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC NOT Estimate residual&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-46-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estimate-residual-variance-11" class="section level5">
-<h5>Estimate residual variance</h5>
-<pre class="r"><code>labels = vector()
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+
+labels = vector()
 i = 1
 name = names(roc)[!grepl(&quot;notest&quot;,names(roc))]
-name = name[!grepl(&quot;lamb1&quot;, name)]
+name = name[!grepl(&quot;lamb&quot;, name)]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC Estimate residual&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
 legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-47-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-39-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-1">
+Past versions of unnamed-chunk-39-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-39-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0abe57020c9bd1719d058cb9965b9e8edc04590b/docs/figure/r_compare_add_z_lambda_caviar_maf_susierss_ROC.Rmd/unnamed-chunk-39-1.png" target="_blank">0abe570</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1597,7 +1920,6 @@ loaded via a namespace (and not attached):
 [33] scales_1.0.0     htmltools_0.3.6  assertthat_0.2.1 colorspace_1.4-1
 [37] labeling_0.3     stringi_1.4.3    lazyeval_0.2.2   munsell_0.5.0   
 [41] crayon_1.3.4    </code></pre>
-</div>
 </div>
 </div>
 </div>
