@@ -1,0 +1,710 @@
+---
+title: "Power vs FDR Plot"
+author: "Yuxin Zou"
+date: "6/17/2019"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r message=F, warning=F}
+library(ggplot2)
+library(cowplot)
+library(gridExtra)
+library(dplyr)
+```
+
+```{r}
+caviar = readRDS('output/r_compare_mafall_caviar_ROC.rds')
+finemap.l2 = readRDS('output/r_compare_mafall_FINEMAP_L2_ROC.rds')
+finemap.l5 = readRDS('output/r_compare_mafall_FINEMAP_L5_ROC.rds')
+susieb.l2 = readRDS('output/r_compare_maf0_SuSiEb_L2_ROC.rds')
+susieb.maf.l2 = readRDS('output/r_compare_maf0.05_SuSiEb_L2_ROC.rds')
+susieb.l5 = readRDS('output/r_compare_maf0_SuSiEb_L5_ROC.rds')
+susieb.maf.l5 = readRDS('output/r_compare_maf0.05_SuSiEb_L5_ROC.rds')
+susierss.l2 = readRDS('output/r_compare_maf0_SuSiERSS_L2_ROC.rds')
+susierss.maf.l2 = readRDS('output/r_compare_maf0.05_SuSiERSS_L2_ROC.rds')
+susierss.l5 = readRDS('output/r_compare_maf0_SuSiERSS_L5_ROC.rds')
+susierss.maf.l5 = readRDS('output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds')
+```
+
+# L=2
+
+## NOT estimate residual variance
+
+### Power vs FDR
+
+```{r message=F, warning=F}
+chunks = 0
+smooth = FALSE
+colors = c('lavenderblush', 'red', 'lightcyan', 'blue', 'darkseagreen1', 'green', 'plum1', 'purple')
+
+library(scam)
+create_chunks = function(item, n) {
+  splitted = suppressWarnings(split(item, 1:n))
+  return(c(splitted[[1]], splitted[[length(splitted)]][length(splitted[[length(splitted)]])]))
+}
+make_smooth = function(x,y,subset=chunks, smooth = FALSE){
+  if (smooth) {
+    if (subset < length(x) && subset > 0) {
+      x = create_chunks(x, subset)
+      y = create_chunks(y, subset)
+    }
+    dat = data.frame(cbind(x,y))
+    colnames(dat) = c('x','y')
+    y=predict(scam(y ~ s(x, bs = "mpi"), data = dat))
+    }
+  return(list(x=x,y=y))
+}
+add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
+  idx = which(thresholds == threshold)
+  text(x[idx] - delta,y[idx],labels = threshold,col = color,cex = 0.8)
+  points(x[idx], y[idx], col = color)
+}
+```
+
+#### IN sample
+```{r}
+roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.notest, SuSiErss = susierss.l2$in_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.notest)
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc.notest)) {
+  yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+#### OUT sample
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.notest = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l2$out_sample, FINEMAP.MAF = finemap.l2$maf.out_sample, SuSiEb = susieb.l2$out_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.notest, SuSiErss = susierss.l2$out_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.notest)
+for (method in names(roc.notest)) {
+  yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.4), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.02)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+#### OUT sample addz
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.notest = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l2$out_sample.addz, FINEMAP.MAF = finemap.l2$maf.out_sample.addz, SuSiEb = susieb.l2$out_sample.addz.notest, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.addz.notest, SuSiErss = susierss.l2$out_sample.addz.notest, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.addz.notest)
+for (method in names(roc.notest)) {
+  yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+### ROC
+
+#### IN sample
+```{r}
+roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.notest, SuSiErss = susierss.l2$in_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.notest)
+tmp = list()
+for (method in names(roc.notest)) {
+  TPR = roc.notest[[method]]$counts$true_positive/roc.notest[[method]]$counts$total_signal
+  FPR = roc.notest[[method]]$counts$false_positive/roc.notest[[method]]$counts$total_null
+  threshold = roc.notest[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.notest = tmp
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc.notest)) {
+  yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta = -0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+#### OUT sample
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.notest = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l2$out_sample, FINEMAP.MAF = finemap.l2$maf.out_sample, SuSiEb = susieb.l2$out_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.notest, SuSiErss = susierss.l2$out_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.notest)
+tmp = list()
+for (method in names(roc.notest)) {
+  TPR = roc.notest[[method]]$counts$true_positive/roc.notest[[method]]$counts$total_signal
+  FPR = roc.notest[[method]]$counts$false_positive/roc.notest[[method]]$counts$total_null
+  threshold = roc.notest[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.notest = tmp
+
+for (method in names(roc.notest)) {
+  yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC L = 2', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+#### OUT sample add z
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.notest = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l2$out_sample.addz, FINEMAP.MAF = finemap.l2$maf.out_sample.addz, SuSiEb = susieb.l2$out_sample.addz.notest, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.addz.notest, SuSiErss = susierss.l2$out_sample.addz.notest, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.addz.notest)
+tmp = list()
+for (method in names(roc.notest)) {
+  TPR = roc.notest[[method]]$counts$true_positive/roc.notest[[method]]$counts$total_signal
+  FPR = roc.notest[[method]]$counts$false_positive/roc.notest[[method]]$counts$total_null
+  threshold = roc.notest[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.notest = tmp
+
+for (method in names(roc.notest)) {
+  yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC L =5', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+## Estimate residual variance
+
+### Power vs FDR
+
+#### IN sample
+```{r}
+roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.est, SuSiErss = susierss.l2$in_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.est)
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc.est)) {
+  yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+#### OUT sample
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.est = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l2$out_sample, FINEMAP.MAF = finemap.l2$maf.out_sample, SuSiEb = susieb.l2$out_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.est, SuSiErss = susierss.l2$out_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.est)
+for (method in names(roc.est)) {
+  yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+#### OUT sample addz
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.est = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l2$out_sample.addz, FINEMAP.MAF = finemap.l2$maf.out_sample.addz, SuSiEb = susieb.l2$out_sample.addz.est, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.addz.est, SuSiErss = susierss.l2$out_sample.addz.est, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.addz.est)
+for (method in names(roc.est)) {
+  yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.02)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+### ROC
+
+#### IN sample
+```{r}
+roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.est, SuSiErss = susierss.l2$in_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.est)
+tmp = list()
+for (method in names(roc.est)) {
+  TPR = roc.est[[method]]$counts$true_positive/roc.est[[method]]$counts$total_signal
+  FPR = roc.est[[method]]$counts$false_positive/roc.est[[method]]$counts$total_null
+  threshold = roc.est[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.est = tmp
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc.est)) {
+  yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+#### OUT sample
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.est = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l2$out_sample, FINEMAP.MAF = finemap.l2$maf.out_sample, SuSiEb = susieb.l2$out_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.est, SuSiErss = susierss.l2$out_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.est)
+tmp = list()
+for (method in names(roc.est)) {
+  TPR = roc.est[[method]]$counts$true_positive/roc.est[[method]]$counts$total_signal
+  FPR = roc.est[[method]]$counts$false_positive/roc.est[[method]]$counts$total_null
+  threshold = roc.est[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.est = tmp
+
+for (method in names(roc.est)) {
+  yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+#### OUT sample add z
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.est = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l2$out_sample.addz, FINEMAP.MAF = finemap.l2$maf.out_sample.addz, SuSiEb = susieb.l2$out_sample.addz.est, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.addz.est, SuSiErss = susierss.l2$out_sample.addz.est, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.addz.est)
+tmp = list()
+for (method in names(roc.est)) {
+  TPR = roc.est[[method]]$counts$true_positive/roc.est[[method]]$counts$total_signal
+  FPR = roc.est[[method]]$counts$false_positive/roc.est[[method]]$counts$total_null
+  threshold = roc.est[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.est = tmp
+
+for (method in names(roc.est)) {
+  yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta = -0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+# L=5
+
+## NOT estimate residual variance
+
+### Power vs FDR
+
+#### IN sample
+```{r}
+roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.notest, SuSiErss = susierss.l5$in_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.notest)
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc.notest)) {
+  yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+#### OUT sample
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.notest = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l5$out_sample, FINEMAP.MAF = finemap.l5$maf.out_sample, SuSiEb = susieb.l5$out_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.notest, SuSiErss = susierss.l5$out_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.notest)
+for (method in names(roc.notest)) {
+  yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.02)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+#### OUT sample addz
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.notest = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l5$out_sample.addz, FINEMAP.MAF = finemap.l5$maf.out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.notest, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.addz.notest, SuSiErss = susierss.l5$out_sample.addz.notest, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.addz.notest)
+for (method in names(roc.notest)) {
+  yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+### ROC
+
+#### IN sample
+```{r}
+roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.notest, SuSiErss = susierss.l5$in_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.notest)
+tmp = list()
+for (method in names(roc.notest)) {
+  TPR = roc.notest[[method]]$counts$true_positive/roc.notest[[method]]$counts$total_signal
+  FPR = roc.notest[[method]]$counts$false_positive/roc.notest[[method]]$counts$total_null
+  threshold = roc.notest[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.notest = tmp
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc.notest)) {
+  yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta = -0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+#### OUT sample
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.notest = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l5$out_sample, FINEMAP.MAF = finemap.l5$maf.out_sample, SuSiEb = susieb.l5$out_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.notest, SuSiErss = susierss.l5$out_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.notest)
+tmp = list()
+for (method in names(roc.notest)) {
+  TPR = roc.notest[[method]]$counts$true_positive/roc.notest[[method]]$counts$total_signal
+  FPR = roc.notest[[method]]$counts$false_positive/roc.notest[[method]]$counts$total_null
+  threshold = roc.notest[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.notest = tmp
+
+for (method in names(roc.notest)) {
+  yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC L = 2', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+#### OUT sample add z
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.notest = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l5$out_sample.addz, FINEMAP.MAF = finemap.l5$maf.out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.notest, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.addz.notest, SuSiErss = susierss.l5$out_sample.addz.notest, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.addz.notest)
+tmp = list()
+for (method in names(roc.notest)) {
+  TPR = roc.notest[[method]]$counts$true_positive/roc.notest[[method]]$counts$total_signal
+  FPR = roc.notest[[method]]$counts$false_positive/roc.notest[[method]]$counts$total_null
+  threshold = roc.notest[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.notest = tmp
+
+for (method in names(roc.notest)) {
+  yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+## Estimate residual variance
+
+### Power vs FDR
+
+#### IN sample
+```{r}
+roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.est, SuSiErss = susierss.l5$in_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.est)
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc.est)) {
+  yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+#### OUT sample
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.est = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l5$out_sample, FINEMAP.MAF = finemap.l5$maf.out_sample, SuSiEb = susieb.l5$out_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.est, SuSiErss = susierss.l5$out_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.est)
+for (method in names(roc.est)) {
+  yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.8), ylim = c(0,0.6))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.8), ylim = c(0,0.6))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+#### OUT sample addz
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.est = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l5$out_sample.addz, FINEMAP.MAF = finemap.l5$maf.out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.est, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.addz.est, SuSiErss = susierss.l5$out_sample.addz.est, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.addz.est)
+for (method in names(roc.est)) {
+  yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs False Discovery Rate', bty='l', lwd = 3, xlim = c(0,0.6), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.6), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.02)
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
+```
+
+### ROC
+
+#### IN sample
+```{r}
+roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.est, SuSiErss = susierss.l5$in_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.est)
+tmp = list()
+for (method in names(roc.est)) {
+  TPR = roc.est[[method]]$counts$true_positive/roc.est[[method]]$counts$total_signal
+  FPR = roc.est[[method]]$counts$false_positive/roc.est[[method]]$counts$total_null
+  threshold = roc.est[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.est = tmp
+```
+
+```{r fig.width=6, fig.height=5}
+labels = vector()
+i = 1
+for (method in names(roc.est)) {
+  yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+#### OUT sample
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.est = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l5$out_sample, FINEMAP.MAF = finemap.l5$maf.out_sample, SuSiEb = susieb.l5$out_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.est, SuSiErss = susierss.l5$out_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.est)
+tmp = list()
+for (method in names(roc.est)) {
+  TPR = roc.est[[method]]$counts$true_positive/roc.est[[method]]$counts$total_signal
+  FPR = roc.est[[method]]$counts$false_positive/roc.est[[method]]$counts$total_null
+  threshold = roc.est[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.est = tmp
+
+for (method in names(roc.est)) {
+  yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
+
+#### OUT sample add z
+
+```{r fig.width=6, fig.height=5, fig.align='center'}
+labels = vector()
+i = 1
+roc.est = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l5$out_sample.addz, FINEMAP.MAF = finemap.l5$maf.out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.est, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.addz.est, SuSiErss = susierss.l5$out_sample.addz.est, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.addz.est)
+tmp = list()
+for (method in names(roc.est)) {
+  TPR = roc.est[[method]]$counts$true_positive/roc.est[[method]]$counts$total_signal
+  FPR = roc.est[[method]]$counts$false_positive/roc.est[[method]]$counts$total_null
+  threshold = roc.est[[method]]$rates$Threshold
+  tmp[[method]] = list(TPR = TPR, FPR = FPR, threshold = threshold)
+}
+roc.est = tmp
+
+for (method in names(roc.est)) {
+  yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta = -0.0001)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+```
