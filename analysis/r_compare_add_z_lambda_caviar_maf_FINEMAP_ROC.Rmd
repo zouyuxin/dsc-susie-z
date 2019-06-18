@@ -24,9 +24,7 @@ dsc.maf = dsc.maf[,-c(2,3)]
 colnames(dsc.maf) = c('DSC', 'pve', 'n_signal', 'meta', 'ld_method', 'L','add_z','pip')
 ```
 
-## FINEMAP
-
-### L = 2
+## FINEMAP (max causal = 2)
 
 ```{r}
 dsc.finemap.list = list('in_sample' = dsc %>% filter(L == '--n-causal-max 2' & ld_method == 'in_sample' & add_z == FALSE),
@@ -210,7 +208,7 @@ for (method in names(roc)) {
 legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
 ```
 
-### L = 5
+## FINEMAP (max causal = 2)
 
 ```{r}
 dsc.finemap.list = list('in_sample' = dsc %>% filter(L == '--n-causal-max 5' & ld_method == 'in_sample' & add_z == FALSE),
