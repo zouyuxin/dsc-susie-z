@@ -142,7 +142,7 @@ for (method in names(dat)) {
 saveRDS(roc, 'output/r_compare_maf0_SuSiEb_L2_ROC.rds')
 ```
 
-```{r}
+```{r message=FALSE}
 roc = readRDS('output/r_compare_maf0_SuSiEb_L2_ROC.rds')
 chunks = 0
 smooth = FALSE
@@ -171,13 +171,32 @@ add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
 }
 ```
 
-```{r fig.width=6, fig.height=5}
+```{r fig.width=12, fig.height=5}
+par(mfrow = c(1, 2))
 labels = vector()
 i = 1
-for (method in names(roc)) {
+name = names(roc)[grepl('notest', names(roc))]
+for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR NOT Estimate residual', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend("topright", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+
+labels = vector()
+i = 1
+name = names(roc)[!grepl('notest', names(roc))]
+for (method in name) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR Estimate residual', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
   }
@@ -201,19 +220,37 @@ for (method in names(roc)) {
 roc = tmp
 ```
 
-```{r fig.width=6, fig.height=5}
+```{r fig.width=12, fig.height=5}
+par(mfrow = c(1,2))
 labels = vector()
 i = 1
-name = names(roc)[!grepl('in_sample.addz', names(roc))]
+name = names(roc)[grepl('notest', names(roc))]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC NOT Estimate residual', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+
+labels = vector()
+i = 1
+name = names(roc)[!grepl('notest', names(roc))]
+for (method in name) {
+  yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC Estimate residual', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
@@ -300,13 +337,32 @@ saveRDS(roc, 'output/r_compare_maf0_SuSiEb_L5_ROC.rds')
 roc = readRDS('output/r_compare_maf0_SuSiEb_L5_ROC.rds')
 ```
 
-```{r fig.width=6, fig.height=5}
+```{r fig.width=12, fig.height=5}
+par(mfrow=c(1,2))
 labels = vector()
 i = 1
-for (method in names(roc)) {
+name = names(roc)[grepl('notest', names(roc))]
+for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR NOT Estimate residual', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+
+labels = vector()
+i = 1
+name = names(roc)[!grepl('notest', names(roc))]
+for (method in name) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR Estimate residual', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
   }
@@ -330,18 +386,37 @@ for (method in names(roc)) {
 roc = tmp
 ```
 
-```{r fig.width=6, fig.height=5}
+```{r fig.width=12, fig.height=5}
+par(mfrow=c(1,2))
 labels = vector()
 i = 1
-for (method in names(roc)) {
+name = names(roc)[grepl('notest', names(roc))]
+for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC NOT Estimate residual', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+
+labels = vector()
+i = 1
+name = names(roc)[!grepl('notest', names(roc))]
+for (method in name) {
+  yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC Estimate residual', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
@@ -430,13 +505,32 @@ saveRDS(roc, 'output/r_compare_maf0.05_SuSiEb_L2_ROC.rds')
 roc = readRDS('output/r_compare_maf0.05_SuSiEb_L2_ROC.rds')
 ```
 
-```{r fig.width=6, fig.height=5}
+```{r fig.width=12, fig.height=5}
+par(mfrow=c(1,2))
 labels = vector()
 i = 1
-for (method in names(roc)) {
+name = names(roc)[grepl('notest', names(roc))]
+for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR NOT Estimate residual', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend("topright", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+
+labels = vector()
+i = 1
+name = names(roc)[!grepl('notest', names(roc))]
+for (method in name) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR Estimate residual', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
   }
@@ -460,19 +554,37 @@ for (method in names(roc)) {
 roc = tmp
 ```
 
-```{r fig.width=6, fig.height=5}
+```{r fig.width=12, fig.height=5}
+par(mfrow=c(1,2))
 labels = vector()
 i = 1
-name = names(roc)[!grepl('in_sample.addz', names(roc))]
+name = names(roc)[grepl('notest', names(roc))]
 for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC NOT Estimate residual', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+
+labels = vector()
+i = 1
+name = names(roc)[!grepl('notest', names(roc))]
+for (method in name) {
+  yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC Estimate residual', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
@@ -559,13 +671,32 @@ saveRDS(roc, 'output/r_compare_maf0.05_SuSiEb_L5_ROC.rds')
 roc = readRDS('output/r_compare_maf0.05_SuSiEb_L5_ROC.rds')
 ```
 
-```{r fig.width=6, fig.height=5}
+```{r fig.width=12, fig.height=5}
+par(mfrow=c(1,2))
 labels = vector()
 i = 1
-for (method in names(roc)) {
+name = names(roc)[grepl('notest', names(roc))]
+for (method in name) {
   yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR NOT Estimate residual', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i])
+  labels[i] = method
+  i = i + 1
+}
+legend("topleft", legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)
+
+labels = vector()
+i = 1
+name = names(roc)[!grepl('notest', names(roc))]
+for (method in name) {
+  yy = make_smooth(1 - roc[[method]]$rates$Precision, roc[[method]]$rates$Recall)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "power", xlab ="FDR", main = 'Power vs FDR Estimate residual', bty='l', lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.8), ylim = c(0,0.8))
   }
@@ -589,18 +720,37 @@ for (method in names(roc)) {
 roc = tmp
 ```
 
-```{r fig.width=6, fig.height=5}
+```{r fig.width=12, fig.height=5}
+par(mfrow=c(1,2))
 labels = vector()
 i = 1
-for (method in names(roc)) {
+name = names(roc)[grepl('notest', names(roc))]
+for (method in name) {
   yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC NOT Estimate residual', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
   }
   #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
-  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i],delta=-0.0005)
+  labels[i] = method
+  i = i + 1
+}
+legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
+
+labels = vector()
+i = 1
+name = names(roc)[!grepl('notest', names(roc))]
+for (method in name) {
+  yy = make_smooth(roc[[method]]$FPR, roc[[method]]$TPR)
+  if (i == 1) {
+    plot(yy$x, yy$y, t="l", col=colors[i], ylab = "True Positive Rate", xlab ="False Positive Rate", main = 'ROC Estimate residual', bty='l', lwd = 3, xlim = c(0,0.005), ylim = c(0,0.6))
+  } else {
+    lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.005), ylim = c(0,0.6))
+  }
+  #add_text(dat[[method]]$rates$Threshold, yy$x, yy$y, 0.9, colors[i])
+  add_text(roc[[method]]$threshold, yy$x, yy$y, 0.95, colors[i],delta=-0.0005)
   labels[i] = method
   i = i + 1
 }
