@@ -109,5 +109,22 @@ Welcome to my research website.
     [Data 1](r_compare_add_z_lambda_caviar_Eg1.html)
     
     [Compute log-BF for CAVIAR](bf_test_caviar.html)
+
+    ----------------------------
+    
+    More investigations (2019-06-16): we use FINEMAP from v1.1, including MAF threshold 5%.
+    
+    [Power, FDR for FINEMAP and SuSiE related methods](r_compare_add_z_lambda_caviar_maf_susie.html)
+    
+    [Calibrated PIP and ROC for CAVIAR](r_compare_add_z_lambda_caviar_maf_CAVIAR_ROC.html)
+    
+    [Calibrated PIP and ROC for FINEMAP](r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.html)
+    
+    [Calibrated PIP and ROC for SuSiE b](r_compare_add_z_lambda_caviar_maf_susieb_ROC.html)
+    
+    [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_lambda_caviar_maf_susierss_ROC.html)
+    
+    [ROC in one plot](r_compare_add_z_lambda_caviar_maf_ROC.html)
     
 * A [Benchmark](FINEMAP_benchmark.html) for FINEMAP v1.3.1
+
