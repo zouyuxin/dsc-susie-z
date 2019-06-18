@@ -460,7 +460,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-06-17
+<strong>Last updated:</strong> 2019-06-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -539,10 +539,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree628ebdcddbef16dd9472de65c839a046c2f092fetargetblank628ebdca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/628ebdcddbef16dd9472de65c839a046c2f092fe" target="_blank">628ebdc</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree5095f9d2caf571a7c9bee90d59fc42611a492001targetblank5095f9da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/5095f9d2caf571a7c9bee90d59fc42611a492001" target="_blank">5095f9d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree628ebdcddbef16dd9472de65c839a046c2f092fetargetblank628ebdca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree5095f9d2caf571a7c9bee90d59fc42611a492001targetblank5095f9da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -652,6 +652,8 @@ Untracked files:
     Untracked:  output/r_compare_maf_dscout_susiebhat_maf0_tibble.rds
     Untracked:  output/r_compare_maf_dscout_susierss_maf0.05_tibble.rds
     Untracked:  output/r_compare_maf_dscout_susierss_maf0_tibble.rds
+    Untracked:  output/r_compare_mafall_FINEMAP_L2_ROC.rds
+    Untracked:  output/r_compare_mafall_FINEMAP_L5_ROC.rds
     Untracked:  output/r_compare_mafall_caviar_ROC.rds
     Untracked:  output/r_compare_susieb_PIP_ROC.rds
     Untracked:  output/r_compare_susiepip_tibble.rds
@@ -709,6 +711,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/5095f9d2caf571a7c9bee90d59fc42611a492001/analysis/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd" target="_blank">5095f9d</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-18
+</td>
+<td>
+wflow_publish(“analysis/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/6d3aebc8c392d50f189007e8a7ee221f86048635/docs/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.html" target="_blank">6d3aebc</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -778,10 +814,8 @@ colnames(dsc) = c(&#39;DSC&#39;, &#39;pve&#39;, &#39;n_signal&#39;, &#39;meta&#3
 dsc.maf = readRDS(&#39;output/r_compare_maf_dscout_finemap_maf0.05_tibble.rds&#39;)
 dsc.maf = dsc.maf[,-c(2,3)]
 colnames(dsc.maf) = c(&#39;DSC&#39;, &#39;pve&#39;, &#39;n_signal&#39;, &#39;meta&#39;, &#39;ld_method&#39;, &#39;L&#39;,&#39;add_z&#39;,&#39;pip&#39;)</code></pre>
-<div id="finemap" class="section level2">
-<h2>FINEMAP</h2>
-<div id="l-2" class="section level3">
-<h3>L = 2</h3>
+<div id="finemap-max-causal-2" class="section level2">
+<h2>FINEMAP (max causal = 2)</h2>
 <pre class="r"><code>dsc.finemap.list = list(&#39;in_sample&#39; = dsc %&gt;% filter(L == &#39;--n-causal-max 2&#39; &amp; ld_method == &#39;in_sample&#39; &amp; add_z == FALSE),
                         &#39;out_sample&#39; = dsc %&gt;% filter(L == &#39;--n-causal-max 2&#39; &amp; ld_method == &#39;out_sample&#39; &amp; add_z == FALSE),
                         &#39;out_sample.addz&#39; = dsc %&gt;% filter(L == &#39;--n-causal-max 2&#39; &amp; ld_method == &#39;out_sample&#39; &amp; add_z == TRUE),
@@ -829,7 +863,6 @@ for(Rtype in names(pip_cali)){
     expand_limits(y=0) +                        # Expand y range
     theme_cowplot()
 }</code></pre>
-</div>
 <div id="calibrated-pip" class="section level3">
 <h3>Calibrated PIP</h3>
 <pre class="r"><code>g = list()
@@ -1064,8 +1097,9 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="l-5" class="section level3">
-<h3>L = 5</h3>
+</div>
+<div id="finemap-max-causal-2-1" class="section level2">
+<h2>FINEMAP (max causal = 2)</h2>
 <pre class="r"><code>dsc.finemap.list = list(&#39;in_sample&#39; = dsc %&gt;% filter(L == &#39;--n-causal-max 5&#39; &amp; ld_method == &#39;in_sample&#39; &amp; add_z == FALSE),
                         &#39;out_sample&#39; = dsc %&gt;% filter(L == &#39;--n-causal-max 5&#39; &amp; ld_method == &#39;out_sample&#39; &amp; add_z == FALSE),
                         &#39;out_sample.addz&#39; = dsc %&gt;% filter(L == &#39;--n-causal-max 5&#39; &amp; ld_method == &#39;out_sample&#39; &amp; add_z == TRUE),
@@ -1102,7 +1136,6 @@ for(Rtype in names(pip_cali)){
 for(Rtype in names(pip_cali)){
   pip_cali[[Rtype]][,c(1,2)] = pip_cali[[Rtype]][,c(1,2)] / pip_cali[[Rtype]][,3]
 }</code></pre>
-</div>
 <div id="calibrated-pip-1" class="section level3">
 <h3>Calibrated PIP</h3>
 <pre class="r"><code>g = list()
@@ -1116,6 +1149,43 @@ for(Rtype in names(pip_cali)){
 }
 grid.arrange(g[[1]], g[[2]], g[[3]], g[[4]], g[[5]], g[[6]], nrow = 2)</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-15-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/6d3aebc8c392d50f189007e8a7ee221f86048635/docs/figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-15-1.png" target="_blank">6d3aebc</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="power-vs-fdr-1" class="section level3">
 <h3>Power vs FDR</h3>
@@ -1144,6 +1214,43 @@ for (method in name) {
 }
 legend(&quot;topright&quot;, legend=labels, col=colors[1:i], lty=c(1,1,1), cex=0.8)</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/6d3aebc8c392d50f189007e8a7ee221f86048635/docs/figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-17-1.png" target="_blank">6d3aebc</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="roc-1" class="section level3">
 <h3>ROC</h3>
@@ -1171,6 +1278,43 @@ for (method in names(roc)) {
 }
 legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/6d3aebc8c392d50f189007e8a7ee221f86048635/docs/figure/r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.Rmd/unnamed-chunk-19-1.png" target="_blank">6d3aebc</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
