@@ -539,10 +539,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree6c8f5ca463199bebf5ba54e23fd1daaa88997ff2targetblank6c8f5caa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/6c8f5ca463199bebf5ba54e23fd1daaa88997ff2" target="_blank">6c8f5ca</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree5604757f4d64c645cf082c8a3708decc473a5f68targetblank5604757a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/5604757f4d64c645cf082c8a3708decc473a5f68" target="_blank">5604757</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree6c8f5ca463199bebf5ba54e23fd1daaa88997ff2targetblank6c8f5caa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree5604757f4d64c645cf082c8a3708decc473a5f68targetblank5604757a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -716,6 +716,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/5604757f4d64c645cf082c8a3708decc473a5f68/analysis/r_compare_add_z_lambda_caviar_maf_ROC.Rmd" target="_blank">5604757</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+<td>
+wflow_publish(“analysis/r_compare_add_z_lambda_caviar_maf_ROC.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/dbb65e67d136482c4995e507251b8608719b06ce/docs/r_compare_add_z_lambda_caviar_maf_ROC.html" target="_blank">dbb65e6</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/6c8f5ca463199bebf5ba54e23fd1daaa88997ff2/analysis/r_compare_add_z_lambda_caviar_maf_ROC.Rmd" target="_blank">6c8f5ca</a>
 </td>
 <td>
@@ -823,16 +857,16 @@ susierss.maf.l5 = readRDS(&#39;output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds&#39;
 <p>We didn’t include FINEMAP(v1.3.1), because it has error in data with MAF threshold 5%.</p>
 <p>Summary:</p>
 <ol style="list-style-type: decimal">
-<li><p>Using MAF filter, CAVIAR, SuSiE bhat and SuSiE RSS perform similarly using out sample correlation matrix adding z. They all outperform FINEMAP.</p></li>
-<li><p>Applying MAF filter decreases the FDR.</p></li>
+<li><p>Using MAF filter, CAVIAR, SuSiE bhat and SuSiE RSS perform similarly using out sample correlation matrix adding z. They all <strong>outperform</strong> FINEMAP.</p></li>
+<li><p>Applying MAF filter <strong>decreases</strong> the FDR.</p></li>
 </ol>
-<div id="l2" class="section level1">
-<h1>L=2</h1>
+<div id="l2" class="section level2">
+<h2>L=2</h2>
 <p>We check the results using 2 max causals in all methods.</p>
-<div id="not-estimate-residual-variance" class="section level2">
-<h2>NOT estimate residual variance</h2>
-<div id="power-vs-fdr" class="section level3">
-<h3>Power vs FDR</h3>
+<div id="not-estimate-residual-variance" class="section level3">
+<h3>NOT estimate residual variance</h3>
+<div id="power-vs-fdr" class="section level4">
+<h4>Power vs FDR</h4>
 <pre class="r"><code>chunks = 0
 smooth = FALSE
 colors = c(&#39;lavenderblush&#39;, &#39;red&#39;, &#39;lightcyan&#39;, &#39;blue&#39;, &#39;darkseagreen1&#39;, &#39;green&#39;, &#39;lightgoldenrod1&#39;, &#39;goldenrod2&#39;)
@@ -859,8 +893,8 @@ add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
   text(x[idx] - delta,y[idx],labels = threshold,col = color,cex = 0.8)
   points(x[idx], y[idx], col = color)
 }</code></pre>
-<div id="in-sample" class="section level4">
-<h4>IN sample</h4>
+<div id="in-sample" class="section level5">
+<h5>IN sample</h5>
 <pre class="r"><code>roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.notest, SuSiErss = susierss.l2$in_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.notest)</code></pre>
 <pre class="r"><code>labels = vector()
 i = 1
@@ -927,8 +961,8 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="out-sample-and-out-sample-addz" class="section level4">
-<h4>OUT sample and OUT sample addz</h4>
+<div id="out-sample-and-out-sample-addz" class="section level5">
+<h5>OUT sample and OUT sample addz</h5>
 <pre class="r"><code>library(graphics)
 par(mfrow=c(1,2))
 labels = vector()
@@ -1015,10 +1049,10 @@ zouyuxin
 <pre class="r"><code># legend(&quot;topright&quot;, inset=c(1,0), legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))</code></pre>
 </div>
 </div>
-<div id="roc" class="section level3">
-<h3>ROC</h3>
-<div id="in-sample-1" class="section level4">
-<h4>IN sample</h4>
+<div id="roc" class="section level4">
+<h4>ROC</h4>
+<div id="in-sample-1" class="section level5">
+<h5>IN sample</h5>
 <pre class="r"><code>roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.notest, SuSiErss = susierss.l2$in_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.notest)
 tmp = list()
 for (method in names(roc.notest)) {
@@ -1082,8 +1116,8 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="out-sample-and-out-sample-addz-1" class="section level4">
-<h4>OUT sample and OUT sample addz</h4>
+<div id="out-sample-and-out-sample-addz-1" class="section level5">
+<h5>OUT sample and OUT sample addz</h5>
 <pre class="r"><code>par(mfrow=c(1,2))
 labels = vector()
 i = 1
@@ -1188,12 +1222,12 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="estimate-residual-variance" class="section level2">
-<h2>Estimate residual variance</h2>
-<div id="power-vs-fdr-1" class="section level3">
-<h3>Power vs FDR</h3>
-<div id="in-sample-2" class="section level4">
-<h4>IN sample</h4>
+<div id="estimate-residual-variance" class="section level3">
+<h3>Estimate residual variance</h3>
+<div id="power-vs-fdr-1" class="section level4">
+<h4>Power vs FDR</h4>
+<div id="in-sample-2" class="section level5">
+<h5>IN sample</h5>
 <pre class="r"><code>roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.est, SuSiErss = susierss.l2$in_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.est)</code></pre>
 <pre class="r"><code>labels = vector()
 i = 1
@@ -1260,8 +1294,8 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="out-sample-and-out-sample-addz-2" class="section level4">
-<h4>OUT sample and OUT sample addz</h4>
+<div id="out-sample-and-out-sample-addz-2" class="section level5">
+<h5>OUT sample and OUT sample addz</h5>
 <pre class="r"><code>par(mfrow=c(1,2))
 labels = vector()
 i = 1
@@ -1336,10 +1370,10 @@ zouyuxin
 <pre class="r"><code># legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
 </div>
 </div>
-<div id="roc-1" class="section level3">
-<h3>ROC</h3>
-<div id="in-sample-3" class="section level4">
-<h4>IN sample</h4>
+<div id="roc-1" class="section level4">
+<h4>ROC</h4>
+<div id="in-sample-3" class="section level5">
+<h5>IN sample</h5>
 <pre class="r"><code>roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.est, SuSiErss = susierss.l2$in_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.est)
 tmp = list()
 for (method in names(roc.est)) {
@@ -1414,8 +1448,8 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="out-sample-and-out-sample-addz-3" class="section level4">
-<h4>OUT sample and OUT sample addz</h4>
+<div id="out-sample-and-out-sample-addz-3" class="section level5">
+<h5>OUT sample and OUT sample addz</h5>
 <pre class="r"><code>par(mfrow=c(1,2))
 labels = vector()
 i = 1
@@ -1521,15 +1555,15 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="l5" class="section level1">
-<h1>L=5</h1>
+<div id="l5" class="section level2">
+<h2>L=5</h2>
 <p>We fit model using 5 max causals in susie bhat, susie rss and finemap. CAVIAR is fitted using 2 max causal.</p>
-<div id="not-estimate-residual-variance-1" class="section level2">
-<h2>NOT estimate residual variance</h2>
-<div id="power-vs-fdr-2" class="section level3">
-<h3>Power vs FDR</h3>
-<div id="in-sample-4" class="section level4">
-<h4>IN sample</h4>
+<div id="not-estimate-residual-variance-1" class="section level3">
+<h3>NOT estimate residual variance</h3>
+<div id="power-vs-fdr-2" class="section level4">
+<h4>Power vs FDR</h4>
+<div id="in-sample-4" class="section level5">
+<h5>IN sample</h5>
 <pre class="r"><code>roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.notest, SuSiErss = susierss.l5$in_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.notest)</code></pre>
 <pre class="r"><code>labels = vector()
 i = 1
@@ -1596,8 +1630,8 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="out-sample-and-out-sample-addz-4" class="section level4">
-<h4>OUT sample and OUT sample addz</h4>
+<div id="out-sample-and-out-sample-addz-4" class="section level5">
+<h5>OUT sample and OUT sample addz</h5>
 <pre class="r"><code>par(mfrow=c(1,2))
 labels = vector()
 i = 1
@@ -1683,10 +1717,10 @@ zouyuxin
 <pre class="r"><code># legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
 </div>
 </div>
-<div id="roc-2" class="section level3">
-<h3>ROC</h3>
-<div id="in-sample-5" class="section level4">
-<h4>IN sample</h4>
+<div id="roc-2" class="section level4">
+<h4>ROC</h4>
+<div id="in-sample-5" class="section level5">
+<h5>IN sample</h5>
 <pre class="r"><code>roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.notest, SuSiErss = susierss.l5$in_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.notest)
 tmp = list()
 for (method in names(roc.notest)) {
@@ -1750,8 +1784,8 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="out-sample-and-out-sample-addz-5" class="section level4">
-<h4>OUT sample and OUT sample addz</h4>
+<div id="out-sample-and-out-sample-addz-5" class="section level5">
+<h5>OUT sample and OUT sample addz</h5>
 <pre class="r"><code>par(mfrow=c(1,2))
 labels = vector()
 i = 1
@@ -1856,12 +1890,12 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="estimate-residual-variance-1" class="section level2">
-<h2>Estimate residual variance</h2>
-<div id="power-vs-fdr-3" class="section level3">
-<h3>Power vs FDR</h3>
-<div id="in-sample-6" class="section level4">
-<h4>IN sample</h4>
+<div id="estimate-residual-variance-1" class="section level3">
+<h3>Estimate residual variance</h3>
+<div id="power-vs-fdr-3" class="section level4">
+<h4>Power vs FDR</h4>
+<div id="in-sample-6" class="section level5">
+<h5>IN sample</h5>
 <pre class="r"><code>roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.est, SuSiErss = susierss.l5$in_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.est)</code></pre>
 <pre class="r"><code>labels = vector()
 i = 1
@@ -1928,8 +1962,8 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="out-sample" class="section level4">
-<h4>OUT sample</h4>
+<div id="out-sample" class="section level5">
+<h5>OUT sample</h5>
 <pre class="r"><code>par(mfrow=c(1,2))
 labels = vector()
 i = 1
@@ -2004,10 +2038,10 @@ zouyuxin
 <pre class="r"><code># legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
 </div>
 </div>
-<div id="roc-3" class="section level3">
-<h3>ROC</h3>
-<div id="in-sample-7" class="section level4">
-<h4>IN sample</h4>
+<div id="roc-3" class="section level4">
+<h4>ROC</h4>
+<div id="in-sample-7" class="section level5">
+<h5>IN sample</h5>
 <pre class="r"><code>roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.est, SuSiErss = susierss.l5$in_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.est)
 tmp = list()
 for (method in names(roc.est)) {
@@ -2082,8 +2116,8 @@ zouyuxin
 </div>
 </div>
 </div>
-<div id="out-sample-1" class="section level4">
-<h4>OUT sample</h4>
+<div id="out-sample-and-out-sample-addz-6" class="section level5">
+<h5>OUT sample and OUT sample addz</h5>
 <pre class="r"><code>par(mfrow=c(1,2))
 labels = vector()
 i = 1
