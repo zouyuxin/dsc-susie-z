@@ -460,7 +460,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-06-17
+<strong>Last updated:</strong> 2019-06-20
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -539,10 +539,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree8d40dd2d3128d7aa913e6e753b386abd32d6006btargetblank8d40dd2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/8d40dd2d3128d7aa913e6e753b386abd32d6006b" target="_blank">8d40dd2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree6ca90c0a499c50fdbf0ae459b08265e5d843f07atargetblank6ca90c0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/6ca90c0a499c50fdbf0ae459b08265e5d843f07a" target="_blank">6ca90c0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree8d40dd2d3128d7aa913e6e753b386abd32d6006btargetblank8d40dd2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree6ca90c0a499c50fdbf0ae459b08265e5d843f07atargetblank6ca90c0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -716,6 +716,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/6ca90c0a499c50fdbf0ae459b08265e5d843f07a/analysis/r_compare_add_z_lambda_caviar_maf_ROC.Rmd" target="_blank">6ca90c0</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+<td>
+wflow_publish(“analysis/r_compare_add_z_lambda_caviar_maf_ROC.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/r_compare_add_z_lambda_caviar_maf_ROC.html" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/8d40dd2d3128d7aa913e6e753b386abd32d6006b/analysis/r_compare_add_z_lambda_caviar_maf_ROC.Rmd" target="_blank">8d40dd2</a>
 </td>
 <td>
@@ -750,15 +784,18 @@ susierss.l2 = readRDS(&#39;output/r_compare_maf0_SuSiERSS_L2_ROC.rds&#39;)
 susierss.maf.l2 = readRDS(&#39;output/r_compare_maf0.05_SuSiERSS_L2_ROC.rds&#39;)
 susierss.l5 = readRDS(&#39;output/r_compare_maf0_SuSiERSS_L5_ROC.rds&#39;)
 susierss.maf.l5 = readRDS(&#39;output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds&#39;)</code></pre>
+<p>The design matrix X are real human genotype data from GTEx project, the 150 data in <code>dsc-finemap</code> repo. We simulate under various number of causal variables (1,2) and total percentage of variance explained (0.1, 0.2). We set effect size of each causal variable to be <strong>equal</strong>. We randomly separate individuals into two groups, in sample and out sample group, and compute the corresponding correlation matrix. Using the summary statistics from univariate regression with in sample individuals, we fit SuSiE model using in-sample/out-sample correlation matrix, and compare their results. We include results using MAF threshold 5%.</p>
+<p>We compare results from CAVIAR(v2.0), FINEMAP(v1.1), SuSiE bhat and SuSiE RSS.</p>
 <div id="l2" class="section level1">
 <h1>L=2</h1>
+<p>We first check the results using two max causals in all methods.</p>
 <div id="not-estimate-residual-variance" class="section level2">
 <h2>NOT estimate residual variance</h2>
 <div id="power-vs-fdr" class="section level3">
 <h3>Power vs FDR</h3>
 <pre class="r"><code>chunks = 0
 smooth = FALSE
-colors = c(&#39;lavenderblush&#39;, &#39;red&#39;, &#39;lightcyan&#39;, &#39;blue&#39;, &#39;darkseagreen1&#39;, &#39;green&#39;, &#39;plum1&#39;, &#39;purple&#39;)
+colors = c(&#39;lavenderblush&#39;, &#39;red&#39;, &#39;lightcyan&#39;, &#39;blue&#39;, &#39;darkseagreen1&#39;, &#39;green&#39;, &#39;lightgoldenrod1&#39;, &#39;goldenrod2&#39;)
 
 library(scam)
 create_chunks = function(item, n) {
@@ -790,7 +827,7 @@ i = 1
 for (method in names(roc.notest)) {
   yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   }
@@ -799,18 +836,57 @@ for (method in names(roc.notest)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
+legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-5-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="out-sample" class="section level4">
-<h4>OUT sample</h4>
-<pre class="r"><code>labels = vector()
+</div>
+</div>
+<div id="out-sample-and-out-sample-addz" class="section level4">
+<h4>OUT sample and OUT sample addz</h4>
+<pre class="r"><code>library(graphics)
+par(mfrow=c(1,2))
+labels = vector()
 i = 1
 roc.notest = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l2$out_sample, FINEMAP.MAF = finemap.l2$maf.out_sample, SuSiEb = susieb.l2$out_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.notest, SuSiErss = susierss.l2$out_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.notest)
 for (method in names(roc.notest)) {
   yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.4), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;OUT Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.4), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.4))
   }
@@ -819,18 +895,15 @@ for (method in names(roc.notest)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="out-sample-addz" class="section level4">
-<h4>OUT sample addz</h4>
-<pre class="r"><code>labels = vector()
+legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
+
+labels = vector()
 i = 1
 roc.notest = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l2$out_sample.addz, FINEMAP.MAF = finemap.l2$maf.out_sample.addz, SuSiEb = susieb.l2$out_sample.addz.notest, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.addz.notest, SuSiErss = susierss.l2$out_sample.addz.notest, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.addz.notest)
 for (method in names(roc.notest)) {
   yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;OUT addz Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   }
@@ -838,9 +911,46 @@ for (method in names(roc.notest)) {
   add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
   labels[i] = method
   i = i + 1
-}
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" /></p>
+}</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code># legend(&quot;topright&quot;, inset=c(1,0), legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))</code></pre>
 </div>
 </div>
 <div id="roc" class="section level3">
@@ -870,12 +980,13 @@ for (method in names(roc.notest)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" /></p>
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
-<div id="out-sample-1" class="section level4">
-<h4>OUT sample</h4>
-<pre class="r"><code>labels = vector()
+<div id="out-sample-and-out-sample-addz-1" class="section level4">
+<h4>OUT sample and OUT sample addz</h4>
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 roc.notest = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l2$out_sample, FINEMAP.MAF = finemap.l2$maf.out_sample, SuSiEb = susieb.l2$out_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.notest, SuSiErss = susierss.l2$out_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.notest)
 tmp = list()
@@ -890,7 +1001,7 @@ roc.notest = tmp
 for (method in names(roc.notest)) {
   yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L = 2&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;OUT ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
@@ -899,12 +1010,9 @@ for (method in names(roc.notest)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-10-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="out-sample-add-z" class="section level4">
-<h4>OUT sample add z</h4>
-<pre class="r"><code>labels = vector()
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))
+
+labels = vector()
 i = 1
 roc.notest = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l2$out_sample.addz, FINEMAP.MAF = finemap.l2$maf.out_sample.addz, SuSiEb = susieb.l2$out_sample.addz.notest, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.addz.notest, SuSiErss = susierss.l2$out_sample.addz.notest, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.addz.notest)
 tmp = list()
@@ -919,7 +1027,7 @@ roc.notest = tmp
 for (method in names(roc.notest)) {
   yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L =5&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;OUT addz ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
@@ -927,9 +1035,46 @@ for (method in names(roc.notest)) {
   add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
   labels[i] = method
   i = i + 1
-}
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /></p>
+}</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-9-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-9-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code># legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
 </div>
 </div>
 </div>
@@ -945,7 +1090,7 @@ i = 1
 for (method in names(roc.est)) {
   yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   }
@@ -954,18 +1099,56 @@ for (method in names(roc.est)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /></p>
+legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-11-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="out-sample-2" class="section level4">
-<h4>OUT sample</h4>
-<pre class="r"><code>labels = vector()
+</div>
+</div>
+<div id="out-sample-and-out-sample-addz-2" class="section level4">
+<h4>OUT sample and OUT sample addz</h4>
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 roc.est = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l2$out_sample, FINEMAP.MAF = finemap.l2$maf.out_sample, SuSiEb = susieb.l2$out_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.est, SuSiErss = susierss.l2$out_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.est)
 for (method in names(roc.est)) {
   yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;OUT Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
   }
@@ -974,18 +1157,15 @@ for (method in names(roc.est)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="out-sample-addz-1" class="section level4">
-<h4>OUT sample addz</h4>
-<pre class="r"><code>labels = vector()
+legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
+
+labels = vector()
 i = 1
 roc.est = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l2$out_sample.addz, FINEMAP.MAF = finemap.l2$maf.out_sample.addz, SuSiEb = susieb.l2$out_sample.addz.est, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.addz.est, SuSiErss = susierss.l2$out_sample.addz.est, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.addz.est)
 for (method in names(roc.est)) {
   yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;OUT addz Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
   }
@@ -993,9 +1173,9 @@ for (method in names(roc.est)) {
   add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.02)
   labels[i] = method
   i = i + 1
-}
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /></p>
+}</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-12-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
 </div>
 </div>
 <div id="roc-1" class="section level3">
@@ -1025,12 +1205,50 @@ for (method in names(roc.est)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-14-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="out-sample-3" class="section level4">
-<h4>OUT sample</h4>
-<pre class="r"><code>labels = vector()
+</div>
+</div>
+<div id="out-sample-and-out-sample-addz-3" class="section level4">
+<h4>OUT sample and OUT sample addz</h4>
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 roc.est = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l2$out_sample, FINEMAP.MAF = finemap.l2$maf.out_sample, SuSiEb = susieb.l2$out_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.est, SuSiErss = susierss.l2$out_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.est)
 tmp = list()
@@ -1045,7 +1263,7 @@ roc.est = tmp
 for (method in names(roc.est)) {
   yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;OUT ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
@@ -1054,12 +1272,9 @@ for (method in names(roc.est)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="out-sample-add-z-1" class="section level4">
-<h4>OUT sample add z</h4>
-<pre class="r"><code>labels = vector()
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))
+
+labels = vector()
 i = 1
 roc.est = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l2$out_sample.addz, FINEMAP.MAF = finemap.l2$maf.out_sample.addz, SuSiEb = susieb.l2$out_sample.addz.est, SuSiEb.MAF = susieb.maf.l2$maf.out_sample.addz.est, SuSiErss = susierss.l2$out_sample.addz.est, SuSiErss.MAF = susierss.maf.l2$maf.out_sample.addz.est)
 tmp = list()
@@ -1074,7 +1289,7 @@ roc.est = tmp
 for (method in names(roc.est)) {
   yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;OUT addz ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
@@ -1082,15 +1297,53 @@ for (method in names(roc.est)) {
   add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta = -0.0001)
   labels[i] = method
   i = i + 1
-}
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;" /></p>
+}</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-15-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-15-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code># legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div id="l5" class="section level1">
 <h1>L=5</h1>
+<p>We fit model using 5 max causals in susie bhat, susie rss and finemap. CAVIAR is fitted using 2 max causal.</p>
 <div id="not-estimate-residual-variance-1" class="section level2">
 <h2>NOT estimate residual variance</h2>
 <div id="power-vs-fdr-2" class="section level3">
@@ -1103,7 +1356,7 @@ i = 1
 for (method in names(roc.notest)) {
   yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   }
@@ -1112,18 +1365,56 @@ for (method in names(roc.notest)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" /></p>
+legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-17-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="out-sample-4" class="section level4">
-<h4>OUT sample</h4>
-<pre class="r"><code>labels = vector()
+</div>
+</div>
+<div id="out-sample-and-out-sample-addz-4" class="section level4">
+<h4>OUT sample and OUT sample addz</h4>
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 roc.notest = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l5$out_sample, FINEMAP.MAF = finemap.l5$maf.out_sample, SuSiEb = susieb.l5$out_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.notest, SuSiErss = susierss.l5$out_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.notest)
 for (method in names(roc.notest)) {
   yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;OUT Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.8), ylim = c(0,0.8))
   }
@@ -1132,18 +1423,15 @@ for (method in names(roc.notest)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="out-sample-addz-2" class="section level4">
-<h4>OUT sample addz</h4>
-<pre class="r"><code>labels = vector()
+legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
+
+labels = vector()
 i = 1
 roc.notest = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l5$out_sample.addz, FINEMAP.MAF = finemap.l5$maf.out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.notest, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.addz.notest, SuSiErss = susierss.l5$out_sample.addz.notest, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.addz.notest)
 for (method in names(roc.notest)) {
   yy = make_smooth(1 - roc.notest[[method]]$rates$Precision, roc.notest[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;OUT addz Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.4), ylim = c(0,0.3))
   }
@@ -1151,9 +1439,46 @@ for (method in names(roc.notest)) {
   add_text(roc.notest[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.01)
   labels[i] = method
   i = i + 1
-}
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" /></p>
+}</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-18-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-18-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code># legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
 </div>
 </div>
 <div id="roc-2" class="section level3">
@@ -1183,12 +1508,13 @@ for (method in names(roc.notest)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;" /></p>
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
-<div id="out-sample-5" class="section level4">
-<h4>OUT sample</h4>
-<pre class="r"><code>labels = vector()
+<div id="out-sample-and-out-sample-addz-5" class="section level4">
+<h4>OUT sample and OUT sample addz</h4>
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 roc.notest = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l5$out_sample, FINEMAP.MAF = finemap.l5$maf.out_sample, SuSiEb = susieb.l5$out_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.notest, SuSiErss = susierss.l5$out_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.notest)
 tmp = list()
@@ -1203,7 +1529,7 @@ roc.notest = tmp
 for (method in names(roc.notest)) {
   yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC L = 2&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;OUT ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
@@ -1212,12 +1538,9 @@ for (method in names(roc.notest)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="out-sample-add-z-2" class="section level4">
-<h4>OUT sample add z</h4>
-<pre class="r"><code>labels = vector()
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))
+
+labels = vector()
 i = 1
 roc.notest = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l5$out_sample.addz, FINEMAP.MAF = finemap.l5$maf.out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.notest, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.addz.notest, SuSiErss = susierss.l5$out_sample.addz.notest, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.addz.notest)
 tmp = list()
@@ -1232,7 +1555,7 @@ roc.notest = tmp
 for (method in names(roc.notest)) {
   yy = make_smooth(roc.notest[[method]]$FPR, roc.notest[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;OUT addz ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
@@ -1240,9 +1563,46 @@ for (method in names(roc.notest)) {
   add_text(roc.notest[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.0001)
   labels[i] = method
   i = i + 1
-}
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" /></p>
+}</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-21-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-21-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code># legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
 </div>
 </div>
 </div>
@@ -1258,7 +1618,7 @@ i = 1
 for (method in names(roc.est)) {
   yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.3), ylim = c(0,0.3))
   }
@@ -1267,18 +1627,56 @@ for (method in names(roc.est)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" /></p>
+legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-23-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="out-sample-6" class="section level4">
+</div>
+</div>
+<div id="out-sample" class="section level4">
 <h4>OUT sample</h4>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 roc.est = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l5$out_sample, FINEMAP.MAF = finemap.l5$maf.out_sample, SuSiEb = susieb.l5$out_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.est, SuSiErss = susierss.l5$out_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.est)
 for (method in names(roc.est)) {
   yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.8), ylim = c(0,0.6))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;OUT Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.8), ylim = c(0,0.6))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.8), ylim = c(0,0.6))
   }
@@ -1287,18 +1685,15 @@ for (method in names(roc.est)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="out-sample-addz-3" class="section level4">
-<h4>OUT sample addz</h4>
-<pre class="r"><code>labels = vector()
+legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
+
+labels = vector()
 i = 1
 roc.est = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l5$out_sample.addz, FINEMAP.MAF = finemap.l5$maf.out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.est, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.addz.est, SuSiErss = susierss.l5$out_sample.addz.est, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.addz.est)
 for (method in names(roc.est)) {
   yy = make_smooth(1 - roc.est[[method]]$rates$Precision, roc.est[[method]]$rates$Recall)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;Power vs False Discovery Rate&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.6), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;power&quot;, xlab =&quot;FDR&quot;, main = &#39;OUT addz Power vs FDR&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.6), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 3, xlim = c(0,0.6), ylim = c(0,0.4))
   }
@@ -1306,9 +1701,9 @@ for (method in names(roc.est)) {
   add_text(roc.est[[method]]$rates$Threshold, yy$x, yy$y, 0.95, colors[i], delta=-0.02)
   labels[i] = method
   i = i + 1
-}
-legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /></p>
+}</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-24-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
 </div>
 </div>
 <div id="roc-3" class="section level3">
@@ -1338,12 +1733,50 @@ for (method in names(roc.est)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-33-1.png" width="576" style="display: block; margin: auto;" /></p>
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-26-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="out-sample-7" class="section level4">
+</div>
+</div>
+<div id="out-sample-1" class="section level4">
 <h4>OUT sample</h4>
-<pre class="r"><code>labels = vector()
+<pre class="r"><code>par(mfrow=c(1,2))
+labels = vector()
 i = 1
 roc.est = list(CAVIAR = caviar$out_sample, CAVIAR.MAF = caviar$maf.out_sample, FINEMAP = finemap.l5$out_sample, FINEMAP.MAF = finemap.l5$maf.out_sample, SuSiEb = susieb.l5$out_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.est, SuSiErss = susierss.l5$out_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.est)
 tmp = list()
@@ -1358,7 +1791,7 @@ roc.est = tmp
 for (method in names(roc.est)) {
   yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;OUT ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
@@ -1367,12 +1800,9 @@ for (method in names(roc.est)) {
   labels[i] = method
   i = i + 1
 }
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-34-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="out-sample-add-z-3" class="section level4">
-<h4>OUT sample add z</h4>
-<pre class="r"><code>labels = vector()
+legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))
+
+labels = vector()
 i = 1
 roc.est = list(CAVIAR = caviar$out_sample.addz, CAVIAR.MAF = caviar$maf.out_sample.addz, FINEMAP = finemap.l5$out_sample.addz, FINEMAP.MAF = finemap.l5$maf.out_sample.addz, SuSiEb = susieb.l5$out_sample.addz.est, SuSiEb.MAF = susieb.maf.l5$maf.out_sample.addz.est, SuSiErss = susierss.l5$out_sample.addz.est, SuSiErss.MAF = susierss.maf.l5$maf.out_sample.addz.est)
 tmp = list()
@@ -1387,7 +1817,7 @@ roc.est = tmp
 for (method in names(roc.est)) {
   yy = make_smooth(roc.est[[method]]$FPR, roc.est[[method]]$TPR)
   if (i == 1) {
-    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
+    plot(yy$x, yy$y, t=&quot;l&quot;, col=colors[i], ylab = &quot;True Positive Rate&quot;, xlab =&quot;False Positive Rate&quot;, main = &#39;OUT addz ROC&#39;, bty=&#39;l&#39;, lwd = 3, xlim = c(0,0.004), ylim = c(0,0.4))
   } else {
     lines(yy$x, yy$y, col=colors[i], lwd = 2, xlim = c(0,0.004), ylim = c(0,0.4))
   }
@@ -1395,9 +1825,46 @@ for (method in names(roc.est)) {
   add_text(roc.est[[method]]$threshold, yy$x, yy$y, 0.95, colors[i], delta = -0.0001)
   labels[i] = method
   i = i + 1
-}
-legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
-<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" /></p>
+}</code></pre>
+<p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-27-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-27-1.png" target="_blank">9387dbe</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code># legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
