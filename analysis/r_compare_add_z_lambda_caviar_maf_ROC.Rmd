@@ -28,13 +28,21 @@ susierss.l5 = readRDS('output/r_compare_maf0_SuSiERSS_L5_ROC.rds')
 susierss.maf.l5 = readRDS('output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds')
 ```
 
-The design matrix X are real human genotype data from GTEx project, the 150 data in `dsc-finemap` repo. We simulate under various number of causal variables (1,2) and total percentage of variance explained (0.1, 0.2). We set effect size of each causal variable to be **equal**. We randomly separate individuals into two groups, in sample and out sample group, and compute the corresponding correlation matrix. Using the summary statistics from univariate regression with in sample individuals, we fit SuSiE model using in-sample/out-sample correlation matrix, and compare their results. We include results using MAF threshold 5%.
+The design matrix X are real human genotype data from GTEx project, the 150 data in `dsc-finemap` repo. We randomly separate individuals into two groups, in sample and out sample group, and compute the corresponding correlation matrix. After filtering for MAF (0% or 5%), we simulate data under various number of causal variables (1,2) and total percentage of variance explained (0.1, 0.2). We set effect size of each causal variable to be **equal**. Using the summary statistics from univariate regression with in sample individuals, we fit SuSiE model using in-sample/out-sample correlation matrix, and compare their results.
 
-We compare results from CAVIAR(v2.0), FINEMAP(v1.1), SuSiE bhat and SuSiE RSS.
+We compare results from CAVIAR(v2.0), FINEMAP(v1.1), SuSiE bhat and SuSiE RSS. The results from MAF filtered data are plotted using dark color. 
+
+We didn't include FINEMAP(v1.3.1), because it has error in data with MAF threshold 5%.
+
+Summary:
+
+1. Using MAF filter, CAVIAR, SuSiE bhat and SuSiE RSS perform similarly using out sample correlation matrix adding z. They all outperform FINEMAP.
+
+2. Applying MAF filter decreases the FDR.
 
 # L=2
 
-We first check the results using two max causals in all methods.
+We check the results using 2 max causals in all methods.
 
 ## NOT estimate residual variance
 
