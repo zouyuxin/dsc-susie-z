@@ -539,10 +539,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree6ca90c0a499c50fdbf0ae459b08265e5d843f07atargetblank6ca90c0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/6ca90c0a499c50fdbf0ae459b08265e5d843f07a" target="_blank">6ca90c0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree6c8f5ca463199bebf5ba54e23fd1daaa88997ff2targetblank6c8f5caa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/6c8f5ca463199bebf5ba54e23fd1daaa88997ff2" target="_blank">6c8f5ca</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree6ca90c0a499c50fdbf0ae459b08265e5d843f07atargetblank6ca90c0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree6c8f5ca463199bebf5ba54e23fd1daaa88997ff2targetblank6c8f5caa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -716,6 +716,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/6c8f5ca463199bebf5ba54e23fd1daaa88997ff2/analysis/r_compare_add_z_lambda_caviar_maf_ROC.Rmd" target="_blank">6c8f5ca</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+<td>
+wflow_publish(“analysis/r_compare_add_z_lambda_caviar_maf_ROC.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/r_compare_add_z_lambda_caviar_maf_ROC.html" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/6ca90c0a499c50fdbf0ae459b08265e5d843f07a/analysis/r_compare_add_z_lambda_caviar_maf_ROC.Rmd" target="_blank">6ca90c0</a>
 </td>
 <td>
@@ -784,11 +818,17 @@ susierss.l2 = readRDS(&#39;output/r_compare_maf0_SuSiERSS_L2_ROC.rds&#39;)
 susierss.maf.l2 = readRDS(&#39;output/r_compare_maf0.05_SuSiERSS_L2_ROC.rds&#39;)
 susierss.l5 = readRDS(&#39;output/r_compare_maf0_SuSiERSS_L5_ROC.rds&#39;)
 susierss.maf.l5 = readRDS(&#39;output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds&#39;)</code></pre>
-<p>The design matrix X are real human genotype data from GTEx project, the 150 data in <code>dsc-finemap</code> repo. We simulate under various number of causal variables (1,2) and total percentage of variance explained (0.1, 0.2). We set effect size of each causal variable to be <strong>equal</strong>. We randomly separate individuals into two groups, in sample and out sample group, and compute the corresponding correlation matrix. Using the summary statistics from univariate regression with in sample individuals, we fit SuSiE model using in-sample/out-sample correlation matrix, and compare their results. We include results using MAF threshold 5%.</p>
-<p>We compare results from CAVIAR(v2.0), FINEMAP(v1.1), SuSiE bhat and SuSiE RSS.</p>
+<p>The design matrix X are real human genotype data from GTEx project, the 150 data in <code>dsc-finemap</code> repo. We randomly separate individuals into two groups, in sample and out sample group, and compute the corresponding correlation matrix. After filtering for MAF (0% or 5%), we simulate data under various number of causal variables (1,2) and total percentage of variance explained (0.1, 0.2). We set effect size of each causal variable to be <strong>equal</strong>. Using the summary statistics from univariate regression with in sample individuals, we fit SuSiE model using in-sample/out-sample correlation matrix, and compare their results.</p>
+<p>We compare results from CAVIAR(v2.0), FINEMAP(v1.1), SuSiE bhat and SuSiE RSS. The results from MAF filtered data are plotted using dark color.</p>
+<p>We didn’t include FINEMAP(v1.3.1), because it has error in data with MAF threshold 5%.</p>
+<p>Summary:</p>
+<ol style="list-style-type: decimal">
+<li><p>Using MAF filter, CAVIAR, SuSiE bhat and SuSiE RSS perform similarly using out sample correlation matrix adding z. They all outperform FINEMAP.</p></li>
+<li><p>Applying MAF filter decreases the FDR.</p></li>
+</ol>
 <div id="l2" class="section level1">
 <h1>L=2</h1>
-<p>We first check the results using two max causals in all methods.</p>
+<p>We check the results using 2 max causals in all methods.</p>
 <div id="not-estimate-residual-variance" class="section level2">
 <h2>NOT estimate residual variance</h2>
 <div id="power-vs-fdr" class="section level3">
@@ -860,6 +900,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-5-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-5-1.png" target="_blank">9387dbe</a>
@@ -937,6 +988,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-6-1.png" target="_blank">9387dbe</a>
 </td>
 <td>
@@ -982,6 +1044,43 @@ for (method in names(roc.notest)) {
 }
 legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-8-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="out-sample-and-out-sample-addz-1" class="section level4">
 <h4>OUT sample and OUT sample addz</h4>
@@ -1061,6 +1160,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-9-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-9-1.png" target="_blank">9387dbe</a>
 </td>
 <td>
@@ -1125,6 +1235,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-11-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-11-1.png" target="_blank">9387dbe</a>
 </td>
 <td>
@@ -1175,6 +1296,43 @@ for (method in names(roc.est)) {
   i = i + 1
 }</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-12-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-12-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
 </div>
 </div>
@@ -1229,6 +1387,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-14-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-14-1.png" target="_blank">9387dbe</a>
@@ -1323,6 +1492,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-15-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-15-1.png" target="_blank">9387dbe</a>
 </td>
 <td>
@@ -1389,6 +1569,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-17-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-17-1.png" target="_blank">9387dbe</a>
@@ -1465,6 +1656,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-18-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-18-1.png" target="_blank">9387dbe</a>
 </td>
 <td>
@@ -1510,6 +1712,43 @@ for (method in names(roc.notest)) {
 }
 legend(&quot;bottomright&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-20-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="out-sample-and-out-sample-addz-5" class="section level4">
 <h4>OUT sample and OUT sample addz</h4>
@@ -1589,6 +1828,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-21-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-21-1.png" target="_blank">9387dbe</a>
 </td>
 <td>
@@ -1653,6 +1903,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-23-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-23-1.png" target="_blank">9387dbe</a>
 </td>
 <td>
@@ -1703,6 +1964,43 @@ for (method in names(roc.est)) {
   i = i + 1
 }</code></pre>
 <p><img src="figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-24-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-24-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># legend(&quot;topleft&quot;, legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))</code></pre>
 </div>
 </div>
@@ -1757,6 +2055,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-26-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-26-1.png" target="_blank">9387dbe</a>
@@ -1849,6 +2158,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/bb2fd08edfd5ee737252fb93d2e16a1db4537d92/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-27-1.png" target="_blank">bb2fd08</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-06-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/9387dbed2923ea36c48494f2cb6ae6b0d4ba6350/docs/figure/r_compare_add_z_lambda_caviar_maf_ROC.Rmd/unnamed-chunk-27-1.png" target="_blank">9387dbe</a>
