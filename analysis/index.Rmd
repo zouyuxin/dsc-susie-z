@@ -44,54 +44,24 @@ Welcome to my research website.
 
 * Comparing result from in-sample R vs out-sample R:
 
-    [Equal effect size](r_compare_susie_equal.html)
+    Most recent result: 
     
-    [NON-Equal effect size](r_compare_susie_notequal.html)
+    More investigations (2019-06-16): we use FINEMAP from v1.1, including MAF threshold 5%.
     
-    [Calibrated PIP and ROC for FINEMAP](r_compare_finemap.html)
+    [Power, FDR for FINEMAP and SuSiE related methods](r_compare_add_z_lambda_caviar_maf_susie.html)
     
-    [Calibrated PIP and ROC for SuSiE b (equal effect size)](r_compare_susieb_ROC.html)
+    [Calibrated PIP and ROC for CAVIAR](r_compare_add_z_lambda_caviar_maf_CAVIAR_ROC.html)
     
-    [Calibrated PIP and ROC for SuSiE rss (equal effect size)](r_compare_susierss_ROC.html)
+    [Calibrated PIP and ROC for FINEMAP](r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.html)
     
-    + Problem data: 
-        
-        [SuSiE bhat out sample R error](r_compare_susieb_problem.html)
-      
-        [SuSiE RSS not converge](SuSiErssNotConverge.html)
-        
-    ----------------------------
+    [Calibrated PIP and ROC for SuSiE b](r_compare_add_z_lambda_caviar_maf_susieb_ROC.html)
     
-    More investigations (2019-04-25): we include another estimation of correlation matrix cov2cor($X'X + zz'$)
+    [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_lambda_caviar_maf_susierss_ROC.html)
     
-    [Power, FDR for SuSiE related methods](r_compare_add_z_susie.html)
+    [ROC in one plot](r_compare_add_z_lambda_caviar_maf_ROC.html)
     
-    [Calibrated PIP and ROC for FINEMAP](r_compare_add_z_finemap.html)
-    
-    [Calibrated PIP and ROC for SuSiE](r_compare_susie_ROC.html)
-    
-    [Calibrated PIP and ROC for SuSiE b](r_compare_add_z_susieb_ROC.html)
-    
-    [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_susierss_ROC.html)
-    
-    [ROC in one plot](r_compare_add_z_ROC.html)
-    
-    ----------------------------
-    
-    More investigations (2019-04-29): we include model 1. without estimating residual variance, 2. susierss with lambda
-    
-    [Power, FDR for SuSiE related methods](r_compare_add_z_lambda_susie.html)
-    
-    [Calibrated PIP and ROC for FINEMAP](r_compare_add_z_lambda_finemap.html)
-    
-    [Calibrated PIP and ROC for SuSiE b](r_compare_add_z_lambda_susieb_ROC.html)
-    
-    [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_lambda_susierss_ROC.html)
-    
-    [ROC in one plot](r_compare_add_z_lambda_ROC.html)
-    
-    ----------------------------
-    
+    -----------------------------------------------------------------------
+
     More investigations (2019-05-06): we change FINEMAP from v1.1 to v1.3.1, add CAVIAR
     
     [Power, FDR for FINEMAP and SuSiE related methods](r_compare_add_z_lambda_caviar_susie_finemap.html)
@@ -109,22 +79,55 @@ Welcome to my research website.
     [Data 1](r_compare_add_z_lambda_caviar_Eg1.html)
     
     [Compute log-BF for CAVIAR](bf_test_caviar.html)
-
-    ----------------------------
     
-    More investigations (2019-06-16): we use FINEMAP from v1.1, including MAF threshold 5%.
+    ------------------------------------------------------------------------
     
-    [Power, FDR for FINEMAP and SuSiE related methods](r_compare_add_z_lambda_caviar_maf_susie.html)
+    More investigations (2019-04-29): we include model 1. without estimating residual variance, 2. susierss with lambda
     
-    [Calibrated PIP and ROC for CAVIAR](r_compare_add_z_lambda_caviar_maf_CAVIAR_ROC.html)
+    [Power, FDR for SuSiE related methods](r_compare_add_z_lambda_susie.html)
     
-    [Calibrated PIP and ROC for FINEMAP](r_compare_add_z_lambda_caviar_maf_FINEMAP_ROC.html)
+    [Calibrated PIP and ROC for FINEMAP](r_compare_add_z_lambda_finemap.html)
     
-    [Calibrated PIP and ROC for SuSiE b](r_compare_add_z_lambda_caviar_maf_susieb_ROC.html)
+    [Calibrated PIP and ROC for SuSiE b](r_compare_add_z_lambda_susieb_ROC.html)
     
-    [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_lambda_caviar_maf_susierss_ROC.html)
+    [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_lambda_susierss_ROC.html)
     
-    [ROC in one plot](r_compare_add_z_lambda_caviar_maf_ROC.html)
+    [ROC in one plot](r_compare_add_z_lambda_ROC.html)
+    
+    ------------------------------------------------------------------------
+    
+    More investigations (2019-04-25): we include another estimation of correlation matrix cov2cor($X'X + zz'$)
+    
+    [Power, FDR for SuSiE related methods](r_compare_add_z_susie.html)
+    
+    [Calibrated PIP and ROC for FINEMAP](r_compare_add_z_finemap.html)
+    
+    [Calibrated PIP and ROC for SuSiE](r_compare_susie_ROC.html)
+    
+    [Calibrated PIP and ROC for SuSiE b](r_compare_add_z_susieb_ROC.html)
+    
+    [Calibrated PIP and ROC for SuSiE rss](r_compare_add_z_susierss_ROC.html)
+    
+    [ROC in one plot](r_compare_add_z_ROC.html)
+    
+    ------------------------------------------------------------------------
+    
+    [Equal effect size](r_compare_susie_equal.html)
+    
+    [NON-Equal effect size](r_compare_susie_notequal.html)
+    
+    [Calibrated PIP and ROC for FINEMAP](r_compare_finemap.html)
+    
+    [Calibrated PIP and ROC for SuSiE b (equal effect size)](r_compare_susieb_ROC.html)
+    
+    [Calibrated PIP and ROC for SuSiE rss (equal effect size)](r_compare_susierss_ROC.html)
+    
+    + Problem data: 
+        
+        [SuSiE bhat out sample R error](r_compare_susieb_problem.html)
+      
+        [SuSiE RSS not converge](SuSiErssNotConverge.html)
+    
     
 * A [Benchmark](FINEMAP_benchmark.html) for FINEMAP v1.3.1
 
