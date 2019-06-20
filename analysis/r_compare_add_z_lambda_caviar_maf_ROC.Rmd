@@ -36,17 +36,17 @@ We didn't include FINEMAP(v1.3.1), because it has error in data with MAF thresho
 
 Summary:
 
-1. Using MAF filter, CAVIAR, SuSiE bhat and SuSiE RSS perform similarly using out sample correlation matrix adding z. They all outperform FINEMAP.
+1. Using MAF filter, CAVIAR, SuSiE bhat and SuSiE RSS perform similarly using out sample correlation matrix adding z. They all **outperform** FINEMAP.
 
-2. Applying MAF filter decreases the FDR.
+2. Applying MAF filter **decreases** the FDR.
 
-# L=2
+## L=2
 
 We check the results using 2 max causals in all methods.
 
-## NOT estimate residual variance
+### NOT estimate residual variance
 
-### Power vs FDR
+#### Power vs FDR
 
 ```{r message=F, warning=F}
 chunks = 0
@@ -77,7 +77,7 @@ add_text = function(thresholds,x,y,threshold,color,delta = -0.06) {
 }
 ```
 
-#### IN sample
+##### IN sample
 ```{r}
 roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.notest, SuSiErss = susierss.l2$in_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.notest)
 ```
@@ -100,7 +100,7 @@ for (method in names(roc.notest)) {
 legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
 ```
 
-#### OUT sample and OUT sample addz
+##### OUT sample and OUT sample addz
 
 ```{r fig.width=12, fig.height=5, fig.align='center'}
 library(graphics)
@@ -140,9 +140,9 @@ for (method in names(roc.notest)) {
 # legend("topright", inset=c(1,0), legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
 ```
 
-### ROC
+#### ROC
 
-#### IN sample
+##### IN sample
 ```{r}
 roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.notest, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.notest, SuSiErss = susierss.l2$in_sample.notest, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.notest)
 tmp = list()
@@ -173,7 +173,7 @@ for (method in names(roc.notest)) {
 legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))
 ```
 
-#### OUT sample and OUT sample addz
+##### OUT sample and OUT sample addz
 
 ```{r fig.width=12, fig.height=5, fig.align='center'}
 par(mfrow=c(1,2))
@@ -230,11 +230,11 @@ for (method in names(roc.notest)) {
 # legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
 ```
 
-## Estimate residual variance
+### Estimate residual variance
 
-### Power vs FDR
+#### Power vs FDR
 
-#### IN sample
+##### IN sample
 ```{r}
 roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.est, SuSiErss = susierss.l2$in_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.est)
 ```
@@ -257,7 +257,7 @@ for (method in names(roc.est)) {
 legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
 ```
 
-#### OUT sample and OUT sample addz
+##### OUT sample and OUT sample addz
 
 ```{r fig.width=12, fig.height=5, fig.align='center'}
 par(mfrow=c(1,2))
@@ -296,9 +296,9 @@ for (method in names(roc.est)) {
 # legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
 ```
 
-### ROC
+#### ROC
 
-#### IN sample
+##### IN sample
 ```{r}
 roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l2$in_sample, FINEMAP.MAF = finemap.l2$maf.in_sample, SuSiEb = susieb.l2$in_sample.est, SuSiEb.MAF = susieb.maf.l2$maf.in_sample.est, SuSiErss = susierss.l2$in_sample.est, SuSiErss.MAF = susierss.maf.l2$maf.in_sample.est)
 tmp = list()
@@ -329,7 +329,7 @@ for (method in names(roc.est)) {
 legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))
 ```
 
-#### OUT sample and OUT sample addz
+##### OUT sample and OUT sample addz
 
 ```{r fig.width=12, fig.height=5, fig.align='center'}
 par(mfrow=c(1,2))
@@ -386,15 +386,15 @@ for (method in names(roc.est)) {
 # legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
 ```
 
-# L=5
+## L=5
 
 We fit model using 5 max causals in susie bhat, susie rss and finemap. CAVIAR is fitted using 2 max causal.
 
-## NOT estimate residual variance
+### NOT estimate residual variance
 
-### Power vs FDR
+#### Power vs FDR
 
-#### IN sample
+##### IN sample
 ```{r}
 roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.notest, SuSiErss = susierss.l5$in_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.notest)
 ```
@@ -417,7 +417,7 @@ for (method in names(roc.notest)) {
 legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
 ```
 
-#### OUT sample and OUT sample addz
+##### OUT sample and OUT sample addz
 
 ```{r fig.width=12, fig.height=5, fig.align='center'}
 par(mfrow=c(1,2))
@@ -456,9 +456,9 @@ for (method in names(roc.notest)) {
 # legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
 ```
 
-### ROC
+#### ROC
 
-#### IN sample
+##### IN sample
 ```{r}
 roc.notest = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.notest, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.notest, SuSiErss = susierss.l5$in_sample.notest, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.notest)
 tmp = list()
@@ -489,7 +489,7 @@ for (method in names(roc.notest)) {
 legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))
 ```
 
-#### OUT sample and OUT sample addz
+##### OUT sample and OUT sample addz
 
 ```{r fig.width=12, fig.height=5, fig.align='center'}
 par(mfrow=c(1,2))
@@ -546,11 +546,11 @@ for (method in names(roc.notest)) {
 # legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd=rep(3, i))
 ```
 
-## Estimate residual variance
+### Estimate residual variance
 
-### Power vs FDR
+#### Power vs FDR
 
-#### IN sample
+##### IN sample
 ```{r}
 roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.est, SuSiErss = susierss.l5$in_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.est)
 ```
@@ -573,7 +573,7 @@ for (method in names(roc.est)) {
 legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
 ```
 
-#### OUT sample
+##### OUT sample
 
 ```{r fig.width=12, fig.height=5, fig.align='center'}
 par(mfrow=c(1,2))
@@ -612,9 +612,9 @@ for (method in names(roc.est)) {
 # legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.8, lwd = rep(3, i))
 ```
 
-### ROC
+#### ROC
 
-#### IN sample
+##### IN sample
 ```{r}
 roc.est = list(CAVIAR = caviar$in_sample, CAVIAR.MAF = caviar$maf.in_sample, FINEMAP = finemap.l5$in_sample, FINEMAP.MAF = finemap.l5$maf.in_sample, SuSiEb = susieb.l5$in_sample.est, SuSiEb.MAF = susieb.maf.l5$maf.in_sample.est, SuSiErss = susierss.l5$in_sample.est, SuSiErss.MAF = susierss.maf.l5$maf.in_sample.est)
 tmp = list()
@@ -645,7 +645,7 @@ for (method in names(roc.est)) {
 legend("bottomright", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd=rep(3, i))
 ```
 
-#### OUT sample
+##### OUT sample and OUT sample addz
 
 ```{r fig.width=12, fig.height=5, fig.align='center'}
 par(mfrow=c(1,2))
