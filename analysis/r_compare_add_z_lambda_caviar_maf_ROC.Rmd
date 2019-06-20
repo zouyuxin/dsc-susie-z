@@ -573,7 +573,7 @@ for (method in names(roc.est)) {
 legend("topleft", legend=labels, col=colors[1:i], lty=rep(1, i), cex=0.7, lwd = rep(3, i))
 ```
 
-##### OUT sample
+##### OUT sample and OUT sample addz
 
 ```{r fig.width=12, fig.height=5, fig.align='center'}
 par(mfrow=c(1,2))
