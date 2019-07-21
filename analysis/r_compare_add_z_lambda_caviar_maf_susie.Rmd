@@ -88,49 +88,22 @@ dsc.susieb.maf.out_sample.addz = dsc.susiebhat.maf %>% filter(ld_method == 'out_
 
 * Converge
 
-There are 3 models from susie_bhat fail to converge. There are 18 cases with out-sample R failed (out of 600). The estimated residual variance becomes negative.
+There are 3 models from susie_bhat fail to converge. There are 18 cases with out-sample R failed (out of 608). The estimated residual variance becomes negative.
 ```{r}
 converge.summary = aggregate(converged ~ ld_method + addz + estimate_residual_variance + L, dsc.susiebhat, sum)
-converge.summary$Fail = 600 - converge.summary$converged
+converge.summary$Fail = 608 - converge.summary$converged
 Fail = converge.summary[converge.summary$Fail!=0,]
 row.names(Fail) = NULL
 Fail[,-5] %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
 ```
 
-Using MAF threshold, there is 1 model from susie_bhat fail to converge. There is 1 model with out-sample R failed (out of 600). The estimated residual variance becomes negative.
+Using MAF threshold, there is 1 model from susie_bhat fail to converge. There is 1 model with out-sample R failed (out of 608). The estimated residual variance becomes negative.
 ```{r}
 converge.summary = aggregate(converged ~ ld_method + addz + estimate_residual_variance + L, dsc.susiebhat.maf, sum)
-converge.summary$Fail = 600 - converge.summary$converged
+converge.summary$Fail = 608 - converge.summary$converged
 Fail = converge.summary[converge.summary$Fail!=0,]
 row.names(Fail) = NULL
 Fail[,-5] %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
-```
-
-* Purity of CS:
-
-Estimate residual variance
-```{r}
-purity.susieb.in_sample = aggregate(purity~pve+n_signal, dsc.susieb.in_sample %>% filter(estimate_residual_variance==TRUE & L==5), mean)
-colnames(purity.susieb.in_sample)[colnames(purity.susieb.in_sample) == 'purity'] <- 'IN'
-
-purity.susieb.out_sample = aggregate(purity~pve+n_signal, dsc.susieb.out_sample %>% filter(estimate_residual_variance==TRUE & L==5), mean)
-colnames(purity.susieb.out_sample)[colnames(purity.susieb.out_sample) == 'purity'] <- 'OUT'
-
-purity.susieb.out_sample.addz = aggregate(purity~pve+n_signal, dsc.susieb.out_sample.addz %>% filter(estimate_residual_variance==TRUE & L==5), mean)
-colnames(purity.susieb.out_sample.addz)[colnames(purity.susieb.out_sample.addz) == 'purity'] <- 'OUT.addz'
-
-purity.susieb.maf.in_sample = aggregate(purity~pve+n_signal, dsc.susieb.maf.in_sample %>% filter(estimate_residual_variance==TRUE & L==5), mean)
-colnames(purity.susieb.maf.in_sample)[colnames(purity.susieb.maf.in_sample) == 'purity'] <- 'IN'
-
-purity.susieb.maf.out_sample = aggregate(purity~pve+n_signal, dsc.susieb.maf.out_sample %>% filter(estimate_residual_variance==TRUE & L==5), mean)
-colnames(purity.susieb.maf.out_sample)[colnames(purity.susieb.maf.out_sample) == 'purity'] <- 'OUT'
-
-purity.susieb.maf.out_sample.addz = aggregate(purity~pve+n_signal, dsc.susieb.maf.out_sample.addz %>% filter(estimate_residual_variance==TRUE & L==5), mean)
-colnames(purity.susieb.maf.out_sample.addz)[colnames(purity.susieb.maf.out_sample.addz) == 'purity'] <- 'OUT.addz'
-
-purity.susieb = cbind(purity.susieb.in_sample, purity.susieb.out_sample, purity.susieb.out_sample.addz, purity.susieb.maf.in_sample, purity.susieb.maf.out_sample, purity.susieb.maf.out_sample.addz)
-purity.susieb = purity.susieb[,-c(4,5,7,8,10,11,13,14,16,17)]
-round(purity.susieb, 3) %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) %>% add_header_above(c(" " = 2, "MAF 0" = 3, "MAF 0.05" = 3)) %>% column_spec(c(2,5), border_right = T)
 ```
 
 * Power:
@@ -263,94 +236,13 @@ There are cases fail to converge in susie_rss.
 
 ```{r}
 converge.summary = aggregate(converged ~ ld_method + addz + estimate_residual_variance + lambda + L, dsc.susierss, sum)
-converge.summary$NotConverge = 600 - converge.summary$converged
+converge.summary$NotConverge = 608 - converge.summary$converged
 NotConverge = converge.summary[converge.summary$NotConverge!=0,]
 row.names(NotConverge) = NULL
 NotConverge[,-6] %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) 
 ```
 
 Using MAF threshold, all converged.
-
-* Purity of CS:
-
-```{r}
-l = 5
-purity.susierss.in_sample = round(aggregate(purity~pve+n_signal, dsc.susierss.in_sample%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.in_sample)[colnames(purity.susierss.in_sample) == 'purity'] <- 'IN'
-
-purity.susierss.out_sample = round(aggregate(purity~pve+n_signal, dsc.susierss.out_sample%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample)[colnames(purity.susierss.out_sample) == 'purity'] <- 'OUT'
-
-purity.susierss.out_sample.addz = round(aggregate(purity~pve+n_signal, dsc.susierss.out_sample.addz%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.addz)[colnames(purity.susierss.out_sample.addz) == 'purity'] <- 'OUT.addz'
-
-
-purity.susierss.in_sample.l1 = round(aggregate(purity~pve+n_signal, dsc.susierss.in_sample.l1%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.in_sample.l1)[colnames(purity.susierss.in_sample.l1) == 'purity'] <- 'IN.l1'
-
-purity.susierss.out_sample.l1 = round(aggregate(purity~pve+n_signal, dsc.susierss.out_sample.l1%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.l1)[colnames(purity.susierss.out_sample.l1) == 'purity'] <- 'OUT'
-
-purity.susierss.out_sample.addz.l1 = round(aggregate(purity~pve+n_signal, dsc.susierss.out_sample.addz.l1%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.addz.l1)[colnames(purity.susierss.out_sample.addz.l1) == 'purity'] <- 'OUT.addz'
-
-
-purity.susierss.in_sample.l2 = round(aggregate(purity~pve+n_signal, dsc.susierss.in_sample.l2%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.in_sample.l2)[colnames(purity.susierss.in_sample.l2) == 'purity'] <- 'IN'
-
-purity.susierss.out_sample.l2 = round(aggregate(purity~pve+n_signal, dsc.susierss.out_sample.l2%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.l2)[colnames(purity.susierss.out_sample.l2) == 'purity'] <- 'OUT'
-
-purity.susierss.out_sample.addz.l2 = round(aggregate(purity~pve+n_signal, dsc.susierss.out_sample.addz.l2%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.addz.l2)[colnames(purity.susierss.out_sample.addz.l2) == 'purity'] <- 'OUT.addz'
-
-#############################
-purity.susierss.in_sample.maf = round(aggregate(purity~pve+n_signal, dsc.susierss.maf.in_sample%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.in_sample.maf)[colnames(purity.susierss.in_sample.maf) == 'purity'] <- 'IN'
-
-purity.susierss.out_sample.maf = round(aggregate(purity~pve+n_signal, dsc.susierss.maf.out_sample%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.maf)[colnames(purity.susierss.out_sample.maf) == 'purity'] <- 'OUT'
-
-purity.susierss.out_sample.addz.maf = round(aggregate(purity~pve+n_signal, dsc.susierss.maf.out_sample.addz%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.addz.maf)[colnames(purity.susierss.out_sample.addz.maf) == 'purity'] <- 'OUT.addz'
-
-
-purity.susierss.in_sample.l1.maf = round(aggregate(purity~pve+n_signal, dsc.susierss.maf.in_sample.l1%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.in_sample.l1.maf)[colnames(purity.susierss.in_sample.l1.maf) == 'purity'] <- 'IN.l1'
-
-purity.susierss.out_sample.l1.maf = round(aggregate(purity~pve+n_signal, dsc.susierss.maf.out_sample.l1%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.l1.maf)[colnames(purity.susierss.out_sample.l1.maf) == 'purity'] <- 'OUT'
-
-purity.susierss.out_sample.addz.l1.maf = round(aggregate(purity~pve+n_signal, dsc.susierss.maf.out_sample.addz.l1%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.addz.l1.maf)[colnames(purity.susierss.out_sample.addz.l1.maf) == 'purity'] <- 'OUT.addz'
-
-
-purity.susierss.in_sample.l2.maf = round(aggregate(purity~pve+n_signal, dsc.susierss.maf.in_sample.l2%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.in_sample.l2.maf)[colnames(purity.susierss.in_sample.l2.maf) == 'purity'] <- 'IN'
-
-purity.susierss.out_sample.l2.maf = round(aggregate(purity~pve+n_signal, dsc.susierss.maf.out_sample.l2%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.l2.maf)[colnames(purity.susierss.out_sample.l2.maf) == 'purity'] <- 'OUT'
-
-purity.susierss.out_sample.addz.l2.maf = round(aggregate(purity~pve+n_signal, dsc.susierss.maf.out_sample.addz.l2%>% filter(estimate_residual_variance==TRUE & L == l), mean), 3)
-colnames(purity.susierss.out_sample.addz.l2.maf)[colnames(purity.susierss.out_sample.addz.l2.maf) == 'purity'] <- 'OUT.addz'
-
-#############################
-
-purity.susierss = cbind(purity.susierss.in_sample, purity.susierss.out_sample, purity.susierss.out_sample.addz,purity.susierss.in_sample.maf, purity.susierss.out_sample.maf, purity.susierss.out_sample.addz.maf)
-purity.susierss = purity.susierss[,-c(4,5,7,8,10,11,13,14,16,17)]
-purity.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F) %>%
-  footnote(general = "lambda = 0") %>% add_header_above(c(" " = 2, "MAF 0" = 3, "MAF 0.05" = 3)) %>% column_spec(c(2,5), border_right = T)
-
-purity.susierss = cbind(purity.susierss.in_sample.l1, purity.susierss.out_sample.l1, purity.susierss.out_sample.addz.l1, purity.susierss.in_sample.l1.maf, purity.susierss.out_sample.l1.maf, purity.susierss.out_sample.addz.l1.maf)
-purity.susierss = purity.susierss[,-c(4,5,7,8,10,11,13,14,16,17)]
-purity.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F, repeat_header_continued = T) %>%
-  footnote(general = "lambda = 0.1") %>% add_header_above(c(" " = 2, "MAF 0" = 3, "MAF 0.05" = 3)) %>% column_spec(c(2,5), border_right = T)
-
-purity.susierss = cbind(purity.susierss.in_sample.l2, purity.susierss.out_sample.l2, purity.susierss.out_sample.addz.l2, purity.susierss.in_sample.l2.maf, purity.susierss.out_sample.l2.maf, purity.susierss.out_sample.addz.l2.maf)
-purity.susierss = purity.susierss[,-c(4,5,7,8,10,11,13,14,16,17)]
-purity.susierss %>% kable() %>% kable_styling(bootstrap_options = c("striped", "condensed", "responsive"), full_width = F, repeat_header_continued = T) %>%
-  footnote(general = "lambda = 1") %>% add_header_above(c(" " = 2, "MAF 0" = 3, "MAF 0.05" = 3)) %>% column_spec(c(2,5), border_right = T)
-```
 
 * Power:
 
