@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Yuxin Zou" />
+
+<meta name="date" content="2019-10-01" />
+
+<title>SuSiE-RSS lambda = 0.1, L = 5</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dsc-susie-z</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/zouyuxin/dsc-susie-z">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">SuSiE-RSS lambda = 0.1, L = 5</h1>
+<h4 class="author">Yuxin Zou</h4>
+<h4 class="date">10/01/2019</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-10-20
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>dsc-susie-z/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190115code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190115)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190115code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190115)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree32c7ee9837cd7f8fcf059fdc9cc8e88599cf4ef7targetblank32c7ee9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/32c7ee9837cd7f8fcf059fdc9cc8e88599cf4ef7" target="_blank">32c7ee9</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree32c7ee9837cd7f8fcf059fdc9cc8e88599cf4ef7targetblank32c7ee9a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    .sos/
+    Ignored:    analysis/.DS_Store
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+    Ignored:    output/.DS_Store
+    Ignored:    output/SuSiEFD/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/SuSiERSS_dsc_susiersspaper_results_lamb1.Rmd
+    Untracked:  analysis/SuSiERSS_dsc_susiersspaper_results_lamb1_L5.Rmd
+    Untracked:  code/N2finemapping.CAVIAR.rds
+    Untracked:  code/N2finemapping.FINEMAP.rds
+    Untracked:  code/ROC.R
+    Untracked:  code/caviar.R
+    Untracked:  code/caviar.res._condition_1.log
+    Untracked:  code/caviar.res._condition_1.z
+    Untracked:  code/caviar.res._condition_1_post
+    Untracked:  code/caviar.res._condition_1_set
+    Untracked:  code/caviarld.ld
+    Untracked:  code/cs_compare.R
+    Untracked:  code/finemap.R
+    Untracked:  code/finemap.res._condition_1.config
+    Untracked:  code/finemap.res._condition_1.log
+    Untracked:  code/finemap.res._condition_1.master
+    Untracked:  code/finemap.res._condition_1.snp
+    Untracked:  code/finemap.res._condition_1.z
+    Untracked:  code/finemapld.ld
+    Untracked:  code/pip_calibration.R
+    Untracked:  code/pip_compare.R
+    Untracked:  code/pip_extract.R
+    Untracked:  code/query.R
+    Untracked:  data/random_data_31.rds
+    Untracked:  data/random_data_31_sim_gaussian_35.rds
+    Untracked:  data/random_data_31_sim_gaussian_35_get_sumstats_1.rds
+    Untracked:  data/small_data_1.ld_in_file.in.ld
+    Untracked:  data/small_data_1.ld_out_file.out.ld
+    Untracked:  data/small_data_132.ld_in_file.in.ld
+    Untracked:  data/small_data_132.ld_out_file.out.ld
+    Untracked:  data/small_data_132_sim_gaussian_12.rds
+    Untracked:  data/small_data_132_sim_gaussian_12_get_sumstats_1.rds
+    Untracked:  data/small_data_1_sim_gaussian_2.rds
+    Untracked:  data/small_data_1_sim_gaussian_2_get_sumstats_1.rds
+    Untracked:  data/small_data_46.rds
+    Untracked:  data/small_data_46_sim_gaussian_10.rds
+    Untracked:  data/small_data_46_sim_gaussian_10_get_sumstats_2.rds
+    Untracked:  data/small_data_69.ld_in_file.in.ld
+    Untracked:  data/small_data_69.ld_out_file.out.ld
+    Untracked:  data/small_data_69.rds
+    Untracked:  data/small_data_69_sim_gaussian_3.rds
+    Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1.rds
+    Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1_susie_z_1.rds
+    Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1_susie_z_2.rds
+    Untracked:  docs/figure/SuSiERSS_dsc_susiersspaper_results_lamb0.1.Rmd/
+    Untracked:  docs/figure/SuSiERSS_dsc_susiersspaper_results_lamb0_L5.Rmd/
+    Untracked:  figure/
+    Untracked:  output/SuSiEFD/r.in.pdf
+    Untracked:  output/SuSiEFD/r.out.addz.pdf
+    Untracked:  output/SuSiEFD/r.out.pdf
+    Untracked:  output/SuSiEFD/small_data_148.ld_in_file.in.ld
+    Untracked:  output/SuSiEFD/small_data_148.ld_out_file.out.ld
+    Untracked:  output/SuSiEFD/small_data_148.rds
+    Untracked:  output/SuSiEFD/small_data_148_sim_gaussian_1.rds
+    Untracked:  output/SuSiEFD/small_data_148_sim_gaussian_1_get_sumstats_1.rds
+    Untracked:  output/SuSiEFD/small_data_148_sim_gaussian_1_get_sumstats_1_caviar_4.cache.CAVIAR_condition_1.z
+    Untracked:  output/SuSiEFD/small_data_148_sim_gaussian_1_get_sumstats_1_caviar_4.ld_out_z_file.out.z.ld
+    Untracked:  output/SuSiEFD/small_data_68_sim_gaussian_2_get_sumstats_1_caviar_4.cache.CAVIAR_condition_1.z
+    Untracked:  output/SuSiEFD/small_data_68_sim_gaussian_2_get_sumstats_1_caviar_4.ld_out_z_file.out.z.ld
+    Untracked:  output/SuSiEFD/susierss.in.2.gif
+    Untracked:  output/SuSiEFD/susierss.in.2.pdf
+    Untracked:  output/SuSiEFD/susierss.out.2.gif
+    Untracked:  output/SuSiEFD/susierss.out.2.pdf
+    Untracked:  output/SuSiEFD/susierss.out.addz.1.gif
+    Untracked:  output/SuSiEFD/susierss.out.addz.1.pdf
+    Untracked:  output/SuSiEFD/susierss.out.addz.2.pdf
+    Untracked:  output/SuSiEFD/susierss.out.addz.2.w.gif
+    Untracked:  output/SuSiEFD/susierss.out.addz.2.w.pdf
+    Untracked:  output/SuSiEFD/susierss.out.addz.5.pdf.gif
+    Untracked:  output/SuSiEFD/susierss.out.addz.5.pdf.pdf
+    Untracked:  output/dscoutProblem475.rds
+    Untracked:  output/dscoutProblem75.rds
+    Untracked:  output/finemap_compare_random_data_null_dscout.rds
+    Untracked:  output/finemap_compare_random_data_signal_dscout.rds
+    Untracked:  output/finemap_compare_small_data_signal_dscout.rds
+    Untracked:  output/finemap_compare_small_data_signal_dscout_RE8.rds
+    Untracked:  output/r_compare_FINEMAP_PIP_ROC.rds
+    Untracked:  output/r_compare_add_z_FINEMAP_PIP_ROC.rds
+    Untracked:  output/r_compare_add_z_FINEMAP_ROC.rds
+    Untracked:  output/r_compare_add_z_SuSiEb_ROC.rds
+    Untracked:  output/r_compare_add_z_SuSiErss_ROC.rds
+    Untracked:  output/r_compare_add_z_dscout_susie_finemap_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_FINEMAP_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_SuSiEb_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_SuSiErss_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_CAVIAR_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_FINEMAP_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiEb_L1_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiEb_L2_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiEb_L5_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiErss_L1_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiErss_L2_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiErss_L5_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_dscout_caviar_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_dscout_finemap_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_dscout_susiebhat_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_dscout_susierss_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_dscout_susie_finemap_tibble.rds
+    Untracked:  output/r_compare_dscout_susie_finemappip_tibble.rds
+    Untracked:  output/r_compare_dscout_susie_finemappip_truth_tibble.rds
+    Untracked:  output/r_compare_finemap_v1.3.1_ROC.rds
+    Untracked:  output/r_compare_finemapv1.3.1.rds
+    Untracked:  output/r_compare_maf0.05_SuSiERSS_L2_ROC.rds
+    Untracked:  output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds
+    Untracked:  output/r_compare_maf0.05_SuSiEb_L2_ROC.rds
+    Untracked:  output/r_compare_maf0.05_SuSiEb_L5_ROC.rds
+    Untracked:  output/r_compare_maf0_SuSiERSS_L2_ROC.rds
+    Untracked:  output/r_compare_maf0_SuSiERSS_L5_ROC.rds
+    Untracked:  output/r_compare_maf0_SuSiEb_L2_ROC.rds
+    Untracked:  output/r_compare_maf0_SuSiEb_L5_ROC.rds
+    Untracked:  output/r_compare_maf_dscout_caviar_maf0.05_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_caviar_maf0_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_finemap_maf0.05_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_finemap_maf0_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_susiebhat_maf0.05_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_susiebhat_maf0_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_susierss_maf0.05_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_susierss_maf0_tibble.rds
+    Untracked:  output/r_compare_mafall_FINEMAP_L2_ROC.rds
+    Untracked:  output/r_compare_mafall_FINEMAP_L5_ROC.rds
+    Untracked:  output/r_compare_mafall_caviar_ROC.rds
+    Untracked:  output/r_compare_susieb_PIP_ROC.rds
+    Untracked:  output/r_compare_susiepip_tibble.rds
+    Untracked:  output/r_compare_susierss_PIP_ROC.rds
+    Untracked:  output/random_data_100_sim_gaussian_null_1_get_sumstats_1_finemap_1.rds
+    Untracked:  output/random_data_31_35_fit_em.rds
+    Untracked:  output/random_data_76.rds
+    Untracked:  output/random_data_76_sim_gaussian_8.rds
+    Untracked:  output/random_data_76_sim_gaussian_8_get_sumstats_1.rds
+    Untracked:  output/rss_compare_add_z_lambda_Lsmall_cs/
+    Untracked:  output/rss_compare_add_z_lambda_Lsmall_cs_L5/
+    Untracked:  output/rss_compare_add_z_lambda_cs/
+    Untracked:  output/rss_compare_add_z_lambda_pip_calibration/
+    Untracked:  output/rss_compare_add_z_lambda_pip_calibration_s3/
+    Untracked:  output/rss_compare_add_z_lambda_pip_comparison/
+    Untracked:  output/rss_compare_add_z_lambda_pip_extraction/
+    Untracked:  output/rss_compare_add_z_lambda_roc/
+    Untracked:  output/rss_compare_add_z_lambda_roc_s3/
+    Untracked:  output/small_data_42_sim_gaussian_36_get_sumstats_2_susie_z_2.rds
+    Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2_susie_z_2.rds
+
+Unstaged changes:
+    Modified:   analysis/SuSiErssNotConverge.Rmd
+    Modified:   analysis/SusieZPerformance.Rmd
+    Modified:   analysis/SusieZPerformanceRE3.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd
+    Modified:   output/dsc_susie_z_v_output.rds
+    Deleted:    susie_z_gaussian_benchmark.dsc
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/32c7ee9837cd7f8fcf059fdc9cc8e88599cf4ef7/analysis/SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.Rmd" target="_blank">32c7ee9</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2019-10-20
+</td>
+<td>
+wflow_publish(c(“analysis/SuSiERSS_dsc_susiersspaper_results_lamb0_L5.Rmd”,
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>library(dplyr)
+library(kableExtra)
+library(ggplot2)
+library(cowplot)</code></pre>
+<pre class="r"><code>## Functions
+plot_panel = function(dat, quantity) {
+  p = ggplot(dat, aes_string(x=&quot;n_signal&quot;, y=quantity[1], fill=&quot;Method&quot;)) +
+    scale_color_manual(&quot;Method&quot;, values = c(&quot;SuSiE-bhat&quot; = &quot;#348ABD&quot;, &quot;SuSiE-RSS&quot; = &quot;#A60628&quot;)) +
+    geom_point(aes(colour=Method), position=position_dodge(.25), size=2.5)
+  if (quantity[1] == &#39;power&#39;) p = p + geom_errorbar(aes(ymin=power-power_se, ymax=power+power_se, color=Method), width=.2, position=position_dodge(.25))
+  if (quantity[1] == &#39;coverage&#39;) p = p + geom_errorbar(aes(ymin=coverage-coverage_se, ymax=coverage+coverage_se, color=Method), width=.2, position=position_dodge(.25)) + geom_hline(yintercept = 0.95, colour = &#39;gray&#39;)
+  p + labs(x = &quot;number of effect variables&quot;, y = quantity[2]) + theme_cowplot() + background_grid(major = &quot;x&quot;, minor = &quot;none&quot;) + ggtitle(quantity[3])
+}</code></pre>
+<div id="in-sample" class="section level2">
+<h2>IN sample</h2>
+<div id="not-estimate-residual-variance" class="section level3">
+<h3>NOT Estimate residual variance</h3>
+<div id="pip-calibration" class="section level4">
+<h4>PIP calibration</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_pipcali.png" />
+
+</div>
+</div>
+<div id="pip-comparison" class="section level4">
+<h4>PIP comparison</h4>
+<p><img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_rssVSbhat.png" /> <img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_rssVScaviar.png" /> <img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_rssVSfinemap.png" /></p>
+</div>
+<div id="power" class="section level4">
+<h4>Power</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_roc_all_power_combine.png" />
+
+</div>
+</div>
+<div id="roc" class="section level4">
+<h4>ROC</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_roc_all_roc_combine.png" />
+
+</div>
+</div>
+<div id="cs" class="section level4">
+<h4>CS</h4>
+<pre class="r"><code>output = &#39;output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_cs.rds&#39;
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+n_signal
+</th>
+<th style="text-align:right;">
+susierss_power
+</th>
+<th style="text-align:right;">
+susiebhat_power
+</th>
+<th style="text-align:right;">
+susierss_coverage
+</th>
+<th style="text-align:right;">
+susiebhat_coverage
+</th>
+<th style="text-align:right;">
+susierss_median_size
+</th>
+<th style="text-align:right;">
+susiebhat_median_size
+</th>
+<th style="text-align:right;">
+susierss_avg_ld
+</th>
+<th style="text-align:right;">
+susiebhat_avg_ld
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.9704
+</td>
+<td style="text-align:right;">
+0.9901
+</td>
+<td style="text-align:right;">
+0.9704
+</td>
+<td style="text-align:right;">
+0.9901
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.9626
+</td>
+<td style="text-align:right;">
+0.9581
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.5625
+</td>
+<td style="text-align:right;">
+0.5641
+</td>
+<td style="text-align:right;">
+0.9370
+</td>
+<td style="text-align:right;">
+0.9581
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.9409
+</td>
+<td style="text-align:right;">
+0.9324
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.3947
+</td>
+<td style="text-align:right;">
+0.3860
+</td>
+<td style="text-align:right;">
+0.9207
+</td>
+<td style="text-align:right;">
+0.9288
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+0.9169
+</td>
+<td style="text-align:right;">
+0.9147
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.3043
+</td>
+<td style="text-align:right;">
+0.2944
+</td>
+<td style="text-align:right;">
+0.9296
+</td>
+<td style="text-align:right;">
+0.9421
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+0.9002
+</td>
+<td style="text-align:right;">
+0.8900
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.2270
+</td>
+<td style="text-align:right;">
+0.2138
+</td>
+<td style="text-align:right;">
+0.9200
+</td>
+<td style="text-align:right;">
+0.9259
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.8675
+</td>
+<td style="text-align:right;">
+0.8464
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = &#39;SuSiE-RSS&#39;
+colnames(susierss) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = &#39;SuSiE-bhat&#39;
+colnames(susiebhat) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c(&#39;median_size&#39;, &#39;median number of variables&#39;, &#39;median number of variables&#39;))
+p4 = plot_panel(dat, c(&#39;avg_ld&#39;, &#39;average r2&#39;, &#39;average r2&#39;))
+gridExtra::grid.arrange(p3,p4, ncol=2)</code></pre>
+<p><img src="figure/SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.Rmd/unnamed-chunk-3-1.png" width="1920" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="estimate-residual-variance" class="section level3">
+<h3>Estimate residual variance</h3>
+<div id="pip-calibration-1" class="section level4">
+<h4>PIP calibration</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_pipcali.png" />
+
+</div>
+</div>
+<div id="pip-comparison-1" class="section level4">
+<h4>PIP comparison</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_rssVSbhat.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_rssVScaviar.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_rssVSfinemap.png" />
+
+</div>
+</div>
+<div id="power-1" class="section level4">
+<h4>Power</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_roc_all_power_combine.png" />
+
+</div>
+</div>
+<div id="roc-1" class="section level4">
+<h4>ROC</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_roc_all_roc_combine.png" />
+
+</div>
+</div>
+<div id="cs-1" class="section level4">
+<h4>CS</h4>
+<pre class="r"><code>output = &#39;output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_cs.rds&#39;
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+n_signal
+</th>
+<th style="text-align:right;">
+susierss_power
+</th>
+<th style="text-align:right;">
+susiebhat_power
+</th>
+<th style="text-align:right;">
+susierss_coverage
+</th>
+<th style="text-align:right;">
+susiebhat_coverage
+</th>
+<th style="text-align:right;">
+susierss_median_size
+</th>
+<th style="text-align:right;">
+susiebhat_median_size
+</th>
+<th style="text-align:right;">
+susierss_avg_ld
+</th>
+<th style="text-align:right;">
+susiebhat_avg_ld
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.9474
+</td>
+<td style="text-align:right;">
+0.9704
+</td>
+<td style="text-align:right;">
+0.9231
+</td>
+<td style="text-align:right;">
+0.9609
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+7.0
+</td>
+<td style="text-align:right;">
+0.9715
+</td>
+<td style="text-align:right;">
+0.9658
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.5987
+</td>
+<td style="text-align:right;">
+0.5888
+</td>
+<td style="text-align:right;">
+0.8729
+</td>
+<td style="text-align:right;">
+0.9396
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+0.9567
+</td>
+<td style="text-align:right;">
+0.9478
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.4353
+</td>
+<td style="text-align:right;">
+0.4178
+</td>
+<td style="text-align:right;">
+0.8465
+</td>
+<td style="text-align:right;">
+0.9093
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+0.9456
+</td>
+<td style="text-align:right;">
+0.9338
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.3536
+</td>
+<td style="text-align:right;">
+0.3306
+</td>
+<td style="text-align:right;">
+0.8285
+</td>
+<td style="text-align:right;">
+0.9054
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+12.5
+</td>
+<td style="text-align:right;">
+0.9369
+</td>
+<td style="text-align:right;">
+0.9169
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.2816
+</td>
+<td style="text-align:right;">
+0.2434
+</td>
+<td style="text-align:right;">
+0.8376
+</td>
+<td style="text-align:right;">
+0.8894
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+0.9207
+</td>
+<td style="text-align:right;">
+0.8835
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = &#39;SuSiE-RSS&#39;
+colnames(susierss) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = &#39;SuSiE-bhat&#39;
+colnames(susiebhat) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c(&#39;median_size&#39;, &#39;median number of variables&#39;, &#39;median number of variables&#39;))
+p4 = plot_panel(dat, c(&#39;avg_ld&#39;, &#39;average r2&#39;, &#39;average r2&#39;))
+gridExtra::grid.arrange(p3,p4, ncol=2)</code></pre>
+<p><img src="figure/SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.Rmd/unnamed-chunk-4-1.png" width="1920" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="out-sample" class="section level2">
+<h2>OUT sample</h2>
+<div id="not-estimate-residual-variance-1" class="section level3">
+<h3>NOT Estimate residual variance</h3>
+<div id="pip-calibration-2" class="section level4">
+<h4>PIP calibration</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_pipcali.png" />
+
+</div>
+</div>
+<div id="pip-comparison-2" class="section level4">
+<h4>PIP comparison</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_rssVSbhat.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_rssVScaviar.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_rssVSfinemap.png" />
+
+</div>
+</div>
+<div id="power-2" class="section level4">
+<h4>Power</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_roc_all_power_combine.png" />
+
+</div>
+</div>
+<div id="roc-2" class="section level4">
+<h4>ROC</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_roc_all_roc_combine.png" />
+
+</div>
+</div>
+<div id="cs-2" class="section level4">
+<h4>CS</h4>
+<pre class="r"><code>output = &#39;output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_cs.rds&#39;
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+n_signal
+</th>
+<th style="text-align:right;">
+susierss_power
+</th>
+<th style="text-align:right;">
+susiebhat_power
+</th>
+<th style="text-align:right;">
+susierss_coverage
+</th>
+<th style="text-align:right;">
+susiebhat_coverage
+</th>
+<th style="text-align:right;">
+susierss_median_size
+</th>
+<th style="text-align:right;">
+susiebhat_median_size
+</th>
+<th style="text-align:right;">
+susierss_avg_ld
+</th>
+<th style="text-align:right;">
+susiebhat_avg_ld
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.9441
+</td>
+<td style="text-align:right;">
+0.9803
+</td>
+<td style="text-align:right;">
+0.9199
+</td>
+<td style="text-align:right;">
+0.9551
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.9534
+</td>
+<td style="text-align:right;">
+0.9564
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.5329
+</td>
+<td style="text-align:right;">
+0.5477
+</td>
+<td style="text-align:right;">
+0.8950
+</td>
+<td style="text-align:right;">
+0.9302
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.9175
+</td>
+<td style="text-align:right;">
+0.9399
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.3706
+</td>
+<td style="text-align:right;">
+0.3816
+</td>
+<td style="text-align:right;">
+0.8667
+</td>
+<td style="text-align:right;">
+0.8788
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.9185
+</td>
+<td style="text-align:right;">
+0.9082
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.2821
+</td>
+<td style="text-align:right;">
+0.2952
+</td>
+<td style="text-align:right;">
+0.8750
+</td>
+<td style="text-align:right;">
+0.8975
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.8809
+</td>
+<td style="text-align:right;">
+0.8870
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.2237
+</td>
+<td style="text-align:right;">
+0.2224
+</td>
+<td style="text-align:right;">
+0.9164
+</td>
+<td style="text-align:right;">
+0.8868
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.8492
+</td>
+<td style="text-align:right;">
+0.8543
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = &#39;SuSiE-RSS&#39;
+colnames(susierss) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = &#39;SuSiE-bhat&#39;
+colnames(susiebhat) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c(&#39;median_size&#39;, &#39;median number of variables&#39;, &#39;median number of variables&#39;))
+p4 = plot_panel(dat, c(&#39;avg_ld&#39;, &#39;average r2&#39;, &#39;average r2&#39;))
+gridExtra::grid.arrange(p3,p4, ncol=2)</code></pre>
+<p><img src="figure/SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.Rmd/unnamed-chunk-5-1.png" width="1920" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="estimate-residual-variance-1" class="section level3">
+<h3>Estimate residual variance</h3>
+<div id="pip-calibration-3" class="section level4">
+<h4>PIP calibration</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_pipcali.png" />
+
+</div>
+</div>
+<div id="pip-comparison-3" class="section level4">
+<h4>PIP comparison</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_rssVSbhat.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_rssVScaviar.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_rssVSfinemap.png" />
+
+</div>
+</div>
+<div id="power-3" class="section level4">
+<h4>Power</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_roc_all_power_combine.png" />
+
+</div>
+</div>
+<div id="roc-3" class="section level4">
+<h4>ROC</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_roc_all_roc_combine.png" />
+
+</div>
+</div>
+<div id="cs-3" class="section level4">
+<h4>CS</h4>
+<pre class="r"><code>output = &#39;output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_cs.rds&#39;
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+n_signal
+</th>
+<th style="text-align:right;">
+susierss_power
+</th>
+<th style="text-align:right;">
+susiebhat_power
+</th>
+<th style="text-align:right;">
+susierss_coverage
+</th>
+<th style="text-align:right;">
+susiebhat_coverage
+</th>
+<th style="text-align:right;">
+susierss_median_size
+</th>
+<th style="text-align:right;">
+susiebhat_median_size
+</th>
+<th style="text-align:right;">
+susierss_avg_ld
+</th>
+<th style="text-align:right;">
+susiebhat_avg_ld
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.9441
+</td>
+<td style="text-align:right;">
+0.9671
+</td>
+<td style="text-align:right;">
+0.9199
+</td>
+<td style="text-align:right;">
+0.8882
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.9553
+</td>
+<td style="text-align:right;">
+0.9647
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.5395
+</td>
+<td style="text-align:right;">
+0.5724
+</td>
+<td style="text-align:right;">
+0.8865
+</td>
+<td style="text-align:right;">
+0.8365
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.9205
+</td>
+<td style="text-align:right;">
+0.9456
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.3761
+</td>
+<td style="text-align:right;">
+0.3936
+</td>
+<td style="text-align:right;">
+0.8596
+</td>
+<td style="text-align:right;">
+0.7754
+</td>
+<td style="text-align:right;">
+12.5
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.9190
+</td>
+<td style="text-align:right;">
+0.9329
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.2903
+</td>
+<td style="text-align:right;">
+0.3100
+</td>
+<td style="text-align:right;">
+0.8738
+</td>
+<td style="text-align:right;">
+0.7678
+</td>
+<td style="text-align:right;">
+14.0
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.8971
+</td>
+<td style="text-align:right;">
+0.9286
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.2257
+</td>
+<td style="text-align:right;">
+0.2429
+</td>
+<td style="text-align:right;">
+0.8932
+</td>
+<td style="text-align:right;">
+0.8017
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.8659
+</td>
+<td style="text-align:right;">
+0.8961
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = &#39;SuSiE-RSS&#39;
+colnames(susierss) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = &#39;SuSiE-bhat&#39;
+colnames(susiebhat) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c(&#39;median_size&#39;, &#39;median number of variables&#39;, &#39;median number of variables&#39;))
+p4 = plot_panel(dat, c(&#39;avg_ld&#39;, &#39;average r2&#39;, &#39;average r2&#39;))
+gridExtra::grid.arrange(p3,p4, ncol=2)</code></pre>
+<p><img src="figure/SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.Rmd/unnamed-chunk-6-1.png" width="1920" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="out-sample-addz" class="section level2">
+<h2>OUT sample ADDZ</h2>
+<div id="not-estimate-residual-variance-2" class="section level3">
+<h3>NOT Estimate residual variance</h3>
+<div id="pip-calibration-4" class="section level4">
+<h4>PIP calibration</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_pipcali.png" />
+
+</div>
+</div>
+<div id="pip-comparison-4" class="section level4">
+<h4>PIP comparison</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_rssVSbhat.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_rssVScaviar.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_rssVSfinemap.png" />
+
+</div>
+</div>
+<div id="power-4" class="section level4">
+<h4>Power</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_roc_all_power_combine.png" />
+
+</div>
+</div>
+<div id="roc-4" class="section level4">
+<h4>ROC</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_roc_all_roc_combine.png" />
+
+</div>
+</div>
+<div id="cs-4" class="section level4">
+<h4>CS</h4>
+<pre class="r"><code>output = &#39;output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_cs.rds&#39;
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+n_signal
+</th>
+<th style="text-align:right;">
+susierss_power
+</th>
+<th style="text-align:right;">
+susiebhat_power
+</th>
+<th style="text-align:right;">
+susierss_coverage
+</th>
+<th style="text-align:right;">
+susiebhat_coverage
+</th>
+<th style="text-align:right;">
+susierss_median_size
+</th>
+<th style="text-align:right;">
+susiebhat_median_size
+</th>
+<th style="text-align:right;">
+susierss_avg_ld
+</th>
+<th style="text-align:right;">
+susiebhat_avg_ld
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.9704
+</td>
+<td style="text-align:right;">
+0.9868
+</td>
+<td style="text-align:right;">
+0.9672
+</td>
+<td style="text-align:right;">
+0.9868
+</td>
+<td style="text-align:right;">
+8.0
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.9616
+</td>
+<td style="text-align:right;">
+0.9616
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.5197
+</td>
+<td style="text-align:right;">
+0.5296
+</td>
+<td style="text-align:right;">
+0.9322
+</td>
+<td style="text-align:right;">
+0.9388
+</td>
+<td style="text-align:right;">
+11.0
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.9258
+</td>
+<td style="text-align:right;">
+0.9341
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.3487
+</td>
+<td style="text-align:right;">
+0.3377
+</td>
+<td style="text-align:right;">
+0.8933
+</td>
+<td style="text-align:right;">
+0.9059
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.9175
+</td>
+<td style="text-align:right;">
+0.9018
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.2582
+</td>
+<td style="text-align:right;">
+0.2632
+</td>
+<td style="text-align:right;">
+0.9101
+</td>
+<td style="text-align:right;">
+0.9302
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+0.8586
+</td>
+<td style="text-align:right;">
+0.8622
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.1993
+</td>
+<td style="text-align:right;">
+0.1908
+</td>
+<td style="text-align:right;">
+0.9127
+</td>
+<td style="text-align:right;">
+0.9148
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.8591
+</td>
+<td style="text-align:right;">
+0.8298
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = &#39;SuSiE-RSS&#39;
+colnames(susierss) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = &#39;SuSiE-bhat&#39;
+colnames(susiebhat) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c(&#39;median_size&#39;, &#39;median number of variables&#39;, &#39;median number of variables&#39;))
+p4 = plot_panel(dat, c(&#39;avg_ld&#39;, &#39;average r2&#39;, &#39;average r2&#39;))
+gridExtra::grid.arrange(p3,p4, ncol=2)</code></pre>
+<p><img src="figure/SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.Rmd/unnamed-chunk-7-1.png" width="1920" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="estimate-residual-variance-2" class="section level3">
+<h3>Estimate residual variance</h3>
+<div id="pip-calibration-5" class="section level4">
+<h4>PIP calibration</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_pipcali.png" />
+
+</div>
+</div>
+<div id="pip-comparison-5" class="section level4">
+<h4>PIP comparison</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_rssVSbhat.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_rssVScaviar.png" />
+
+</div>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_rssVSfinemap.png" />
+
+</div>
+</div>
+<div id="power-5" class="section level4">
+<h4>Power</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_roc_all_power_combine.png" />
+
+</div>
+</div>
+<div id="roc-5" class="section level4">
+<h4>ROC</h4>
+<div class="figure">
+<img src="assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_roc_all_roc_combine.png" />
+
+</div>
+</div>
+<div id="cs-5" class="section level4">
+<h4>CS</h4>
+<pre class="r"><code>output = &#39;output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_cs.rds&#39;
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+n_signal
+</th>
+<th style="text-align:right;">
+susierss_power
+</th>
+<th style="text-align:right;">
+susiebhat_power
+</th>
+<th style="text-align:right;">
+susierss_coverage
+</th>
+<th style="text-align:right;">
+susiebhat_coverage
+</th>
+<th style="text-align:right;">
+susierss_median_size
+</th>
+<th style="text-align:right;">
+susiebhat_median_size
+</th>
+<th style="text-align:right;">
+susierss_avg_ld
+</th>
+<th style="text-align:right;">
+susiebhat_avg_ld
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.9671
+</td>
+<td style="text-align:right;">
+0.9704
+</td>
+<td style="text-align:right;">
+0.9484
+</td>
+<td style="text-align:right;">
+0.9609
+</td>
+<td style="text-align:right;">
+8.0
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.9675
+</td>
+<td style="text-align:right;">
+0.9700
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.5444
+</td>
+<td style="text-align:right;">
+0.5395
+</td>
+<td style="text-align:right;">
+0.8995
+</td>
+<td style="text-align:right;">
+0.9136
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.9413
+</td>
+<td style="text-align:right;">
+0.9473
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.3728
+</td>
+<td style="text-align:right;">
+0.3783
+</td>
+<td style="text-align:right;">
+0.8479
+</td>
+<td style="text-align:right;">
+0.8869
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.9276
+</td>
+<td style="text-align:right;">
+0.9269
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.2821
+</td>
+<td style="text-align:right;">
+0.2847
+</td>
+<td style="text-align:right;">
+0.8772
+</td>
+<td style="text-align:right;">
+0.8961
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.9019
+</td>
+<td style="text-align:right;">
+0.8977
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.2211
+</td>
+<td style="text-align:right;">
+0.2105
+</td>
+<td style="text-align:right;">
+0.8727
+</td>
+<td style="text-align:right;">
+0.8767
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.8922
+</td>
+<td style="text-align:right;">
+0.8880
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = &#39;SuSiE-RSS&#39;
+colnames(susierss) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = &#39;SuSiE-bhat&#39;
+colnames(susiebhat) = c(&quot;n_signal&quot;, &quot;median_size&quot;, &quot;avg_ld&quot;, &quot;Method&quot;)
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c(&#39;median_size&#39;, &#39;median number of variables&#39;, &#39;median number of variables&#39;))
+p4 = plot_panel(dat, c(&#39;avg_ld&#39;, &#39;average r2&#39;, &#39;average r2&#39;))
+gridExtra::grid.arrange(p3,p4, ncol=2)</code></pre>
+<p><img src="figure/SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.Rmd/unnamed-chunk-8-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.3 (2019-03-11)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Mojave 10.14.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] cowplot_0.9.4    ggplot2_3.2.0    kableExtra_1.1.0 dplyr_0.8.1     
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.1        highr_0.8         pillar_1.4.2     
+ [4] compiler_3.5.3    git2r_0.25.2      workflowr_1.4.0  
+ [7] tools_3.5.3       digest_0.6.19     gtable_0.3.0     
+[10] evaluate_0.13     tibble_2.1.3      viridisLite_0.3.0
+[13] pkgconfig_2.0.2   rlang_0.4.0       rstudioapi_0.10  
+[16] yaml_2.2.0        xfun_0.7          gridExtra_2.3    
+[19] withr_2.1.2       stringr_1.4.0     httr_1.4.0       
+[22] knitr_1.23        xml2_1.2.0        fs_1.3.1         
+[25] hms_0.4.2         grid_3.5.3        rprojroot_1.3-2  
+[28] webshot_0.5.1     tidyselect_0.2.5  glue_1.3.1       
+[31] R6_2.4.0          rmarkdown_1.13    purrr_0.3.2      
+[34] readr_1.3.1       magrittr_1.5      whisker_0.3-2    
+[37] backports_1.1.4   scales_1.0.0      htmltools_0.3.6  
+[40] assertthat_0.2.1  rvest_0.3.4       colorspace_1.4-1 
+[43] labeling_0.3      stringi_1.4.3     lazyeval_0.2.2   
+[46] munsell_0.5.0     crayon_1.3.4     </code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
