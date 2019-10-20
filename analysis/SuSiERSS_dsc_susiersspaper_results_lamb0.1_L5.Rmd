@@ -1,0 +1,279 @@
+---
+title: "SuSiE-RSS lambda = 0.1, L = 5"
+author: "Yuxin Zou"
+date: "10/01/2019"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r warning=FALSE, message=FALSE}
+library(dplyr)
+library(kableExtra)
+library(ggplot2)
+library(cowplot)
+```
+
+```{r}
+## Functions
+plot_panel = function(dat, quantity) {
+  p = ggplot(dat, aes_string(x="n_signal", y=quantity[1], fill="Method")) +
+    scale_color_manual("Method", values = c("SuSiE-bhat" = "#348ABD", "SuSiE-RSS" = "#A60628")) +
+    geom_point(aes(colour=Method), position=position_dodge(.25), size=2.5)
+  if (quantity[1] == 'power') p = p + geom_errorbar(aes(ymin=power-power_se, ymax=power+power_se, color=Method), width=.2, position=position_dodge(.25))
+  if (quantity[1] == 'coverage') p = p + geom_errorbar(aes(ymin=coverage-coverage_se, ymax=coverage+coverage_se, color=Method), width=.2, position=position_dodge(.25)) + geom_hline(yintercept = 0.95, colour = 'gray')
+  p + labs(x = "number of effect variables", y = quantity[2]) + theme_cowplot() + background_grid(major = "x", minor = "none") + ggtitle(quantity[3])
+}
+```
+
+## IN sample
+
+### NOT Estimate residual variance
+
+#### PIP calibration
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_pipcali.png)
+
+#### PIP comparison
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_rssVSbhat.png)
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_rssVScaviar.png)
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_rssVSfinemap.png)
+
+#### Power
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_roc_all_power_combine.png)
+
+#### ROC
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_roc_all_roc_combine.png)
+
+#### CS
+
+```{r fig.align='center', fig.width=20, results='asis'}
+output = 'output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERFALSE_lamb0.1_cs.rds'
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))
+susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = 'SuSiE-RSS'
+colnames(susierss) = c("n_signal", "median_size", "avg_ld", "Method")
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = 'SuSiE-bhat'
+colnames(susiebhat) = c("n_signal", "median_size", "avg_ld", "Method")
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c('median_size', 'median number of variables', 'median number of variables'))
+p4 = plot_panel(dat, c('avg_ld', 'average r2', 'average r2'))
+gridExtra::grid.arrange(p3,p4, ncol=2)
+```
+
+### Estimate residual variance
+
+#### PIP calibration
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_pipcali.png)
+
+#### PIP comparison
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_rssVSbhat.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_rssVScaviar.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_rssVSfinemap.png)
+
+#### Power
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_roc_all_power_combine.png)
+
+#### ROC
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_roc_all_roc_combine.png)
+
+#### CS
+
+```{r fig.align='center', fig.width=20, results='asis'}
+output = 'output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZFALSE_ldin_sample_ERTRUE_lamb0.1_cs.rds'
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))
+susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = 'SuSiE-RSS'
+colnames(susierss) = c("n_signal", "median_size", "avg_ld", "Method")
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = 'SuSiE-bhat'
+colnames(susiebhat) = c("n_signal", "median_size", "avg_ld", "Method")
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c('median_size', 'median number of variables', 'median number of variables'))
+p4 = plot_panel(dat, c('avg_ld', 'average r2', 'average r2'))
+gridExtra::grid.arrange(p3,p4, ncol=2)
+```
+
+## OUT sample
+
+### NOT Estimate residual variance
+
+#### PIP calibration
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_pipcali.png)
+
+#### PIP comparison
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_rssVSbhat.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_rssVScaviar.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_rssVSfinemap.png)
+
+
+#### Power
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_roc_all_power_combine.png)
+
+#### ROC
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_roc_all_roc_combine.png)
+
+#### CS
+
+```{r fig.align='center', fig.width=20, results='asis'}
+output = 'output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERFALSE_lamb0.1_cs.rds'
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))
+susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = 'SuSiE-RSS'
+colnames(susierss) = c("n_signal", "median_size", "avg_ld", "Method")
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = 'SuSiE-bhat'
+colnames(susiebhat) = c("n_signal", "median_size", "avg_ld", "Method")
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c('median_size', 'median number of variables', 'median number of variables'))
+p4 = plot_panel(dat, c('avg_ld', 'average r2', 'average r2'))
+gridExtra::grid.arrange(p3,p4, ncol=2)
+```
+
+### Estimate residual variance
+
+#### PIP calibration
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_pipcali.png)
+
+#### PIP comparison
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_rssVSbhat.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_rssVScaviar.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_rssVSfinemap.png)
+
+#### Power
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_roc_all_power_combine.png)
+
+#### ROC
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_roc_all_roc_combine.png)
+
+#### CS
+
+```{r fig.align='center', fig.width=20, results='asis'}
+output = 'output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZFALSE_ldout_sample_ERTRUE_lamb0.1_cs.rds'
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))
+susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = 'SuSiE-RSS'
+colnames(susierss) = c("n_signal", "median_size", "avg_ld", "Method")
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = 'SuSiE-bhat'
+colnames(susiebhat) = c("n_signal", "median_size", "avg_ld", "Method")
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c('median_size', 'median number of variables', 'median number of variables'))
+p4 = plot_panel(dat, c('avg_ld', 'average r2', 'average r2'))
+gridExtra::grid.arrange(p3,p4, ncol=2)
+```
+
+## OUT sample ADDZ
+
+### NOT Estimate residual variance
+
+#### PIP calibration
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_pipcali.png)
+
+#### PIP comparison
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_rssVSbhat.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_rssVScaviar.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_rssVSfinemap.png)
+
+#### Power
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_roc_all_power_combine.png)
+
+#### ROC
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_roc_all_roc_combine.png)
+
+#### CS
+
+```{r fig.align='center', fig.width=20, results='asis'}
+output = 'output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERFALSE_lamb0.1_cs.rds'
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))
+susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = 'SuSiE-RSS'
+colnames(susierss) = c("n_signal", "median_size", "avg_ld", "Method")
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = 'SuSiE-bhat'
+colnames(susiebhat) = c("n_signal", "median_size", "avg_ld", "Method")
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c('median_size', 'median number of variables', 'median number of variables'))
+p4 = plot_panel(dat, c('avg_ld', 'average r2', 'average r2'))
+gridExtra::grid.arrange(p3,p4, ncol=2)
+```
+
+### Estimate residual variance
+
+#### PIP calibration
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_calibration_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_pipcali.png)
+
+#### PIP comparison
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_rssVSbhat.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_rssVScaviar.png)
+
+![](assets/rss_compare_add_z_lambda_Lsmall_pip_comparison_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_rssVSfinemap.png)
+
+#### Power
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_roc_all_power_combine.png)
+
+#### ROC
+
+![](assets/rss_compare_add_z_lambda_Lsmall_roc_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_roc_all_roc_combine.png)
+
+#### CS
+
+```{r fig.align='center', fig.width=20, results='asis'}
+output = 'output/rss_compare_add_z_lambda_Lsmall_cs_L5/susie_rss_paper_pip_AZTRUE_ldout_sample_ERTRUE_lamb0.1_cs.rds'
+result = readRDS(output)
+print(kableExtra::kable_styling(knitr::kable(round(result[,-c(2,3,12,13)],4))))
+susierss = as.data.frame(result[,c(1,8,10)])
+susierss$Method = 'SuSiE-RSS'
+colnames(susierss) = c("n_signal", "median_size", "avg_ld", "Method")
+susiebhat = as.data.frame(result[,c(1,9,11)])
+susiebhat$Method = 'SuSiE-bhat'
+colnames(susiebhat) = c("n_signal", "median_size", "avg_ld", "Method")
+dat = rbind(susierss, susiebhat)
+dat$n_signal = as.factor(dat$n_signal)
+p3 = plot_panel(dat, c('median_size', 'median number of variables', 'median number of variables'))
+p4 = plot_panel(dat, c('avg_ld', 'average r2', 'average r2'))
+gridExtra::grid.arrange(p3,p4, ncol=2)
+```
+
