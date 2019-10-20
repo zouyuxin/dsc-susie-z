@@ -46,6 +46,24 @@ Welcome to my research website.
 
     Most recent result: 
     
+    2019-10： The simulation is using [dsc-finemap](https://github.com/stephenslab/dsc-finemap/blob/master/susie_rss_paper.dsc).
+
+      * [lambda = 0](SuSiERSS_dsc_susiersspaper_results_lamb0.html)
+
+      * [lambda = 0.1](SuSiERSS_dsc_susiersspaper_results_lamb0.1.html)
+
+      * [lambda = 1](SuSiERSS_dsc_susiersspaper_results_lamb1.html)
+
+    L = 5:
+
+      * [lambda = 0](SuSiERSS_dsc_susiersspaper_results_lamb0_L5.html)
+
+      * [lambda = 0.1](SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.html)
+
+      * [lambda = 1](SuSiERSS_dsc_susiersspaper_results_lamb1_L5.html)
+    
+    -----------------------------------------------------------------------
+    
     More investigations (2019-06-16): we use FINEMAP from v1.1, including MAF threshold 5%.
     
     [Power, FDR for FINEMAP and SuSiE related methods](r_compare_add_z_lambda_caviar_maf_susie.html)
