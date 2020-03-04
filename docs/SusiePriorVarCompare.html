@@ -553,10 +553,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree08ffdece2882dc7b4ec6e73209a8c9b77375a167targetblank08ffdeca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/08ffdece2882dc7b4ec6e73209a8c9b77375a167" target="_blank">08ffdec</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree8b8d4865d9cc417b770957666bf73e6405c4357dtargetblank8b8d486a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/8b8d4865d9cc417b770957666bf73e6405c4357d" target="_blank">8b8d486</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree08ffdece2882dc7b4ec6e73209a8c9b77375a167targetblank08ffdeca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree8b8d4865d9cc417b770957666bf73e6405c4357dtargetblank8b8d486a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -640,7 +640,6 @@ Untracked files:
     Untracked:  output/SuSiEFD/susierss.out.addz.2.w.pdf
     Untracked:  output/SuSiEFD/susierss.out.addz.5.pdf.gif
     Untracked:  output/SuSiEFD/susierss.out.addz.5.pdf.pdf
-    Untracked:  output/dsc_susie_v_output.rds
     Untracked:  output/dscoutProblem475.rds
     Untracked:  output/dscoutProblem75.rds
     Untracked:  output/finemap_compare_random_data_null_dscout.rds
@@ -700,8 +699,6 @@ Untracked files:
     Untracked:  output/random_data_76.rds
     Untracked:  output/random_data_76_sim_gaussian_8.rds
     Untracked:  output/random_data_76_sim_gaussian_8_get_sumstats_1.rds
-    Untracked:  output/random_data_79.rds
-    Untracked:  output/random_data_79_sim_gaussian_6.rds
     Untracked:  output/small_data_42_sim_gaussian_36_get_sumstats_2_susie_z_2.rds
     Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2_susie_z_2.rds
 
@@ -709,7 +706,6 @@ Unstaged changes:
     Modified:   analysis/SuSiErssNotConverge.Rmd
     Modified:   analysis/SusieZPerformance.Rmd
     Modified:   analysis/SusieZPerformanceRE3.Rmd
-    Modified:   analysis/index.Rmd
     Modified:   analysis/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd
     Modified:   output/dsc_susie_z_v_output.rds
     Deleted:    susie_z_gaussian_benchmark.dsc
@@ -751,6 +747,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/8b8d4865d9cc417b770957666bf73e6405c4357d/analysis/SusiePriorVarCompare.Rmd" target="_blank">8b8d486</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+<td>
+wflow_publish(“analysis/SusiePriorVarCompare.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/9d933f5df94fc10804153d2b400ba94692050c06/docs/SusiePriorVarCompare.html" target="_blank">9d933f5</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1246,16 +1276,16 @@ optimBFGS
 Time
 </td>
 <td style="text-align:right;">
-0.971
+1.288
 </td>
 <td style="text-align:right;">
-0.671
+0.660
 </td>
 <td style="text-align:right;">
-1.084
+2.633
 </td>
 <td style="text-align:right;">
-0.541
+0.623
 </td>
 </tr>
 <tr>
@@ -1303,7 +1333,7 @@ objective
 <pre class="r"><code>m_optimBrent$V</code></pre>
 <pre><code> [1] 0.0715308455 0.0456796819 0.0455863305 0.0007629356 0.0008015796
  [6] 0.0008323694 0.0008431749 0.0008360488 0.0008176471 0.0007936065</code></pre>
-<p>In the fitting procedure, both methods have 8 zero estimated prior variances at the 2nd iteration. On the 3rd iteration, zero prior variances become non-zero from <code>optim(Brent)</code>.</p>
+<p>In the fitting procedure, both methods have 8 zero estimated prior variances at the 2nd iteration. On the 3rd iteration, zero prior variances become non-zero from <code>optim(Brent)</code>. At the 3rd iteration, using <code>optim(Brent)</code>, the 3rd element of V achieves log likelihood 0.614, but gradient is non-zero (9.5361e-09); using <code>optim(BFGS)</code> the 3rd element of V achieves log likelihood 0 with gradient -4.1938e-32.</p>
 <p><code>optim(Brent)</code>:</p>
 <p>V at 2nd iteration:</p>
 <pre class="r"><code>m_optimBrent$trace[[2]]$V</code></pre>
