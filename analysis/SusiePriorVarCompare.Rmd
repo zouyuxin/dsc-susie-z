@@ -26,7 +26,7 @@ out = dscquery('output/susie_V', targets = c('simulate.pve', 'simulate.n_signal'
                module.output.files = "score_susie")
 ```
 
-```{r}
+```{r message=FALSE}
 library(dplyr)
 library(knitr)
 library(kableExtra)
@@ -50,9 +50,7 @@ dscout = cbind(dscout, method, Time)
 dscout = dscout[, -c(5:8, 13:16)]
 ```
 
-We randomly generate X from N(0,1), n = 1200, p = 1000. 
-
-We randomly generate the response with 3 signals, pve (0.1, 0.2), whether the signals have the same effect size. We fit SuSiE model with L = 10. 
+We randomly generate X from N(0,1), n = 1200, p = 1000. We simulate Y with 3 signals with pve 0.1, 0.2. We fit SuSiE model with L = 10. 
 
 We perform simulations to compare three methods `uniroot`, `em`, `optim(Brent)` and `optim(BFGS)`. There are 100 replicates in the simulation. 
 
@@ -66,16 +64,18 @@ optimBFGS.obj = dscout$objective[dscout$method == 'optim_BFGS']
 ```
 
 ```{r}
-par(mfrow=c(2,2))
+par(mfrow=c(3,2))
 hist(em.obj - uniroot.obj, main='Objective EM-uniroot', breaks=50)
 hist(optimBrent.obj - em.obj, main='Objective optim(Brent)-EM', breaks=50)
 hist(optimBFGS.obj - em.obj, main='Objective optim(BFGS)-EM', breaks=50)
 hist(optimBrent.obj - optimBFGS.obj, main='Objective optim(Brent)-optim(BFGS)', breaks=50)
+hist(optimBrent.obj - uniroot.obj, main='Objective optim(Brent)-uniroot', breaks=50)
+hist(optimBFGS.obj - uniroot.obj, main='Objective optim(BFGS)-uniroot', breaks=50)
 ```
 
-From this comparison, we can see `optim(Brent)` achieves higher objective.
+From this comparison, we can see the objective using `optim(Brent)` is higher than other methods.
 
-LEt's check the difference between objectives from Brent and BFGS:
+Let's check the difference between objectives using Brent and BFGS:
 ```{r}
 summary(optimBrent.obj - optimBFGS.obj)
 ```
@@ -106,24 +106,25 @@ The simulated data has pve 0.2.
 data79.X = readRDS('output/random_data_79.rds')
 data79.y = readRDS('output/random_data_79_sim_gaussian_6.rds')
 
-time.optimBrent = system.time(m_optimBrent <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = 'optim_Brent'))['elapsed']
+time.optimBrent = system.time(m_optimBrent <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = 'optim_Brent', track_fit = T))['elapsed']
 
-time.optimBFGS = system.time(m_optimBFGS <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = 'optim_BFGS'))['elapsed']
+time.optimBFGS = system.time(m_optimBFGS <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = 'optim_BFGS', track_fit = T))['elapsed']
 
-time.uniroot = system.time(m_uniroot <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = 'uniroot'))['elapsed']
+time.uniroot = system.time(m_uniroot <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = 'uniroot', track_fit = T))['elapsed']
 
-time.em = system.time(m_em <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = 'EM'))['elapsed']
+time.em = system.time(m_em <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = 'EM', track_fit = T))['elapsed']
 ```
 
 The truth is
 ```{r}
 ss = susieR:::univariate_regression(data79.X$X, data79.y$Y)
-m_optimBrent <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = 'optim_Brent', compute_univariate_zscore = T)
+m_optimBrent <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = 'optim_Brent', compute_univariate_zscore = T, track_fit = T)
 susie_plot(m_optimBrent, y='z', b=data79.y$meta$true_coef, main='Truth')
 ```
 
 The result from different methods:
 ```{r}
+par(mfrow=c(2,2))
 susie_plot(m_uniroot, y='PIP', b=data79.y$meta$true_coef, main='uniroot')
 susie_plot(m_em, y='PIP', b=data79.y$meta$true_coef, main='EM')
 susie_plot(m_optimBrent, y='PIP', b=data79.y$meta$true_coef, main='optim Brent')
@@ -140,3 +141,27 @@ res %>% kable() %>% kable_styling()
 ```
 
 The objectives from `optim(BFGS)` is smaller than other methods and it ignores 2 signals.
+
+The estimated prior from `optim(BFGS)` is
+```{r}
+m_optimBFGS$V
+```
+
+The estimated prior from `optim(Brent)` is
+```{r}
+m_optimBrent$V
+```
+
+In the fitting procedure, both methods have 8 zero estimated prior variances at the 2nd iteration. On the 3rd iteration, zero prior variances become non-zero from `optim(Brent)`.
+
+`optim(Brent)`:
+```{r}
+m_optimBrent$trace[[2]]$V
+m_optimBrent$trace[[3]]$V
+```
+
+`optim(BFGS)`:
+```{r}
+m_optimBFGS$trace[[2]]$V
+m_optimBFGS$trace[[3]]$V
+```
