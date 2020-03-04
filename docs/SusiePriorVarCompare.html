@@ -553,10 +553,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreec2581bf1b499f3d62c1566d017f64e17844356c4targetblankc2581bfa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/c2581bf1b499f3d62c1566d017f64e17844356c4" target="_blank">c2581bf</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree08ffdece2882dc7b4ec6e73209a8c9b77375a167targetblank08ffdeca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/08ffdece2882dc7b4ec6e73209a8c9b77375a167" target="_blank">08ffdec</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztreec2581bf1b499f3d62c1566d017f64e17844356c4targetblankc2581bfa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree08ffdece2882dc7b4ec6e73209a8c9b77375a167targetblank08ffdeca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -709,6 +709,7 @@ Unstaged changes:
     Modified:   analysis/SuSiErssNotConverge.Rmd
     Modified:   analysis/SusieZPerformance.Rmd
     Modified:   analysis/SusieZPerformanceRE3.Rmd
+    Modified:   analysis/index.Rmd
     Modified:   analysis/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd
     Modified:   output/dsc_susie_z_v_output.rds
     Deleted:    susie_z_gaussian_benchmark.dsc
@@ -750,6 +751,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/08ffdece2882dc7b4ec6e73209a8c9b77375a167/analysis/SusiePriorVarCompare.Rmd" target="_blank">08ffdec</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+<td>
+wflow_publish(“analysis/SusiePriorVarCompare.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/0d4260ea7e31b84356060da5acc7e7a5376611eb/docs/SusiePriorVarCompare.html" target="_blank">0d4260e</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1211,16 +1246,16 @@ optimBFGS
 Time
 </td>
 <td style="text-align:right;">
-0.970
+0.971
 </td>
 <td style="text-align:right;">
-0.654
+0.671
 </td>
 <td style="text-align:right;">
-1.152
+1.084
 </td>
 <td style="text-align:right;">
-0.516
+0.541
 </td>
 </tr>
 <tr>
@@ -1270,19 +1305,24 @@ objective
  [6] 0.0008323694 0.0008431749 0.0008360488 0.0008176471 0.0007936065</code></pre>
 <p>In the fitting procedure, both methods have 8 zero estimated prior variances at the 2nd iteration. On the 3rd iteration, zero prior variances become non-zero from <code>optim(Brent)</code>.</p>
 <p><code>optim(Brent)</code>:</p>
+<p>V at 2nd iteration:</p>
 <pre class="r"><code>m_optimBrent$trace[[2]]$V</code></pre>
 <pre><code> [1] 0.07475785 0.04542986 0.00000000 0.00000000 0.00000000 0.00000000
  [7] 0.00000000 0.00000000 0.00000000 0.00000000</code></pre>
+<p>V at 3rd iteration:</p>
 <pre class="r"><code>m_optimBrent$trace[[3]]$V</code></pre>
 <pre><code> [1] 0.0732734230 0.0455460119 0.0074771764 0.0007824918 0.0006376748
  [6] 0.0005303129 0.0004451950 0.0003748068 0.0003149900 0.0002633235</code></pre>
+<p>V at 4th iteration:</p>
 <pre class="r"><code>m_optimBrent$trace[[4]]$V</code></pre>
 <pre><code> [1] 0.0726847571 0.0353826813 0.0369704372 0.0006860346 0.0006056269
  [6] 0.0005290428 0.0004628939 0.0004057908 0.0003559978 0.0003122409</code></pre>
 <p><code>optim(BFGS)</code>:</p>
+<p>V at 2nd iteration:</p>
 <pre class="r"><code>m_optimBFGS$trace[[2]]$V</code></pre>
 <pre><code> [1] 0.07476851 0.04541749 0.00000000 0.00000000 0.00000000 0.00000000
  [7] 0.00000000 0.00000000 0.00000000 0.00000000</code></pre>
+<p>V at 3rd iteration:</p>
 <pre class="r"><code>m_optimBFGS$trace[[3]]$V</code></pre>
 <pre><code> [1] 0.07328134 0.04553316 0.00000000 0.00000000 0.00000000 0.00000000
  [7] 0.00000000 0.00000000 0.00000000 0.00000000</code></pre>
