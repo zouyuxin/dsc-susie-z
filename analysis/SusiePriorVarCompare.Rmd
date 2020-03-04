@@ -73,9 +73,9 @@ hist(optimBrent.obj - uniroot.obj, main='Objective optim(Brent)-uniroot', breaks
 hist(optimBFGS.obj - uniroot.obj, main='Objective optim(BFGS)-uniroot', breaks=50)
 ```
 
-From this comparison, we can see the objective using `optim(Brent)` is higher than other methods.
+From this comparison, we can see SuSiE objective using `optim(Brent)` is higher than other methods.
 
-Let's check the difference between objectives using Brent and BFGS:
+Let's check the difference between SuSiE objectives using Brent and BFGS:
 ```{r}
 summary(optimBrent.obj - optimBFGS.obj)
 ```
@@ -140,7 +140,7 @@ colnames(res) = c('uniroot', 'EM', 'optimBrent', 'optimBFGS')
 res %>% kable() %>% kable_styling()
 ```
 
-The objectives from `optim(BFGS)` is smaller than other methods and it ignores 2 signals.
+The SuSiE model with `optim(BFGS)` has smaller objective than other methods and it ignores 2 signals.
 
 The estimated prior from `optim(BFGS)` is
 ```{r}
@@ -158,6 +158,7 @@ In the fitting procedure, both methods have 8 zero estimated prior variances at 
 ```{r}
 m_optimBrent$trace[[2]]$V
 m_optimBrent$trace[[3]]$V
+m_optimBrent$trace[[4]]$V
 ```
 
 `optim(BFGS)`:
