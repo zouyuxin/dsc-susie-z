@@ -152,7 +152,7 @@ The estimated prior from `optim(Brent)` is
 m_optimBrent$V
 ```
 
-In the fitting procedure, both methods have 8 zero estimated prior variances at the 2nd iteration. On the 3rd iteration, zero prior variances become non-zero from `optim(Brent)`.
+In the fitting procedure, both methods have 8 zero estimated prior variances at the 2nd iteration. On the 3rd iteration, zero prior variances become non-zero from `optim(Brent)`. At the 3rd iteration, using `optim(Brent)`, the 3rd element of V achieves log likelihood 0.614, but gradient is non-zero (9.5361e-09); using `optim(BFGS)` the 3rd element of V achieves log likelihood 0 with gradient -4.1938e-32.
 
 `optim(Brent)`:
 
