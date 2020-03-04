@@ -553,10 +553,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree0bc4b87f0d878301b6415a63d9c65cc7bd805cf9targetblank0bc4b87a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/0bc4b87f0d878301b6415a63d9c65cc7bd805cf9" target="_blank">0bc4b87</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree7d40d7c09588c63f00a0a456dab201fe5fdf9dc5targetblank7d40d7ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/7d40d7c09588c63f00a0a456dab201fe5fdf9dc5" target="_blank">7d40d7c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree0bc4b87f0d878301b6415a63d9c65cc7bd805cf9targetblank0bc4b87a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree7d40d7c09588c63f00a0a456dab201fe5fdf9dc5targetblank7d40d7ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -755,6 +755,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/7d40d7c09588c63f00a0a456dab201fe5fdf9dc5/analysis/SusiePriorVarCompare.Rmd" target="_blank">7d40d7c</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+<td>
+wflow_publish(“analysis/SusiePriorVarCompare.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zouyuxin/dsc-susie-z/9be5e531446c5f80ab08deef010647df265e5163/docs/SusiePriorVarCompare.html" target="_blank">9be5e53</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/zouyuxin/dsc-susie-z/blob/0bc4b87f0d878301b6415a63d9c65cc7bd805cf9/analysis/SusiePriorVarCompare.Rmd" target="_blank">0bc4b87</a>
 </td>
 <td>
@@ -790,23 +824,10 @@ out = dscquery(&#39;output/susie_V&#39;, targets = c(&#39;simulate.pve&#39;, &#3
                                              &#39;susie_optim_Brent.DSC_TIME&#39;,
                                              &#39;susie_optim_BFGS.DSC_TIME&#39;,&#39;score_susie&#39;),
                module.output.files = &quot;score_susie&quot;)</code></pre>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>
-Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    filter, lag</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(knitr)
-library(kableExtra)</code></pre>
-<pre><code>
-Attaching package: &#39;kableExtra&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:dplyr&#39;:
-
-    group_rows</code></pre>
-<pre class="r"><code>library(susieR)</code></pre>
+<pre class="r"><code>library(dplyr)
+library(knitr)
+library(kableExtra)
+library(susieR)</code></pre>
 <pre class="r"><code>dscout = readRDS(&#39;output/dsc_susie_v_output.rds&#39;)
 colnames(dscout) = c(&#39;DSC&#39;, &#39;pve&#39;, &#39;n_signal&#39;, &#39;effect_weight&#39;, &#39;method_uniroot&#39;, &#39;method_em&#39;, &#39;method_optim_Brent&#39;, &#39;method_optim_BFGS&#39;,&#39;objective&#39;, &#39;converged&#39;, &#39;total&#39;, &#39;valid&#39;, &#39;time_uniroot&#39;, &#39;time_em&#39;, &#39;time_optim_Brent&#39;, &#39;time_optim_BFGS&#39;, &#39;file&#39;)
 dscout$effect_weight[which(dscout$effect_weight == &#39;rep(1/n_signal, n_signal)&#39;)] = &#39;equal&#39;
@@ -821,8 +842,7 @@ Time[!is.na(dscout$time_optim_Brent)] = dscout$time_optim_Brent[!is.na(dscout$ti
 Time[!is.na(dscout$time_optim_BFGS)] = dscout$time_optim_BFGS[!is.na(dscout$time_optim_BFGS)]
 dscout = cbind(dscout, method, Time)
 dscout = dscout[, -c(5:8, 13:16)]</code></pre>
-<p>We randomly generate X from N(0,1), n = 1200, p = 1000.</p>
-<p>We randomly generate the response with 3 signals, pve (0.1, 0.2), whether the signals have the same effect size. We fit SuSiE model with L = 10.</p>
+<p>We randomly generate X from N(0,1), n = 1200, p = 1000. We simulate Y with 3 signals with pve 0.1, 0.2. We fit SuSiE model with L = 10.</p>
 <p>We perform simulations to compare three methods <code>uniroot</code>, <code>em</code>, <code>optim(Brent)</code> and <code>optim(BFGS)</code>. There are 100 replicates in the simulation.</p>
 <div id="comparing-objective-from-different-methods" class="section level2">
 <h2>Comparing objective from different methods</h2>
@@ -830,22 +850,135 @@ dscout = dscout[, -c(5:8, 13:16)]</code></pre>
 em.obj = dscout$objective[dscout$method == &#39;em&#39;]
 optimBrent.obj = dscout$objective[dscout$method == &#39;optim_Brent&#39;]
 optimBFGS.obj = dscout$objective[dscout$method == &#39;optim_BFGS&#39;]</code></pre>
-<pre class="r"><code>par(mfrow=c(2,2))
+<pre class="r"><code>par(mfrow=c(3,2))
 hist(em.obj - uniroot.obj, main=&#39;Objective EM-uniroot&#39;, breaks=50)
 hist(optimBrent.obj - em.obj, main=&#39;Objective optim(Brent)-EM&#39;, breaks=50)
 hist(optimBFGS.obj - em.obj, main=&#39;Objective optim(BFGS)-EM&#39;, breaks=50)
-hist(optimBrent.obj - optimBFGS.obj, main=&#39;Objective optim(Brent)-optim(BFGS)&#39;, breaks=50)</code></pre>
+hist(optimBrent.obj - optimBFGS.obj, main=&#39;Objective optim(Brent)-optim(BFGS)&#39;, breaks=50)
+hist(optimBrent.obj - uniroot.obj, main=&#39;Objective optim(Brent)-uniroot&#39;, breaks=50)
+hist(optimBFGS.obj - uniroot.obj, main=&#39;Objective optim(BFGS)-uniroot&#39;, breaks=50)</code></pre>
 <p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>From this comparison, we can see <code>optim(Brent)</code> achieves higher objective.</p>
-<p>LEt’s check the difference between objectives from Brent and BFGS:</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9be5e531446c5f80ab08deef010647df265e5163/docs/figure/SusiePriorVarCompare.Rmd/unnamed-chunk-5-1.png" target="_blank">9be5e53</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>From this comparison, we can see the objective using <code>optim(Brent)</code> is higher than other methods.</p>
+<p>Let’s check the difference between objectives using Brent and BFGS:</p>
 <pre class="r"><code>summary(optimBrent.obj - optimBFGS.obj)</code></pre>
 <pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
  0.000000  0.000000  0.002959  0.518177  0.304593 22.389742 </code></pre>
 <pre class="r"><code>boxplot(optimBrent.obj - optimBFGS.obj, horizontal=TRUE)</code></pre>
 <p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9be5e531446c5f80ab08deef010647df265e5163/docs/figure/SusiePriorVarCompare.Rmd/unnamed-chunk-7-1.png" target="_blank">9be5e53</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>{plot(optimBrent.obj, optimBFGS.obj)
 abline(0,1)}</code></pre>
 <p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9be5e531446c5f80ab08deef010647df265e5163/docs/figure/SusiePriorVarCompare.Rmd/unnamed-chunk-8-1.png" target="_blank">9be5e53</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="computing-speed" class="section level2">
 <h2>Computing speed</h2>
@@ -853,6 +986,43 @@ abline(0,1)}</code></pre>
 p &lt;- ggplot(dscout, aes(x=method, y=Time)) + geom_violin(trim = FALSE) + coord_flip() + stat_summary(fun.y=mean, geom=&quot;point&quot;, shape=23, size=2)
 p</code></pre>
 <p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9be5e531446c5f80ab08deef010647df265e5163/docs/figure/SusiePriorVarCompare.Rmd/unnamed-chunk-9-1.png" target="_blank">9be5e53</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>We measure the seconds the model converges under different methods. <code>optim(BFGS)</code> has shorter runtime.</p>
 </div>
 <div id="one-example" class="section level2">
@@ -861,27 +1031,99 @@ p</code></pre>
 <pre class="r"><code>data79.X = readRDS(&#39;output/random_data_79.rds&#39;)
 data79.y = readRDS(&#39;output/random_data_79_sim_gaussian_6.rds&#39;)
 
-time.optimBrent = system.time(m_optimBrent &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = &#39;optim_Brent&#39;))[&#39;elapsed&#39;]
+time.optimBrent = system.time(m_optimBrent &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = &#39;optim_Brent&#39;, track_fit = T))[&#39;elapsed&#39;]
 
-time.optimBFGS = system.time(m_optimBFGS &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = &#39;optim_BFGS&#39;))[&#39;elapsed&#39;]
+time.optimBFGS = system.time(m_optimBFGS &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = &#39;optim_BFGS&#39;, track_fit = T))[&#39;elapsed&#39;]
 
-time.uniroot = system.time(m_uniroot &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = &#39;uniroot&#39;))[&#39;elapsed&#39;]
+time.uniroot = system.time(m_uniroot &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = &#39;uniroot&#39;, track_fit = T))[&#39;elapsed&#39;]
 
-time.em = system.time(m_em &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = &#39;EM&#39;))[&#39;elapsed&#39;]</code></pre>
+time.em = system.time(m_em &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = &#39;EM&#39;, track_fit = T))[&#39;elapsed&#39;]</code></pre>
 <p>The truth is</p>
 <pre class="r"><code>ss = susieR:::univariate_regression(data79.X$X, data79.y$Y)
-m_optimBrent &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = &#39;optim_Brent&#39;, compute_univariate_zscore = T)
+m_optimBrent &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = &#39;optim_Brent&#39;, compute_univariate_zscore = T, track_fit = T)
 susie_plot(m_optimBrent, y=&#39;z&#39;, b=data79.y$meta$true_coef, main=&#39;Truth&#39;)</code></pre>
 <p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9be5e531446c5f80ab08deef010647df265e5163/docs/figure/SusiePriorVarCompare.Rmd/unnamed-chunk-11-1.png" target="_blank">9be5e53</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The result from different methods:</p>
-<pre class="r"><code>susie_plot(m_uniroot, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;uniroot&#39;)</code></pre>
+<pre class="r"><code>par(mfrow=c(2,2))
+susie_plot(m_uniroot, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;uniroot&#39;)
+susie_plot(m_em, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;EM&#39;)
+susie_plot(m_optimBrent, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;optim Brent&#39;)
+susie_plot(m_optimBFGS, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;optim BFGS&#39;)</code></pre>
 <p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>susie_plot(m_em, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;EM&#39;)</code></pre>
-<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>susie_plot(m_optimBrent, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;optim Brent&#39;)</code></pre>
-<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>susie_plot(m_optimBFGS, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;optim BFGS&#39;)</code></pre>
-<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-12-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/9be5e531446c5f80ab08deef010647df265e5163/docs/figure/SusiePriorVarCompare.Rmd/unnamed-chunk-12-1.png" target="_blank">9be5e53</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Time = c(time.uniroot, time.em, time.optimBrent, time.optimBFGS)
 niter = c(m_uniroot$niter, m_em$niter, m_optimBrent$niter, m_optimBFGS$niter)
 objective = c(susie_get_objective(m_uniroot), susie_get_objective(m_em), susie_get_objective(m_optimBrent), susie_get_objective(m_optimBFGS))
@@ -913,16 +1155,16 @@ optimBFGS
 Time
 </td>
 <td style="text-align:right;">
-0.995
+1.144
 </td>
 <td style="text-align:right;">
-0.605
+0.782
 </td>
 <td style="text-align:right;">
-1.107
+1.146
 </td>
 <td style="text-align:right;">
-0.489
+0.524
 </td>
 </tr>
 <tr>
@@ -962,6 +1204,29 @@ objective
 </tbody>
 </table>
 <p>The objectives from <code>optim(BFGS)</code> is smaller than other methods and it ignores 2 signals.</p>
+<p>The estimated prior from <code>optim(BFGS)</code> is</p>
+<pre class="r"><code>m_optimBFGS$V</code></pre>
+<pre><code> [1] 0.07325722 0.04553359 0.00000000 0.00000000 0.00000000 0.00000000
+ [7] 0.00000000 0.00000000 0.00000000 0.00000000</code></pre>
+<p>The estimated prior from <code>optim(Brent)</code> is</p>
+<pre class="r"><code>m_optimBrent$V</code></pre>
+<pre><code> [1] 0.0715308455 0.0456796819 0.0455863305 0.0007629356 0.0008015796
+ [6] 0.0008323694 0.0008431749 0.0008360488 0.0008176471 0.0007936065</code></pre>
+<p>In the fitting procedure, both methods have 8 zero estimated prior variances at the 2nd iteration. On the 3rd iteration, zero prior variances become non-zero from <code>optim(Brent)</code>.</p>
+<p><code>optim(Brent)</code>:</p>
+<pre class="r"><code>m_optimBrent$trace[[2]]$V</code></pre>
+<pre><code> [1] 0.07475785 0.04542986 0.00000000 0.00000000 0.00000000 0.00000000
+ [7] 0.00000000 0.00000000 0.00000000 0.00000000</code></pre>
+<pre class="r"><code>m_optimBrent$trace[[3]]$V</code></pre>
+<pre><code> [1] 0.0732734230 0.0455460119 0.0074771764 0.0007824918 0.0006376748
+ [6] 0.0005303129 0.0004451950 0.0003748068 0.0003149900 0.0002633235</code></pre>
+<p><code>optim(BFGS)</code>:</p>
+<pre class="r"><code>m_optimBFGS$trace[[2]]$V</code></pre>
+<pre><code> [1] 0.07476851 0.04541749 0.00000000 0.00000000 0.00000000 0.00000000
+ [7] 0.00000000 0.00000000 0.00000000 0.00000000</code></pre>
+<pre class="r"><code>m_optimBFGS$trace[[3]]$V</code></pre>
+<pre><code> [1] 0.07328134 0.04553316 0.00000000 0.00000000 0.00000000 0.00000000
+ [7] 0.00000000 0.00000000 0.00000000 0.00000000</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
