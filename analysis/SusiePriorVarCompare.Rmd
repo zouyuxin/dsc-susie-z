@@ -1,0 +1,142 @@
+---
+title: "SuSiE Estimate Prior Variance Methods Comparison"
+author: "Yuxin Zou"
+date: 2020-03-03
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+```{r eval=FALSE}
+library(dscrutils)
+out = dscquery('output/susie_V', targets = c('simulate.pve', 'simulate.n_signal', 
+                                             'simulate.effect_weight',
+                                             'susie_uniroot.V_method',
+                                             'susie_em.V_method',
+                                             'susie_optim_Brent.V_method',
+                                             'susie_optim_BFGS.V_method',
+                                             'score_susie.objective',
+                                             'score_susie.converged',
+                                             'score_susie.total',
+                                             'score_susie.valid',
+                                             'susie_uniroot.DSC_TIME',
+                                             'susie_em.DSC_TIME',
+                                             'susie_optim_Brent.DSC_TIME',
+                                             'susie_optim_BFGS.DSC_TIME','score_susie'),
+               module.output.files = "score_susie")
+```
+
+```{r}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(susieR)
+```
+
+```{r}
+dscout = readRDS('output/dsc_susie_v_output.rds')
+colnames(dscout) = c('DSC', 'pve', 'n_signal', 'effect_weight', 'method_uniroot', 'method_em', 'method_optim_Brent', 'method_optim_BFGS','objective', 'converged', 'total', 'valid', 'time_uniroot', 'time_em', 'time_optim_Brent', 'time_optim_BFGS', 'file')
+dscout$effect_weight[which(dscout$effect_weight == 'rep(1/n_signal, n_signal)')] = 'equal'
+dscout$effect_weight[which(dscout$effect_weight != 'equal')] = 'notequal'
+method = dscout$method_uniroot
+method[dscout$method_em == 'EM'] = 'em'
+method[dscout$method_optim_Brent == 'optim_Brent'] = 'optim_Brent'
+method[dscout$method_optim_BFGS == 'optim_BFGS'] = 'optim_BFGS'
+Time = dscout$time_uniroot
+Time[!is.na(dscout$time_em)] = dscout$time_em[!is.na(dscout$time_em)]
+Time[!is.na(dscout$time_optim_Brent)] = dscout$time_optim_Brent[!is.na(dscout$time_optim_Brent)]
+Time[!is.na(dscout$time_optim_BFGS)] = dscout$time_optim_BFGS[!is.na(dscout$time_optim_BFGS)]
+dscout = cbind(dscout, method, Time)
+dscout = dscout[, -c(5:8, 13:16)]
+```
+
+We randomly generate X from N(0,1), n = 1200, p = 1000. 
+
+We randomly generate the response with 3 signals, pve (0.1, 0.2), whether the signals have the same effect size. We fit SuSiE model with L = 10. 
+
+We perform simulations to compare three methods `uniroot`, `em`, `optim(Brent)` and `optim(BFGS)`. There are 100 replicates in the simulation. 
+
+## Comparing objective from different methods
+
+```{r}
+uniroot.obj = dscout$objective[dscout$method == 'uniroot']
+em.obj = dscout$objective[dscout$method == 'em']
+optimBrent.obj = dscout$objective[dscout$method == 'optim_Brent']
+optimBFGS.obj = dscout$objective[dscout$method == 'optim_BFGS']
+```
+
+```{r}
+par(mfrow=c(2,2))
+hist(em.obj - uniroot.obj, main='Objective EM-uniroot', breaks=50)
+hist(optimBrent.obj - em.obj, main='Objective optim(Brent)-EM', breaks=50)
+hist(optimBFGS.obj - em.obj, main='Objective optim(BFGS)-EM', breaks=50)
+hist(optimBrent.obj - optimBFGS.obj, main='Objective optim(Brent)-optim(BFGS)', breaks=50)
+```
+
+From this comparison, we can see `optim(Brent)` achieves higher objective.
+
+LEt's check the difference between objectives from Brent and BFGS:
+```{r}
+summary(optimBrent.obj - optimBFGS.obj)
+```
+```{r}
+boxplot(optimBrent.obj - optimBFGS.obj, horizontal=TRUE)
+```
+
+```{r}
+{plot(optimBrent.obj, optimBFGS.obj)
+abline(0,1)}
+```
+
+## Computing speed
+
+```{r}
+library(ggplot2)
+p <- ggplot(dscout, aes(x=method, y=Time)) + geom_violin(trim = FALSE) + coord_flip() + stat_summary(fun.y=mean, geom="point", shape=23, size=2)
+p
+```
+
+We measure the seconds the model converges under different methods. `optim(BFGS)` has shorter runtime.
+
+## One example
+
+The simulated data has pve 0.2.
+
+```{r}
+data79.X = readRDS('output/random_data_79.rds')
+data79.y = readRDS('output/random_data_79_sim_gaussian_6.rds')
+
+time.optimBrent = system.time(m_optimBrent <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = 'optim_Brent'))['elapsed']
+
+time.optimBFGS = system.time(m_optimBFGS <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = 'optim_BFGS'))['elapsed']
+
+time.uniroot = system.time(m_uniroot <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = 'uniroot'))['elapsed']
+
+time.em = system.time(m_em <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = 'EM'))['elapsed']
+```
+
+The truth is
+```{r}
+ss = susieR:::univariate_regression(data79.X$X, data79.y$Y)
+m_optimBrent <- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = 'optim_Brent', compute_univariate_zscore = T)
+susie_plot(m_optimBrent, y='z', b=data79.y$meta$true_coef, main='Truth')
+```
+
+The result from different methods:
+```{r}
+susie_plot(m_uniroot, y='PIP', b=data79.y$meta$true_coef, main='uniroot')
+susie_plot(m_em, y='PIP', b=data79.y$meta$true_coef, main='EM')
+susie_plot(m_optimBrent, y='PIP', b=data79.y$meta$true_coef, main='optim Brent')
+susie_plot(m_optimBFGS, y='PIP', b=data79.y$meta$true_coef, main='optim BFGS')
+```
+
+```{r}
+Time = c(time.uniroot, time.em, time.optimBrent, time.optimBFGS)
+niter = c(m_uniroot$niter, m_em$niter, m_optimBrent$niter, m_optimBFGS$niter)
+objective = c(susie_get_objective(m_uniroot), susie_get_objective(m_em), susie_get_objective(m_optimBrent), susie_get_objective(m_optimBFGS))
+res = rbind(Time, niter, objective)
+colnames(res) = c('uniroot', 'EM', 'optimBrent', 'optimBFGS')
+res %>% kable() %>% kable_styling()
+```
+
+The objectives from `optim(BFGS)` is smaller than other methods and it ignores 2 signals.
