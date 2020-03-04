@@ -155,14 +155,27 @@ m_optimBrent$V
 In the fitting procedure, both methods have 8 zero estimated prior variances at the 2nd iteration. On the 3rd iteration, zero prior variances become non-zero from `optim(Brent)`.
 
 `optim(Brent)`:
+
+V at 2nd iteration:
 ```{r}
 m_optimBrent$trace[[2]]$V
+```
+V at 3rd iteration:
+```{r}
 m_optimBrent$trace[[3]]$V
+```
+V at 4th iteration:
+```{r}
 m_optimBrent$trace[[4]]$V
 ```
 
 `optim(BFGS)`:
+
+V at 2nd iteration:
 ```{r}
 m_optimBFGS$trace[[2]]$V
+```
+V at 3rd iteration:
+```{r}
 m_optimBFGS$trace[[3]]$V
 ```
