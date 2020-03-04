@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Yuxin Zou" />
+
+<meta name="date" content="2020-03-03" />
+
+<title>SuSiE Estimate Prior Variance Methods Comparison</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dsc-susie-z</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/zouyuxin/dsc-susie-z">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">SuSiE Estimate Prior Variance Methods Comparison</h1>
+<h4 class="author">Yuxin Zou</h4>
+<h4 class="date">2020-03-03</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-03-04
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>dsc-susie-z/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.5.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190115code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190115)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190115code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190115)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree0bc4b87f0d878301b6415a63d9c65cc7bd805cf9targetblank0bc4b87a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zouyuxin/dsc-susie-z/tree/0bc4b87f0d878301b6415a63d9c65cc7bd805cf9" target="_blank">0bc4b87</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzouyuxindscsusieztree0bc4b87f0d878301b6415a63d9c65cc7bd805cf9targetblank0bc4b87a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    .sos/
+    Ignored:    analysis/.DS_Store
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+    Ignored:    output/.DS_Store
+    Ignored:    output/SuSiEFD/.DS_Store
+
+Untracked files:
+    Untracked:  code/N2finemapping.CAVIAR.rds
+    Untracked:  code/N2finemapping.FINEMAP.rds
+    Untracked:  code/ROC.R
+    Untracked:  code/caviar.R
+    Untracked:  code/caviar.res._condition_1.log
+    Untracked:  code/caviar.res._condition_1.z
+    Untracked:  code/caviar.res._condition_1_post
+    Untracked:  code/caviar.res._condition_1_set
+    Untracked:  code/caviarld.ld
+    Untracked:  code/cs_compare.R
+    Untracked:  code/finemap.R
+    Untracked:  code/finemap.res._condition_1.config
+    Untracked:  code/finemap.res._condition_1.log
+    Untracked:  code/finemap.res._condition_1.master
+    Untracked:  code/finemap.res._condition_1.snp
+    Untracked:  code/finemap.res._condition_1.z
+    Untracked:  code/finemapld.ld
+    Untracked:  code/pip_calibration.R
+    Untracked:  code/pip_compare.R
+    Untracked:  code/pip_extract.R
+    Untracked:  code/query.R
+    Untracked:  data/random_data_31.rds
+    Untracked:  data/random_data_31_sim_gaussian_35.rds
+    Untracked:  data/random_data_31_sim_gaussian_35_get_sumstats_1.rds
+    Untracked:  data/small_data_1.ld_in_file.in.ld
+    Untracked:  data/small_data_1.ld_out_file.out.ld
+    Untracked:  data/small_data_132.ld_in_file.in.ld
+    Untracked:  data/small_data_132.ld_out_file.out.ld
+    Untracked:  data/small_data_132_sim_gaussian_12.rds
+    Untracked:  data/small_data_132_sim_gaussian_12_get_sumstats_1.rds
+    Untracked:  data/small_data_1_sim_gaussian_2.rds
+    Untracked:  data/small_data_1_sim_gaussian_2_get_sumstats_1.rds
+    Untracked:  data/small_data_46.rds
+    Untracked:  data/small_data_46_sim_gaussian_10.rds
+    Untracked:  data/small_data_46_sim_gaussian_10_get_sumstats_2.rds
+    Untracked:  data/small_data_69.ld_in_file.in.ld
+    Untracked:  data/small_data_69.ld_out_file.out.ld
+    Untracked:  data/small_data_69.rds
+    Untracked:  data/small_data_69_sim_gaussian_3.rds
+    Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1.rds
+    Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1_susie_z_1.rds
+    Untracked:  data/small_data_69_sim_gaussian_3_get_sumstats_1_susie_z_2.rds
+    Untracked:  figure/
+    Untracked:  output/SuSiEFD/r.in.pdf
+    Untracked:  output/SuSiEFD/r.out.addz.pdf
+    Untracked:  output/SuSiEFD/r.out.pdf
+    Untracked:  output/SuSiEFD/small_data_148.ld_in_file.in.ld
+    Untracked:  output/SuSiEFD/small_data_148.ld_out_file.out.ld
+    Untracked:  output/SuSiEFD/small_data_148.rds
+    Untracked:  output/SuSiEFD/small_data_148_sim_gaussian_1.rds
+    Untracked:  output/SuSiEFD/small_data_148_sim_gaussian_1_get_sumstats_1.rds
+    Untracked:  output/SuSiEFD/small_data_148_sim_gaussian_1_get_sumstats_1_caviar_4.cache.CAVIAR_condition_1.z
+    Untracked:  output/SuSiEFD/small_data_148_sim_gaussian_1_get_sumstats_1_caviar_4.ld_out_z_file.out.z.ld
+    Untracked:  output/SuSiEFD/small_data_68_sim_gaussian_2_get_sumstats_1_caviar_4.cache.CAVIAR_condition_1.z
+    Untracked:  output/SuSiEFD/small_data_68_sim_gaussian_2_get_sumstats_1_caviar_4.ld_out_z_file.out.z.ld
+    Untracked:  output/SuSiEFD/susierss.in.2.gif
+    Untracked:  output/SuSiEFD/susierss.in.2.pdf
+    Untracked:  output/SuSiEFD/susierss.out.2.gif
+    Untracked:  output/SuSiEFD/susierss.out.2.pdf
+    Untracked:  output/SuSiEFD/susierss.out.addz.1.gif
+    Untracked:  output/SuSiEFD/susierss.out.addz.1.pdf
+    Untracked:  output/SuSiEFD/susierss.out.addz.2.pdf
+    Untracked:  output/SuSiEFD/susierss.out.addz.2.w.gif
+    Untracked:  output/SuSiEFD/susierss.out.addz.2.w.pdf
+    Untracked:  output/SuSiEFD/susierss.out.addz.5.pdf.gif
+    Untracked:  output/SuSiEFD/susierss.out.addz.5.pdf.pdf
+    Untracked:  output/dsc_susie_v_output.rds
+    Untracked:  output/dscoutProblem475.rds
+    Untracked:  output/dscoutProblem75.rds
+    Untracked:  output/finemap_compare_random_data_null_dscout.rds
+    Untracked:  output/finemap_compare_random_data_signal_dscout.rds
+    Untracked:  output/finemap_compare_small_data_signal_dscout.rds
+    Untracked:  output/finemap_compare_small_data_signal_dscout_RE8.rds
+    Untracked:  output/r_compare_FINEMAP_PIP_ROC.rds
+    Untracked:  output/r_compare_add_z_FINEMAP_PIP_ROC.rds
+    Untracked:  output/r_compare_add_z_FINEMAP_ROC.rds
+    Untracked:  output/r_compare_add_z_SuSiEb_ROC.rds
+    Untracked:  output/r_compare_add_z_SuSiErss_ROC.rds
+    Untracked:  output/r_compare_add_z_dscout_susie_finemap_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_FINEMAP_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_SuSiEb_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_SuSiErss_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_CAVIAR_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_FINEMAP_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiEb_L1_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiEb_L2_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiEb_L5_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiErss_L1_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiErss_L2_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_SuSiErss_L5_ROC.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_dscout_caviar_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_dscout_finemap_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_dscout_susiebhat_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_caviar_dscout_susierss_tibble.rds
+    Untracked:  output/r_compare_add_z_lambda_dscout_susie_finemap_tibble.rds
+    Untracked:  output/r_compare_dscout_susie_finemappip_tibble.rds
+    Untracked:  output/r_compare_dscout_susie_finemappip_truth_tibble.rds
+    Untracked:  output/r_compare_finemap_v1.3.1_ROC.rds
+    Untracked:  output/r_compare_finemapv1.3.1.rds
+    Untracked:  output/r_compare_maf0.05_SuSiERSS_L2_ROC.rds
+    Untracked:  output/r_compare_maf0.05_SuSiERSS_L5_ROC.rds
+    Untracked:  output/r_compare_maf0.05_SuSiEb_L2_ROC.rds
+    Untracked:  output/r_compare_maf0.05_SuSiEb_L5_ROC.rds
+    Untracked:  output/r_compare_maf0_SuSiERSS_L2_ROC.rds
+    Untracked:  output/r_compare_maf0_SuSiERSS_L5_ROC.rds
+    Untracked:  output/r_compare_maf0_SuSiEb_L2_ROC.rds
+    Untracked:  output/r_compare_maf0_SuSiEb_L5_ROC.rds
+    Untracked:  output/r_compare_maf_dscout_caviar_maf0.05_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_caviar_maf0_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_finemap_maf0.05_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_finemap_maf0_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_susiebhat_maf0.05_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_susiebhat_maf0_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_susierss_maf0.05_tibble.rds
+    Untracked:  output/r_compare_maf_dscout_susierss_maf0_tibble.rds
+    Untracked:  output/r_compare_mafall_FINEMAP_L2_ROC.rds
+    Untracked:  output/r_compare_mafall_FINEMAP_L5_ROC.rds
+    Untracked:  output/r_compare_mafall_caviar_ROC.rds
+    Untracked:  output/r_compare_susieb_PIP_ROC.rds
+    Untracked:  output/r_compare_susiepip_tibble.rds
+    Untracked:  output/r_compare_susierss_PIP_ROC.rds
+    Untracked:  output/random_data_100_sim_gaussian_null_1_get_sumstats_1_finemap_1.rds
+    Untracked:  output/random_data_31_35_fit_em.rds
+    Untracked:  output/random_data_76.rds
+    Untracked:  output/random_data_76_sim_gaussian_8.rds
+    Untracked:  output/random_data_76_sim_gaussian_8_get_sumstats_1.rds
+    Untracked:  output/random_data_79.rds
+    Untracked:  output/random_data_79_sim_gaussian_6.rds
+    Untracked:  output/small_data_42_sim_gaussian_36_get_sumstats_2_susie_z_2.rds
+    Untracked:  output/small_data_92_sim_gaussian_30_get_sumstats_2_susie_z_2.rds
+
+Unstaged changes:
+    Modified:   analysis/SuSiErssNotConverge.Rmd
+    Modified:   analysis/SusieZPerformance.Rmd
+    Modified:   analysis/SusieZPerformanceRE3.Rmd
+    Modified:   analysis/r_compare_add_z_lambda_caviar_susierss_ROC.Rmd
+    Modified:   output/dsc_susie_z_v_output.rds
+    Deleted:    susie_z_gaussian_benchmark.dsc
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zouyuxin/dsc-susie-z/blob/0bc4b87f0d878301b6415a63d9c65cc7bd805cf9/analysis/SusiePriorVarCompare.Rmd" target="_blank">0bc4b87</a>
+</td>
+<td>
+zouyuxin
+</td>
+<td>
+2020-03-04
+</td>
+<td>
+wflow_publish(“analysis/SusiePriorVarCompare.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>library(dscrutils)
+out = dscquery(&#39;output/susie_V&#39;, targets = c(&#39;simulate.pve&#39;, &#39;simulate.n_signal&#39;, 
+                                             &#39;simulate.effect_weight&#39;,
+                                             &#39;susie_uniroot.V_method&#39;,
+                                             &#39;susie_em.V_method&#39;,
+                                             &#39;susie_optim_Brent.V_method&#39;,
+                                             &#39;susie_optim_BFGS.V_method&#39;,
+                                             &#39;score_susie.objective&#39;,
+                                             &#39;score_susie.converged&#39;,
+                                             &#39;score_susie.total&#39;,
+                                             &#39;score_susie.valid&#39;,
+                                             &#39;susie_uniroot.DSC_TIME&#39;,
+                                             &#39;susie_em.DSC_TIME&#39;,
+                                             &#39;susie_optim_Brent.DSC_TIME&#39;,
+                                             &#39;susie_optim_BFGS.DSC_TIME&#39;,&#39;score_susie&#39;),
+               module.output.files = &quot;score_susie&quot;)</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>
+Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    filter, lag</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(knitr)
+library(kableExtra)</code></pre>
+<pre><code>
+Attaching package: &#39;kableExtra&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    group_rows</code></pre>
+<pre class="r"><code>library(susieR)</code></pre>
+<pre class="r"><code>dscout = readRDS(&#39;output/dsc_susie_v_output.rds&#39;)
+colnames(dscout) = c(&#39;DSC&#39;, &#39;pve&#39;, &#39;n_signal&#39;, &#39;effect_weight&#39;, &#39;method_uniroot&#39;, &#39;method_em&#39;, &#39;method_optim_Brent&#39;, &#39;method_optim_BFGS&#39;,&#39;objective&#39;, &#39;converged&#39;, &#39;total&#39;, &#39;valid&#39;, &#39;time_uniroot&#39;, &#39;time_em&#39;, &#39;time_optim_Brent&#39;, &#39;time_optim_BFGS&#39;, &#39;file&#39;)
+dscout$effect_weight[which(dscout$effect_weight == &#39;rep(1/n_signal, n_signal)&#39;)] = &#39;equal&#39;
+dscout$effect_weight[which(dscout$effect_weight != &#39;equal&#39;)] = &#39;notequal&#39;
+method = dscout$method_uniroot
+method[dscout$method_em == &#39;EM&#39;] = &#39;em&#39;
+method[dscout$method_optim_Brent == &#39;optim_Brent&#39;] = &#39;optim_Brent&#39;
+method[dscout$method_optim_BFGS == &#39;optim_BFGS&#39;] = &#39;optim_BFGS&#39;
+Time = dscout$time_uniroot
+Time[!is.na(dscout$time_em)] = dscout$time_em[!is.na(dscout$time_em)]
+Time[!is.na(dscout$time_optim_Brent)] = dscout$time_optim_Brent[!is.na(dscout$time_optim_Brent)]
+Time[!is.na(dscout$time_optim_BFGS)] = dscout$time_optim_BFGS[!is.na(dscout$time_optim_BFGS)]
+dscout = cbind(dscout, method, Time)
+dscout = dscout[, -c(5:8, 13:16)]</code></pre>
+<p>We randomly generate X from N(0,1), n = 1200, p = 1000.</p>
+<p>We randomly generate the response with 3 signals, pve (0.1, 0.2), whether the signals have the same effect size. We fit SuSiE model with L = 10.</p>
+<p>We perform simulations to compare three methods <code>uniroot</code>, <code>em</code>, <code>optim(Brent)</code> and <code>optim(BFGS)</code>. There are 100 replicates in the simulation.</p>
+<div id="comparing-objective-from-different-methods" class="section level2">
+<h2>Comparing objective from different methods</h2>
+<pre class="r"><code>uniroot.obj = dscout$objective[dscout$method == &#39;uniroot&#39;]
+em.obj = dscout$objective[dscout$method == &#39;em&#39;]
+optimBrent.obj = dscout$objective[dscout$method == &#39;optim_Brent&#39;]
+optimBFGS.obj = dscout$objective[dscout$method == &#39;optim_BFGS&#39;]</code></pre>
+<pre class="r"><code>par(mfrow=c(2,2))
+hist(em.obj - uniroot.obj, main=&#39;Objective EM-uniroot&#39;, breaks=50)
+hist(optimBrent.obj - em.obj, main=&#39;Objective optim(Brent)-EM&#39;, breaks=50)
+hist(optimBFGS.obj - em.obj, main=&#39;Objective optim(BFGS)-EM&#39;, breaks=50)
+hist(optimBrent.obj - optimBFGS.obj, main=&#39;Objective optim(Brent)-optim(BFGS)&#39;, breaks=50)</code></pre>
+<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>From this comparison, we can see <code>optim(Brent)</code> achieves higher objective.</p>
+<p>LEt’s check the difference between objectives from Brent and BFGS:</p>
+<pre class="r"><code>summary(optimBrent.obj - optimBFGS.obj)</code></pre>
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ 0.000000  0.000000  0.002959  0.518177  0.304593 22.389742 </code></pre>
+<pre class="r"><code>boxplot(optimBrent.obj - optimBFGS.obj, horizontal=TRUE)</code></pre>
+<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>{plot(optimBrent.obj, optimBFGS.obj)
+abline(0,1)}</code></pre>
+<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="computing-speed" class="section level2">
+<h2>Computing speed</h2>
+<pre class="r"><code>library(ggplot2)
+p &lt;- ggplot(dscout, aes(x=method, y=Time)) + geom_violin(trim = FALSE) + coord_flip() + stat_summary(fun.y=mean, geom=&quot;point&quot;, shape=23, size=2)
+p</code></pre>
+<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We measure the seconds the model converges under different methods. <code>optim(BFGS)</code> has shorter runtime.</p>
+</div>
+<div id="one-example" class="section level2">
+<h2>One example</h2>
+<p>The simulated data has pve 0.2.</p>
+<pre class="r"><code>data79.X = readRDS(&#39;output/random_data_79.rds&#39;)
+data79.y = readRDS(&#39;output/random_data_79_sim_gaussian_6.rds&#39;)
+
+time.optimBrent = system.time(m_optimBrent &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = &#39;optim_Brent&#39;))[&#39;elapsed&#39;]
+
+time.optimBFGS = system.time(m_optimBFGS &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = &#39;optim_BFGS&#39;))[&#39;elapsed&#39;]
+
+time.uniroot = system.time(m_uniroot &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method  = &#39;uniroot&#39;))[&#39;elapsed&#39;]
+
+time.em = system.time(m_em &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = &#39;EM&#39;))[&#39;elapsed&#39;]</code></pre>
+<p>The truth is</p>
+<pre class="r"><code>ss = susieR:::univariate_regression(data79.X$X, data79.y$Y)
+m_optimBrent &lt;- susieR::susie(data79.X$X, data79.y$Y, L=10, estimate_prior_method = &#39;optim_Brent&#39;, compute_univariate_zscore = T)
+susie_plot(m_optimBrent, y=&#39;z&#39;, b=data79.y$meta$true_coef, main=&#39;Truth&#39;)</code></pre>
+<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The result from different methods:</p>
+<pre class="r"><code>susie_plot(m_uniroot, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;uniroot&#39;)</code></pre>
+<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>susie_plot(m_em, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;EM&#39;)</code></pre>
+<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>susie_plot(m_optimBrent, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;optim Brent&#39;)</code></pre>
+<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>susie_plot(m_optimBFGS, y=&#39;PIP&#39;, b=data79.y$meta$true_coef, main=&#39;optim BFGS&#39;)</code></pre>
+<p><img src="figure/SusiePriorVarCompare.Rmd/unnamed-chunk-12-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Time = c(time.uniroot, time.em, time.optimBrent, time.optimBFGS)
+niter = c(m_uniroot$niter, m_em$niter, m_optimBrent$niter, m_optimBFGS$niter)
+objective = c(susie_get_objective(m_uniroot), susie_get_objective(m_em), susie_get_objective(m_optimBrent), susie_get_objective(m_optimBFGS))
+res = rbind(Time, niter, objective)
+colnames(res) = c(&#39;uniroot&#39;, &#39;EM&#39;, &#39;optimBrent&#39;, &#39;optimBFGS&#39;)
+res %&gt;% kable() %&gt;% kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+uniroot
+</th>
+<th style="text-align:right;">
+EM
+</th>
+<th style="text-align:right;">
+optimBrent
+</th>
+<th style="text-align:right;">
+optimBFGS
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Time
+</td>
+<td style="text-align:right;">
+0.995
+</td>
+<td style="text-align:right;">
+0.605
+</td>
+<td style="text-align:right;">
+1.107
+</td>
+<td style="text-align:right;">
+0.489
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+niter
+</td>
+<td style="text-align:right;">
+7.000
+</td>
+<td style="text-align:right;">
+5.000
+</td>
+<td style="text-align:right;">
+7.000
+</td>
+<td style="text-align:right;">
+3.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+objective
+</td>
+<td style="text-align:right;">
+-1620.379
+</td>
+<td style="text-align:right;">
+-1620.549
+</td>
+<td style="text-align:right;">
+-1620.379
+</td>
+<td style="text-align:right;">
+-1642.769
+</td>
+</tr>
+</tbody>
+</table>
+<p>The objectives from <code>optim(BFGS)</code> is smaller than other methods and it ignores 2 signals.</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.3 (2019-03-11)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.15.3
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_3.2.0     susieR_0.9.0.0581 kableExtra_1.1.0  knitr_1.23       
+[5] dplyr_0.8.1      
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.3        highr_0.8         compiler_3.5.3   
+ [4] pillar_1.4.2      later_0.8.0       git2r_0.26.1     
+ [7] workflowr_1.5.0   tools_3.5.3       digest_0.6.25    
+[10] gtable_0.3.0      lattice_0.20-38   viridisLite_0.3.0
+[13] evaluate_0.13     tibble_2.1.3      pkgconfig_2.0.3  
+[16] rlang_0.4.4       Matrix_1.2-15     rstudioapi_0.10  
+[19] yaml_2.2.0        xfun_0.7          withr_2.1.2      
+[22] stringr_1.4.0     httr_1.4.0        xml2_1.2.0       
+[25] fs_1.3.1          vctrs_0.2.3       hms_0.5.3        
+[28] grid_3.5.3        webshot_0.5.1     rprojroot_1.3-2  
+[31] tidyselect_0.2.5  glue_1.3.1        R6_2.4.1         
+[34] rmarkdown_1.13    purrr_0.3.3       readr_1.3.1      
+[37] magrittr_1.5      whisker_0.3-2     backports_1.1.5  
+[40] scales_1.0.0      promises_1.0.1    htmltools_0.3.6  
+[43] assertthat_0.2.1  rvest_0.3.4       colorspace_1.4-1 
+[46] httpuv_1.5.1      labeling_0.3      stringi_1.4.3    
+[49] lazyeval_0.2.2    munsell_0.5.0     crayon_1.3.4     </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
