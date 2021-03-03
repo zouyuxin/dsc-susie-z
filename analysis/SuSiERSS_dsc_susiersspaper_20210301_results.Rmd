@@ -1,0 +1,78 @@
+---
+title: "SuSiE-RSS GTEx"
+author: "Yuxin Zou"
+date: "3/1/2021"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+---
+
+This simulation uses GTEx genotype data. There are 152 dataset. We randomly separated 574 individualsinto 2 groups, each group has 287 samples. We simulate data with 1,2,3,4,5 signals and PVE 0.2. We run susie_rss with L=5.
+
+We first check the impact of estimaing residual variance.
+
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_5_susie_residuals.png){width=30%} ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_5_susierss_residuals.png){width=30%} ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_5_susiersslambda_residuals.png){width=30%}
+
+We estimate residual variance in the following comparisons.
+
+## PIP Calibration
+
+SuSiE-RSS
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_pip_calibration/gtex_pip_calib_susierss.png)
+
+SuSiE-RSS-lambda
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_pip_calibration/gtex_pip_calib_susiersslambda.png)
+
+CAVIAR
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_pip_calibration/gtex_pip_calib_caviar.png)
+
+FINEMAP v1.1
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_pip_calibration/gtex_pip_calib_fmv1.png)
+
+FINEMAP v1.4
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_pip_calibration/gtex_pip_calib_fmv4.png)
+
+## Power vs FDR
+
+Using in sample LD
+
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_5_ldin.png){width=45%} ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_3_ldin.png){width=45%}
+
+SuSiE-RSS with reference LD
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_5_susierss.png)
+
+SuSiE-RSS-lambda with reference LD
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_5_susiersslambda.png)
+
+CAVIAR with reference LD
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_3_caviar.png)
+
+FINEMAP v1.1 with reference LD
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_3_finemapv1.png)
+
+FINEMAP v1.4 with reference LD
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_3_finemapv4.png)
+
+## CS
+
+1 signal
+
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_cs/gtex_cs_s1_plots.png)
+
+2 signals
+
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_cs/gtex_cs_s2_plots.png)
+
+3 signals
+
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_cs/gtex_cs_s3_plots.png)
+
+4 signals
+
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_cs/gtex_cs_s4_plots.png)
+
+5 signals
+
+![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_cs/gtex_cs_s5_plots.png)
+
+
