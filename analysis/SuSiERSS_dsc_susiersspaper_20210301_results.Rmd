@@ -39,18 +39,23 @@ Using in sample LD
 ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_5_ldin.png){width=45%} ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_3_ldin.png){width=45%}
 
 SuSiE-RSS with reference LD
+
 ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_5_susierss.png)
 
 SuSiE-RSS-lambda with reference LD
+
 ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_5_susiersslambda.png)
 
 CAVIAR with reference LD
+
 ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_3_caviar.png)
 
 FINEMAP v1.1 with reference LD
+
 ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_3_finemapv1.png)
 
 FINEMAP v1.4 with reference LD
+
 ![](assets/rss_compare_add_z_20210301_results/rss_compare_add_z_20210301_roc/gtex_roc_3_finemapv4.png)
 
 ## CS
