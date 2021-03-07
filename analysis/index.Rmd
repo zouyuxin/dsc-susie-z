@@ -52,21 +52,21 @@ Welcome to my research website.
     
     2019-10： The simulation is using [dsc-finemap](https://github.com/stephenslab/dsc-finemap/blob/master/susie_rss_paper.dsc).
 
-        * [lambda = 0](SuSiERSS_dsc_susiersspaper_results_lamb0.html)
+    - [lambda = 0](SuSiERSS_dsc_susiersspaper_results_lamb0.html)
 
-        * [lambda = 0.1](SuSiERSS_dsc_susiersspaper_results_lamb0.1.html)
+    - [lambda = 0.1](SuSiERSS_dsc_susiersspaper_results_lamb0.1.html)
 
-        * [lambda = 1](SuSiERSS_dsc_susiersspaper_results_lamb1.html)
+    - [lambda = 1](SuSiERSS_dsc_susiersspaper_results_lamb1.html)
 
     L = 5:
 
-        * [lambda = 0](SuSiERSS_dsc_susiersspaper_results_lamb0_L5.html)
+    - [lambda = 0](SuSiERSS_dsc_susiersspaper_results_lamb0_L5.html)
       
-        * [lambda = $10^{-4}$](SuSiERSS_dsc_susiersspaper_results_lamb1e-4_L5.html)
+    - [lambda = $10^{-4}$](SuSiERSS_dsc_susiersspaper_results_lamb1e-4_L5.html)
 
-        * [lambda = 0.1](SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.html)
+    - [lambda = 0.1](SuSiERSS_dsc_susiersspaper_results_lamb0.1_L5.html)
 
-        * [lambda = 1](SuSiERSS_dsc_susiersspaper_results_lamb1_L5.html)
+    - [lambda = 1](SuSiERSS_dsc_susiersspaper_results_lamb1_L5.html)
     
     -----------------------------------------------------------------------
     
